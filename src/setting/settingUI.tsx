@@ -1,6 +1,6 @@
 import Nano, {Component, Img} from 'nano-jsx'
 import {Fragment} from 'nano-jsx/lib'
-import {CustomCss, CustomDarkCss, PureCss} from './css'
+import {CustomCss, SpectreCss, SpectreExpCss, SpectreIconCss} from './css'
 import {applications} from '../applications'
 import {Application, ProjectItemImpl} from '../types'
 import {isEmpty, isNil} from 'licia'
@@ -63,64 +63,90 @@ class Root extends Component<RootProps, RootState> {
                         name="viewport"
                         content="width=device-width, initial-scale=1"
                     />
-                    <style>{PureCss}</style>
+                    {/*<style>{PureCss}</style>*/}
+                    <style>{SpectreCss}</style>
+                    <style>{SpectreIconCss}</style>
+                    <style>{SpectreExpCss}</style>
                     <style>{CustomCss}</style>
-                    <style>{CustomDarkCss}</style>
+                    {/*<style>{CustomDarkCss}</style>*/}
                 </head>
                 <body
                     class={utools.isDarkColors() ? 'dark' : ''}
-                    style={{ paddingLeft: '20px', paddingRight: '20px' }}
+                    style={{ padding: '20px 20px 20px 20px' }}
                 >
-                    <form class="setting-form pure-form pure-form-stacked">
-                        <fieldset>
-                            {applications.map(app => (
-                                <Fragment>
-                                    <div
-                                        id={app.id}
-                                        class="form-item"
-                                    >
-                                        <legend class="form-legend">
-                                            <Img
-                                                height="32"
-                                                width="32"
-                                                src={iconMap[app.icon]}
-                                            />
-                                            {app.name}
-                                        </legend>
-                                        {app.generateSettingItems(utools.getNativeId()).map(item => (
-                                            <Fragment>
-                                                <label>{item.name}</label>
-                                                <input
-                                                    type="text"
-                                                    class="path-input pure-u-11-12"
-                                                    value={item.value == null ? '' : item.value}
-                                                    placeholder="点击输入框选择路径"
-                                                    onclick={(event: Event) => this.select(event, item.id)}
-                                                    readonly
-                                                    style={{ display: 'inline', backgroundColor: 'white' }}
-                                                />
-                                                <button
-                                                    class="form-button path-clear-button button-warning button-small pure-button"
-                                                    onclick={(event: Event) => this.clear(event, item.id)}
-                                                >
-                                                    清空
-                                                </button>
-                                                {/*<span class="form-description pure-form-message">hello</span>*/}
-                                            </Fragment>
-                                        ))}
-                                    </div>
-                                </Fragment>
-                            ))}
-                            <div class="form-button-group">
-                                <button
-                                    class="form-button button-secondary pure-button"
-                                    onclick={(event: Event) => this.jump(event)}
-                                >
-                                    前往项目搜索 →
-                                </button>
+                    <div class="container">
+                        <div class="columns">
+                            <div class="column col-3">
+                                <ul class="nav">
+                                    {applications.map(app => (
+                                        <li
+                                            class="nav-item"
+                                            data-tooltip={app.name}
+                                            style={{
+                                                textOverflow: 'ellipsis',
+                                                whiteSpace: 'nowrap',
+                                                overflow: 'hidden',
+                                            }}
+                                        >
+                                            <a href={'#' + app.id}>
+                                                {app.name}
+                                            </a>
+                                        </li>
+                                    ))}
+                                </ul>
                             </div>
-                        </fieldset>
-                    </form>
+                            <div class="column col-9">
+                                {applications.map(app => (
+                                    <Fragment>
+                                        <div
+                                            id={app.id}
+                                            class="form-item card"
+                                        >
+                                            <div class="form-legend card-header">
+                                                <Img
+                                                    class="form-legend-icon"
+                                                    src={iconMap[app.icon]}
+                                                />
+                                                <span class="form-legend-title">{app.name}</span>
+                                            </div>
+                                            <div class="form-group card-body">
+                                                {app.generateSettingItems(utools.getNativeId()).map(item => (
+                                                    <Fragment>
+                                                        <div class="form-label">{item.name}</div>
+                                                        <div class="input-group">
+                                                            <input
+                                                                type="text"
+                                                                class="form-input input-sm"
+                                                                value={item.value == null ? '' : item.value}
+                                                                placeholder="点击输入框选择路径"
+                                                                onclick={(event: Event) => this.select(event, item.id)}
+                                                                readonly
+                                                                style={{ display: 'inline', backgroundColor: 'white' }}
+                                                            />
+                                                            <button
+                                                                class="btn btn-error btn-sm input-group-btn"
+                                                                onclick={(event: Event) => this.clear(event, item.id)}
+                                                            >
+                                                                <i class="icon icon-cross"/>
+                                                            </button>
+                                                        </div>
+                                                    </Fragment>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    </Fragment>
+                                ))}
+                            </div>
+                        </div>
+                        <div class="form-button-group">
+                            <button
+                                class="btn btn-primary"
+                                onclick={(event: Event) => this.jump(event)}
+                            >
+                                前往项目搜索 →
+                            </button>
+                        </div>
+                    </div>
                 </body>
             </Fragment>
         )
