@@ -1,0 +1,50 @@
+{
+  "pluginName"   : "我的项目",
+  "author"       : "lanyuanxiaoyao",
+  "homepage"     : "http://lanyuanxiaoyao.com",
+  "description"  : "Kotlin test.",
+  "version"      : "0.0.1",
+  "logo"         : "logo.png",
+  "preload"      : "preload.js",
+  "pluginSetting": {
+    "single": true
+  },
+  "features"     : [
+    {
+      "code"   : "setting",
+      "explain": "设置软件最近项目数据存储的文件和软件启动文件",
+      "cmds"   : [
+        "Setting",
+        "设置"
+      ]
+    },
+    {
+      "code"   : "all-project",
+      "explain": "快速打开我的项目",
+      "cmds"   : [
+        "Projects",
+        "我的项目"
+      ]
+    },
+    {
+      "code"   : "jetbrains-project",
+      "explain": "快速打开我的 JetBrains 项目",
+      "icon"   : "icon/jetbrains.png",
+      "cmds"   : [
+        "jb",
+        "JetBrains Projects",
+        "我的 JetBrains 项目"
+      ]
+    },
+    {
+      "code"   : "vscode-project",
+      "explain": "快速打开我的 Visual Studio Code 项目",
+      "icon"   : "icon/vscode.png",
+      "cmds"   : [
+        "vsc",
+        "Visual Studio Code Projects",
+        "我的 Visual Studio Code 项目"
+      ]
+    }
+  ]
+}
