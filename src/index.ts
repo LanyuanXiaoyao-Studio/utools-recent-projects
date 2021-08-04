@@ -25,10 +25,14 @@ class AllProjectArgs extends ProjectArgsImpl {
 
     select = (action: Action, item: ProjectItemImpl, callback: Callback<ProjectItemImpl>) => {
         exec(item.command, error => {
-            utools.showNotification(error?.message ?? 'Unknown Error')
+            console.log(error)
+            if (isEmpty(error)) {
+                utools.hideMainWindow()
+                utools.outPlugin()
+            } else {
+                utools.showNotification(error?.message ?? 'Unknown Error')
+            }
         })
-        utools.hideMainWindow()
-        utools.outPlugin()
     }
 }
 
