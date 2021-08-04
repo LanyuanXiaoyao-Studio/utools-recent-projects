@@ -23,6 +23,8 @@ module.exports = {
     extensions: ['.tsx', '.ts', '.js'],
   },
   output: {
-    filename: 'preload.js',
+    filename: 'utools-recent-projects.js',
+    library: 'utoolsRecentProjects',
+    libraryTarget: 'umd',
   },
 }

@@ -5,7 +5,7 @@ import {SettingUIFeature} from './setting/setting'
 import {applications, jetBrainsApplications, vscodeApplications} from './applications'
 import {JetBrainsProjectItemImpl} from './parser/jetBrains'
 
-class AllProjectArgs extends ProjectArgsImpl {
+export class AllProjectArgs extends ProjectArgsImpl {
     placeholder = '通过项目名快速查找项目'
 
     enter = (action: Action, callback: Callback<ProjectItemImpl>) => {
@@ -36,14 +36,13 @@ class AllProjectArgs extends ProjectArgsImpl {
     }
 }
 
-class JetBrainsArgs extends AllProjectArgs {
+export class JetBrainsArgs extends AllProjectArgs {
     compare(p1: JetBrainsProjectItemImpl, p2: JetBrainsProjectItemImpl): number {
         return p2.datetime - p1.datetime
     }
 }
 
-// @ts-ignore
-window.exports = {
+export const build: any = {
     'setting': new SettingUIFeature(),
     'all-project': {
         args: new AllProjectArgs(applications),
