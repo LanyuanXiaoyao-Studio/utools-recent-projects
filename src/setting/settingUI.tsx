@@ -1,6 +1,6 @@
 import Nano, {Component, Img} from 'nano-jsx'
 import {Fragment} from 'nano-jsx/lib'
-import {CustomCss, SpectreCss, SpectreExpCss, SpectreIconCss} from './css'
+import {CustomCss, SpectreCss, SpectreIconCss} from './css'
 import {applications} from '../applications'
 import {Application, ProjectItemImpl} from '../types'
 import {isEmpty, isNil} from 'licia'
@@ -21,6 +21,7 @@ class Root extends Component<RootProps, RootState> {
             applications: applications,
         }
         this.updateApplication()
+        console.log(window.outerHeight)
     }
 
     updateApplication() {
@@ -63,45 +64,52 @@ class Root extends Component<RootProps, RootState> {
                         name="viewport"
                         content="width=device-width, initial-scale=1"
                     />
-                    {/*<style>{PureCss}</style>*/}
                     <style>{SpectreCss}</style>
                     <style>{SpectreIconCss}</style>
-                    <style>{SpectreExpCss}</style>
                     <style>{CustomCss}</style>
                     {/*<style>{CustomDarkCss}</style>*/}
                 </head>
                 <body
                     class={utools.isDarkColors() ? 'dark' : ''}
-                    style={{ padding: '20px 20px 20px 20px' }}
+                    style={{ padding: '10px' }}
                 >
                     <div class="container">
                         <div class="columns">
-                            <div class="column col-3">
+                            <div
+                                class="column col-3"
+                                style={{ paddingTop: '10px' }}
+                            >
                                 <ul class="nav">
+                                    <li class="nav-item">
+                                        <a
+                                            href="#"
+                                            onclick={(event: Event) => this.jump(event)}
+                                        >
+                                            前往项目搜索 →
+                                        </a>
+                                    </li>
                                     {applications.map(app => (
                                         <li
                                             class="nav-item"
                                             data-tooltip={app.name}
-                                            style={{
-                                                textOverflow: 'ellipsis',
-                                                whiteSpace: 'nowrap',
-                                                overflow: 'hidden',
-                                            }}
                                         >
-                                            <a href={'#' + app.id}>
-                                                {app.name}
-                                            </a>
+                                            <a href={'#' + app.id}>{app.name}</a>
                                         </li>
                                     ))}
                                 </ul>
                             </div>
-                            <div class="column col-9">
+                            <div
+                                class="column col-9"
+                                style={{ padding: '10px' }}
+                            >
                                 {applications.map(app => (
                                     <Fragment>
+                                        <div class="gap"/>
                                         <div
+                                            class="gap"
                                             id={app.id}
-                                            class="form-item card"
-                                        >
+                                        />
+                                        <div class="form-item card">
                                             <div class="form-legend card-header">
                                                 <Img
                                                     class="form-legend-icon"
@@ -138,14 +146,14 @@ class Root extends Component<RootProps, RootState> {
                                 ))}
                             </div>
                         </div>
-                        <div class="form-button-group">
-                            <button
-                                class="btn btn-primary"
-                                onclick={(event: Event) => this.jump(event)}
-                            >
-                                前往项目搜索 →
-                            </button>
-                        </div>
+                        {/*<div class="form-button-group">*/}
+                        {/*    <button*/}
+                        {/*        class="btn btn-primary"*/}
+                        {/*        onclick={(event: Event) => this.jump(event)}*/}
+                        {/*    >*/}
+                        {/*        前往项目搜索 →*/}
+                        {/*    </button>*/}
+                        {/*</div>*/}
                     </div>
                 </body>
             </Fragment>
