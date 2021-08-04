@@ -246,11 +246,6 @@ array-union@^2.1.0:
   resolved "https://registry.nlark.com/array-union/download/array-union-2.1.0.tgz#b798420adbeb1de828d84acd8a2e23d3efe85e8d"
   integrity sha1-t5hCCtvrHego2ErNii4j0+/oXo0=
 
-big.js@^5.2.2:
-  version "5.2.2"
-  resolved "https://registry.nlark.com/big.js/download/big.js-5.2.2.tgz#65f0af382f578bcdc742bd9c281e9cb2d7768328"
-  integrity sha1-ZfCvOC9Xi83HQr2cKB6cstd2gyg=
-
 boolbase@^1.0.0:
   version "1.0.0"
   resolved "https://registry.nlark.com/boolbase/download/boolbase-1.0.0.tgz#68dff5fbe60c51eb37725ea9e3ed310dcc1e776e"
@@ -379,20 +374,6 @@ cross-spawn@^7.0.3:
     shebang-command "^2.0.0"
     which "^2.0.1"
 
-css-loader@^6.2.0:
-  version "6.2.0"
-  resolved "https://registry.nlark.com/css-loader/download/css-loader-6.2.0.tgz#9663d9443841de957a3cb9bcea2eda65b3377071"
-  integrity sha1-lmPZRDhB3pV6PLm86i7aZbM3cHE=
-  dependencies:
-    icss-utils "^5.1.0"
-    postcss "^8.2.15"
-    postcss-modules-extract-imports "^3.0.0"
-    postcss-modules-local-by-default "^4.0.0"
-    postcss-modules-scope "^3.0.0"
-    postcss-modules-values "^4.0.0"
-    postcss-value-parser "^4.1.0"
-    semver "^7.3.5"
-
 css-select@^4.1.3:
   version "4.1.3"
   resolved "https://registry.nlark.com/css-select/download/css-select-4.1.3.tgz?cache=0&sync_timestamp=1622994276976&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fcss-select%2Fdownload%2Fcss-select-4.1.3.tgz#a70440f70317f2669118ad74ff105e65849c7067"
@@ -408,11 +389,6 @@ css-what@^5.0.0, css-what@^5.0.1:
   version "5.0.1"
   resolved "https://registry.nlark.com/css-what/download/css-what-5.0.1.tgz?cache=0&sync_timestamp=1622227051808&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fcss-what%2Fdownload%2Fcss-what-5.0.1.tgz#3efa820131f4669a8ac2408f9c32e7c7de9f4cad"
   integrity sha1-PvqCATH0ZpqKwkCPnDLnx96fTK0=
-
-cssesc@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.npm.taobao.org/cssesc/download/cssesc-3.0.0.tgz#37741919903b868565e1c09ea747445cd18983ee"
-  integrity sha1-N3QZGZA7hoVl4cCep0dEXNGJg+4=
 
 dir-glob@^3.0.1:
   version "3.0.1"
@@ -455,11 +431,6 @@ electron-to-chromium@^1.3.723:
   version "1.3.790"
   resolved "https://registry.nlark.com/electron-to-chromium/download/electron-to-chromium-1.3.790.tgz#5c569290929d92c8094fa08c79bc9393ca9e94e7"
   integrity sha1-XFaSkJKdksgJT6CMebyTk8qelOc=
-
-emojis-list@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.nlark.com/emojis-list/download/emojis-list-3.0.0.tgz#5570662046ad29e2e916e71aae260abdff4f6a78"
-  integrity sha1-VXBmIEatKeLpFucariYKvf9Pang=
 
 enhanced-resolve@^5.0.0, enhanced-resolve@^5.8.0:
   version "5.8.2"
@@ -567,14 +538,6 @@ fastq@^1.6.0:
   dependencies:
     reusify "^1.0.4"
 
-file-loader@^6.2.0:
-  version "6.2.0"
-  resolved "https://registry.nlark.com/file-loader/download/file-loader-6.2.0.tgz#baef7cf8e1840df325e4390b4484879480eebe4d"
-  integrity sha1-uu98+OGEDfMl5DkLRISHlIDuvk0=
-  dependencies:
-    loader-utils "^2.0.0"
-    schema-utils "^3.0.0"
-
 fill-range@^7.0.1:
   version "7.0.1"
   resolved "https://registry.nlark.com/fill-range/download/fill-range-7.0.1.tgz#1919a6a7c75fe38b2c7c77e5198535da9acdda40"
@@ -663,11 +626,6 @@ human-signals@^2.1.0:
   resolved "https://registry.nlark.com/human-signals/download/human-signals-2.1.0.tgz?cache=0&sync_timestamp=1624364695595&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fhuman-signals%2Fdownload%2Fhuman-signals-2.1.0.tgz#dc91fcba42e4d06e4abaed33b3e7a3c02f514ea0"
   integrity sha1-3JH8ukLk0G5Kuu0zs+ejwC9RTqA=
 
-icss-utils@^5.0.0, icss-utils@^5.1.0:
-  version "5.1.0"
-  resolved "https://registry.nlark.com/icss-utils/download/icss-utils-5.1.0.tgz#c6be6858abd013d768e98366ae47e25d5887b1ae"
-  integrity sha1-xr5oWKvQE9do6YNmrkfiXViHsa4=
-
 ignore@^5.1.4:
   version "5.1.8"
   resolved "https://registry.nlark.com/ignore/download/ignore-5.1.8.tgz#f150a8b50a34289b33e22f5889abd4d8016f0e57"
@@ -751,13 +709,6 @@ json-schema-traverse@^0.4.1:
   resolved "https://registry.nlark.com/json-schema-traverse/download/json-schema-traverse-0.4.1.tgz#69f6a87d9513ab8bb8fe63bdb0979c448e684660"
   integrity sha1-afaofZUTq4u4/mO9sJecRI5oRmA=
 
-json5@^2.1.2:
-  version "2.2.0"
-  resolved "https://registry.nlark.com/json5/download/json5-2.2.0.tgz?cache=0&sync_timestamp=1622604475200&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fjson5%2Fdownload%2Fjson5-2.2.0.tgz#2dfefe720c6ba525d9ebd909950f0515316c89a3"
-  integrity sha1-Lf7+cgxrpSXZ69kJlQ8FFTFsiaM=
-  dependencies:
-    minimist "^1.2.5"
-
 kind-of@^6.0.2:
   version "6.0.3"
   resolved "https://registry.nlark.com/kind-of/download/kind-of-6.0.3.tgz#07c05034a6c349fa06e24fa35aa76db4580ce4dd"
@@ -772,15 +723,6 @@ loader-runner@^4.2.0:
   version "4.2.0"
   resolved "https://registry.nlark.com/loader-runner/download/loader-runner-4.2.0.tgz#d7022380d66d14c5fb1d496b89864ebcfd478384"
   integrity sha1-1wIjgNZtFMX7HUlriYZOvP1Hg4Q=
-
-loader-utils@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.nlark.com/loader-utils/download/loader-utils-2.0.0.tgz?cache=0&sync_timestamp=1618846812625&other_urls=https%3A%2F%2Fregistry.nlark.com%2Floader-utils%2Fdownload%2Floader-utils-2.0.0.tgz#e4cace5b816d425a166b5f097e10cd12b36064b0"
-  integrity sha1-5MrOW4FtQloWa18JfhDNErNgZLA=
-  dependencies:
-    big.js "^5.2.2"
-    emojis-list "^3.0.0"
-    json5 "^2.1.2"
 
 locate-path@^5.0.0:
   version "5.0.0"
@@ -831,20 +773,10 @@ mimic-fn@^2.1.0:
   resolved "https://registry.npm.taobao.org/mimic-fn/download/mimic-fn-2.1.0.tgz#7ed2c2ccccaf84d3ffcb7a69b57711fc2083401b"
   integrity sha1-ftLCzMyvhNP/y3pptXcR/CCDQBs=
 
-minimist@^1.2.5:
-  version "1.2.5"
-  resolved "https://registry.nlark.com/minimist/download/minimist-1.2.5.tgz?cache=0&sync_timestamp=1618847017774&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fminimist%2Fdownload%2Fminimist-1.2.5.tgz#67d66014b66a6a8aaa0c083c5fd58df4e4e97602"
-  integrity sha1-Z9ZgFLZqaoqqDAg8X9WN9OTpdgI=
-
 nano-jsx@^0.0.20:
   version "0.0.20"
   resolved "https://registry.nlark.com/nano-jsx/download/nano-jsx-0.0.20.tgz#2891f3e27bbefbd668b491ec774e1d2404ba783a"
   integrity sha1-KJHz4nu++9ZotJHsd04dJAS6eDo=
-
-nanoid@^3.1.23:
-  version "3.1.23"
-  resolved "https://registry.nlark.com/nanoid/download/nanoid-3.1.23.tgz#f744086ce7c2bc47ee0a8472574d5c78e4183a81"
-  integrity sha1-90QIbOfCvEfuCoRyV01ceOQYOoE=
 
 neo-async@^2.6.2:
   version "2.6.2"
@@ -952,56 +884,6 @@ pkg-dir@^4.2.0:
   dependencies:
     find-up "^4.0.0"
 
-postcss-modules-extract-imports@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.nlark.com/postcss-modules-extract-imports/download/postcss-modules-extract-imports-3.0.0.tgz#cda1f047c0ae80c97dbe28c3e76a43b88025741d"
-  integrity sha1-zaHwR8CugMl9vijD52pDuIAldB0=
-
-postcss-modules-local-by-default@^4.0.0:
-  version "4.0.0"
-  resolved "https://registry.nlark.com/postcss-modules-local-by-default/download/postcss-modules-local-by-default-4.0.0.tgz#ebbb54fae1598eecfdf691a02b3ff3b390a5a51c"
-  integrity sha1-67tU+uFZjuz99pGgKz/zs5ClpRw=
-  dependencies:
-    icss-utils "^5.0.0"
-    postcss-selector-parser "^6.0.2"
-    postcss-value-parser "^4.1.0"
-
-postcss-modules-scope@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.npm.taobao.org/postcss-modules-scope/download/postcss-modules-scope-3.0.0.tgz#9ef3151456d3bbfa120ca44898dfca6f2fa01f06"
-  integrity sha1-nvMVFFbTu/oSDKRImN/Kby+gHwY=
-  dependencies:
-    postcss-selector-parser "^6.0.4"
-
-postcss-modules-values@^4.0.0:
-  version "4.0.0"
-  resolved "https://registry.nlark.com/postcss-modules-values/download/postcss-modules-values-4.0.0.tgz#d7c5e7e68c3bb3c9b27cbf48ca0bb3ffb4602c9c"
-  integrity sha1-18Xn5ow7s8myfL9Iyguz/7RgLJw=
-  dependencies:
-    icss-utils "^5.0.0"
-
-postcss-selector-parser@^6.0.2, postcss-selector-parser@^6.0.4:
-  version "6.0.6"
-  resolved "https://registry.nlark.com/postcss-selector-parser/download/postcss-selector-parser-6.0.6.tgz?cache=0&sync_timestamp=1620752939806&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fpostcss-selector-parser%2Fdownload%2Fpostcss-selector-parser-6.0.6.tgz#2c5bba8174ac2f6981ab631a42ab0ee54af332ea"
-  integrity sha1-LFu6gXSsL2mBq2MaQqsO5UrzMuo=
-  dependencies:
-    cssesc "^3.0.0"
-    util-deprecate "^1.0.2"
-
-postcss-value-parser@^4.1.0:
-  version "4.1.0"
-  resolved "https://registry.nlark.com/postcss-value-parser/download/postcss-value-parser-4.1.0.tgz?cache=0&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fpostcss-value-parser%2Fdownload%2Fpostcss-value-parser-4.1.0.tgz#443f6a20ced6481a2bda4fa8532a6e55d789a2cb"
-  integrity sha1-RD9qIM7WSBor2k+oUypuVdeJoss=
-
-postcss@^8.2.15:
-  version "8.3.6"
-  resolved "https://registry.nlark.com/postcss/download/postcss-8.3.6.tgz?cache=0&sync_timestamp=1626882960231&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fpostcss%2Fdownload%2Fpostcss-8.3.6.tgz#2730dd76a97969f37f53b9a6096197be311cc4ea"
-  integrity sha1-JzDddql5afN/U7mmCWGXvjEcxOo=
-  dependencies:
-    colorette "^1.2.2"
-    nanoid "^3.1.23"
-    source-map-js "^0.6.2"
-
 punycode@^2.1.0:
   version "2.1.1"
   resolved "https://registry.nlark.com/punycode/download/punycode-2.1.1.tgz?cache=0&sync_timestamp=1622604519710&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fpunycode%2Fdownload%2Fpunycode-2.1.1.tgz#b58b010ac40c22c5657616c8d2c2c02c7bf479ec"
@@ -1072,7 +954,7 @@ schema-utils@^3.0.0, schema-utils@^3.1.0:
     ajv "^6.12.5"
     ajv-keywords "^3.5.2"
 
-semver@^7.3.4, semver@^7.3.5:
+semver@^7.3.4:
   version "7.3.5"
   resolved "https://registry.nlark.com/semver/download/semver-7.3.5.tgz?cache=0&sync_timestamp=1618847119601&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fsemver%2Fdownload%2Fsemver-7.3.5.tgz#0b621c879348d8998e4b0e4be94b3f12e6018ef7"
   integrity sha1-C2Ich5NI2JmOSw5L6Us/EuYBjvc=
@@ -1115,11 +997,6 @@ slash@^3.0.0:
   resolved "https://registry.nlark.com/slash/download/slash-3.0.0.tgz#6539be870c165adbd5240220dbe361f1bc4d4634"
   integrity sha1-ZTm+hwwWWtvVJAIg2+Nh8bxNRjQ=
 
-source-map-js@^0.6.2:
-  version "0.6.2"
-  resolved "https://registry.nlark.com/source-map-js/download/source-map-js-0.6.2.tgz#0bb5de631b41cfbda6cfba8bd05a80efdfd2385e"
-  integrity sha1-C7XeYxtBz72mz7qL0FqA79/SOF4=
-
 source-map-support@~0.5.19:
   version "0.5.19"
   resolved "https://registry.nlark.com/source-map-support/download/source-map-support-0.5.19.tgz#a98b62f86dcaf4f67399648c085291ab9e8fed61"
@@ -1142,11 +1019,6 @@ strip-final-newline@^2.0.0:
   version "2.0.0"
   resolved "https://registry.nlark.com/strip-final-newline/download/strip-final-newline-2.0.0.tgz#89b852fb2fcbe936f6f4b3187afb0a12c1ab58ad"
   integrity sha1-ibhS+y/L6Tb29LMYevsKEsGrWK0=
-
-style-loader@^3.2.1:
-  version "3.2.1"
-  resolved "https://registry.nlark.com/style-loader/download/style-loader-3.2.1.tgz?cache=0&sync_timestamp=1626796451490&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fstyle-loader%2Fdownload%2Fstyle-loader-3.2.1.tgz#63cb920ec145c8669e9a50e92961452a1ef5dcde"
-  integrity sha1-Y8uSDsFFyGaemlDpKWFFKh713N4=
 
 supports-color@^7.1.0:
   version "7.2.0"
@@ -1221,11 +1093,6 @@ uri-js@^4.2.2:
   integrity sha1-mxpSWVIlhZ5V9mnZKPiMbFfyp34=
   dependencies:
     punycode "^2.1.0"
-
-util-deprecate@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.nlark.com/util-deprecate/download/util-deprecate-1.0.2.tgz#450d4dc9fa70de732762fbd2d4a28981419a0ccf"
-  integrity sha1-RQ1Nyfpw3nMnYvvS1KKJgUGaDM8=
 
 utools-api-types@^2.0.6:
   version "2.0.6"

@@ -6,6 +6,9 @@
   "version"      : "0.0.1",
   "logo"         : "logo.png",
   "preload"      : "preload.js",
+  "platform"     : [
+    "darwin"
+  ],
   "pluginSetting": {
     "single": true
   },

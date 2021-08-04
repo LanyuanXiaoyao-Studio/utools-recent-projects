@@ -55,6 +55,10 @@ class Root extends Component<RootProps, RootState> {
         utools.redirect('Projects', '')
     }
 
+    help(event: Event) {
+        utools.shellOpenExternal('https://yuanliao.info/d/3978')
+    }
+
     render() {
         return (
             <Fragment>
@@ -86,6 +90,14 @@ class Root extends Component<RootProps, RootState> {
                                             onclick={(event: Event) => this.jump(event)}
                                         >
                                             前往项目搜索 →
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a
+                                            href="#"
+                                            onclick={(event: Event) => this.help(event)}
+                                        >
+                                            不懂配置? 查看帮助 →
                                         </a>
                                     </li>
                                     {applications.map(app => (

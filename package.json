@@ -1,6 +1,6 @@
 {
   "name"           : "utools-recent-projects",
-  "version"        : "1.0.0",
+  "version"        : "1.0.1",
   "author"         : "lanyuanxiaoyao",
   "license"        : "MIT",
   "scripts"        : {
@@ -10,9 +10,6 @@
     "@types/cheerio"     : "^0.22.30",
     "@types/node"        : "^16.4.6",
     "copy-webpack-plugin": "^9.0.1",
-    "css-loader"         : "^6.2.0",
-    "file-loader"        : "^6.2.0",
-    "style-loader"       : "^3.2.1",
     "ts-loader"          : "^9.2.4",
     "typescript"         : "^4.3.5",
     "utools-api-types"   : "^2.0.6",
