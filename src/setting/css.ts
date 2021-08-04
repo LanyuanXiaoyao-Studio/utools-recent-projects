@@ -33,6 +33,11 @@ export const CustomCss: string = `
     box-shadow    : 0 0 10px #00000038;
     border-radius : 5px;
   }
+  
+  .nav .badge[data-badge]::after {
+    font-size: 0.5rem;
+    height: 0.75rem;
+  }
 
   .gap {
     height : 8px;
@@ -61,20 +66,35 @@ export const CustomCss: string = `
     margin-left    : 1.2rem;
     vertical-align : middle;
   }
+
+  .form-input {
+    display          : inline;
+    background-color : white;
+  }
 `
 
 // language=CSS
 export const CustomDarkCss: string = `
-  body.dark {
+  body.dark,
+  body.dark .container,
+  body.dark .container .card {
     background-color : #2f3031;
   }
 
-  body.dark .form-legend,
-  body.dark .setting-form label {
-    color : white;
+  body.dark .nav .nav-item a,
+  body.dark .form-legend-title,
+  body.dark .form-label {
+    color : #dedede;
   }
 
-  body.dark .form-message {
-    color : #e7e7e7;
+  body.dark .form-input {
+    color            : #dedede;
+    background-color : #3c3c3c;
+    border-color     : #464646;
+  }
+
+  body.dark .btn.btn-error {
+    background   : #7d2f00;
+    border-color : #6d2800;
   }
 `

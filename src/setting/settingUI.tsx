@@ -1,6 +1,6 @@
 import Nano, {Component, Img} from 'nano-jsx'
 import {Fragment} from 'nano-jsx/lib'
-import {CustomCss, SpectreCss, SpectreIconCss} from './css'
+import {CustomCss, CustomDarkCss, SpectreCss, SpectreIconCss} from './css'
 import {applications} from '../applications'
 import {Application, ProjectItemImpl} from '../types'
 import {isEmpty, isNil} from 'licia'
@@ -67,7 +67,7 @@ class Root extends Component<RootProps, RootState> {
                     <style>{SpectreCss}</style>
                     <style>{SpectreIconCss}</style>
                     <style>{CustomCss}</style>
-                    {/*<style>{CustomDarkCss}</style>*/}
+                    <style>{CustomDarkCss}</style>
                 </head>
                 <body
                     class={utools.isDarkColors() ? 'dark' : ''}
@@ -90,8 +90,8 @@ class Root extends Component<RootProps, RootState> {
                                     </li>
                                     {applications.map(app => (
                                         <li
-                                            class="nav-item"
-                                            data-tooltip={app.name}
+                                            class={'nav-item ' + ((isEmpty(app.config) || isEmpty(app.executor)) ? '' : 'badge')}
+                                            data-badge="已配置"
                                         >
                                             <a href={'#' + app.id}>{app.name}</a>
                                         </li>
@@ -129,7 +129,6 @@ class Root extends Component<RootProps, RootState> {
                                                                 placeholder="点击输入框选择路径"
                                                                 onclick={(event: Event) => this.select(event, item.id)}
                                                                 readonly
-                                                                style={{ display: 'inline', backgroundColor: 'white' }}
                                                             />
                                                             <button
                                                                 class="btn btn-error btn-sm input-group-btn"
