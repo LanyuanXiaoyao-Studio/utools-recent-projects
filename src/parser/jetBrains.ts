@@ -45,6 +45,7 @@ export class JetBrainsApplicationImpl extends ApplicationImpl<JetBrainsProjectIt
                     })
                 }
             })
+            $(`#${this.id}`).remove()
         }
         return items
     }

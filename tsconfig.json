@@ -1,16 +1,16 @@
 {
   "compilerOptions": {
-    "noImplicitAny"               : false,
-    "strict"                      : true,
-    "module"                      : "CommonJS",
-    "target"                      : "ESNext",
-    "moduleResolution"            : "Node",
-    "allowSyntheticDefaultImports": true,
-    "types"                       : [
+    "noImplicitAny"   : false,
+    "strict"          : true,
+    "module"          : "CommonJS",
+    "target"          : "ESNext",
+    "moduleResolution": "Node",
+    "esModuleInterop" : true,
+    "types"           : [
       "@types/node",
       "utools-api-types"
     ],
-    "jsx"                         : "react",
-    "jsxFactory"                  : "Nano.h"
+    "jsx"             : "react",
+    "jsxFactory"      : "Nano.h"
   }
 }

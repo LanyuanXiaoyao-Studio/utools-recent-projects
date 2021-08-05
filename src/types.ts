@@ -90,6 +90,11 @@ export abstract class ProjectArgsImpl extends ArgsImpl<ProjectItemImpl> {
         }
         return this.projectItemCache.sort(this.compare)
     }
+
+    clearCache() {
+        console.log('clearCache')
+        this.projectItemCache = []
+    }
 }
 
 /**

@@ -54,6 +54,11 @@
   resolved "https://registry.nlark.com/@types/json-schema/download/@types/json-schema-7.0.8.tgz#edf1bf1dbf4e04413ca8e5b17b3b7d7d54b59818"
   integrity sha1-7fG/Hb9OBEE8qOWxezt9fVS1mBg=
 
+"@types/mousetrap@^1.6.8":
+  version "1.6.8"
+  resolved "https://registry.nlark.com/@types/mousetrap/download/@types/mousetrap-1.6.8.tgz?cache=0&sync_timestamp=1621242260159&other_urls=https%3A%2F%2Fregistry.nlark.com%2F%40types%2Fmousetrap%2Fdownload%2F%40types%2Fmousetrap-1.6.8.tgz#448929e6dc21126392830465fdb9d4a2cfc16a88"
+  integrity sha1-RIkp5twhEmOSgwRl/bnUos/Baog=
+
 "@types/node@*":
   version "16.4.6"
   resolved "https://registry.nlark.com/@types/node/download/@types/node-16.4.6.tgz?cache=0&sync_timestamp=1627500857323&other_urls=https%3A%2F%2Fregistry.nlark.com%2F%40types%2Fnode%2Fdownload%2F%40types%2Fnode-16.4.6.tgz#1734d119dfa8fede5606d35ae10f9fc9c84d889b"
@@ -680,6 +685,11 @@ mimic-fn@^2.1.0:
   version "2.1.0"
   resolved "https://registry.npm.taobao.org/mimic-fn/download/mimic-fn-2.1.0.tgz#7ed2c2ccccaf84d3ffcb7a69b57711fc2083401b"
   integrity sha1-ftLCzMyvhNP/y3pptXcR/CCDQBs=
+
+mousetrap@^1.6.5:
+  version "1.6.5"
+  resolved "https://registry.npm.taobao.org/mousetrap/download/mousetrap-1.6.5.tgz#8a766d8c272b08393d5f56074e0b5ec183485bf9"
+  integrity sha1-inZtjCcrCDk9X1YHTgtewYNIW/k=
 
 nano-jsx@^0.0.20:
   version "0.0.20"

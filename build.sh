@@ -20,6 +20,7 @@ packageJson='{
                 "license"        : "MIT",
                 "dependencies"   : {
                   "licia"   : "^1.29.0",
+                  "mousetrap": "^1.6.5",
                   "nano-jsx": "^0.0.20"
                 }
               }'
@@ -34,6 +35,10 @@ cd "${temp}/node_modules/nano-jsx"
 rm -rf .vscode readme .eslintrc .prettierrc bundles typings *.tsx jest*.json tsconfig*.json LICENSE *.md
 find lib -name '*.ts' | xargs rm -rf
 find lib -name '*.map' | xargs rm -rf
+cd $temp
+
+cd "${temp}/node_modules/mousetrap"
+rm -rf plugins tests Gruntfile.js mousetrap.sublime-project *.md LICENSE
 cd $temp
 
 rm -rf .yarn-integrity

@@ -9,6 +9,7 @@ export class AllProjectArgs extends ProjectArgsImpl {
     placeholder = '通过项目名快速查找项目'
 
     enter = (action: Action, callback: Callback<ProjectItemImpl>) => {
+        this.clearCache()
         this.getProjectItems(utools.getNativeId())
             .then(result => callback(result))
             .catch(error => utools.showNotification(error.message))

@@ -1,22 +1,24 @@
 {
-  "name"           : "utools-recent-projects",
-  "version"        : "1.0.3",
-  "author"         : "lanyuanxiaoyao",
-  "license"        : "MIT",
-  "scripts"        : {
+  "name": "utools-recent-projects",
+  "version": "1.0.3",
+  "author": "lanyuanxiaoyao",
+  "license": "MIT",
+  "scripts": {
     "build": "bash build.sh"
   },
   "devDependencies": {
-    "@types/node"        : "^16.4.6",
+    "@types/mousetrap": "^1.6.8",
+    "@types/node": "^16.4.6",
     "copy-webpack-plugin": "^9.0.1",
-    "ts-loader"          : "^9.2.4",
-    "typescript"         : "^4.3.5",
-    "utools-api-types"   : "^2.0.6",
-    "webpack"            : "^5.47.0",
-    "webpack-cli"        : "^4.7.2"
+    "ts-loader": "^9.2.4",
+    "typescript": "^4.3.5",
+    "utools-api-types": "^2.0.6",
+    "webpack": "^5.47.0",
+    "webpack-cli": "^4.7.2"
   },
-  "dependencies"   : {
-    "licia"   : "^1.29.0",
+  "dependencies": {
+    "licia": "^1.29.0",
+    "mousetrap": "^1.6.5",
     "nano-jsx": "^0.0.20"
   }
 }

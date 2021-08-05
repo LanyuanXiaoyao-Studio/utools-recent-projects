@@ -6,6 +6,7 @@ export class SettingUIArgsImpl implements Args<any> {
         utools.setExpendHeight(480)
         let applicationUI = new ApplicationUI()
         applicationUI.render(document.documentElement)
+        utools.onPluginOut(() => utools.outPlugin())
     }
 }
 
