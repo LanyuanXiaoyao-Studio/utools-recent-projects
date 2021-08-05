@@ -7,8 +7,6 @@
     "build": "node build-icon.js && webpack --config webpack.config.js"
   },
   "devDependencies": {
-    "@types/cheerio"     : "^0.22.30",
-    "@types/node"        : "^16.4.6",
     "copy-webpack-plugin": "^9.0.1",
     "ts-loader"          : "^9.2.4",
     "typescript"         : "^4.3.5",
@@ -17,7 +15,6 @@
     "webpack-cli"        : "^4.7.2"
   },
   "dependencies"   : {
-    "cheerio" : "^1.0.0-rc.10",
     "licia"   : "^1.29.0",
     "nano-jsx": "^0.0.20"
   }

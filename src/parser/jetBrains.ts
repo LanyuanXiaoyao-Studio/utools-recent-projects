@@ -1,7 +1,7 @@
 import {Application, ApplicationImpl, Platform, ProjectItemImpl} from '../types'
 import fsp from 'fs/promises'
 import {isEmpty, isNil} from 'licia'
-import cheerio from 'cheerio'
+import $ from 'licia/$'
 import paths from 'path'
 
 export class JetBrainsProjectItemImpl extends ProjectItemImpl {
@@ -26,26 +26,26 @@ export class JetBrainsApplicationImpl extends ApplicationImpl<JetBrainsProjectIt
         let buffer = await fsp.readFile(this.config)
         if (!isNil(buffer)) {
             let content = buffer.toString()
-            let $ = cheerio.load(content, { xmlMode: true })
-            $('application option[name=additionalInfo] entry')
-                .each((index, element) => {
-                    let path = $(element).attr('key')
-                    let datetime = $('option[name=projectOpenTimestamp]', element).attr('value')
-                    if (!isEmpty(path)) {
-                        let home = utools.getPath('home')
-                        path = path!.replace('$USER_HOME$', home)
-                        let parse = paths.parse(path)
-                        items.push({
-                            id: '',
-                            title: parse.name,
-                            description: path,
-                            icon: this.icon,
-                            searchKey: parse.name,
-                            command: `"${this.executor}" "${path}"`,
-                            datetime: parseInt(`${datetime}`),
-                        })
-                    }
-                })
+            // let document = parse(content)
+            $('#root').append(`<div id=${this.id} style="display: none">${content}</div>`)
+            $(`#${this.id} application option[name=additionalInfo] entry`).each((index, element) => {
+                let path = $(element).attr('key')
+                let datetime = $(element).find('option[name=projectOpenTimestamp]').attr('value')
+                if (!isEmpty(path)) {
+                    let home = utools.getPath('home')
+                    path = path!.replace('$USER_HOME$', home)
+                    let parse = paths.parse(path)
+                    items.push({
+                        id: '',
+                        title: parse.name,
+                        description: path,
+                        icon: this.icon,
+                        searchKey: parse.name,
+                        command: `"${this.executor}" "${path}"`,
+                        datetime: parseInt(`${datetime}`),
+                    })
+                }
+            })
         }
         return items
     }
