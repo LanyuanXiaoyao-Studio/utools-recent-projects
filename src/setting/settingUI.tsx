@@ -1,11 +1,11 @@
 import {Component, Img} from 'nano-jsx'
-import Nano = require('nano-jsx')
 import {Fragment} from 'nano-jsx/lib'
 import {CustomCss, CustomDarkCss, SpectreCss, SpectreIconCss} from './css'
 import {applications} from '../applications'
 import {Application, ProjectItemImpl} from '../types'
 import {isEmpty, isNil} from 'licia'
 import {iconMap} from '../icon'
+import Nano = require('nano-jsx')
 import fs = require('fs')
 
 interface RootProps {}
@@ -16,6 +16,9 @@ interface RootState {
 }
 
 class Root extends Component<RootProps, RootState> {
+    readonly FIRST = utools.getNativeId() + '/first'
+    dialog: boolean = true
+
     constructor(props: RootProps) {
         super(props)
 
@@ -31,6 +34,10 @@ class Root extends Component<RootProps, RootState> {
             applications: applications,
             applicationGroupMap: map,
         }
+        let first = utools.dbStorage.getItem(this.FIRST)
+        if (!isNil(first) && first) {
+            this.dialog = false
+        }
         this.updateApplication()
     }
 
@@ -40,12 +47,22 @@ class Root extends Component<RootProps, RootState> {
 
     updateApplicationUI() {
         this.updateApplication()
-        console.log(window.location.href)
         this.update()
     }
 
+    iKnown() {
+        this.dialog = false
+        this.update()
+        utools.dbStorage.setItem(this.FIRST, true)
+    }
+
     select(event: Event, id: string) {
-        let result = utools.showOpenDialog({})
+        let result = utools.showOpenDialog({
+            properties: [
+                'openFile',
+                'treatPackageAsDirectory',
+            ],
+        })
         if (isNil(result) || isEmpty(result)) {
             alert('路径不存在或是您主动取消选择')
         } else {
@@ -180,14 +197,44 @@ class Root extends Component<RootProps, RootState> {
                                 ))}
                             </div>
                         </div>
-                        {/*<div class="form-button-group">*/}
-                        {/*    <button*/}
-                        {/*        class="btn btn-primary"*/}
-                        {/*        onclick={(event: Event) => this.jump(event)}*/}
-                        {/*    >*/}
-                        {/*        前往项目搜索 →*/}
-                        {/*    </button>*/}
-                        {/*</div>*/}
+                    </div>
+                    <div class={'modal ' + (this.dialog ? 'active' : '')}>
+                        <a
+                            href="#close"
+                            class="modal-overlay"
+                            aria-label="Close"
+                            onclick={() => {
+                                this.dialog = false
+                                this.update()
+                            }}
+                        />
+                        <div class="modal-container">
+                            <div class="modal-header">
+                                <a
+                                    href="#close"
+                                    class="btn btn-clear float-right"
+                                    aria-label="Close"
+                                    onclick={() => {
+                                        this.dialog = false
+                                        this.update()
+                                    }}
+                                />
+                                <div class="modal-title h5">温馨提示, 请务必阅读</div>
+                            </div>
+                            <div class="modal-body">
+                                <div class="content">
+                                    看起来你是第一次使用本插件, 由于 uTools 平台的原因, 请务必在右上角插件选项中将插件设置为「隐藏插件后完全退出」方能正常使用, 否则将出现错误.
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button
+                                    class="btn btn-primary"
+                                    onclick={() => this.iKnown()}
+                                >
+                                    我已了解
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </body>
             </Fragment>

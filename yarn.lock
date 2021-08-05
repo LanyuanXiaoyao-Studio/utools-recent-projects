@@ -686,11 +686,6 @@ mimic-fn@^2.1.0:
   resolved "https://registry.npm.taobao.org/mimic-fn/download/mimic-fn-2.1.0.tgz#7ed2c2ccccaf84d3ffcb7a69b57711fc2083401b"
   integrity sha1-ftLCzMyvhNP/y3pptXcR/CCDQBs=
 
-mousetrap@^1.6.5:
-  version "1.6.5"
-  resolved "https://registry.npm.taobao.org/mousetrap/download/mousetrap-1.6.5.tgz#8a766d8c272b08393d5f56074e0b5ec183485bf9"
-  integrity sha1-inZtjCcrCDk9X1YHTgtewYNIW/k=
-
 nano-jsx@^0.0.20:
   version "0.0.20"
   resolved "https://registry.nlark.com/nano-jsx/download/nano-jsx-0.0.20.tgz#2891f3e27bbefbd668b491ec774e1d2404ba783a"

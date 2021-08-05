@@ -18,7 +18,6 @@
   },
   "dependencies": {
     "licia": "^1.29.0",
-    "mousetrap": "^1.6.5",
     "nano-jsx": "^0.0.20"
   }
 }
