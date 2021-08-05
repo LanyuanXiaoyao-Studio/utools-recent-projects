@@ -7,6 +7,7 @@
     "build": "node build-icon.js && webpack --config webpack.config.js"
   },
   "devDependencies": {
+    "@types/node"        : "^16.4.6",
     "copy-webpack-plugin": "^9.0.1",
     "ts-loader"          : "^9.2.4",
     "typescript"         : "^4.3.5",

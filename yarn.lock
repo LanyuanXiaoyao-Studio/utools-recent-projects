@@ -59,6 +59,11 @@
   resolved "https://registry.nlark.com/@types/node/download/@types/node-16.4.6.tgz?cache=0&sync_timestamp=1627500857323&other_urls=https%3A%2F%2Fregistry.nlark.com%2F%40types%2Fnode%2Fdownload%2F%40types%2Fnode-16.4.6.tgz#1734d119dfa8fede5606d35ae10f9fc9c84d889b"
   integrity sha1-FzTRGd+o/t5WBtNa4Q+fychNiJs=
 
+"@types/node@^16.4.6":
+  version "16.4.12"
+  resolved "https://registry.nlark.com/@types/node/download/@types/node-16.4.12.tgz#961e3091f263e6345d2d84afab4e047a60b4b11b"
+  integrity sha1-lh4wkfJj5jRdLYSvq04EemC0sRs=
+
 "@webassemblyjs/ast@1.11.1":
   version "1.11.1"
   resolved "https://registry.nlark.com/@webassemblyjs/ast/download/@webassemblyjs/ast-1.11.1.tgz?cache=0&sync_timestamp=1625473459015&other_urls=https%3A%2F%2Fregistry.nlark.com%2F%40webassemblyjs%2Fast%2Fdownload%2F%40webassemblyjs%2Fast-1.11.1.tgz#2bfd767eae1a6996f432ff7e8d7fc75679c0b6a7"

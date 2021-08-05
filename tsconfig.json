@@ -8,14 +8,7 @@
     "allowSyntheticDefaultImports": true,
     "types"                       : [
       "@types/node",
-      "@types/cheerio",
       "utools-api-types"
-    ],
-    "lib"                         : [
-      "dom",
-      "es5",
-      "scripthost",
-      "es2015.promise"
     ],
     "jsx"                         : "react",
     "jsxFactory"                  : "Nano.h"
