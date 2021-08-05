@@ -5,7 +5,7 @@ import {applications} from '../applications'
 import {Application, ProjectItemImpl} from '../types'
 import {isEmpty, isNil} from 'licia'
 import {iconMap} from '../icon'
-import fs from 'fs'
+import fs = require('fs')
 
 interface RootProps {}
 
@@ -37,6 +37,12 @@ class Root extends Component<RootProps, RootState> {
         this.state.applications.forEach(app => app.update(utools.getNativeId()))
     }
 
+    updateApplicationUI() {
+        this.updateApplication()
+        console.log(window.location.href)
+        this.update()
+    }
+
     select(event: Event, id: string) {
         let result = utools.showOpenDialog({})
         if (isNil(result) || isEmpty(result)) {
@@ -48,16 +54,14 @@ class Root extends Component<RootProps, RootState> {
                     alert('路径指示的文件不存在或已被删除')
                 }
                 utools.dbStorage.setItem(id, path)
-                this.updateApplication()
-                this.update()
+                this.updateApplicationUI()
             }
         }
     }
 
     clear(event: Event, id: string) {
         utools.dbStorage.removeItem(id)
-        this.updateApplication()
-        this.update()
+        this.updateApplicationUI()
     }
 
     jump(event: Event) {
@@ -111,7 +115,9 @@ class Root extends Component<RootProps, RootState> {
                                     </li>
                                     {Object.keys(this.state.applicationGroupMap).map(key => (
                                         <li class="nav-item">
-                                            <a><b>{key}</b></a>
+                                            <a>
+                                                <b>{key}</b>
+                                            </a>
                                             <ul class="nav">
                                                 {this.state.applicationGroupMap[key].map(app => (
                                                     <li
