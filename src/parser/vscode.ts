@@ -1,7 +1,7 @@
 import {ApplicationImpl, Platform, ProjectItemImpl} from '../types'
-import fsp from 'fs/promises'
+import {readFile} from 'fs/promises'
 import {isEmpty, isNil} from 'licia'
-import path from 'path'
+import {parse} from 'path'
 
 export class VscodeProjectItemImpl extends ProjectItemImpl {}
 
@@ -20,7 +20,7 @@ export class VscodeApplicationImpl extends ApplicationImpl<VscodeProjectItemImpl
 
     async generateProjectItems(): Promise<Array<VscodeProjectItemImpl>> {
         let items: Array<VscodeProjectItemImpl> = []
-        let buffer = await fsp.readFile(this.config)
+        let buffer = await readFile(this.config)
         if (!isNil(buffer)) {
             let content = buffer.toString()
             let storage = JSON.parse(content)
@@ -39,7 +39,7 @@ export class VscodeApplicationImpl extends ApplicationImpl<VscodeProjectItemImpl
                     } else {
                         continue
                     }
-                    let parser = path.parse(uri)
+                    let parser = parse(uri)
                     items.push({
                         id: '',
                         title: parser.name,

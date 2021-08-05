@@ -1,5 +1,6 @@
 // noinspection JSFileReferences,JSUnresolvedVariable
 
-const uToolsRecentProjects = require('./utools-recent-projects')
+// import {build} from './index'
+const {build} = require('./index')
 
-window.exports = uToolsRecentProjects.build
+window.exports = build

@@ -1,8 +1,8 @@
 import {Application, ApplicationImpl, Platform, ProjectItemImpl} from '../types'
-import fsp from 'fs/promises'
+import {readFile} from 'fs/promises'
 import {isEmpty, isNil} from 'licia'
-import $ from 'licia/$'
-import paths from 'path'
+import {parse} from 'path'
+import $ = require('licia/$')
 
 export class JetBrainsProjectItemImpl extends ProjectItemImpl {
     datetime: number
@@ -23,10 +23,9 @@ export class JetBrainsApplicationImpl extends ApplicationImpl<JetBrainsProjectIt
 
     async generateProjectItems(): Promise<Array<JetBrainsProjectItemImpl>> {
         let items: Array<JetBrainsProjectItemImpl> = []
-        let buffer = await fsp.readFile(this.config)
+        let buffer = await readFile(this.config)
         if (!isNil(buffer)) {
             let content = buffer.toString()
-            // let document = parse(content)
             $('#root').append(`<div id=${this.id} style="display: none">${content}</div>`)
             $(`#${this.id} application option[name=additionalInfo] entry`).each((index, element) => {
                 let path = $(element).attr('key')
@@ -34,13 +33,13 @@ export class JetBrainsApplicationImpl extends ApplicationImpl<JetBrainsProjectIt
                 if (!isEmpty(path)) {
                     let home = utools.getPath('home')
                     path = path!.replace('$USER_HOME$', home)
-                    let parse = paths.parse(path)
+                    let parseObj = parse(path)
                     items.push({
                         id: '',
-                        title: parse.name,
+                        title: parseObj.name,
                         description: path,
                         icon: this.icon,
-                        searchKey: parse.name,
+                        searchKey: parseObj.name,
                         command: `"${this.executor}" "${path}"`,
                         datetime: parseInt(`${datetime}`),
                     })

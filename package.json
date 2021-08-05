@@ -4,7 +4,7 @@
   "author"         : "lanyuanxiaoyao",
   "license"        : "MIT",
   "scripts"        : {
-    "build": "node build-icon.js && webpack --config webpack.config.js"
+    "build": "bash build.sh"
   },
   "devDependencies": {
     "@types/node"        : "^16.4.6",
