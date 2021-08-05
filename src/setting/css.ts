@@ -25,6 +25,11 @@ export const CustomCss: string = `
     text-overflow : ellipsis;
     white-space   : nowrap;
     overflow      : visible;
+    font-size     : 0.75rem;
+  }
+
+  .column .nav .nav {
+    margin-left : 0.4rem;
   }
 
   .form-item {
@@ -33,10 +38,10 @@ export const CustomCss: string = `
     box-shadow    : 0 0 10px #00000038;
     border-radius : 5px;
   }
-  
+
   .nav .badge[data-badge]::after {
-    font-size: 0.5rem;
-    height: 0.75rem;
+    font-size : 0.5rem;
+    height    : 0.75rem;
   }
 
   .gap {

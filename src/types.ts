@@ -122,6 +122,7 @@ export interface Application<P extends ProjectItemImpl> {
     readonly icon: string
     readonly type: string
     readonly platform: Array<Platform>
+    readonly group: string
     config: string
     configId: (nativeId: string) => string
     executor: string
@@ -144,16 +145,18 @@ export abstract class ApplicationImpl<P extends ProjectItemImpl> implements Appl
     readonly icon: string
     readonly type: string
     readonly platform: Array<Platform>
+    readonly group: string
     readonly configFilename: string
     config: string = ''
     executor: string = ''
 
-    protected constructor(id: string, name: string, icon: string, type: string, platform: Array<Platform>, configFilename: string) {
+    protected constructor(id: string, name: string, icon: string, type: string, platform: Array<Platform>, group: string = 'default', configFilename: string) {
         this.id = id
         this.name = name
         this.icon = icon
         this.type = type
         this.platform = platform
+        this.group = group
         this.configFilename = configFilename
     }
 

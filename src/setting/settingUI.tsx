@@ -11,17 +11,26 @@ interface RootProps {}
 
 interface RootState {
     applications: Array<Application<ProjectItemImpl>>
+    applicationGroupMap: { [key: string]: Array<Application<ProjectItemImpl>> }
 }
 
 class Root extends Component<RootProps, RootState> {
     constructor(props: RootProps) {
         super(props)
 
+        let map: { [key: string]: Array<Application<ProjectItemImpl>> } = {}
+        for (let app of applications) {
+            let group = app.group
+            if (isNil(map[group])) {
+                map[group] = []
+            }
+            map[group].push(app)
+        }
         this.state = {
             applications: applications,
+            applicationGroupMap: map,
         }
         this.updateApplication()
-        console.log(window.outerHeight)
     }
 
     updateApplication() {
@@ -100,12 +109,19 @@ class Root extends Component<RootProps, RootState> {
                                             不懂配置? 查看帮助 →
                                         </a>
                                     </li>
-                                    {applications.map(app => (
-                                        <li
-                                            class={'nav-item ' + ((isEmpty(app.config) || isEmpty(app.executor)) ? '' : 'badge')}
-                                            data-badge="已配置"
-                                        >
-                                            <a href={'#' + app.id}>{app.name}</a>
+                                    {Object.keys(this.state.applicationGroupMap).map(key => (
+                                        <li class="nav-item">
+                                            <a><b>{key}</b></a>
+                                            <ul class="nav">
+                                                {this.state.applicationGroupMap[key].map(app => (
+                                                    <li
+                                                        class={'nav-item ' + ((isEmpty(app.config) || isEmpty(app.executor)) ? '' : 'badge')}
+                                                        data-badge="已配置"
+                                                    >
+                                                        <a href={'#' + app.id}>{app.name}</a>
+                                                    </li>
+                                                ))}
+                                            </ul>
                                         </li>
                                     ))}
                                 </ul>
@@ -114,7 +130,7 @@ class Root extends Component<RootProps, RootState> {
                                 class="column col-9"
                                 style={{ padding: '10px' }}
                             >
-                                {applications.map(app => (
+                                {this.state.applications.map(app => (
                                     <Fragment>
                                         <div class="gap"/>
                                         <div

@@ -18,7 +18,7 @@ export class JetBrainsProjectItemImpl extends ProjectItemImpl {
  */
 export class JetBrainsApplicationImpl extends ApplicationImpl<JetBrainsProjectItemImpl> {
     constructor(id: string, name: string, icon: string, platform: Array<Platform> = [Platform.win32, Platform.darwin, Platform.linux], configFilename: string = 'recentProject.xml') {
-        super(id, name, icon, ApplicationImpl.JETBRAINS, platform, configFilename)
+        super(id, name, icon, ApplicationImpl.JETBRAINS, platform, 'JetBrains', configFilename)
     }
 
     async generateProjectItems(): Promise<Array<JetBrainsProjectItemImpl>> {
