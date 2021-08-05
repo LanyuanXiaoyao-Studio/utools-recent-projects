@@ -1,4 +1,5 @@
-import Nano, {Component, Img} from 'nano-jsx'
+import {Component, Img} from 'nano-jsx'
+import Nano = require('nano-jsx')
 import {Fragment} from 'nano-jsx/lib'
 import {CustomCss, CustomDarkCss, SpectreCss, SpectreIconCss} from './css'
 import {applications} from '../applications'
