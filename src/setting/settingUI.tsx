@@ -8,6 +8,12 @@ import {iconMap} from '../icon'
 import Nano = require('nano-jsx')
 import fs = require('fs')
 
+interface BadgeInfo {
+    readonly show: boolean
+    readonly class: string
+    readonly text: string
+}
+
 interface RootProps {}
 
 interface RootState {
@@ -36,7 +42,7 @@ class Root extends Component<RootProps, RootState> {
         }
         let first = utools.dbStorage.getItem(this.FIRST)
         if (!isNil(first) && first) {
-            // this.dialog = false
+            this.dialog = false
         }
         this.updateApplication()
     }
@@ -90,6 +96,16 @@ class Root extends Component<RootProps, RootState> {
         utools.shellOpenExternal('https://yuanliao.info/d/3978')
     }
 
+    badge(application: Application<ProjectItemImpl>): BadgeInfo {
+        if (isEmpty(application.config) && isEmpty(application.executor)) {
+            return { show: false, class: '', text: '' }
+        } else if (isEmpty(application.config) || isEmpty(application.executor)) {
+            return { show: true, class: 'badge badge-unready', text: '待完善' }
+        } else {
+            return { show: true, class: 'badge badge-ready', text: '已配置' }
+        }
+    }
+
     render() {
         return (
             <Fragment>
@@ -141,8 +157,8 @@ class Root extends Component<RootProps, RootState> {
                                             <ul class="nav">
                                                 {this.state.applicationGroupMap[key].map(app => (
                                                     <li
-                                                        class={'nav-item ' + ((isEmpty(app.config) || isEmpty(app.executor)) ? '' : 'badge')}
-                                                        data-badge="已配置"
+                                                        class={'nav-item ' + this.badge(app).class}
+                                                        data-badge={this.badge(app).text}
                                                     >
                                                         <a href={'#' + app.id}>{app.name}</a>
                                                     </li>

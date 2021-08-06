@@ -6,6 +6,15 @@ import {applications, jetBrainsApplications, vscodeApplications} from './applica
 import {JetBrainsProjectItemImpl} from './parser/jetBrains'
 import $ = require('licia/$')
 
+const emptyTips: ProjectItemImpl = {
+    id: 'cc1b114e-5d1a-40df-b117-8c2cd7ddffa4',
+    title: `似乎什么都找不到`,
+    description: '如果你还没有设置改软件的相关配置，请先在 Setting 关键字中设置相关配置内容，点击可跳转设置界面',
+    icon: 'info.png',
+    searchKey: '',
+    command: '',
+}
+
 export class AllProjectArgs extends ProjectArgsImpl {
     placeholder = '通过项目名快速查找项目'
 
@@ -13,13 +22,26 @@ export class AllProjectArgs extends ProjectArgsImpl {
         $('.container').css('display', 'none')
         this.clearCache()
         this.getProjectItems(utools.getNativeId())
-            .then(result => callback(result))
-            .catch(error => utools.showNotification(error.message))
+            .then(result => {
+                if (isEmpty(result)) {
+                    callback([emptyTips])
+                } else {
+                    callback(result)
+                }
+            })
+            .catch(error => {
+                console.log(error)
+                utools.showNotification(error.message)
+            })
     }
 
     search = (action: Action, searchText: string, callback: Callback<ProjectItemImpl>) => {
         if (isEmpty(searchText)) {
-            callback(this.projectItemCache)
+            if (isEmpty(this.projectItemCache)) {
+                callback([emptyTips])
+            } else {
+                callback(this.projectItemCache)
+            }
         } else {
             let text = searchText.toLocaleLowerCase()
             callback(this.projectItemCache.filter(item => item.searchKey.indexOf(text) > -1))
@@ -27,13 +49,21 @@ export class AllProjectArgs extends ProjectArgsImpl {
     }
 
     select = (action: Action, item: ProjectItemImpl, callback: Callback<ProjectItemImpl>) => {
+        if (item.id === emptyTips.id) {
+            utools.redirect('Setting', '')
+            return
+        }
+        if (isEmpty(item.command)) {
+            utools.showNotification('参数错误，请向作者反馈')
+            return
+        }
         exec(item.command, error => {
             console.log(error)
             if (isNil(error)) {
                 utools.hideMainWindow()
                 utools.outPlugin()
             } else {
-                utools.showNotification(error?.message ?? 'Unknown Error')
+                utools.showNotification(error?.message ?? '未知错误，请向作者反馈')
             }
         })
     }

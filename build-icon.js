@@ -3,6 +3,7 @@ const path = require('path')
 
 let iconFolderPath = 'icon'
 let iconPaths = fs.readdirSync(iconFolderPath)
+                  .filter(s => s.endsWith('png'))
                   .map(s => path.join(iconFolderPath, s))
 console.log(iconPaths)
 let iconBase64s = iconPaths.map(p => {
@@ -23,7 +24,7 @@ iconBase64s.forEach(o => {
 })
 let iconTsFileText = `export const iconMap: { [key: string]: string } = {
 ${iconBase64s.map(o => `    'icon/${o.name}': '${o.value}',`)
-                 .join('\n')}
+             .join('\n')}
 }
 `
 let iconTsFilePath = path.join('src', 'icon.ts')

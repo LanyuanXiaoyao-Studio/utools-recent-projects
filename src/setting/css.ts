@@ -44,6 +44,10 @@ export const CustomCss: string = `
     height    : 0.75rem;
   }
 
+  .nav .badge[data-badge].badge-unready::after {
+    background-color : #ffb700;
+  }
+
   .gap {
     height : 8px;
   }

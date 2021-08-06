@@ -84,7 +84,7 @@ export abstract class ProjectArgsImpl extends ArgsImpl<ProjectItemImpl> {
     getProjectItems: (localId: string) => Promise<Array<ProjectItemImpl>> = async localId => {
         this.updateApplications(localId)
         for (let app of this.applications) {
-            if (!(isEmpty(app.config) && isEmpty(app.executor))) {
+            if (!isEmpty(app.config) && !isEmpty(app.executor)) {
                 (await app.generateProjectItems()).forEach(p => this.projectItemCache.push(p))
             }
         }
@@ -92,7 +92,6 @@ export abstract class ProjectArgsImpl extends ArgsImpl<ProjectItemImpl> {
     }
 
     clearCache() {
-        console.log('clearCache')
         this.projectItemCache = []
     }
 }
