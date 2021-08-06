@@ -1,14 +1,16 @@
 import {Action, Callback, ProjectArgsImpl, ProjectItemImpl} from './types'
-import {isEmpty} from 'licia'
+import {isEmpty, isNil} from 'licia'
 import {exec} from 'child_process'
 import {SettingUIFeature} from './setting/setting'
 import {applications, jetBrainsApplications, vscodeApplications} from './applications'
 import {JetBrainsProjectItemImpl} from './parser/jetBrains'
+import $ = require('licia/$')
 
 export class AllProjectArgs extends ProjectArgsImpl {
     placeholder = '通过项目名快速查找项目'
 
     enter = (action: Action, callback: Callback<ProjectItemImpl>) => {
+        $('.container').css('display', 'none')
         this.clearCache()
         this.getProjectItems(utools.getNativeId())
             .then(result => callback(result))
@@ -27,7 +29,7 @@ export class AllProjectArgs extends ProjectArgsImpl {
     select = (action: Action, item: ProjectItemImpl, callback: Callback<ProjectItemImpl>) => {
         exec(item.command, error => {
             console.log(error)
-            if (isEmpty(error)) {
+            if (isNil(error)) {
                 utools.hideMainWindow()
                 utools.outPlugin()
             } else {
