@@ -7,7 +7,8 @@
   "logo"         : "logo.png",
   "preload"      : "preload.js",
   "platform"     : [
-    "darwin"
+    "darwin",
+    "win32"
   ],
   "pluginSetting": {
     "single": true
