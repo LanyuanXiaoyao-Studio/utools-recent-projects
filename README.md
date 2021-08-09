@@ -2,10 +2,12 @@
 
 ![GitHub package.json version](https://img.shields.io/github/package-json/v/LanyuanXiaoyao-Studio/utools-recent-projects)
 [![GitHub stars](https://img.shields.io/github/stars/LanyuanXiaoyao-Studio/utools-recent-projects)](https://github.com/LanyuanXiaoyao-Studio/utools-recent-projects/stargazers)
+[![GitHub license](https://img.shields.io/github/license/LanyuanXiaoyao-Studio/utools-recent-projects)](https://github.com/LanyuanXiaoyao-Studio/utools-recent-projects)
 
 在 uTools 中快速查询历史项目并打开, 支持 JetBrains, Visual Studio Code, 后续会继续增加其他软件, 如 Xcode VS Eclipse 等, 目前以我常用的软件为主.
 
 > 为了玩一下自定义模板插件的设置界面, 所以造了个轮子, uTools 插件市场也有同类型的插件, 也非常好用 :P
+> 关于自定义模板插件设置界面的细节, 可以参照[这篇文章](https://yuanliao.info/d/3979)
 
 > 由于有的软件的历史记录, 如 vscode, 没有打开时间, 所以在「Projects」关键字里面查看的所有历史项目将不会按照最近打开时间排序(不同软件的历史记录没办法互相排序), 在单独的关键字里, 如「JetBrains Projects」, 会根据最近打开时间排序.
 
@@ -47,4 +49,4 @@
 
 由于 uTools 特有的人工审核机制, 官方要求模板插件的代码必须要可读, 也就是源码, 所以无法直接使用 webpack 等打包工具直接进行打包, 因此该项目源码必须通过直接执行`build.sh`来生成打包. `build.sh`里做的事情也很简单, 将 ts 源码单独编译成 js 代码, 再通过复制粘贴在 dist 文件夹下组合成需要目录结构, 所以没有提供 Windows 下的脚本文件, 如果不是在 Linux 或 macOS 系统上开发, 需要自己根据`build.sh`写一个 bat 脚本来执行打包.
 
-希望 uTools 官方能早日摆脱这种代码要求 (
+希望 uTools 官方能早日摆脱这种代码要求, 走进现代 js 开发模式 (
