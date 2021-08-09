@@ -13,6 +13,14 @@
 
 > Linux 在 uTools 2.x 支持 Linux 之后再支持
 
+# 源码地址
+
+[Github](https://github.com/LanyuanXiaoyao-Studio/utools-recent-projects)
+
+## 源码镜像
+
+[Gitee](https://gitee.com/LanyuanXiaoyao-Studio/utools-recent-projects)
+
 # 使用说明
 
 使用 Setting 关键字打开插件设置界面, 可以根据自己拥有的软件设置相应的参数, 目前需要设置的参数有两个: 保存历史记录的**数据文件**和软件的**可执行程序路径**.
@@ -47,6 +55,8 @@
 
 # 开发说明
 
-由于 uTools 特有的人工审核机制, 官方要求模板插件的代码必须要可读, 也就是源码, 所以无法直接使用 webpack 等打包工具直接进行打包, 因此该项目源码必须通过直接执行`build.sh`来生成打包. `build.sh`里做的事情也很简单, 将 ts 源码单独编译成 js 代码, 再通过复制粘贴在 dist 文件夹下组合成需要目录结构, 所以没有提供 Windows 下的脚本文件, 如果不是在 Linux 或 macOS 系统上开发, 需要自己根据`build.sh`写一个 bat 脚本来执行打包.
+由于 uTools 特有的人工审核机制, 官方要求模板插件的代码必须要可读, 也就是源码, 所以无法直接使用 webpack 等打包工具直接进行打包, 因此该项目源码必须通过直接执行`build.sh`来生成打包. `build.sh`
+里做的事情也很简单, 将 ts 源码单独编译成 js 代码, 再通过复制粘贴在 dist 文件夹下组合成需要目录结构, 所以没有提供 Windows 下的脚本文件, 如果不是在 Linux 或 macOS 系统上开发,
+需要自己根据`build.sh`写一个 bat 脚本来执行打包.
 
 希望 uTools 官方能早日摆脱这种代码要求, 走进现代 js 开发模式 (
