@@ -1,6 +1,6 @@
 import {ApplicationImpl, Platform, ProjectItemImpl} from '../types'
 import {readFile} from 'fs/promises'
-import {isEmpty, isNil} from 'licia'
+import {isEmpty, isNil, Url} from 'licia'
 import {parse} from 'path'
 
 export class VscodeProjectItemImpl extends ProjectItemImpl {}
@@ -39,13 +39,15 @@ export class VscodeApplicationImpl extends ApplicationImpl<VscodeProjectItemImpl
                     } else {
                         continue
                     }
-                    let parser = parse(uri)
+                    uri = decodeURI(uri)
+                    let url = Url.parse(uri)
+                    let parser = parse(url.pathname)
                     items.push({
                         id: '',
                         title: parser.name,
-                        description: uri,
+                        description: url.pathname,
                         icon: this.icon,
-                        searchKey: uri,
+                        searchKey: url.pathname,
                         command: `"${this.executor}" ${args} "${uri}"`,
                     })
                 }
