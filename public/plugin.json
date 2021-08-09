@@ -49,6 +49,16 @@
         "Visual Studio Code Projects",
         "我的 Visual Studio Code 项目"
       ]
+    },
+    {
+      "code"   : "sublime-project",
+      "explain": "快速打开我的 Sublime Text 项目",
+      "icon"   : "icon/sublime.png",
+      "cmds"   : [
+        "sbt",
+        "Sublime Text Projects",
+        "我的 Sublime Text 项目"
+      ]
     }
   ]
 }

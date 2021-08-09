@@ -143,6 +143,7 @@ export interface Application<P extends ProjectItemImpl> {
 export abstract class ApplicationImpl<P extends ProjectItemImpl> implements Application<P> {
     static JETBRAINS: string = 'jetbrains'
     static VSCODE: string = 'vscode'
+    static SUBLIME: string = 'sublime'
 
     readonly id: string
     readonly name: string

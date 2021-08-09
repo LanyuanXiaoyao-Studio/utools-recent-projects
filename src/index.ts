@@ -2,7 +2,7 @@ import {Action, Callback, ProjectArgsImpl, ProjectItemImpl} from './types'
 import {isEmpty, isNil} from 'licia'
 import {exec} from 'child_process'
 import {SettingUIFeature} from './setting/setting'
-import {applications, jetBrainsApplications, vscodeApplications} from './applications'
+import {applications, jetBrainsApplications, sublimeApplications, vscodeApplications} from './applications'
 import {JetBrainsProjectItemImpl} from './parser/jetBrains'
 import $ = require('licia/$')
 
@@ -87,6 +87,10 @@ export const build: any = {
     },
     'vscode-project': {
         args: new AllProjectArgs(vscodeApplications),
+        mode: 'list',
+    },
+    'sublime-project': {
+        args: new AllProjectArgs(sublimeApplications),
         mode: 'list',
     },
 }
