@@ -47,12 +47,16 @@ export class Catalogue extends Component<CatalogueProps, CatalogueState> {
         this.store.cancel()
     }
 
-    jump(event: Event) {
+    jump() {
         utools.redirect('Projects', '')
     }
 
-    help(event: Event) {
+    help() {
         utools.shellOpenExternal('https://yuanliao.info/d/3978')
+    }
+
+    home() {
+        utools.shellOpenExternal('https://github.com/LanyuanXiaoyao-Studio/utools-recent-projects')
     }
 
     badge(application: Application<ProjectItemImpl>): BadgeInfo {
@@ -72,19 +76,28 @@ export class Catalogue extends Component<CatalogueProps, CatalogueState> {
                     <li class="nav-item">
                         <a
                             href="#"
-                            onclick={(event: Event) => this.jump(event)}
+                            onclick={() => this.jump()}
                         >
-                            前往项目搜索 →
+                            <b>开始搜索</b>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a
                             href="#"
-                            onclick={(event: Event) => this.help(event)}
+                            onclick={() => this.help()}
                         >
-                            不懂配置? 查看帮助 →
+                            <b>配置文档</b>
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a
+                            href="#"
+                            onclick={() => this.home()}
+                        >
+                            <b>源码主页</b>
+                        </a>
+                    </li>
+                    <div class="divider"/>
                     {Object.keys(this.state.applicationGroupMap).map(key => (
                         <li class="nav-item">
                             <a>
