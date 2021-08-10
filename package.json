@@ -17,6 +17,7 @@
     "webpack-cli": "^4.7.2"
   },
   "dependencies": {
+    "bplist-parser": "^0.3.0",
     "licia": "^1.29.0",
     "nano-jsx": "^0.0.20"
   }

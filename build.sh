@@ -19,6 +19,7 @@ packageJson='{
                 "version"        : "1.0.0",
                 "license"        : "MIT",
                 "dependencies"   : {
+                  "bplist-parser": "^0.3.0",
                   "licia"   : "^1.29.0",
                   "nano-jsx": "^0.0.20"
                 }
@@ -36,9 +37,13 @@ find lib -name '*.ts' | xargs rm -rf
 find lib -name '*.map' | xargs rm -rf
 cd $temp
 
-#cd "${temp}/node_modules/mousetrap"
-#rm -rf plugins tests Gruntfile.js mousetrap.sublime-project *.md LICENSE
-#cd $temp
+cd "${temp}/node_modules/big-integer"
+rm -rf *.md *.ts tsconfig*.json LICENSE bower.json *.min.js
+cd $temp
+
+cd "${temp}/node_modules/bplist-parser"
+rm -rf *.md .editorconfig .eslintignore .eslintrc.js
+cd $temp
 
 rm -rf .yarn-integrity
 

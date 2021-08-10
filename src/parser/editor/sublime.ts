@@ -1,7 +1,9 @@
-import {ApplicationImpl, Platform, ProjectItemImpl} from '../types'
+import {ApplicationImpl, Platform, ProjectItemImpl} from '../../types'
 import {readFile} from 'fs/promises'
 import {isNil} from 'licia'
 import {parse} from 'path'
+
+const SUBLIME: string = 'sublime'
 
 export class SublimeProjectItemImpl extends ProjectItemImpl {}
 
@@ -11,7 +13,7 @@ export class SublimeApplicationImpl extends ApplicationImpl<SublimeProjectItemIm
             'sublime',
             'Sublime Text',
             'icon/sublime.png',
-            ApplicationImpl.SUBLIME,
+            SUBLIME,
             [Platform.win32, Platform.darwin, Platform.linux],
             'Editor',
             'Session.sublime_session',

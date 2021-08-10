@@ -141,10 +141,6 @@ export interface Application<P extends ProjectItemImpl> {
  * 定义了获取 configId 和 executorId 的方法
  */
 export abstract class ApplicationImpl<P extends ProjectItemImpl> implements Application<P> {
-    static JETBRAINS: string = 'jetbrains'
-    static VSCODE: string = 'vscode'
-    static SUBLIME: string = 'sublime'
-
     readonly id: string
     readonly name: string
     readonly icon: string

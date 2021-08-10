@@ -2,8 +2,14 @@ import {Action, Callback, ProjectArgsImpl, ProjectItemImpl} from './types'
 import {isEmpty, isNil} from 'licia'
 import {exec} from 'child_process'
 import {SettingUIFeature} from './setting/setting'
-import {applications, jetBrainsApplications, sublimeApplications, vscodeApplications} from './applications'
-import {JetBrainsProjectItemImpl} from './parser/jetBrains'
+import {
+    applications,
+    jetBrainsApplications,
+    sublimeApplications,
+    vscodeApplications,
+    wpsApplications,
+} from './applications'
+import {JetBrainsProjectItemImpl} from './parser/ide/jetBrains'
 import $ = require('licia/$')
 
 const emptyTips: ProjectItemImpl = {
@@ -100,6 +106,10 @@ export const build: any = {
     },
     'sublime-project': {
         args: new AllProjectArgs(sublimeApplications),
+        mode: 'list',
+    },
+    'wps-project': {
+        args: new AllProjectArgs(wpsApplications),
         mode: 'list',
     },
 }

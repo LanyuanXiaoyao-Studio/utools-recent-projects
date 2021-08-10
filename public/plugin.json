@@ -59,6 +59,16 @@
         "Sublime Text Projects",
         "我的 Sublime Text 项目"
       ]
+    },
+    {
+      "code"   : "wps-project",
+      "explain": "快速打开我的 WPS Office 项目",
+      "icon"   : "icon/wps-mac-internation.png",
+      "cmds"   : [
+        "wps",
+        "WPS Office Projects",
+        "我的 WPS Office 项目"
+      ]
     }
   ]
 }

@@ -1,7 +1,9 @@
-import {ApplicationImpl, Platform, ProjectItemImpl} from '../types'
+import {ApplicationImpl, Platform, ProjectItemImpl} from '../../types'
 import {readFile} from 'fs/promises'
 import {isEmpty, isNil, Url} from 'licia'
 import {parse} from 'path'
+
+const VSCODE: string = 'vscode'
 
 export class VscodeProjectItemImpl extends ProjectItemImpl {}
 
@@ -11,7 +13,7 @@ export class VscodeApplicationImpl extends ApplicationImpl<VscodeProjectItemImpl
             'vscode',
             'Visual Studio Code',
             'icon/vscode.png',
-            ApplicationImpl.VSCODE,
+            VSCODE,
             [Platform.win32, Platform.darwin, Platform.linux],
             'Editor',
             'storage.json',

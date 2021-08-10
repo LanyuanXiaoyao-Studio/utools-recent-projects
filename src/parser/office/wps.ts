@@ -1,0 +1,76 @@
+import {ApplicationImpl, Platform, ProjectItemImpl} from '../../types'
+import {isEmpty, isNil} from 'licia'
+import {parse} from 'path'
+import plistParser = require('bplist-parser')
+
+const WPS_MAC_INTERNATION: string = 'wps-mac-internation'
+
+const extensionIcon: (string) => string = extensionName => {
+    switch (extensionName) {
+        case 'doc':
+        case 'docx':
+        case 'wps':
+            return 'icon/doc.png'
+        case 'xls':
+        case 'xlsx':
+        case 'et':
+            return 'icon/xls.png'
+        case 'ppt':
+        case 'pptx':
+        case 'wpp':
+            return 'icon/ppt.png'
+        case 'pdf':
+            return 'icon/pdf.png'
+        default:
+            return ''
+    }
+}
+
+export class WpsMacInternationalProjectItemImpl extends ProjectItemImpl {}
+
+export class WpsMacInternationalApplicationImpl extends ApplicationImpl<WpsMacInternationalProjectItemImpl> {
+    constructor() {
+        super(
+            'wps-mac-internation',
+            'WPS Office international for mac',
+            'icon/wps-mac-internation.png',
+            WPS_MAC_INTERNATION,
+            [Platform.darwin],
+            'Office',
+            'com.kingsoft.plist',
+        )
+    }
+
+    async generateProjectItems(): Promise<Array<WpsMacInternationalProjectItemImpl>> {
+        let items: Array<WpsMacInternationalProjectItemImpl> = []
+        let data = await plistParser.parseFile(this.config)
+        if (!isNil(data) && !isEmpty(data)) {
+            data = data[0]
+            Object.keys(data)
+                .filter(key => key.indexOf('RecentFiles') > -1)
+                .sort((a, b) => data[b] - data[a])
+                .forEach(key => {
+                    let splitKey = '.RecentFiles.Sequence.'
+                    let start = key.indexOf(splitKey)
+                    let end = start + splitKey.length
+                    let path = key.substr(end, key.length)
+                    path = '/' + path.replace(/\./g, '/').replace(/·/g, '.')
+                    let parser = parse(path)
+                    let icon = extensionIcon(parser.ext.replace(/\./g, ''))
+                    items.push({
+                        id: '',
+                        title: parser.name,
+                        description: path,
+                        icon: isEmpty(icon) ? this.icon : icon,
+                        searchKey: path,
+                        command: `open "${path}"`,
+                    })
+                })
+        }
+        return items
+    }
+}
+
+export const applications: Array<ApplicationImpl<WpsMacInternationalProjectItemImpl>> = [
+    new WpsMacInternationalApplicationImpl(),
+]

@@ -1,8 +1,10 @@
-import {Application, ApplicationImpl, Platform, ProjectItemImpl} from '../types'
+import {Application, ApplicationImpl, Platform, ProjectItemImpl} from '../../types'
 import {readFile} from 'fs/promises'
 import {isEmpty, isNil} from 'licia'
 import {parse} from 'path'
 import $ = require('licia/$')
+
+const JETBRAINS: string = 'jetbrains'
 
 export class JetBrainsProjectItemImpl extends ProjectItemImpl {
     datetime: number
@@ -18,7 +20,7 @@ export class JetBrainsProjectItemImpl extends ProjectItemImpl {
  */
 export class JetBrainsApplicationImpl extends ApplicationImpl<JetBrainsProjectItemImpl> {
     constructor(id: string, name: string, icon: string, platform: Array<Platform> = [Platform.win32, Platform.darwin, Platform.linux], configFilename: string = 'recentProject.xml') {
-        super(id, name, icon, ApplicationImpl.JETBRAINS, platform, 'JetBrains', configFilename)
+        super(id, name, icon, JETBRAINS, platform, 'JetBrains', configFilename)
     }
 
     async generateProjectItems(): Promise<Array<JetBrainsProjectItemImpl>> {
