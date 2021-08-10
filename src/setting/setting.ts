@@ -1,5 +1,5 @@
 import {Action, Args, Callback, Feature} from '../types'
-import {ApplicationUI} from './settingUI'
+import {ApplicationUI} from './Root'
 
 export class SettingUIArgsImpl implements Args<any> {
     enter(action: Action, callback: Callback<any>): void {
