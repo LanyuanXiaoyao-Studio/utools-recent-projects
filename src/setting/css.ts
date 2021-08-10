@@ -48,6 +48,10 @@ export const CustomCss: string = `
     background-color : #ffb700;
   }
 
+  .nav .nav-item .icon + b {
+    margin-left : 10px;
+  }
+
   .gap {
     height : 8px;
   }

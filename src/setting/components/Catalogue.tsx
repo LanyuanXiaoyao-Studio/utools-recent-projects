@@ -78,6 +78,7 @@ export class Catalogue extends Component<CatalogueProps, CatalogueState> {
                             href="#"
                             onclick={() => this.jump()}
                         >
+                            <i class="icon icon-search"/>
                             <b>开始搜索</b>
                         </a>
                     </li>
@@ -86,6 +87,7 @@ export class Catalogue extends Component<CatalogueProps, CatalogueState> {
                             href="#"
                             onclick={() => this.help()}
                         >
+                            <i class="icon icon-message"/>
                             <b>配置文档</b>
                         </a>
                     </li>
@@ -94,6 +96,7 @@ export class Catalogue extends Component<CatalogueProps, CatalogueState> {
                             href="#"
                             onclick={() => this.home()}
                         >
+                            <i class="icon icon-link"/>
                             <b>源码主页</b>
                         </a>
                     </li>
