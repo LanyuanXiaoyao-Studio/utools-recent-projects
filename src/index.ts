@@ -15,6 +15,15 @@ const emptyTips: ProjectItemImpl = {
     command: '',
 }
 
+const unSupportTips: ProjectItemImpl = {
+    id: '66ecef84-4bd7-4e06-85df-85035be54a19',
+    title: `该关键字不支持当前平台`,
+    description: '当然关键字对应的历史项目索引不支持当前平台，如果影响了你的日常操作，可以在插件详情中禁用',
+    icon: 'info.png',
+    searchKey: '',
+    command: '',
+}
+
 export class AllProjectArgs extends ProjectArgsImpl {
     placeholder = '通过项目名快速查找项目'
 

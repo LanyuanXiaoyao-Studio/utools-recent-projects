@@ -29,7 +29,7 @@
     - **数据文件一般会在**:
       macOS: `/Users/用户名/Library/Application Support/JetBrains/软件名称/options/recentProjects.xml`
       Windows: `C:\Users\用户名\AppData\Roaming\JetBrains\软件名\options\recentProjects.xml`
-      **可执行程序路径一般会在**:
+    - **可执行程序路径一般会在**:
       macOS:`/Applications/软件名称.app/Contents/MacOS/软件名称`(更早的版本, 数据文件路径里面没有`JetBrains`这一级)
       Windows: 默认安装在`C:\Program Files\JetBrains\软件名\bin\软件名64.exe`(如果使用 JetBrains Toolbox 安装的话,
       默认路径会在类似`C:\Users\用户名\AppData\Local\JetBrains\Toolbox\apps\软件名\ch-0\版本号`, 具体的可以在 JetBrains Toolbox 的设置里找到)
