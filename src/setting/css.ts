@@ -21,6 +21,10 @@ export const CustomCss: string = `
     overflow : scroll;
   }
 
+  .columns .column::-webkit-scrollbar {
+    display : none;
+  }
+
   .column ul.nav li.nav-item {
     text-overflow : ellipsis;
     white-space   : nowrap;
@@ -64,7 +68,7 @@ export const CustomCss: string = `
 
   .information-card .title {
     margin-left : 1.2rem;
-    font-weight: bold;
+    font-weight : bold;
   }
 
   .form-button-group {

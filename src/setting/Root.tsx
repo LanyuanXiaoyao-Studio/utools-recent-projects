@@ -68,6 +68,8 @@ class Root extends Component<RootProps, RootState> {
                             <div class="column col-9">
                                 <InformationCard platform={this.state.platform}/>
                                 {this.state.applications.map(app => <SettingCard application={app}/>)}
+                                <div class="gap"/>
+                                <div class="gap"/>
                             </div>
                         </div>
                     </div>

@@ -10,7 +10,7 @@ const platformName: (Platform) => string = platform => {
     } else if (platform == Platform.linux) {
         return 'Linux'
     } else {
-        return 'Unknown'
+        return 'Unknown Version'
     }
 }
 
@@ -30,8 +30,8 @@ export class InformationCard extends Component<InformationCardProps, Information
         super(props)
 
         this.state = {
-            avatar: utools.getUser()?.avatar ?? '',
-            username: utools.getUser()?.nickname ?? 'Unknown',
+            avatar: utools.getUser()?.avatar ?? 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAABgCAMAAADVRocKAAAAQlBMVEUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACO4fbyAAAAFXRSTlMACOHTj+9DaxMoHXNWTbC8ncY7gTBQQCg8AAACc0lEQVRo3u2Z3XK0IAyGSyAIImjXzf3f6nf27bQbeUGcTjvjcxxD/gwQPm5ubpoJfnKrJRZhsqubfLhQucnOyhvWZXOJ+sfGckTJw8ZPJFVoMiPqEwmE0uklMkkTtJxSPxdppswnzGfpgHudME462boyET6lm8/QEX4rJ7DNiYh0oMH5aEz0zooKxUb7SVfvXyIPPYTU5EPQ7Zu+Sk26EQ15MKpx7L/LeVYzjWvJiYZXmqBoOKR/AfGBUVpAglXHrS6sJovriS44QC+8aJRqAxLkAHZBcqWCCCcOFwQdV1ISHCEcI0mdDkg87CnS58IkOubQItGZDuTpqgUIRPRciHDWNiDeYdKm+suigMpUhw34yTp+NJ0MzDnRKrDTVoALg18EUQDtukLA/uINp4bH9uAts8YEcty96eMsr/ICHlu8FcAKSqL74IXLiGQI3O9YLoXfFpCL+ekFrg/RzyfZyqVY8KMNs4JWMYwDzW6YCbTrYbyy4VTh1aXlOQdjwvxckltBWYeeDZC2Jb7Lx2UjXEQ4yzbFyoU3WZBjcGxhB6++T6cFKzcdvDiZk1MlVj/cKurREqwcHUGhrnPXcOlrI3jg47sbmf9YfAHZP7rZ8QXEUOUqiin4Fpj+i4R+/YHAJRC40OuAThZoBfReMjADDDXgEKW0DkOWc/p5RpJgheGv3ImfLenf4JFaaWt2pTJSA0NB67G8p8pQEI81C/gkbGCsCQezvIeK+p3xYBaPlo+2tejAaLl9OG73+KZ9t2A4Dtq7cm5ZHnE2Zo6PRTm1OPO7HiiGnliufyTKv/WZ67qHOnx00+HN/4XH0sPn3pubm1b+AbmqIcRUyWtIAAAAAElFTkSuQmCC',
+            username: utools.getUser()?.nickname ?? 'Unknown User',
             version: utools.getAppVersion(),
             nativeId: utools.getNativeId(),
         }
@@ -40,7 +40,6 @@ export class InformationCard extends Component<InformationCardProps, Information
     render() {
         return (
             <Fragment>
-                <div class="gap"/>
                 <div class="gap"/>
                 <div class="form-item information-card card">
                     <div class="card-header">
