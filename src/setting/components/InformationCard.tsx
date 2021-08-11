@@ -31,7 +31,7 @@ export class InformationCard extends Component<InformationCardProps, Information
 
         this.state = {
             avatar: utools.getUser()?.avatar ?? '',
-            username: utools.getUser()?.nickname ?? '',
+            username: utools.getUser()?.nickname ?? 'Unknown',
             version: utools.getAppVersion(),
             nativeId: utools.getNativeId(),
         }
@@ -92,7 +92,8 @@ export class InformationCard extends Component<InformationCardProps, Information
                             </div>
                             <div
                                 class="form-group tooltip tooltip-bottom"
-                                data-tooltip="Native ID 用于标识配置文件项的前缀"
+                                data-tooltip="Native ID 用于标识配置文件项的前缀
+本机配置文件可以在「账号与数据」中找到"
                             >
                                 <div class="col-3 col-sm-12">
                                     <label
