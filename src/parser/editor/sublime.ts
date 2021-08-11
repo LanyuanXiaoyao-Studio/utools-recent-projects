@@ -20,6 +20,10 @@ export class SublimeApplicationImpl extends ApplicationImpl<SublimeProjectItemIm
         )
     }
 
+    parsePath(source: string): string {
+        return source.replace(/^\/(\w+)(?=\/)/g, '$1:')
+    }
+
     async generateProjectItems(): Promise<Array<SublimeProjectItemImpl>> {
         let items: Array<SublimeProjectItemImpl> = []
         let buffer = await readFile(this.config)
@@ -50,10 +54,10 @@ export class SublimeApplicationImpl extends ApplicationImpl<SublimeProjectItemIm
                 items.push({
                     id: '',
                     title: `${parser.name}${parser.ext}`,
-                    description: path,
+                    description: this.parsePath(path),
                     icon: this.icon,
                     searchKey: path,
-                    command: `"${this.executor}" "${path}"`,
+                    command: `"${this.executor}" "${this.parsePath(path)}"`,
                 })
             })
         }

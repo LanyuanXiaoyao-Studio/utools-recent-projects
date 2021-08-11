@@ -47,7 +47,7 @@
       macOS: `/Users/lanyuanxiaoyao/Library/Application Support/Sublime Text/Local/Session.sublime_session`
     - **可执行程序路径在 (注意 Sublime Text 单独提供了命令行程序, 不是程序本体)**
       macOS: `/Users/lanyuanxiaoyao/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl`
-      ![](https://z3.ax1x.com/2021/08/09/f8UijS.png)
+      ![](https://z3.ax1x.com/2021/08/11/fUU2rt.png)
 - WPS Office International for mac
     WPS 使用`open`命令打开, 无需设置可执行程序路径
     - **数据文件在**
