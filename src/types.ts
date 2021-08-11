@@ -108,6 +108,7 @@ export enum Platform {
     win32,
     darwin,
     linux,
+    unknown,
 }
 
 export interface SettingItem {

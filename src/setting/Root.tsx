@@ -1,25 +1,41 @@
-import {Component} from 'nano-jsx'
-import {Fragment} from 'nano-jsx/lib'
+import {Component, Fragment} from 'nano-jsx'
 import {CustomCss, CustomDarkCss, SpectreCss, SpectreIconCss} from './css'
 import {applications} from '../applications'
-import {Application, ProjectItemImpl} from '../types'
+import {Application, Platform, ProjectItemImpl} from '../types'
 import {SettingCard} from './components/SettingCard'
 import {Catalogue} from './components/Catalogue'
 import {Announcement} from './components/Announcement'
+import {contain} from 'licia'
+import {InformationCard} from './components/InformationCard'
 import Nano = require('nano-jsx')
+
+const getPlatform: () => Platform = () => {
+    if (utools.isWindows()) {
+        return Platform.win32
+    } else if (utools.isMacOs()) {
+        return Platform.darwin
+    } else if (utools.isLinux()) {
+        return Platform.linux
+    } else {
+        return Platform.unknown
+    }
+}
 
 interface RootProps {}
 
 interface RootState {
     applications: Array<Application<ProjectItemImpl>>
+    platform: Platform
 }
 
 class Root extends Component<RootProps, RootState> {
     constructor(props: RootProps) {
         super(props)
 
+        let platform = getPlatform()
         this.state = {
-            applications: applications,
+            applications: applications.filter(app => contain(app.platform, platform)),
+            platform: platform,
         }
         this.state.applications.forEach(app => app.update(utools.getNativeId()))
     }
@@ -41,21 +57,16 @@ class Root extends Component<RootProps, RootState> {
                 </head>
                 <body
                     class={utools.isDarkColors() ? 'dark' : ''}
-                    style={{ padding: '10px' }}
+                    style={{ padding: '5px' }}
                 >
                     <div id="root"/>
                     <div class="container">
                         <div class="columns">
-                            <div
-                                class="column col-3"
-                                style={{ paddingTop: '10px' }}
-                            >
+                            <div class="column col-3">
                                 <Catalogue applications={this.state.applications}/>
                             </div>
-                            <div
-                                class="column col-9"
-                                style={{ padding: '10px' }}
-                            >
+                            <div class="column col-9">
+                                <InformationCard platform={this.state.platform}/>
                                 {this.state.applications.map(app => <SettingCard application={app}/>)}
                             </div>
                         </div>

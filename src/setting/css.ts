@@ -56,6 +56,17 @@ export const CustomCss: string = `
     height : 8px;
   }
 
+  .information-card .icon {
+    width          : 42px;
+    height         : 42px;
+    vertical-align : middle;
+  }
+
+  .information-card .title {
+    margin-left : 1.2rem;
+    font-weight: bold;
+  }
+
   .form-button-group {
     text-align : center;
     margin-top : 10px;
