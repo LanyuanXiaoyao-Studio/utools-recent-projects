@@ -1,4 +1,4 @@
-import {ApplicationImpl, Platform, ProjectItemImpl, SettingItem} from '../../types'
+import {ApplicationConfigState, ApplicationImpl, Platform, ProjectItemImpl, SettingItem} from '../../types'
 import {isEmpty, isNil} from 'licia'
 import {parse} from 'path'
 import plistParser = require('bplist-parser')
@@ -80,6 +80,14 @@ export class WpsMacInternationalApplicationImpl extends ApplicationImpl<WpsMacIn
                 value: this.config,
             }),
         ]
+    }
+
+    isFinishConfig(): ApplicationConfigState {
+        if (isEmpty(this.config)) {
+            return ApplicationConfigState.empty
+        } else {
+            return ApplicationConfigState.done
+        }
     }
 }
 

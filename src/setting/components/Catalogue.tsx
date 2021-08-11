@@ -1,6 +1,6 @@
 import {Component, Fragment} from 'nano-jsx'
-import {Application, ProjectItemImpl} from '../../types'
-import {isEmpty, isNil} from 'licia'
+import {Application, ApplicationConfigState, ProjectItemImpl} from '../../types'
+import {isNil} from 'licia'
 import {settingStore} from '../store'
 import Nano = require('nano-jsx')
 
@@ -60,12 +60,13 @@ export class Catalogue extends Component<CatalogueProps, CatalogueState> {
     }
 
     badge(application: Application<ProjectItemImpl>): BadgeInfo {
-        if (isEmpty(application.config) && isEmpty(application.executor)) {
-            return { show: false, class: '', text: '' }
-        } else if (isEmpty(application.config) || isEmpty(application.executor)) {
-            return { show: true, class: 'badge badge-unready', text: '待完善' }
-        } else {
-            return { show: true, class: 'badge badge-ready', text: '已配置' }
+        switch (application.isFinishConfig()) {
+            case ApplicationConfigState.empty:
+                return { show: false, class: '', text: '' }
+            case ApplicationConfigState.undone:
+                return { show: true, class: 'badge badge-unready', text: '待完善' }
+            case ApplicationConfigState.done:
+                return { show: true, class: 'badge badge-ready', text: '已配置' }
         }
     }
 

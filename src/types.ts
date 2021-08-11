@@ -84,7 +84,7 @@ export abstract class ProjectArgsImpl extends ArgsImpl<ProjectItemImpl> {
     getProjectItems: (localId: string) => Promise<Array<ProjectItemImpl>> = async localId => {
         this.updateApplications(localId)
         for (let app of this.applications) {
-            if (!isEmpty(app.config) && !isEmpty(app.executor)) {
+            if (app.isFinishConfig() === ApplicationConfigState.done) {
                 (await app.generateProjectItems()).forEach(p => this.projectItemCache.push(p))
             }
         }
@@ -118,6 +118,12 @@ export interface SettingItem {
     readonly value: string
 }
 
+export enum ApplicationConfigState {
+    empty,
+    undone,
+    done,
+}
+
 /**
  * 应用
  */
@@ -135,6 +141,7 @@ export interface Application<P extends ProjectItemImpl> {
     update: (nativeId: string) => void
     generateSettingItems: (nativeId: string) => Array<SettingItem>
     generateProjectItems: () => Promise<Array<P>>
+    isFinishConfig: () => ApplicationConfigState
 }
 
 /**
@@ -193,6 +200,16 @@ export abstract class ApplicationImpl<P extends ProjectItemImpl> implements Appl
                 value: this.executor,
             }),
         ]
+    }
+
+    isFinishConfig(): ApplicationConfigState {
+        if (isEmpty(this.config) && isEmpty(this.executor)) {
+            return ApplicationConfigState.empty
+        } else if (isEmpty(this.config) || isEmpty(this.executor)) {
+            return ApplicationConfigState.undone
+        } else {
+            return ApplicationConfigState.done
+        }
     }
 
     abstract generateProjectItems(): Promise<Array<P>>
