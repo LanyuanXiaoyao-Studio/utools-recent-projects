@@ -59,7 +59,7 @@ export class AllProjectArgs extends ProjectArgsImpl {
             }
         } else {
             let text = searchText.toLocaleLowerCase()
-            callback(this.projectItemCache.filter(item => item.searchKey.indexOf(text) > -1))
+            callback(this.projectItemCache.filter(item => item.searchKey.toLocaleLowerCase().indexOf(text) > -1))
         }
     }
 
