@@ -9,7 +9,7 @@
 > 为了玩一下自定义模板插件的设置界面, 所以造了个轮子, uTools 插件市场也有同类型的插件, 也非常好用 :P
 > 关于自定义模板插件设置界面的细节, 可以参照[这篇文章](https://yuanliao.info/d/3979)
 
-> 由于有的软件的历史记录, 如 vscode, 没有打开时间, 所以在「Projects」关键字里面查看的所有历史项目将不会按照最近打开时间排序(不同软件的历史记录没办法互相排序), 在单独的关键字里, 如「JetBrains Projects」, 会根据最近打开时间排序.
+> 由于有的软件的历史记录, 如 vscode, 没有打开时间, 所以在「Projects」关键字里面查看的所有历史项目将不会按照最近打开时间排序(不同软件的历史记录没办法互相排序), 在单独的关键字里, 如「JetBrains Projects」, 会根据最近打开时间排序
 
 > Linux 在 uTools 2.x 支持 Linux 之后再支持
 
@@ -48,6 +48,10 @@
     - **可执行程序路径在 (注意 Sublime Text 单独提供了命令行程序, 不是程序本体)**
       macOS: `/Users/lanyuanxiaoyao/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl`
       ![](https://z3.ax1x.com/2021/08/09/f8UijS.png)
+- WPS Office International for mac
+    WPS 使用`open`命令打开, 无需设置可执行程序路径
+    - **数据文件在**
+      `/Users/lanyuanxiaoyao/Library/Containers/com.kingsoft.wpsoffice.mac.global/Data/Library/Preferences/com.kingsoft.plist`
 
 配置完成后可以在「Projects」关键字里搜索到全部项目, 或者在各个单独的关键字里只搜索某个软件的项目, 如「jb」, 「vsc」(关键字的分类一般按系列软件区分, 如 JetBrains 系列不再细分, 主要是因为我懒).
 

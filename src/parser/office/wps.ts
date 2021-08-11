@@ -1,4 +1,4 @@
-import {ApplicationImpl, Platform, ProjectItemImpl} from '../../types'
+import {ApplicationImpl, Platform, ProjectItemImpl, SettingItem} from '../../types'
 import {isEmpty, isNil} from 'licia'
 import {parse} from 'path'
 import plistParser = require('bplist-parser')
@@ -32,7 +32,7 @@ export class WpsMacInternationalApplicationImpl extends ApplicationImpl<WpsMacIn
     constructor() {
         super(
             'wps-mac-internation',
-            'WPS Office international for mac',
+            'WPS Office Suite for Mac',
             'icon/wps-mac-internation.png',
             WPS_MAC_INTERNATION,
             [Platform.darwin],
@@ -68,6 +68,18 @@ export class WpsMacInternationalApplicationImpl extends ApplicationImpl<WpsMacIn
                 })
         }
         return items
+    }
+
+    generateSettingItems(nativeId: string): Array<SettingItem> {
+        let configId = this.configId(nativeId)
+        let configTitle = `设置 ${this.name} 「${this.configFilename}」文件路径`
+        return [
+            Object.create({
+                id: configId,
+                name: configTitle,
+                value: this.config,
+            }),
+        ]
     }
 }
 
