@@ -36,6 +36,7 @@ export class SettingCard extends Component<SettingCardProps, SettingCardState> {
     select(id: string, name: string) {
         let result = utools.showOpenDialog({
             title: name,
+            message: name,
             properties: [
                 'openFile',
                 'treatPackageAsDirectory',
