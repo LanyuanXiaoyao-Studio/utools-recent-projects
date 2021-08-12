@@ -33,11 +33,13 @@ export class SettingCard extends Component<SettingCardProps, SettingCardState> {
         this.store.setState({ catalogueUpdate: !this.store.state.catalogueUpdate })
     }
 
-    select(id: string) {
+    select(id: string, name: string) {
         let result = utools.showOpenDialog({
+            title: name,
             properties: [
                 'openFile',
                 'treatPackageAsDirectory',
+                'showHiddenFiles',
             ],
         })
         if (isNil(result) || isEmpty(result)) {
@@ -85,7 +87,7 @@ export class SettingCard extends Component<SettingCardProps, SettingCardState> {
                                         class="form-input input-sm"
                                         value={item.value == null ? '' : item.value}
                                         placeholder="点击输入框选择路径"
-                                        onclick={() => this.select(item.id)}
+                                        onclick={() => this.select(item.id, item.name)}
                                         readonly
                                     />
                                     <button
