@@ -14,6 +14,7 @@ const extensionIcon: (string) => string = extensionName => {
         case 'xls':
         case 'xlsx':
         case 'et':
+        case 'csv':
             return 'icon/xls.png'
         case 'ppt':
         case 'pptx':
