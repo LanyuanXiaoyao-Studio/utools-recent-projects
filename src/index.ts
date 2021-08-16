@@ -1,12 +1,12 @@
-import {Action, Callback, ProjectArgsImpl, ProjectItemImpl} from './types'
-import {isEmpty, isNil} from 'licia'
-import {exec} from 'child_process'
+import {Action, Callback, NoExecutor, ProjectArgsImpl, ProjectItemImpl} from './types'
+import {isEmpty} from 'licia'
 import {SettingUIFeature} from './setting/setting'
 import {
     applications,
     jetBrainsApplications,
     sublimeApplications,
     vscodeApplications,
+    vsStudioApplications,
     wpsApplications,
 } from './applications'
 import {JetBrainsProjectItemImpl} from './parser/ide/jetBrains'
@@ -18,7 +18,7 @@ const emptyTips: ProjectItemImpl = {
     description: '如果你还没有设置改软件的相关配置，请先在 Setting 关键字中设置相关配置内容，点击可跳转设置界面',
     icon: 'info.png',
     searchKey: '',
-    command: '',
+    command: new NoExecutor(),
 }
 
 const unSupportTips: ProjectItemImpl = {
@@ -27,7 +27,7 @@ const unSupportTips: ProjectItemImpl = {
     description: '当然关键字对应的历史项目索引不支持当前平台，如果影响了你的日常操作，可以在插件详情中禁用',
     icon: 'info.png',
     searchKey: '',
-    command: '',
+    command: new NoExecutor(),
 }
 
 export class AllProjectArgs extends ProjectArgsImpl {
@@ -68,19 +68,7 @@ export class AllProjectArgs extends ProjectArgsImpl {
             utools.redirect('Setting', '')
             return
         }
-        if (isEmpty(item.command)) {
-            utools.showNotification('参数错误，请向作者反馈')
-            return
-        }
-        exec(item.command, error => {
-            console.log(error)
-            if (isNil(error)) {
-                utools.hideMainWindow()
-                utools.outPlugin()
-            } else {
-                utools.showNotification(error?.message ?? '未知错误，请向作者反馈')
-            }
-        })
+        item.command.execute()
     }
 }
 
@@ -110,6 +98,10 @@ export const build: any = {
     },
     'wps-project': {
         args: new AllProjectArgs(wpsApplications),
+        mode: 'list',
+    },
+    'vs-studio-project': {
+        args: new AllProjectArgs(vsStudioApplications),
         mode: 'list',
     },
 }

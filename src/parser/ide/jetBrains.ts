@@ -1,4 +1,4 @@
-import {Application, ApplicationImpl, Platform, ProjectItemImpl} from '../../types'
+import {Application, ApplicationImpl, Executor, Platform, ProjectItemImpl, ShellExecutor} from '../../types'
 import {readFile} from 'fs/promises'
 import {isEmpty, isNil} from 'licia'
 import {parse} from 'path'
@@ -9,7 +9,7 @@ const JETBRAINS: string = 'jetbrains'
 export class JetBrainsProjectItemImpl extends ProjectItemImpl {
     datetime: number
 
-    constructor(id: string, title: string, description: string, icon: string, searchKey: string, command: string, datetime: number) {
+    constructor(id: string, title: string, description: string, icon: string, searchKey: string, command: Executor, datetime: number) {
         super(id, title, description, icon, searchKey, command)
         this.datetime = datetime
     }
@@ -42,7 +42,7 @@ export class JetBrainsApplicationImpl extends ApplicationImpl<JetBrainsProjectIt
                         description: path,
                         icon: this.icon,
                         searchKey: parseObj.name,
-                        command: `"${this.executor}" "${path}"`,
+                        command: new ShellExecutor(`"${this.executor}" "${path}"`),
                         datetime: parseInt(`${datetime}`),
                     })
                 }

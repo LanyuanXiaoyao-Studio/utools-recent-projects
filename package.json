@@ -7,6 +7,7 @@
     "build": "bash build.sh"
   },
   "devDependencies": {
+    "@types/electron": "^1.6.10",
     "@types/mousetrap": "^1.6.8",
     "@types/node": "^16.4.6",
     "copy-webpack-plugin": "^9.0.1",

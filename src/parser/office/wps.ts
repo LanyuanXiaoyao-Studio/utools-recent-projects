@@ -1,4 +1,11 @@
-import {ApplicationConfigState, ApplicationImpl, Platform, ProjectItemImpl, SettingItem} from '../../types'
+import {
+    ApplicationConfigState,
+    ApplicationImpl,
+    Platform,
+    ProjectItemImpl,
+    SettingItem,
+    ShellExecutor,
+} from '../../types'
 import {isEmpty, isNil} from 'licia'
 import {parse} from 'path'
 import plistParser = require('bplist-parser')
@@ -64,7 +71,7 @@ export class WpsMacInternationalApplicationImpl extends ApplicationImpl<WpsMacIn
                         description: path,
                         icon: isEmpty(icon) ? this.icon : icon,
                         searchKey: path,
-                        command: `open "${path}"`,
+                        command: new ShellExecutor(`open "${path}"`),
                     })
                 })
         }

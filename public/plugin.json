@@ -69,6 +69,16 @@
         "WPS Office Projects",
         "我的 WPS Office 项目"
       ]
+    },
+    {
+      "code"   : "vs-studio-project",
+      "explain": "快速打开我的 Visual Studio 项目",
+      "icon"   : "icon/android.png",
+      "cmds"   : [
+        "vs",
+        "Visual Studio",
+        "我的 Visual Studio 项目"
+      ]
     }
   ]
 }

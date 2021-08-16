@@ -1,0 +1,72 @@
+import {
+    Application,
+    ApplicationConfigState,
+    ApplicationImpl,
+    Executor,
+    Platform,
+    ProjectItemImpl,
+    UToolsExecutor,
+} from '../../types'
+import {readFile} from 'fs/promises'
+import {isEmpty, isNil} from 'licia'
+import {parse} from 'path'
+import $ = require('licia/$')
+
+const VS_STUDIO: string = 'vs-studio'
+
+export class VsStudioProjectItemImpl extends ProjectItemImpl {
+    datetime: number
+
+    constructor(id: string, title: string, description: string, icon: string, searchKey: string, command: Executor, datetime: number) {
+        super(id, title, description, icon, searchKey, command)
+        this.datetime = datetime
+    }
+}
+
+export class VsStudioApplicationImpl extends ApplicationImpl<VsStudioProjectItemImpl> {
+    constructor(id: string, name: string, icon: string, platform: Array<Platform> = [Platform.win32], configFilename: string = 'ApplicationPrivateSettings.xml') {
+        super(id, name, icon, VS_STUDIO, platform, 'Visual Studio', configFilename)
+    }
+
+    async generateProjectItems(): Promise<Array<VsStudioProjectItemImpl>> {
+        let items: Array<VsStudioProjectItemImpl> = []
+        let buffer = await readFile(this.config)
+        if (!isNil(buffer)) {
+            let content = buffer.toString()
+            $('#root').append(`<div id=${this.id} style="display: none">${content}</div>`)
+
+            let source = $(`#${this.id} collection[name=CodeContainers\\.Offline] > value`).text()
+            let projects = JSON.parse(source)
+            if (!isNil(projects) && !isEmpty(projects)) {
+                projects.forEach(p => {
+                    let path = p?.Value?.LocalProperties?.FullPath ?? ''
+                    let datetime = Date.parse(p?.Value?.LastAccessed ?? '')
+                    let parseObj = parse(path)
+                    items.push({
+                        id: '',
+                        title: parseObj.name,
+                        description: path,
+                        icon: this.icon,
+                        searchKey: parseObj.name,
+                        command: new UToolsExecutor(path),
+                        datetime: parseInt(`${datetime}`),
+                    })
+                })
+            }
+            $(`#${this.id}`).remove()
+        }
+        return items
+    }
+
+    isFinishConfig(): ApplicationConfigState {
+        if (isEmpty(this.config)) {
+            return ApplicationConfigState.empty
+        } else {
+            return ApplicationConfigState.done
+        }
+    }
+}
+
+export const applications: Array<Application<VsStudioProjectItemImpl>> = [
+    new VsStudioApplicationImpl('vs-studio', 'Visual Studio', 'icon/android.png'),
+]

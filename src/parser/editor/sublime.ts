@@ -1,4 +1,4 @@
-import {ApplicationImpl, Platform, ProjectItemImpl} from '../../types'
+import {ApplicationImpl, Platform, ProjectItemImpl, ShellExecutor} from '../../types'
 import {readFile} from 'fs/promises'
 import {isNil} from 'licia'
 import {parse} from 'path'
@@ -57,7 +57,7 @@ export class SublimeApplicationImpl extends ApplicationImpl<SublimeProjectItemIm
                     description: this.parsePath(path),
                     icon: this.icon,
                     searchKey: path,
-                    command: `"${this.executor}" "${this.parsePath(path)}"`,
+                    command: new ShellExecutor(`"${this.executor}" "${this.parsePath(path)}"`),
                 })
             })
         }

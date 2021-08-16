@@ -1,4 +1,66 @@
-import {isEmpty} from 'licia'
+import {isEmpty, isNil} from 'licia'
+import {exec} from 'child_process'
+import {shell} from 'electron'
+
+export interface Executor {
+    readonly command: string
+    execute: () => void
+}
+
+export class NoExecutor implements Executor {
+    readonly command: string
+
+    constructor() {
+        this.command = ''
+    }
+
+    execute(): void {
+    }
+}
+
+export class ShellExecutor implements Executor {
+    readonly command: string
+
+    constructor(command: string) {
+        this.command = command
+    }
+
+    execute(): void {
+        if (isEmpty(this.command)) {
+            utools.showNotification('参数错误，请向作者反馈')
+            return
+        }
+        exec(this.command, error => {
+            if (isNil(error)) {
+                utools.hideMainWindow()
+                utools.outPlugin()
+            } else {
+                utools.showNotification(error?.message ?? '未知错误，请向作者反馈')
+            }
+        })
+    }
+}
+
+export class UToolsExecutor implements Executor {
+    readonly command: string
+
+    constructor(command: string) {
+        this.command = command
+    }
+
+    execute(): void {
+        if (isEmpty(this.command)) {
+            utools.showNotification('参数错误，请向作者反馈')
+            return
+        }
+        shell.openExternal(this.command)
+            .then(() => {
+                utools.hideMainWindow()
+                utools.outPlugin()
+            })
+            .catch(error => utools.showNotification(error?.message ?? '未知错误，请向作者反馈'))
+    }
+}
 
 /**
  * 选项
@@ -28,9 +90,9 @@ export abstract class ItemImpl implements Item {
 }
 
 export abstract class ProjectItemImpl extends ItemImpl {
-    command: string
+    command: Executor
 
-    protected constructor(id: string, title: string, description: string, icon: string, searchKey: string, command: string) {
+    protected constructor(id: string, title: string, description: string, icon: string, searchKey: string, command: Executor) {
         super(id, title, description, icon, searchKey)
         this.command = command
     }

@@ -1,4 +1,4 @@
-import {ApplicationImpl, Platform, ProjectItemImpl} from '../../types'
+import {ApplicationImpl, Platform, ProjectItemImpl, ShellExecutor} from '../../types'
 import {readFile} from 'fs/promises'
 import {isEmpty, isNil, Url} from 'licia'
 import {parse} from 'path'
@@ -50,7 +50,7 @@ export class VscodeApplicationImpl extends ApplicationImpl<VscodeProjectItemImpl
                         description: url.pathname,
                         icon: this.icon,
                         searchKey: url.pathname,
-                        command: `"${this.executor}" ${args} "${uri}"`,
+                        command: new ShellExecutor(`"${this.executor}" ${args} "${uri}"`),
                     })
                 }
             }
