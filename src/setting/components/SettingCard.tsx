@@ -76,7 +76,19 @@ export class SettingCard extends Component<SettingCardProps, SettingCardState> {
                             class="form-legend-icon"
                             src={iconMap[this.props.application.icon]}
                         />
-                        <span class="form-legend-title">{this.props.application.name}</span>
+                        <span
+                            class={this.props.application.beta ? 'form-legend-title badge badge-unready' : 'form-legend-title'}
+                            data-badge="beta"
+                        >
+                            <span
+                                class={this.props.application.beta ? 'tooltip tooltip-top' : ''}
+                                data-tooltip="beta 标识意味着这个功能处于试验阶段
+但我无法测试所有使用场景
+需要你在遇到无法正常使用的时候向我积极反馈"
+                            >
+                                {this.props.application.name}
+                            </span>
+                        </span>
                     </div>
                     <div class="form-group card-body">
                         {this.props.application.generateSettingItems(utools.getNativeId()).map(item => (

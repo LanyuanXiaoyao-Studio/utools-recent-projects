@@ -48,8 +48,8 @@ export const CustomCss: string = `
     height    : 0.75rem;
   }
 
-  .nav .badge[data-badge].badge-unready::after {
-    background-color : #ffb700;
+  .badge[data-badge].badge-unready::after {
+    background-color : #f3ae00;
   }
 
   .nav .nav-item .icon + b {

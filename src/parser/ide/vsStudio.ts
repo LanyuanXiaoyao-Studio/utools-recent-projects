@@ -26,7 +26,7 @@ export class VsStudioProjectItemImpl extends ProjectItemImpl {
 
 export class VsStudioApplicationImpl extends ApplicationImpl<VsStudioProjectItemImpl> {
     constructor(id: string, name: string, icon: string, platform: Array<Platform> = [Platform.win32], configFilename: string = 'ApplicationPrivateSettings.xml') {
-        super(id, name, icon, VS_STUDIO, platform, 'Visual Studio', configFilename)
+        super(id, name, icon, VS_STUDIO, platform, 'Visual Studio', configFilename, true)
     }
 
     async generateProjectItems(): Promise<Array<VsStudioProjectItemImpl>> {

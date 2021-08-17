@@ -46,6 +46,7 @@ export class WpsMacInternationalApplicationImpl extends ApplicationImpl<WpsMacIn
             [Platform.darwin],
             'Office',
             'com.kingsoft.plist',
+            true,
         )
     }
 
