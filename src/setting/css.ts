@@ -99,6 +99,13 @@ export const CustomCss: string = `
     display          : inline;
     background-color : white;
   }
+
+  .form-item .card-description {
+    padding   : 0 0.8rem;
+    font-size : 0.7rem;
+    color     : gray;
+    width     : 100%;
+  }
 `
 
 // language=CSS
@@ -111,8 +118,13 @@ export const CustomDarkCss: string = `
 
   body.dark .nav .nav-item a,
   body.dark .form-legend-title,
-  body.dark .form-label {
+  body.dark .form-label,
+  body.dark .information-card .title {
     color : #dedede;
+  }
+
+  body.dark .form-item .card-description {
+    color : #b4b4b4;
   }
 
   body.dark .form-input {

@@ -26,7 +26,17 @@ export class VsStudioProjectItemImpl extends ProjectItemImpl {
 
 export class VsStudioApplicationImpl extends ApplicationImpl<VsStudioProjectItemImpl> {
     constructor(id: string, name: string, icon: string, platform: Array<Platform> = [Platform.win32], configFilename: string = 'ApplicationPrivateSettings.xml') {
-        super(id, name, icon, VS_STUDIO, platform, 'Visual Studio', configFilename, true)
+        super(
+            id,
+            name,
+            icon,
+            VS_STUDIO,
+            platform,
+            'Visual Studio',
+            configFilename,
+            '历史项目将使用默认关联的应用打开, 想要实现直接通过 Visual Studio 打开, 需要自行设置 sln 文件与 Visual Studio 默认关联',
+            true,
+        )
     }
 
     async generateProjectItems(): Promise<Array<VsStudioProjectItemImpl>> {
