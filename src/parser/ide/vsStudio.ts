@@ -81,5 +81,5 @@ export class VsStudioApplicationImpl extends ApplicationImpl<VsStudioProjectItem
 }
 
 export const applications: Array<Application<VsStudioProjectItemImpl>> = [
-    new VsStudioApplicationImpl('vs-studio', 'Visual Studio', 'icon/android.png'),
+    new VsStudioApplicationImpl('vs-studio', 'Visual Studio', 'icon/vs-studio.png'),
 ]
