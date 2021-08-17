@@ -45,8 +45,6 @@ cd "${temp}/node_modules/bplist-parser"
 rm -rf *.md .editorconfig .eslintignore .eslintrc.js
 cd $temp
 
-rm -rf .yarn-integrity
-
 cd $current_path
 cp -r "${temp}/node_modules" $dist/
 rm -rf $temp
