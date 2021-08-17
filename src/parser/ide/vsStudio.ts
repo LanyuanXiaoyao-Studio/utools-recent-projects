@@ -5,6 +5,7 @@ import {
     Executor,
     Platform,
     ProjectItemImpl,
+    SettingItem,
     UToolsExecutor,
 } from '../../types'
 import {readFile} from 'fs/promises'
@@ -56,6 +57,18 @@ export class VsStudioApplicationImpl extends ApplicationImpl<VsStudioProjectItem
             $(`#${this.id}`).remove()
         }
         return items
+    }
+
+    generateSettingItems(nativeId: string): Array<SettingItem> {
+        let configId = this.configId(nativeId)
+        let configTitle = `设置 ${this.name} 「${this.configFilename}」文件路径`
+        return [
+            Object.create({
+                id: configId,
+                name: configTitle,
+                value: this.config,
+            }),
+        ]
     }
 
     isFinishConfig(): ApplicationConfigState {
