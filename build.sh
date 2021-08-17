@@ -5,8 +5,8 @@ dist='dist'
 rm -rf $dist
 mkdir $dist
 
-cp -r public/* $dist
 node build-icon.js
+cp -r public/* $dist
 tsc --outDir $dist
 
 current_path=`pwd`

@@ -3,8 +3,8 @@ $dist="dist"
 Remove-Item -Force -Recurse $dist
 mkdir $dist
 
-Copy-Item -Path .\public\* $dist
 node .\build-icon.js
+Copy-Item -Recurse -Path .\public\* $dist
 tsc --outDir $dist
 
 $current_path=Get-Location
