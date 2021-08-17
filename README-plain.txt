@@ -35,5 +35,9 @@ Gitee  https://gitee.com/LanyuanXiaoyao-Studio/utools-recent-projects
     WPS 使用`open`命令打开, 无需设置可执行程序路径
     - 数据文件在
       `/Users/lanyuanxiaoyao/Library/Containers/com.kingsoft.wpsoffice.mac.global/Data/Library/Preferences/com.kingsoft.plist`
+- Visual Studio
+    - 数据文件在
+      如果是在官网使用官方下载器安装, 那么数据文件应该在以下位置, 目前方案是依据最新的 Visual Studio 2019 开发, 暂不考虑过往版本
+      `C:\Users\Administrator\AppData\Local\Microsoft\VisualStudio\版本号\ApplicationPrivateSettings.xml`
 
 配置完成后可以在「Projects」关键字里搜索到全部项目, 或者在各个单独的关键字里只搜索某个软件的项目, 如「jb」, 「vsc」(关键字的分类一般按系列软件区分, 如 JetBrains 系列不再细分, 主要是因为我懒).
