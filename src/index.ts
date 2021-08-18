@@ -47,6 +47,8 @@ export class AllProjectArgs extends ProjectArgsImpl {
             .catch(error => {
                 console.log(error)
                 utools.showNotification(error.message)
+                utools.copyText(error.message)
+                utools.showNotification('错误信息已复制到剪贴板')
             })
     }
 

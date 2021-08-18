@@ -9,13 +9,16 @@ import {
 import {execSync} from 'child_process'
 import {isEmpty, isNil} from 'licia'
 import {parse} from 'path'
+import {statSync} from 'fs'
 
-const SCRIPT = `osascript -e "use framework \\"Foundation\\"
+const XCODE: string = 'xcode'
+
+const generateScript: (string) => string = configPath => `osascript -e "use framework \\"Foundation\\"
 use scripting additions
 property |⌘| : a reference to current application
 set documentPaths to {}
 try
-  set recentDocumentsPath to \\"/Users/lanyuanxiaoyao/Library/Application Support/com.apple.sharedfilelist/com.apple.LSSharedFileList.ApplicationRecentDocuments/com.apple.dt.xcode.sfl2\\"
+  set recentDocumentsPath to \\"${configPath}\\"
   set plistData to |⌘|'s NSData's dataWithContentsOfFile:recentDocumentsPath
   set recentDocuments to |⌘|'s NSKeyedUnarchiver's unarchiveObjectWithData:plistData
   repeat with doc in (recentDocuments's objectForKey:\\"items\\")
@@ -31,8 +34,6 @@ on error
 end try"
 `
 
-const XCODE: string = 'xcode'
-
 export class XcodeProjectItemImpl extends ProjectItemImpl {}
 
 export class XcodeApplicationImpl extends ApplicationImpl<XcodeProjectItemImpl> {
@@ -45,14 +46,19 @@ export class XcodeApplicationImpl extends ApplicationImpl<XcodeProjectItemImpl> 
             [Platform.darwin],
             'Xcode',
             'com.apple.dt.xcode.sfl2',
-            'Xcode 配置文件位置固定, 应该无需额外配置, 如果你的配置文件存在不在默认路径的情况, 请向我反馈',
+            'Xcode 配置文件位置固定在 /Users/xxx/Library/Application Support/com.apple.sharedfilelist/com.apple.LSSharedFileList.ApplicationRecentDocuments/com.apple.dt.xcode.sfl2, 应该无需额外配置, 如果你的配置文件存在不在默认路径的情况, 请向我反馈',
             true,
         )
     }
 
     async generateProjectItems(): Promise<Array<XcodeProjectItemImpl>> {
         let items: Array<XcodeProjectItemImpl> = []
-        let result = execSync(SCRIPT, { encoding: 'utf-8' })
+        let userPath = utools.getPath('home')
+        let configPath = `${userPath}/Library/Application Support/com.apple.sharedfilelist/com.apple.LSSharedFileList.ApplicationRecentDocuments/com.apple.dt.xcode.sfl2`
+        if (isNil(statSync(configPath))) {
+            throw new Error(`无法找到配置文件 ${configPath}`)
+        }
+        let result = execSync(generateScript(configPath), { encoding: 'utf-8' })
         if (!isNil(result) && !isEmpty(result)) {
             let paths = result.split(',').map(p => p.trim())
             paths.forEach(p => {

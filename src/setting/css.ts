@@ -101,10 +101,11 @@ export const CustomCss: string = `
   }
 
   .form-item .card-description {
-    padding   : 0 0.8rem;
-    font-size : 0.7rem;
-    color     : gray;
-    width     : 100%;
+    padding    : 0 0.8rem;
+    font-size  : 0.7rem;
+    color      : gray;
+    width      : 100%;
+    word-break : break-word;
   }
 `
 
