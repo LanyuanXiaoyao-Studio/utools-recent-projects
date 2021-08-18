@@ -61,30 +61,39 @@
       ]
     },
     {
-      "code"   : "wps-project",
-      "explain": "快速打开我的 WPS Office 项目",
-      "icon"   : "icon/wps-mac-internation.png",
-      "cmds"   : [
+      "code"    : "wps-project",
+      "explain" : "快速打开我的 WPS Office 项目",
+      "icon"    : "icon/wps-mac-internation.png",
+      "platform": [
+        "darwin"
+      ],
+      "cmds"    : [
         "wps",
         "WPS Office Projects",
         "我的 WPS Office 项目"
       ]
     },
     {
-      "code"   : "vs-studio-project",
-      "explain": "快速打开我的 Visual Studio 项目",
-      "icon"   : "icon/vs-studio.png",
-      "cmds"   : [
+      "code"    : "vs-studio-project",
+      "explain" : "快速打开我的 Visual Studio 项目",
+      "icon"    : "icon/vs-studio.png",
+      "platform": [
+        "win32"
+      ],
+      "cmds"    : [
         "vs",
         "Visual Studio",
         "我的 Visual Studio 项目"
       ]
     },
     {
-      "code"   : "xcode-project",
-      "explain": "快速打开我的 Xcode 项目",
-      "icon"   : "icon/xcode.png",
-      "cmds"   : [
+      "code"    : "xcode-project",
+      "explain" : "快速打开我的 Xcode 项目",
+      "icon"    : "icon/xcode.png",
+      "platform": [
+        "darwin"
+      ],
+      "cmds"    : [
         "Xcode",
         "我的 Xcode 项目"
       ]
