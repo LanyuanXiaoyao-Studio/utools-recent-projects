@@ -2,7 +2,6 @@ import {Action, Callback, NoExecutor, ProjectArgsImpl, ProjectItemImpl} from './
 import {isEmpty} from 'licia'
 import {SettingUIFeature} from './setting/setting'
 import {
-    applications,
     jetBrainsApplications,
     sublimeApplications,
     vscodeApplications,
@@ -81,10 +80,6 @@ export class JetBrainsArgs extends AllProjectArgs {
 
 export const build: any = {
     'setting': new SettingUIFeature(),
-    'all-project': {
-        args: new AllProjectArgs(applications),
-        mode: 'list',
-    },
     'jetbrains-project': {
         args: new JetBrainsArgs(jetBrainsApplications),
         mode: 'list',

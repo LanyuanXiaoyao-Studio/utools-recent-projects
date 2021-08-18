@@ -23,14 +23,6 @@
       ]
     },
     {
-      "code"   : "all-project",
-      "explain": "快速打开我的项目",
-      "cmds"   : [
-        "Projects",
-        "我的项目"
-      ]
-    },
-    {
       "code"   : "jetbrains-project",
       "explain": "快速打开我的 JetBrains 项目",
       "icon"   : "icon/jetbrains.png",
