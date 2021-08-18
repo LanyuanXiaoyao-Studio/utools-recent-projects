@@ -79,6 +79,15 @@
         "Visual Studio",
         "我的 Visual Studio 项目"
       ]
+    },
+    {
+      "code"   : "xcode-project",
+      "explain": "快速打开我的 Xcode 项目",
+      "icon"   : "icon/xcode.png",
+      "cmds"   : [
+        "Xcode",
+        "我的 Xcode 项目"
+      ]
     }
   ]
 }

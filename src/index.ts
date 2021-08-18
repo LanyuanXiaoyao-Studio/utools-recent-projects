@@ -8,6 +8,7 @@ import {
     vscodeApplications,
     vsStudioApplications,
     wpsApplications,
+    xcodeApplications,
 } from './applications'
 import {JetBrainsProjectItemImpl} from './parser/ide/jetBrains'
 import $ = require('licia/$')
@@ -102,6 +103,10 @@ export const build: any = {
     },
     'vs-studio-project': {
         args: new AllProjectArgs(vsStudioApplications),
+        mode: 'list',
+    },
+    'xcode-project': {
+        args: new AllProjectArgs(xcodeApplications),
         mode: 'list',
     },
 }
