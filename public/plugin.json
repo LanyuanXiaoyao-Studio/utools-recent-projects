@@ -25,7 +25,7 @@
     {
       "code"   : "jetbrains-project",
       "explain": "快速打开我的 JetBrains 项目",
-      "icon"   : "icon/jetbrains.png",
+      "icon"   : "icon/jetbrains-jetbrains.png",
       "cmds"   : [
         "jb",
         "JetBrains Projects",
@@ -35,7 +35,7 @@
     {
       "code"   : "vscode-project",
       "explain": "快速打开我的 Visual Studio Code 项目",
-      "icon"   : "icon/vscode.png",
+      "icon"   : "icon/ms-visual-studio-code.png",
       "cmds"   : [
         "vsc",
         "Visual Studio Code Projects",
@@ -68,7 +68,7 @@
     {
       "code"    : "vs-studio-project",
       "explain" : "快速打开我的 Visual Studio 项目",
-      "icon"    : "icon/vs-studio.png",
+      "icon"    : "icon/ms-visual-studio.png",
       "platform": [
         "win32"
       ],

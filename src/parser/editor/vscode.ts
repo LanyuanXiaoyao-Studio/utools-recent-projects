@@ -12,7 +12,7 @@ export class VscodeApplicationImpl extends ApplicationImpl<VscodeProjectItemImpl
         super(
             'vscode',
             'Visual Studio Code',
-            'icon/vscode.png',
+            'icon/ms-visual-studio-code.png',
             VSCODE,
             [Platform.win32, Platform.darwin, Platform.linux],
             'Editor',

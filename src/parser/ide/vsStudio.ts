@@ -92,5 +92,5 @@ export class VsStudioApplicationImpl extends ApplicationImpl<VsStudioProjectItem
 }
 
 export const applications: Array<Application<VsStudioProjectItemImpl>> = [
-    new VsStudioApplicationImpl('vs-studio', 'Visual Studio', 'icon/vs-studio.png'),
+    new VsStudioApplicationImpl('vs-studio', 'Visual Studio', 'icon/ms-visual-studio.png'),
 ]

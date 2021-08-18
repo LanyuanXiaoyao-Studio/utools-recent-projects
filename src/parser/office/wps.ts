@@ -17,18 +17,18 @@ const extensionIcon: (string) => string = extensionName => {
         case 'doc':
         case 'docx':
         case 'wps':
-            return 'icon/doc.png'
+            return 'icon/wps-doc.png'
         case 'xls':
         case 'xlsx':
         case 'et':
         case 'csv':
-            return 'icon/xls.png'
+            return 'icon/wps-xls.png'
         case 'ppt':
         case 'pptx':
         case 'wpp':
-            return 'icon/ppt.png'
+            return 'icon/wps-ppt.png'
         case 'pdf':
-            return 'icon/pdf.png'
+            return 'icon/wps-pdf.png'
         default:
             return ''
     }
