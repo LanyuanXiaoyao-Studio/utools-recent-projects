@@ -25,7 +25,7 @@
     {
       "code"   : "jetbrains-project",
       "explain": "快速打开我的 JetBrains 项目",
-      "icon"   : "icon/jetbrains-jetbrains.png",
+      "icon"   : "icon/jetbrains.png",
       "cmds"   : [
         "jb",
         "JetBrains Projects",
@@ -63,6 +63,19 @@
         "wps",
         "WPS Office Projects",
         "我的 WPS Office 项目"
+      ]
+    },
+    {
+      "code"    : "office-project",
+      "explain" : "快速打开我的 Office 项目",
+      "icon"    : "icon/office.png",
+      "platform": [
+        "darwin"
+      ],
+      "cmds"    : [
+        "office",
+        "Office Projects",
+        "我的 Office 项目"
       ]
     },
     {

@@ -5,6 +5,7 @@ import {applications as SublimeApplications} from './parser/editor/sublime'
 import {applications as WpsApplications} from './parser/office/wps'
 import {applications as VsStudioApplications} from './parser/ide/vsStudio'
 import {applications as XcodeApplications} from './parser/ide/xcode'
+import {applications as OfficeApplications} from './parser/office/office'
 
 export const applications: Array<Application<ProjectItemImpl>> = [
     ...JetBrainsApplications,
@@ -13,6 +14,7 @@ export const applications: Array<Application<ProjectItemImpl>> = [
     ...WpsApplications,
     ...VsStudioApplications,
     ...XcodeApplications,
+    ...OfficeApplications,
 ]
 
 export const jetBrainsApplications: Array<Application<ProjectItemImpl>> = [...JetBrainsApplications]
@@ -26,3 +28,5 @@ export const wpsApplications: Array<Application<ProjectItemImpl>> = [...WpsAppli
 export const vsStudioApplications: Array<Application<ProjectItemImpl>> = [...VsStudioApplications]
 
 export const xcodeApplications: Array<Application<ProjectItemImpl>> = [...XcodeApplications]
+
+export const officeApplications: Array<Application<ProjectItemImpl>> = [...OfficeApplications]

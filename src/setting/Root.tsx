@@ -7,6 +7,7 @@ import {Catalogue} from './components/Catalogue'
 import {Announcement} from './components/Announcement'
 import {contain} from 'licia'
 import {InformationCard} from './components/InformationCard'
+import {compareChar} from '../utils'
 import Nano = require('nano-jsx')
 
 const getPlatform: () => Platform = () => {
@@ -67,7 +68,9 @@ class Root extends Component<RootProps, RootState> {
                             </div>
                             <div class="column col-9">
                                 <InformationCard platform={this.state.platform}/>
-                                {this.state.applications.map(app => <SettingCard application={app}/>)}
+                                {this.state.applications
+                                    .sort((a1, a2) => compareChar(a1.group, a2.group))
+                                    .map(app => <SettingCard application={app}/>)}
                                 <div class="gap"/>
                                 <div class="gap"/>
                             </div>

@@ -3,6 +3,7 @@ import {isEmpty} from 'licia'
 import {SettingUIFeature} from './setting/setting'
 import {
     jetBrainsApplications,
+    officeApplications,
     sublimeApplications,
     vscodeApplications,
     vsStudioApplications,
@@ -74,7 +75,7 @@ export class AllProjectArgs extends ProjectArgsImpl {
     }
 }
 
-export class JetBrainsArgs extends AllProjectArgs {
+export class AllProjectSortByTimeArgs extends AllProjectArgs {
     compare(p1: JetBrainsProjectItemImpl, p2: JetBrainsProjectItemImpl): number {
         return p2.datetime - p1.datetime
     }
@@ -83,7 +84,7 @@ export class JetBrainsArgs extends AllProjectArgs {
 export const build: any = {
     'setting': new SettingUIFeature(),
     'jetbrains-project': {
-        args: new JetBrainsArgs(jetBrainsApplications),
+        args: new AllProjectSortByTimeArgs(jetBrainsApplications),
         mode: 'list',
     },
     'vscode-project': {
@@ -104,6 +105,10 @@ export const build: any = {
     },
     'xcode-project': {
         args: new AllProjectArgs(xcodeApplications),
+        mode: 'list',
+    },
+    'office-project': {
+        args: new AllProjectSortByTimeArgs(officeApplications),
         mode: 'list',
     },
 }

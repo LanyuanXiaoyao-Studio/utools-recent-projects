@@ -2,6 +2,7 @@ import {Component, Fragment} from 'nano-jsx'
 import {Application, ApplicationConfigState, ProjectItemImpl} from '../../types'
 import {isNil} from 'licia'
 import {settingStore} from '../store'
+import {compareChar} from '../../utils'
 import Nano = require('nano-jsx')
 
 export interface BadgeInfo {
@@ -102,23 +103,25 @@ export class Catalogue extends Component<CatalogueProps, CatalogueState> {
                         </a>
                     </li>
                     <div class="divider"/>
-                    {Object.keys(this.state.applicationGroupMap).map(key => (
-                        <li class="nav-item">
-                            <a>
-                                <b>{key}</b>
-                            </a>
-                            <ul class="nav">
-                                {this.state.applicationGroupMap[key].map(app => (
-                                    <li
-                                        class={'nav-item ' + this.badge(app).class}
-                                        data-badge={this.badge(app).text}
-                                    >
-                                        <a href={'#' + app.id}>{app.name}</a>
-                                    </li>
-                                ))}
-                            </ul>
-                        </li>
-                    ))}
+                    {Object.keys(this.state.applicationGroupMap)
+                        .sort((a, b) => compareChar(a, b))
+                        .map(key => (
+                            <li class="nav-item">
+                                <a>
+                                    <b>{key}</b>
+                                </a>
+                                <ul class="nav">
+                                    {this.state.applicationGroupMap[key].map(app => (
+                                        <li
+                                            class={'nav-item ' + this.badge(app).class}
+                                            data-badge={this.badge(app).text}
+                                        >
+                                            <a href={'#' + app.id}>{app.name}</a>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </li>
+                        ))}
                 </ul>
             </Fragment>
         )

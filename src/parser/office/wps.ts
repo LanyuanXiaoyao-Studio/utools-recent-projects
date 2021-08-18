@@ -30,7 +30,7 @@ const extensionIcon: (string) => string = extensionName => {
         case 'pdf':
             return 'icon/wps-pdf.png'
         default:
-            return ''
+            return 'icon/wps-mac-internation.png'
     }
 }
 
