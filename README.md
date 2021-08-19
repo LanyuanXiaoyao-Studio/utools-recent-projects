@@ -46,7 +46,7 @@
 > 关于 m1 的 mac, 由于 mac 现在分为 x86 和 arm 两种 CPU 架构, 所以当下原生支持 m1 的应用, 如 JetBrains, 都会在程序内置两套可执行程序作为入口, 所以在 m1 mac 下如果按下面的文档设置可执行程序路径, 会导致报错且无法执行, 所以对于 m1 的 mac 需要单独配置属于 arm 架构的可执行程序路径, 由于我没有 m1 的 mac, 所以无法调试, 需要大家自己尝试.  
 > 目前已知的是, JetBrains 安装完成后会在`/usr/local/bin`下设置一个软链链接到正确的入口, 如`/usr/local/bin/idea`, 所以可以尝试将可执行程序的路径设置为这个, 同样的, Visual Studio Code 也有类似的东西.
 
-- JetBrains 系列
+- **JetBrains 系列**
   - **数据文件**  
     macOS: `/Users/用户名/Library/Application Support/JetBrains/软件名称/options/recentProjects.xml`
     Windows: `C:\Users\用户名\AppData\Roaming\JetBrains\软件名\options\recentProjects.xml`
@@ -55,7 +55,7 @@
     Windows: 默认安装在`C:\Program Files\JetBrains\软件名\bin\软件名64.exe`(如果使用 JetBrains Toolbox 安装的话,
     默认路径会在类似`C:\Users\用户名\AppData\Local\JetBrains\Toolbox\apps\软件名\ch-0\版本号`, 具体的可以在 JetBrains Toolbox 的设置里找到)
     ![](https://z3.ax1x.com/2021/08/04/fktJsJ.png)
-- Visual Studio Code
+- **Visual Studio Code**
   - **数据文件**  
     macOS: `/Users/lanyuanxiaoyao/Library/Application Support/Code/storage.json`, Windows:
     默认安装在`C:\Users\Administrator\AppData\Roaming\Code\storage.json`
@@ -63,20 +63,20 @@
     macOS: `/Applications/Visual Studio Code.app/Contents/Resources/app/bin/code`
     Windows: 默认安装在`C:\Users\Administrator\AppData\Local\Programs\Microsoft VS Code\Code.exe`
     ![](https://z3.ax1x.com/2021/08/04/fktRot.png)
-- Sublime Text
+- **Sublime Text**
   - **数据文件**  
     macOS: `/Users/lanyuanxiaoyao/Library/Application Support/Sublime Text/Local/Session.sublime_session`
   - **可执行程序路径 (注意 Sublime Text 单独提供了命令行程序, 不是程序本体)**  
     macOS: `/Users/lanyuanxiaoyao/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl`
     ![](https://z3.ax1x.com/2021/08/11/fUU2rt.png)
-- WPS Office International for mac  
+- **WPS Office International for mac**  
   WPS 使用`open`命令打开, 无需设置可执行程序路径
   - **数据文件**  
     `/Users/lanyuanxiaoyao/Library/Containers/com.kingsoft.wpsoffice.mac.global/Data/Library/Preferences/com.kingsoft.plist`
-- Office 2019 (Windows)  
+- **Office 2019 (Windows)**  
   什么设置都不需要, 正常安装完成的情况下, 历史记录将在`C:\Users\Administrator\AppData\Roaming\Microsoft\Office\Recent`, 所以将会直接解析, 值得注意的是,
   因为这个路径下有很多非文件的内容, 所以插件通过文件后缀名来过滤出 Office 文档, 仅支持大部分格式, 如有遗漏, 请反馈
-- Office 2019 for mac  
+- **Office 2019 for mac**  
   使用`open`命令打开, 无需设置可执行程序路径
   - **Word**  
     `/Users/lanyuanxiaoyao/Library/Containers/Microsoft Word/Data/Library/Preferences/com.microsoft.Word.securebookmarks.plist`
@@ -84,11 +84,11 @@
     `/Users/lanyuanxiaoyao/Library/Containers/Microsoft Excel/Data/Library/Preferences/com.microsoft.Excel.securebookmarks.plist`
   - **PowerPoint**  
     `/Users/lanyuanxiaoyao/Library/Containers/Microsoft Powerpoint/Data/Library/Preferences/com.microsoft.Powerpoint.securebookmarks.plist`
-- Xcode  
+- **Xcode**  
   什么设置都不需要,
   因为配置文件的位置固定在`/Users/xxx/Library/Application Support/com.apple.sharedfilelist/com.apple.LSSharedFileList.ApplicationRecentDocuments/com.apple.dt.xcode.sfl2`
   , 所以将会直接解析
-- Visual Studio
+- **Visual Studio**
   - **数据文件**  
     如果是在官网使用官方下载器安装, 那么数据文件应该在以下位置, 目前方案是依据最新的 Visual Studio 2019 开发, 暂不考虑过往版本  
     `C:\Users\Administrator\AppData\Local\Microsoft\VisualStudio\版本号\ApplicationPrivateSettings.xml`
