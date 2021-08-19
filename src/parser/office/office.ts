@@ -22,8 +22,17 @@ const extensionIcon: (string) => string = extensionName => {
         case '.docm':
         case '.doc':
         case '.dotx':
+        case '.dotm':
         case '.dot':
+        case '.pdf':
         case '.xps':
+        case '.mht':
+        case '.mhtml':
+        case '.htm':
+        case '.html':
+        case '.rtf':
+        case '.txt':
+        case '.xml':
         case '.odt':
             return 'icon/office-word.png'
         case '.xlsx':

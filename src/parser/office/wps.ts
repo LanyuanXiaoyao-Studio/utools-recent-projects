@@ -14,18 +14,50 @@ const WPS_MAC_INTERNATION: string = 'wps-mac-internation'
 
 const extensionIcon: (string) => string = extensionName => {
     switch (extensionName) {
-        case 'doc':
-        case 'docx':
         case 'wps':
+        case 'wpt':
+        case 'doc':
+        case 'dot':
+        case 'rtf':
+        case 'txt':
+        case 'docx':
+        case 'dotx':
+        case 'docm':
+        case 'dotm':
+        case 'xml':
+        case 'mht':
+        case 'mhtml':
+        case 'html':
+        case 'htm':
             return 'icon/wps-doc.png'
-        case 'xls':
-        case 'xlsx':
         case 'et':
+        case 'ett':
+        case 'xls':
+        case 'xlt':
+        case 'xlsx':
+        case 'xlsm':
+        case 'dbf':
         case 'csv':
+        case 'prn':
+        case 'dif':
+        case 'xltx':
+        case 'xltm':
             return 'icon/wps-xls.png'
+        case 'dps':
+        case 'dpt':
         case 'ppt':
+        case 'pot':
+        case 'pps':
         case 'pptx':
-        case 'wpp':
+        case 'pptm':
+        case 'potx':
+        case 'potm':
+        case 'ppsx':
+        case 'ppsm':
+        case 'jpg':
+        case 'png':
+        case 'tif':
+        case 'bmp':
             return 'icon/wps-ppt.png'
         case 'pdf':
             return 'icon/wps-pdf.png'
