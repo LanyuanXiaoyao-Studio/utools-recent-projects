@@ -8,9 +8,9 @@ import {
     ShellExecutor,
     UToolsExecutor,
 } from '../../types'
-import {isEmpty, isNil, Url} from 'licia'
-import {join, parse} from 'path'
-import {execSync} from 'child_process'
+import { isEmpty, isNil, Url } from 'licia'
+import { join, parse } from 'path'
+import { execSync } from 'child_process'
 import plistParser = require('bplist-parser')
 import fs = require('fs')
 
@@ -19,15 +19,52 @@ const OFFICE_WIN: string = 'office-win'
 
 const extensionIcon: (string) => string = extensionName => {
     switch (extensionName) {
-        case 'doc':
-        case 'docx':
+        case '.docx':
+        case '.docm':
+        case '.doc':
+        case '.dotx':
+        case '.dot':
+        case '.xps':
+        case '.odt':
             return 'icon/office-word.png'
-        case 'xls':
-        case 'xlsx':
-        case 'csv':
+        case '.xlsx':
+        case '.xlsm':
+        case '.xlsb':
+        case '.xls':
+        case '.csv':
+        case '.xltx':
+        case '.xltm':
+        case '.xlt':
+        case '.prn':
+        case '.dif':
+        case '.slk':
+        case '.xlam':
+        case '.xla':
+        case '.ods':
             return 'icon/office-excel.png'
-        case 'ppt':
-        case 'pptx':
+        case '.pptx':
+        case '.pptm':
+        case '.ppt':
+        case '.potx':
+        case '.potm':
+        case '.pot':
+        case '.thmx':
+        case '.ppsx':
+        case '.ppsm':
+        case '.pps':
+        case '.ppam':
+        case '.ppa':
+        case '.mp4':
+        case '.wmv':
+        case '.gif':
+        case '.jpg':
+        case '.png':
+        case '.tif':
+        case '.bmp':
+        case '.wmf':
+        case '.emf':
+        case '.svg':
+        case '.odp':
             return 'icon/office-powerpoint.png'
         default:
             return 'icon/office.png'
@@ -69,7 +106,7 @@ export class OfficeMacApplicationImpl extends ApplicationImpl<OfficeProjectItemI
                         id: '',
                         title: parser.name,
                         description: url.pathname,
-                        icon: extensionIcon(parser.ext.replace(/\./g, '')),
+                        icon: extensionIcon(parser.ext),
                         searchKey: url.pathname,
                         command: new ShellExecutor(`open ${url}`),
                         datetime: date,
@@ -110,7 +147,7 @@ export class OfficeWinApplicationImpl extends ApplicationImpl<OfficeProjectItemI
             [Platform.win32],
             'Office',
             'Recent',
-            undefined,
+            'Office 2019 通过解析 C:\\Users\\Administrator\\AppData\\Roaming\\Microsoft\\Office\\Recent 下的文件记录来得到历史打开文件列表, 这种方式依赖于默认的 Office 行为, 目前仅支持有限的 Office 文档',
             true,
         )
     }
@@ -120,7 +157,49 @@ export class OfficeWinApplicationImpl extends ApplicationImpl<OfficeProjectItemI
         let parser = parse(p)
         switch (parser.ext) {
             case '.docx':
+            case '.docm':
+            case '.doc':
+            case '.dotx':
+            case '.dot':
+            case '.xps':
+            case '.odt':
             case '.xlsx':
+            case '.xlsm':
+            case '.xlsb':
+            case '.xls':
+            case '.csv':
+            case '.xltx':
+            case '.xltm':
+            case '.xlt':
+            case '.prn':
+            case '.dif':
+            case '.slk':
+            case '.xlam':
+            case '.xla':
+            case '.ods':
+            case '.pptx':
+            case '.pptm':
+            case '.ppt':
+            case '.potx':
+            case '.potm':
+            case '.pot':
+            case '.thmx':
+            case '.ppsx':
+            case '.ppsm':
+            case '.pps':
+            case '.ppam':
+            case '.ppa':
+            case '.mp4':
+            case '.wmv':
+            case '.gif':
+            case '.jpg':
+            case '.png':
+            case '.tif':
+            case '.bmp':
+            case '.wmf':
+            case '.emf':
+            case '.svg':
+            case '.odp':
                 return true
             default:
                 return false
@@ -152,9 +231,9 @@ export class OfficeWinApplicationImpl extends ApplicationImpl<OfficeProjectItemI
                 id: '',
                 title: parser.name,
                 description: p,
-                icon: extensionIcon(parser.ext.replace(/\./g, '')),
+                icon: extensionIcon(parser.ext),
                 searchKey: p,
-                command: new ShellExecutor(`powershell.exe -command "Invoke-Item ${p}"`),
+                command: new ShellExecutor(`powershell.exe -command "Invoke-Item '${p}'"`),
                 datetime: 0,
             })
         })
