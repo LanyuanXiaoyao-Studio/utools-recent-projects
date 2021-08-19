@@ -22,6 +22,11 @@ Gitee  https://gitee.com/LanyuanXiaoyao-Studio/utools-recent-projects
 
 使用说明
 使用 Setting 关键字打开插件设置界面, 可以根据自己拥有的软件设置相应的参数, 目前需要设置的参数有两个: 保存历史记录的数据文件和软件的可执行程序路径.
+
+    特别提醒
+    关于 m1 的 mac, 由于 mac 现在分为 x86 和 arm 两种 CPU 架构, 所以当下原生支持 m1 的应用, 如 JetBrains, 都会在程序内置两套可执行程序作为入口, 所以在 m1 mac 下如果按下面的文档设置可执行程序路径, 会导致报错且无法执行, 所以对于 m1 的 mac 需要单独配置属于 arm 架构的可执行程序路径, 由于我没有 m1 的 mac, 所以无法调试, 需要大家自己尝试.
+    目前已知的是, JetBrains 安装完成后会在`/usr/local/bin`下设置一个软链链接到正确的入口, 如`/usr/local/bin/idea`, 所以可以尝试将可执行程序的路径设置为这个, 同样的, Visual Studio Code 也有类似的东西.
+
 - JetBrains 系列
   - 数据文件:
     macOS: `/Users/用户名/Library/Application Support/JetBrains/软件名称/options/recentProjects.xml`
