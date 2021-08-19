@@ -144,6 +144,7 @@ export class OfficeWinApplicationImpl extends ApplicationImpl<OfficeProjectItemI
             .sort((p1, p2) => p2.datetime - p1.datetime)
             .map(p => this.generateCommand(p.path))
             .join('')
+        execSync('chcp 65001')
         let result = execSync(`powershell.exe -command "${command}"`, { encoding: 'utf8' }).trim()
         let paths = result.split(/\r?\n/)
         paths.forEach(p => {

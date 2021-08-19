@@ -70,7 +70,8 @@
       "explain" : "快速打开我的 Office 项目",
       "icon"    : "icon/office.png",
       "platform": [
-        "darwin"
+        "darwin",
+        "win32"
       ],
       "cmds"    : [
         "office",
