@@ -6,11 +6,10 @@ import {
     ProjectItemImpl,
     SettingItem,
     ShellExecutor,
-    UToolsExecutor,
 } from '../../types'
-import { isEmpty, isNil, Url } from 'licia'
-import { join, parse } from 'path'
-import { execSync } from 'child_process'
+import {isEmpty, isNil, Url} from 'licia'
+import {join, parse} from 'path'
+import {execSync} from 'child_process'
 import plistParser = require('bplist-parser')
 import fs = require('fs')
 
@@ -147,7 +146,7 @@ export class OfficeWinApplicationImpl extends ApplicationImpl<OfficeProjectItemI
             [Platform.win32],
             'Office',
             'Recent',
-            'Office 2019 通过解析 C:\\Users\\Administrator\\AppData\\Roaming\\Microsoft\\Office\\Recent 下的文件记录来得到历史打开文件列表, 这种方式依赖于默认的 Office 行为, 目前仅支持有限的 Office 文档',
+            'Office 2019 通过解析 C:\\Users\\Administrator\\AppData\\Roaming\\Microsoft\\Office\\Recent 下的文件记录来得到历史打开文件列表, 这种方式依赖于默认的 Office 行为, 目前仅支持有限的 Office 文档格式',
             true,
         )
     }
@@ -250,8 +249,8 @@ export class OfficeWinApplicationImpl extends ApplicationImpl<OfficeProjectItemI
 }
 
 export const applications: Array<ApplicationImpl<OfficeProjectItemImpl>> = [
-    new OfficeMacApplicationImpl('word', 'Word', 'icon/office-word.png', 'com.microsoft.Word.securebookmarks.plist'),
-    new OfficeMacApplicationImpl('excel', 'Excel', 'icon/office-excel.png', 'com.microsoft.Excel.securebookmarks.plist'),
-    new OfficeMacApplicationImpl('powerpoint', 'PowerPoint', 'icon/office-powerpoint.png', 'com.microsoft.Powerpoint.securebookmarks.plist'),
+    new OfficeMacApplicationImpl('word', 'Word 2019', 'icon/office-word.png', 'com.microsoft.Word.securebookmarks.plist'),
+    new OfficeMacApplicationImpl('excel', 'Excel 2019', 'icon/office-excel.png', 'com.microsoft.Excel.securebookmarks.plist'),
+    new OfficeMacApplicationImpl('powerpoint', 'PowerPoint 2019', 'icon/office-powerpoint.png', 'com.microsoft.Powerpoint.securebookmarks.plist'),
     new OfficeWinApplicationImpl(),
 ]
