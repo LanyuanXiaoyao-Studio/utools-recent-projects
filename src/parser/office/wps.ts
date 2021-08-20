@@ -8,6 +8,7 @@ import {
 } from '../../types'
 import {isEmpty, isNil} from 'licia'
 import {parse} from 'path'
+import {pathDescription} from '../../utils'
 import plistParser = require('bplist-parser')
 
 const WPS_MAC_INTERNATION: string = 'wps-mac-internation'
@@ -48,7 +49,7 @@ export class WpsMacInternationalApplicationImpl extends ApplicationImpl<WpsMacIn
                     items.push({
                         id: '',
                         title: parser.name,
-                        description: path,
+                        description: pathDescription(path),
                         icon: icon,
                         searchKey: path,
                         command: new ShellExecutor(`open "${path}"`),

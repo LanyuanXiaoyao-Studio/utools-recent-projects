@@ -10,6 +10,7 @@ import {
 import {isEmpty, isNil, Url} from 'licia'
 import {join, parse} from 'path'
 import {execSync} from 'child_process'
+import {pathDescription} from '../../utils'
 import plistParser = require('bplist-parser')
 import fs = require('fs')
 
@@ -50,7 +51,7 @@ export class OfficeMacApplicationImpl extends ApplicationImpl<OfficeProjectItemI
                     items.push({
                         id: '',
                         title: parser.name,
-                        description: url.pathname,
+                        description: pathDescription(url.pathname),
                         icon: utools.getFileIcon(url.pathname),
                         searchKey: url.pathname,
                         command: new ShellExecutor(`open ${url}`),
@@ -175,7 +176,7 @@ export class OfficeWinApplicationImpl extends ApplicationImpl<OfficeProjectItemI
             items.push({
                 id: '',
                 title: parser.name,
-                description: p,
+                description: pathDescription(p),
                 icon: utools.getFileIcon(p),
                 searchKey: p,
                 command: new ShellExecutor(`powershell.exe -command "Invoke-Item '${p}'"`),
