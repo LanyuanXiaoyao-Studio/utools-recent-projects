@@ -12,60 +12,6 @@ import plistParser = require('bplist-parser')
 
 const WPS_MAC_INTERNATION: string = 'wps-mac-internation'
 
-const extensionIcon: (string) => string = extensionName => {
-    switch (extensionName) {
-        case 'wps':
-        case 'wpt':
-        case 'doc':
-        case 'dot':
-        case 'rtf':
-        case 'txt':
-        case 'docx':
-        case 'dotx':
-        case 'docm':
-        case 'dotm':
-        case 'xml':
-        case 'mht':
-        case 'mhtml':
-        case 'html':
-        case 'htm':
-            return 'icon/wps-doc.png'
-        case 'et':
-        case 'ett':
-        case 'xls':
-        case 'xlt':
-        case 'xlsx':
-        case 'xlsm':
-        case 'dbf':
-        case 'csv':
-        case 'prn':
-        case 'dif':
-        case 'xltx':
-        case 'xltm':
-            return 'icon/wps-xls.png'
-        case 'dps':
-        case 'dpt':
-        case 'ppt':
-        case 'pot':
-        case 'pps':
-        case 'pptx':
-        case 'pptm':
-        case 'potx':
-        case 'potm':
-        case 'ppsx':
-        case 'ppsm':
-        case 'jpg':
-        case 'png':
-        case 'tif':
-        case 'bmp':
-            return 'icon/wps-ppt.png'
-        case 'pdf':
-            return 'icon/wps-pdf.png'
-        default:
-            return 'icon/wps-mac-internation.png'
-    }
-}
-
 export class WpsMacInternationalProjectItemImpl extends ProjectItemImpl {}
 
 export class WpsMacInternationalApplicationImpl extends ApplicationImpl<WpsMacInternationalProjectItemImpl> {
@@ -98,12 +44,12 @@ export class WpsMacInternationalApplicationImpl extends ApplicationImpl<WpsMacIn
                     let path = key.substr(end, key.length)
                     path = '/' + path.replace(/\./g, '/').replace(/·/g, '.')
                     let parser = parse(path)
-                    let icon = extensionIcon(parser.ext.replace(/\./g, ''))
+                    let icon = utools.getFileIcon(path)
                     items.push({
                         id: '',
                         title: parser.name,
                         description: path,
-                        icon: isEmpty(icon) ? this.icon : icon,
+                        icon: icon,
                         searchKey: path,
                         command: new ShellExecutor(`open "${path}"`),
                     })

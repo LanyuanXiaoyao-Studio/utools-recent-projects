@@ -16,69 +16,6 @@ import fs = require('fs')
 const OFFICE_MAC: string = 'office-mac'
 const OFFICE_WIN: string = 'office-win'
 
-const extensionIcon: (string) => string = extensionName => {
-    switch (extensionName) {
-        case '.docx':
-        case '.docm':
-        case '.doc':
-        case '.dotx':
-        case '.dotm':
-        case '.dot':
-        case '.pdf':
-        case '.xps':
-        case '.mht':
-        case '.mhtml':
-        case '.htm':
-        case '.html':
-        case '.rtf':
-        case '.txt':
-        case '.xml':
-        case '.odt':
-            return 'icon/office-word.png'
-        case '.xlsx':
-        case '.xlsm':
-        case '.xlsb':
-        case '.xls':
-        case '.csv':
-        case '.xltx':
-        case '.xltm':
-        case '.xlt':
-        case '.prn':
-        case '.dif':
-        case '.slk':
-        case '.xlam':
-        case '.xla':
-        case '.ods':
-            return 'icon/office-excel.png'
-        case '.pptx':
-        case '.pptm':
-        case '.ppt':
-        case '.potx':
-        case '.potm':
-        case '.pot':
-        case '.thmx':
-        case '.ppsx':
-        case '.ppsm':
-        case '.pps':
-        case '.ppam':
-        case '.ppa':
-        case '.mp4':
-        case '.wmv':
-        case '.gif':
-        case '.jpg':
-        case '.png':
-        case '.tif':
-        case '.bmp':
-        case '.wmf':
-        case '.emf':
-        case '.svg':
-        case '.odp':
-            return 'icon/office-powerpoint.png'
-        default:
-            return 'icon/office.png'
-    }
-}
-
 export class OfficeProjectItemImpl extends ProjectItemImpl {
     datetime: number
 
@@ -114,7 +51,7 @@ export class OfficeMacApplicationImpl extends ApplicationImpl<OfficeProjectItemI
                         id: '',
                         title: parser.name,
                         description: url.pathname,
-                        icon: extensionIcon(parser.ext),
+                        icon: utools.getFileIcon(url.pathname),
                         searchKey: url.pathname,
                         command: new ShellExecutor(`open ${url}`),
                         datetime: date,
@@ -239,7 +176,7 @@ export class OfficeWinApplicationImpl extends ApplicationImpl<OfficeProjectItemI
                 id: '',
                 title: parser.name,
                 description: p,
-                icon: extensionIcon(parser.ext),
+                icon: utools.getFileIcon(p),
                 searchKey: p,
                 command: new ShellExecutor(`powershell.exe -command "Invoke-Item '${p}'"`),
                 datetime: 0,
