@@ -100,8 +100,9 @@ export class OfficeWinApplicationImpl extends ApplicationImpl<OfficeProjectItemI
 
     private recentPath: string = 'C:\\Users\\Administrator\\AppData\\Roaming\\Microsoft\\Office\\Recent'
     private permitExtension: (string) => boolean = p => {
-        let parser = parse(p)
-        return '.docx .docm .doc .dotx .dot .xps .odt .xlsx .xlsm .xlsb .xls .csv .xltx .xltm .xlt .prn .dif .slk .xlam .xla .ods .pptx .pptm .ppt .potx .potm .pot .thmx .ppsx .ppsm .pps .ppam .ppa .mp4 .wmv .gif .jpg .png .tif .bmp .wmf .emf .svg .odp .pub .ps .mht .mhtml .html .htm .mpp .mpt .vsdx .vssx .vstx .vsdm .vssm .vstm .vsd .vss .vst .svgz .dwg .dxf'.indexOf(parser.ext.toLocaleLowerCase()) > -1
+        let ext = parse(p).ext
+        if (isEmpty(ext)) return false
+        return '.docx .docm .doc .dotx .dot .xps .odt .xlsx .xlsm .xlsb .xls .csv .xltx .xltm .xlt .prn .dif .slk .xlam .xla .ods .pptx .pptm .ppt .potx .potm .pot .thmx .ppsx .ppsm .pps .ppam .ppa .mp4 .wmv .gif .jpg .png .tif .bmp .wmf .emf .svg .odp .pub .ps .mht .mhtml .html .htm .mpp .mpt .vsdx .vssx .vstx .vsdm .vssm .vstm .vsd .vss .vst .svgz .dwg .dxf'.indexOf(ext) > -1
     }
     private generateCommand: (string) => string = link => `(New-Object -COM WScript.Shell).CreateShortcut('${link}').TargetPath;`
 
