@@ -79,7 +79,7 @@ export class SettingCard extends Component<SettingCardProps, SettingCardState> {
                     >
                         <Img
                             class="form-legend-icon"
-                            src={iconMap[this.props.application.icon]}
+                            src={iconMap[this.props.application.icon] ?? ''}
                         />
                         <span
                             class={this.props.application.beta ? 'form-legend-title badge badge-unready' : 'form-legend-title'}

@@ -1,6 +1,7 @@
-import {isEmpty, isNil} from 'licia'
+import {contain, isEmpty, isNil} from 'licia'
 import {exec} from 'child_process'
 import {shell} from 'electron'
+import {platformFromUtools} from './utils'
 
 export interface Executor {
     readonly command: string
@@ -145,8 +146,9 @@ export abstract class ProjectArgsImpl extends ArgsImpl<ProjectItemImpl> {
 
     getProjectItems: (localId: string) => Promise<Array<ProjectItemImpl>> = async localId => {
         this.updateApplications(localId)
+        let platform = platformFromUtools()
         for (let app of this.applications) {
-            if (app.isFinishConfig() === ApplicationConfigState.done) {
+            if (app.isFinishConfig() === ApplicationConfigState.done && contain(platform, app.platform)) {
                 (await app.generateProjectItems()).forEach(p => this.projectItemCache.push(p))
             }
         }

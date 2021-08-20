@@ -7,20 +7,8 @@ import {Catalogue} from './components/Catalogue'
 import {Announcement} from './components/Announcement'
 import {contain} from 'licia'
 import {InformationCard} from './components/InformationCard'
-import {compareChar} from '../utils'
+import {compareChar, platformFromUtools} from '../utils'
 import Nano = require('nano-jsx')
-
-const getPlatform: () => Platform = () => {
-    if (utools.isWindows()) {
-        return Platform.win32
-    } else if (utools.isMacOs()) {
-        return Platform.darwin
-    } else if (utools.isLinux()) {
-        return Platform.linux
-    } else {
-        return Platform.unknown
-    }
-}
 
 interface RootProps {}
 
@@ -33,7 +21,7 @@ class Root extends Component<RootProps, RootState> {
     constructor(props: RootProps) {
         super(props)
 
-        let platform = getPlatform()
+        let platform = platformFromUtools()
         this.state = {
             applications: applications.filter(app => contain(app.platform, platform)),
             platform: platform,
