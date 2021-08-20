@@ -20,6 +20,8 @@ export class VscodeApplicationImpl extends ApplicationImpl<VscodeProjectItemImpl
         )
     }
 
+    private isWindows: boolean = utools.isWindows()
+
     async generateProjectItems(): Promise<Array<VscodeProjectItemImpl>> {
         let items: Array<VscodeProjectItemImpl> = []
         let buffer = await readFile(this.config)
@@ -43,13 +45,17 @@ export class VscodeApplicationImpl extends ApplicationImpl<VscodeProjectItemImpl
                     }
                     uri = decodeURI(uri)
                     let url = Url.parse(uri)
-                    let parser = parse(url.pathname)
+                    let path = decodeURIComponent(url.pathname)
+                    if (this.isWindows) {
+                        path = path.substring(1)
+                    }
+                    let parser = parse(path)
                     items.push({
                         id: '',
                         title: parser.name,
-                        description: url.pathname,
-                        icon: utools.getFileIcon(url.pathname),
-                        searchKey: url.pathname,
+                        description: path,
+                        icon: utools.getFileIcon(path),
+                        searchKey: path,
                         command: new ShellExecutor(`"${this.executor}" ${args} "${uri}"`),
                     })
                 }
