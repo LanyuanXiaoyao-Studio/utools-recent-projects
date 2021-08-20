@@ -101,76 +101,7 @@ export class OfficeWinApplicationImpl extends ApplicationImpl<OfficeProjectItemI
     private recentPath: string = 'C:\\Users\\Administrator\\AppData\\Roaming\\Microsoft\\Office\\Recent'
     private permitExtension: (string) => boolean = p => {
         let parser = parse(p)
-        switch (parser.ext.toLocaleLowerCase()) {
-            case '.docx':
-            case '.docm':
-            case '.doc':
-            case '.dotx':
-            case '.dot':
-            case '.xps':
-            case '.odt':
-            case '.xlsx':
-            case '.xlsm':
-            case '.xlsb':
-            case '.xls':
-            case '.csv':
-            case '.xltx':
-            case '.xltm':
-            case '.xlt':
-            case '.prn':
-            case '.dif':
-            case '.slk':
-            case '.xlam':
-            case '.xla':
-            case '.ods':
-            case '.pptx':
-            case '.pptm':
-            case '.ppt':
-            case '.potx':
-            case '.potm':
-            case '.pot':
-            case '.thmx':
-            case '.ppsx':
-            case '.ppsm':
-            case '.pps':
-            case '.ppam':
-            case '.ppa':
-            case '.mp4':
-            case '.wmv':
-            case '.gif':
-            case '.jpg':
-            case '.png':
-            case '.tif':
-            case '.bmp':
-            case '.wmf':
-            case '.emf':
-            case '.svg':
-            case '.odp':
-            case '.pub':
-            case '.ps':
-            case '.mht':
-            case '.mhtml':
-            case '.html':
-            case '.htm':
-            case '.mpp':
-            case '.mpt':
-            case '.vsdx':
-            case '.vssx':
-            case '.vstx':
-            case '.vsdm':
-            case '.vssm':
-            case '.vstm':
-            case '.vsd':
-            case '.vss':
-            case '.vst':
-            case '.svg':
-            case '.svgz':
-            case '.dwg':
-            case '.dxf':
-                return true
-            default:
-                return false
-        }
+        return '.docx .docm .doc .dotx .dot .xps .odt .xlsx .xlsm .xlsb .xls .csv .xltx .xltm .xlt .prn .dif .slk .xlam .xla .ods .pptx .pptm .ppt .potx .potm .pot .thmx .ppsx .ppsm .pps .ppam .ppa .mp4 .wmv .gif .jpg .png .tif .bmp .wmf .emf .svg .odp .pub .ps .mht .mhtml .html .htm .mpp .mpt .vsdx .vssx .vstx .vsdm .vssm .vstm .vsd .vss .vst .svgz .dwg .dxf'.indexOf(parser.ext.toLocaleLowerCase()) > -1
     }
     private generateCommand: (string) => string = link => `(New-Object -COM WScript.Shell).CreateShortcut('${link}').TargetPath;`
 
