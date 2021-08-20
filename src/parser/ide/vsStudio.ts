@@ -58,7 +58,7 @@ export class VsStudioApplicationImpl extends ApplicationImpl<VsStudioProjectItem
                         id: '',
                         title: parseObj.name,
                         description: path,
-                        icon: this.icon,
+                        icon: utools.getFileIcon(path),
                         searchKey: parseObj.name,
                         command: new UToolsExecutor(path),
                         datetime: parseInt(`${datetime}`),
