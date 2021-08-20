@@ -21,7 +21,7 @@ export class SublimeApplicationImpl extends ApplicationImpl<SublimeProjectItemIm
     }
 
     parsePath(source: string): string {
-        return source.replace(/^\/(\w+)(?=\/)/g, '$1:')
+        return utools.isWindows() ? source.replace(/^\/(\w+)(?=\/)/g, '$1:') : source
     }
 
     async generateProjectItems(): Promise<Array<SublimeProjectItemImpl>> {
@@ -51,11 +51,12 @@ export class SublimeApplicationImpl extends ApplicationImpl<SublimeProjectItemIm
                 ...workspaceSet,
             ].forEach(path => {
                 let parser = parse(path)
+                let readPath = this.parsePath(path)
                 items.push({
                     id: '',
                     title: `${parser.name}${parser.ext}`,
-                    description: this.parsePath(path),
-                    icon: this.icon,
+                    description: readPath,
+                    icon: utools.getFileIcon(readPath),
                     searchKey: path,
                     command: new ShellExecutor(`"${this.executor}" "${this.parsePath(path)}"`),
                 })

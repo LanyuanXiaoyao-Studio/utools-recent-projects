@@ -48,7 +48,7 @@ export class VscodeApplicationImpl extends ApplicationImpl<VscodeProjectItemImpl
                         id: '',
                         title: parser.name,
                         description: url.pathname,
-                        icon: this.icon,
+                        icon: utools.getFileIcon(url.pathname),
                         searchKey: url.pathname,
                         command: new ShellExecutor(`"${this.executor}" ${args} "${uri}"`),
                     })
