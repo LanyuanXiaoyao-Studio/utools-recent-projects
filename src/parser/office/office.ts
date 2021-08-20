@@ -101,7 +101,7 @@ export class OfficeWinApplicationImpl extends ApplicationImpl<OfficeProjectItemI
     private recentPath: string = 'C:\\Users\\Administrator\\AppData\\Roaming\\Microsoft\\Office\\Recent'
     private permitExtension: (string) => boolean = p => {
         let parser = parse(p)
-        switch (parser.ext) {
+        switch (parser.ext.toLocaleLowerCase()) {
             case '.docx':
             case '.docm':
             case '.doc':
@@ -146,6 +146,27 @@ export class OfficeWinApplicationImpl extends ApplicationImpl<OfficeProjectItemI
             case '.emf':
             case '.svg':
             case '.odp':
+            case '.pub':
+            case '.ps':
+            case '.mht':
+            case '.mhtml':
+            case '.html':
+            case '.htm':
+            case '.mpp':
+            case '.mpt':
+            case '.vsdx':
+            case '.vssx':
+            case '.vstx':
+            case '.vsdm':
+            case '.vssm':
+            case '.vstm':
+            case '.vsd':
+            case '.vss':
+            case '.vst':
+            case '.svg':
+            case '.svgz':
+            case '.dwg':
+            case '.dxf':
                 return true
             default:
                 return false

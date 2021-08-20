@@ -148,7 +148,7 @@ export abstract class ProjectArgsImpl extends ArgsImpl<ProjectItemImpl> {
         this.updateApplications(localId)
         let platform = platformFromUtools()
         for (let app of this.applications) {
-            if (app.isFinishConfig() === ApplicationConfigState.done && contain(platform, app.platform)) {
+            if (app.isFinishConfig() === ApplicationConfigState.done && contain(app.platform, platform)) {
                 (await app.generateProjectItems()).forEach(p => this.projectItemCache.push(p))
             }
         }
