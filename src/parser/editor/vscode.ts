@@ -37,24 +37,18 @@ export class VscodeApplicationImpl extends ApplicationImpl<VscodeProjectItemImpl
                     let args = ''
                     if (!isEmpty(folderUri)) {
                         uri = folderUri
-                        // args = '--folder-uri'
                     } else if (!isEmpty(fileUri)) {
                         uri = fileUri
                     } else {
                         continue
                     }
                     let uriParsed = decodeURIComponent(uri)
-                    console.log(uriParsed)
                     let urlParsed = Url.parse(uriParsed)
-                    console.log(urlParsed)
                     let path = urlParsed.pathname
-                    console.log(path)
                     if (this.isWindows) {
                         path = path.substring(1)
                     }
-                    console.log(path)
                     let parser = parse(path)
-                    console.log('command', `"${this.executor}" ${args} "${path}"`)
                     items.push({
                         id: '',
                         title: parser.name,
