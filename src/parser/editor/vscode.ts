@@ -1,4 +1,4 @@
-import {ApplicationImpl, Platform, ProjectItemImpl, ShellExecutor} from '../../types'
+import {ApplicationImpl, Platform, ProjectItemImpl, SettingItem, ShellExecutor, SwitchSettingItem} from '../../types'
 import {readFile} from 'fs/promises'
 import {isEmpty, isNil, Url} from 'licia'
 import {parse} from 'path'
@@ -8,6 +8,8 @@ const VSCODE: string = 'vscode'
 export class VscodeProjectItemImpl extends ProjectItemImpl {}
 
 export class VscodeApplicationImpl extends ApplicationImpl<VscodeProjectItemImpl> {
+    openInNew: boolean = false
+
     constructor() {
         super(
             'vscode',
@@ -34,7 +36,7 @@ export class VscodeApplicationImpl extends ApplicationImpl<VscodeProjectItemImpl
                     let folderUri = element['folderUri']
                     let fileUri = element['fileUri']
                     let uri
-                    let args = ''
+                    let args = this.openInNew ? '-n' : ''
                     if (!isEmpty(folderUri)) {
                         uri = folderUri
                     } else if (!isEmpty(fileUri)) {
@@ -61,6 +63,27 @@ export class VscodeApplicationImpl extends ApplicationImpl<VscodeProjectItemImpl
             }
         }
         return items
+    }
+
+    openInNewId(nativeId: string) {
+        return `${nativeId}/${this.id}-open-in-new`
+    }
+
+    update(nativeId: string) {
+        super.update(nativeId)
+        this.openInNew = utools.dbStorage.getItem(this.openInNewId(nativeId))
+    }
+
+    generateSettingItems(nativeId: string): Array<SettingItem> {
+        let superSettings = super.generateSettingItems(nativeId)
+        return [
+            new SwitchSettingItem(
+                this.openInNewId(nativeId),
+                '新窗口打开',
+                this.openInNew,
+            ),
+            ...superSettings,
+        ]
     }
 }
 

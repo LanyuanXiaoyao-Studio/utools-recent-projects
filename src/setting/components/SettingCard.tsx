@@ -1,4 +1,4 @@
-import {Application, ProjectItemImpl} from '../../types'
+import {Application, ProjectItemImpl, SettingType} from '../../types'
 import {Component, Fragment, Img} from 'nano-jsx'
 import {isEmpty, isNil} from 'licia'
 import {iconMap} from '../../icon'
@@ -57,6 +57,11 @@ export class SettingCard extends Component<SettingCardProps, SettingCardState> {
         }
     }
 
+    switch(id: string, value: boolean) {
+        utools.dbStorage.setItem(id, value)
+        this.updateApplicationUI()
+    }
+
     clear(id: string) {
         utools.dbStorage.removeItem(id)
         this.updateApplicationUI()
@@ -95,27 +100,51 @@ export class SettingCard extends Component<SettingCardProps, SettingCardState> {
                             <blockquote class="card-description">
                                 <cite>{this.props.application.description}</cite>
                             </blockquote>}
-                        {this.props.application.generateSettingItems(utools.getNativeId()).map(item => (
-                            <Fragment>
-                                <div class="form-label">{item.name}</div>
-                                <div class="input-group">
-                                    <input
-                                        type="text"
-                                        class="form-input input-sm"
-                                        value={item.value == null ? '' : item.value}
-                                        placeholder="点击输入框选择路径"
-                                        onclick={() => this.select(item.id, item.name)}
-                                        readonly
-                                    />
-                                    <button
-                                        class="btn btn-error btn-sm input-group-btn"
-                                        onclick={() => this.clear(item.id)}
-                                    >
-                                        <i class="icon icon-cross"/>
-                                    </button>
-                                </div>
-                            </Fragment>
-                        ))}
+                        {this.props.application.generateSettingItems(utools.getNativeId()).map(item => {
+                            switch (item.type) {
+                                case SettingType.input:
+                                    return (
+                                        <div class="form-group">
+                                            <div class="form-label">{item.name}</div>
+                                            <div class="input-group">
+                                                <input
+                                                    type="text"
+                                                    class="form-input input-sm"
+                                                    value={item.value == null ? '' : item.value}
+                                                    placeholder="点击输入框选择路径"
+                                                    onclick={() => this.select(item.id, item.name)}
+                                                    readonly
+                                                />
+                                                <button
+                                                    class="btn btn-error btn-sm input-group-btn"
+                                                    onclick={() => this.clear(item.id)}
+                                                >
+                                                    <i class="icon icon-cross"/>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    )
+                                case SettingType.switch:
+                                    return (
+                                        <div class="form-group">
+                                            <div class="form-label">{item.name}</div>
+                                            <label class="form-switch">
+                                                {item.value
+                                                    ? <input
+                                                        type="checkbox"
+                                                        checked=""
+                                                        onchange={() => this.switch(item.id, false)}
+                                                    />
+                                                    : <input
+                                                        type="checkbox"
+                                                        onchange={() => this.switch(item.id, true)}
+                                                    />}
+                                                <i class="form-icon"/>
+                                            </label>
+                                        </div>
+                                    )
+                            }
+                        })}
                     </div>
                 </div>
             </Fragment>

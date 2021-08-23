@@ -175,11 +175,52 @@ export enum Platform {
     unknown,
 }
 
+export enum SettingType {
+    input,
+    switch,
+}
+
+export type SettingValue = string | boolean
+
 export interface SettingItem {
+    readonly type: SettingType
     readonly id: string
     readonly name: string
+    readonly value: SettingValue
     readonly description?: string
+}
+
+export class InputSettingItem implements SettingItem {
+    readonly type: SettingType
+    readonly id: string
+    readonly name: string
     readonly value: string
+    readonly description?: string
+
+
+    constructor(id: string, name: string, value: string, description?: string) {
+        this.type = SettingType.input
+        this.id = id
+        this.name = name
+        this.value = value
+        this.description = description
+    }
+}
+
+export class SwitchSettingItem implements SettingItem {
+    readonly type: SettingType
+    readonly id: string
+    readonly name: string
+    readonly value: boolean
+    readonly description?: string
+
+    constructor(id: string, name: string, value: boolean, description?: string) {
+        this.type = SettingType.switch
+        this.id = id
+        this.name = name
+        this.value = value
+        this.description = description
+    }
 }
 
 export enum ApplicationConfigState {
@@ -254,21 +295,17 @@ export abstract class ApplicationImpl<P extends ProjectItemImpl> implements Appl
     }
 
     generateSettingItems(nativeId: string): Array<SettingItem> {
-        let configId = this.configId(nativeId)
-        let configTitle = `设置 ${this.name} 「${this.configFilename}」文件路径`
-        let executorId = this.executorId(nativeId)
-        let executorTitle = `设置 ${this.name} 可执行程序路径`
         return [
-            Object.create({
-                id: configId,
-                name: configTitle,
-                value: this.config,
-            }),
-            Object.create({
-                id: executorId,
-                name: executorTitle,
-                value: this.executor,
-            }),
+            new InputSettingItem(
+                this.configId(nativeId),
+                `设置 ${this.name} 「${this.configFilename}」文件路径`,
+                this.config,
+            ),
+            new InputSettingItem(
+                this.executorId(nativeId),
+                `设置 ${this.name} 可执行程序路径`,
+                this.executor,
+            ),
         ]
     }
 

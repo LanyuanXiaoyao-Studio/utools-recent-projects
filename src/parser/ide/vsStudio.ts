@@ -3,6 +3,7 @@ import {
     ApplicationConfigState,
     ApplicationImpl,
     Executor,
+    InputSettingItem,
     Platform,
     ProjectItemImpl,
     SettingItem,
@@ -71,14 +72,12 @@ export class VsStudioApplicationImpl extends ApplicationImpl<VsStudioProjectItem
     }
 
     generateSettingItems(nativeId: string): Array<SettingItem> {
-        let configId = this.configId(nativeId)
-        let configTitle = `设置 ${this.name} 「${this.configFilename}」文件路径`
         return [
-            Object.create({
-                id: configId,
-                name: configTitle,
-                value: this.config,
-            }),
+            new InputSettingItem(
+                this.configId(nativeId),
+                `设置 ${this.name} 「${this.configFilename}」文件路径`,
+                this.config,
+            ),
         ]
     }
 
