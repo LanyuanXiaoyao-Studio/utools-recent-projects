@@ -81,6 +81,7 @@ export class VscodeApplicationImpl extends ApplicationImpl<VscodeProjectItemImpl
                 this.openInNewId(nativeId),
                 '新窗口打开',
                 this.openInNew,
+                '如果打开的是文件夹, 无论是否打开该选项, 都将在新窗口打开',
             ),
             ...superSettings,
         ]

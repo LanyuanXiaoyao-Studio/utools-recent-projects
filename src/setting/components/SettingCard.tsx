@@ -106,6 +106,10 @@ export class SettingCard extends Component<SettingCardProps, SettingCardState> {
                                     return (
                                         <div class="form-group">
                                             <div class="form-label">{item.name}</div>
+                                            {isEmpty(item.description)
+                                                ? <Fragment/>
+                                                :
+                                                <div class="setting-item-description">{item.description}</div>}
                                             <div class="input-group">
                                                 <input
                                                     type="text"
@@ -128,6 +132,10 @@ export class SettingCard extends Component<SettingCardProps, SettingCardState> {
                                     return (
                                         <div class="form-group">
                                             <div class="form-label">{item.name}</div>
+                                            {isEmpty(item.description)
+                                                ? <Fragment/>
+                                                :
+                                                <div class="setting-item-description">{item.description}</div>}
                                             <label class="form-switch">
                                                 {item.value
                                                     ? <input

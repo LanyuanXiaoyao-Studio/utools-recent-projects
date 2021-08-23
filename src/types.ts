@@ -190,16 +190,16 @@ export interface SettingItem {
     readonly description?: string
 }
 
-export class InputSettingItem implements SettingItem {
+export abstract class AbstractSettingItem implements SettingItem {
     readonly type: SettingType
     readonly id: string
     readonly name: string
-    readonly value: string
+    readonly value: SettingValue
     readonly description?: string
 
 
-    constructor(id: string, name: string, value: string, description?: string) {
-        this.type = SettingType.input
+    protected constructor(type: SettingType, id: string, name: string, value: SettingValue, description?: string) {
+        this.type = type
         this.id = id
         this.name = name
         this.value = value
@@ -207,19 +207,15 @@ export class InputSettingItem implements SettingItem {
     }
 }
 
-export class SwitchSettingItem implements SettingItem {
-    readonly type: SettingType
-    readonly id: string
-    readonly name: string
-    readonly value: boolean
-    readonly description?: string
+export class InputSettingItem extends AbstractSettingItem {
+    constructor(id: string, name: string, value: string, description?: string) {
+        super(SettingType.input, id, name, value, description)
+    }
+}
 
+export class SwitchSettingItem extends AbstractSettingItem {
     constructor(id: string, name: string, value: boolean, description?: string) {
-        this.type = SettingType.switch
-        this.id = id
-        this.name = name
-        this.value = value
-        this.description = description
+        super(SettingType.switch, id, name, value, description)
     }
 }
 

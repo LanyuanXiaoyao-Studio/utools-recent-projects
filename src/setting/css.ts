@@ -106,6 +106,15 @@ export const CustomCss: string = `
     color      : gray;
     width      : 100%;
     word-break : break-word;
+    margin-block-start: 10px;
+    margin-block-end: 10px;
+  }
+
+  .form-item .setting-item-description {
+    font-size  : 0.65rem;
+    color      : gray;
+    width      : 100%;
+    word-break : break-word;
   }
 `
 
