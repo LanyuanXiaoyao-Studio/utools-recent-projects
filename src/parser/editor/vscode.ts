@@ -44,19 +44,24 @@ export class VscodeApplicationImpl extends ApplicationImpl<VscodeProjectItemImpl
                         continue
                     }
                     uri = decodeURI(uri)
+                    console.log(uri)
                     let url = Url.parse(uri)
+                    console.log(url)
                     let path = decodeURIComponent(url.pathname)
+                    console.log(path)
                     if (this.isWindows) {
                         path = path.substring(1)
                     }
+                    console.log(path)
                     let parser = parse(path)
+                    console.log('command', `"${this.executor}" ${args} "${url.pathname}"`)
                     items.push({
                         id: '',
                         title: parser.name,
                         description: path,
                         icon: utools.getFileIcon(path),
                         searchKey: path,
-                        command: new ShellExecutor(`"${this.executor}" ${args} "${uri}"`),
+                        command: new ShellExecutor(`"${this.executor}" ${args} "${url.pathname}"`),
                     })
                 }
             }
