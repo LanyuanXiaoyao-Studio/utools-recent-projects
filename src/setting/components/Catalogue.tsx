@@ -48,10 +48,6 @@ export class Catalogue extends Component<CatalogueProps, CatalogueState> {
         this.store.cancel()
     }
 
-    jump() {
-        utools.redirect('Projects', '')
-    }
-
     help() {
         utools.shellOpenExternal('https://yuanliao.info/d/3978')
     }
@@ -75,15 +71,6 @@ export class Catalogue extends Component<CatalogueProps, CatalogueState> {
         return (
             <Fragment>
                 <ul class="nav">
-                    <li class="nav-item">
-                        <a
-                            href="#"
-                            onclick={() => this.jump()}
-                        >
-                            <i class="icon icon-search"/>
-                            <b>开始搜索</b>
-                        </a>
-                    </li>
                     <li class="nav-item">
                         <a
                             href="#"
