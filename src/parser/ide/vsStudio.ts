@@ -7,7 +7,7 @@ import {
     Platform,
     ProjectItemImpl,
     SettingItem,
-    UToolsExecutor,
+    ElectronExecutor,
 } from '../../types'
 import {readFile} from 'fs/promises'
 import {isEmpty, isNil} from 'licia'
@@ -61,7 +61,7 @@ export class VsStudioApplicationImpl extends ApplicationImpl<VsStudioProjectItem
                         description: path,
                         icon: utools.getFileIcon(path),
                         searchKey: parseObj.name,
-                        command: new UToolsExecutor(path),
+                        command: new ElectronExecutor(path),
                         datetime: parseInt(`${datetime}`),
                     })
                 })

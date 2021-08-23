@@ -4,7 +4,7 @@ import {
     Platform,
     ProjectItemImpl,
     SettingItem,
-    UToolsExecutor,
+    ElectronExecutor,
 } from '../../types'
 import {execSync} from 'child_process'
 import {isEmpty, isNil} from 'licia'
@@ -69,7 +69,7 @@ export class XcodeApplicationImpl extends ApplicationImpl<XcodeProjectItemImpl> 
                     description: p,
                     icon: this.icon,
                     searchKey: parseObj.name,
-                    command: new UToolsExecutor(p),
+                    command: new ElectronExecutor(p),
                 })
             })
         }

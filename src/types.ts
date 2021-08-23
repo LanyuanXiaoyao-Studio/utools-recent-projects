@@ -3,11 +3,19 @@ import {exec} from 'child_process'
 import {shell} from 'electron'
 import {platformFromUtools} from './utils'
 
+/**
+ * 命令执行器
+ */
 export interface Executor {
     readonly command: string
     execute: () => void
 }
 
+/**
+ * 没有命令执行器
+ *
+ * 用于表示没有执行器的概念, 用于提示性的结果项
+ */
 export class NoExecutor implements Executor {
     readonly command: string
 
@@ -19,6 +27,11 @@ export class NoExecutor implements Executor {
     }
 }
 
+/**
+ * 命令行执行器
+ *
+ * 使用 exec 命令在终端中执行指定的语句
+ */
 export class ShellExecutor implements Executor {
     readonly command: string
 
@@ -42,7 +55,12 @@ export class ShellExecutor implements Executor {
     }
 }
 
-export class UToolsExecutor implements Executor {
+/**
+ * Electron 执行器
+ *
+ * 使用 shell.openExternal 打开指定的链接, 即使用默认程度打开
+ */
+export class ElectronExecutor implements Executor {
     readonly command: string
 
     constructor(command: string) {
@@ -65,6 +83,8 @@ export class UToolsExecutor implements Executor {
 
 /**
  * 选项
+ *
+ * 对 uTools 模板插件中结果项的定义, 增加了 id 和 searchKey 的适配, 方便使用
  */
 export interface Item {
     id: string
@@ -74,6 +94,9 @@ export interface Item {
     searchKey: string
 }
 
+/**
+ * 对选项的简单抽象实现, 方便使用
+ */
 export abstract class ItemImpl implements Item {
     id: string
     title: string
@@ -90,6 +113,11 @@ export abstract class ItemImpl implements Item {
     }
 }
 
+/**
+ * 项目选项
+ *
+ * 查询历史记录后的结果, 增加了用于打开该历史的 command 命令
+ */
 export abstract class ProjectItemImpl extends ItemImpl {
     command: Executor
 
@@ -126,28 +154,58 @@ export abstract class ArgsImpl<I extends Item> implements Args<I> {
     abstract select?: (action: Action, item: I, callback: Callback<I>) => void
     abstract readonly placeholder?: string
 
+    /**
+     * 应用配置
+     */
     applications: Array<Application<ProjectItemImpl>> = []
 
+    /**
+     * 传入应用配置
+     *
+     * @param applications 应用配置, 可以多个聚合在一起
+     */
     constructor(applications: Array<Application<ProjectItemImpl>>) {
         this.applications = applications
     }
 
+    /**
+     * 更新应用配置
+     *
+     * @param nativeId 本机识别码, 用于区分不同机器上的配置
+     */
     updateApplications: (nativeId: string) => void = nativeId => {
         this.applications.forEach(app => app.update(nativeId))
     }
 
+    /**
+     * 用于查询结果排序, 默认为不排序, 按查询结果的顺序显示
+     *
+     * @param p1
+     * @param p2
+     */
     compare(p1: I, p2: I): number {
         return 0
     }
 }
 
 export abstract class ProjectArgsImpl extends ArgsImpl<ProjectItemImpl> {
+    /**
+     * 缓存查询到的历史记录, 方便搜索时过滤
+     */
     projectItemCache: Array<ProjectItemImpl> = []
 
+    /**
+     * 获取历史记录
+     *
+     * 遍历应用配置, 调用配置里定义的获取历史记录的流程把所有历史记录都查出来, 汇集到缓存里
+     *
+     * @param localId 本机识别码
+     */
     getProjectItems: (localId: string) => Promise<Array<ProjectItemImpl>> = async localId => {
         this.updateApplications(localId)
         let platform = platformFromUtools()
         for (let app of this.applications) {
+            // 平台不适配的, 配置没有填完的, 都要被过滤掉
             if (app.isFinishConfig() === ApplicationConfigState.done && contain(app.platform, platform)) {
                 (await app.generateProjectItems()).forEach(p => this.projectItemCache.push(p))
             }
@@ -155,6 +213,9 @@ export abstract class ProjectArgsImpl extends ArgsImpl<ProjectItemImpl> {
         return this.projectItemCache.sort(this.compare)
     }
 
+    /**
+     * 清理历史记录缓存, 防止和下一次使用时混杂在一起
+     */
     clearCache() {
         this.projectItemCache = []
     }
@@ -168,6 +229,9 @@ export interface Feature<I extends Item> {
     mode: 'list' | 'none'
 }
 
+/**
+ * 操作系统类型的枚举
+ */
 export enum Platform {
     win32,
     darwin,
@@ -175,11 +239,23 @@ export enum Platform {
     unknown,
 }
 
+/**
+ * 配置项的类型
+ */
 export enum SettingType {
+    /**
+     * 输入文本类型的配置
+     */
     input,
+    /**
+     * 开关类型的配置
+     */
     switch,
 }
 
+/**
+ * 配置值类型
+ */
 export type SettingValue = string | boolean
 
 export interface SettingItem {
@@ -190,7 +266,7 @@ export interface SettingItem {
     readonly description?: string
 }
 
-export abstract class AbstractSettingItem implements SettingItem {
+export abstract class SettingItemImpl implements SettingItem {
     readonly type: SettingType
     readonly id: string
     readonly name: string
@@ -207,13 +283,13 @@ export abstract class AbstractSettingItem implements SettingItem {
     }
 }
 
-export class InputSettingItem extends AbstractSettingItem {
+export class InputSettingItem extends SettingItemImpl {
     constructor(id: string, name: string, value: string, description?: string) {
         super(SettingType.input, id, name, value, description)
     }
 }
 
-export class SwitchSettingItem extends AbstractSettingItem {
+export class SwitchSettingItem extends SettingItemImpl {
     constructor(id: string, name: string, value: boolean, description?: string) {
         super(SettingType.switch, id, name, value, description)
     }

@@ -6,6 +6,7 @@
     "target"          : "ESNext",
     "moduleResolution": "Node",
     "esModuleInterop" : true,
+    "removeComments"  : true,
     "types"           : [
       "@types/node",
       "utools-api-types"

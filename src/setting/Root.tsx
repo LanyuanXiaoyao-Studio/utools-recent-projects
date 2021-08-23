@@ -38,24 +38,31 @@ class Root extends Component<RootProps, RootState> {
                         name="viewport"
                         content="width=device-width, initial-scale=1"
                     />
+                    {/*引入样式文件*/}
                     <style>{SpectreCss}</style>
                     <style>{SpectreIconCss}</style>
                     <style>{CustomCss}</style>
                     <style>{CustomDarkCss}</style>
+                    {/*保留 uTools 模板插件原本的 js 文件*/}
                     <script src="index.js"/>
                 </head>
                 <body
                     class={utools.isDarkColors() ? 'dark' : ''}
                     style={{ padding: '5px' }}
                 >
+                    {/*保留 uTools 模板插件原本的布局*/}
                     <div id="root"/>
                     <div class="container">
                         <div class="columns">
                             <div class="column col-3">
+                                {/*左侧导航栏*/}
                                 <Catalogue applications={this.state.applications}/>
                             </div>
                             <div class="column col-9">
+                                {/*右侧配置信息*/}
+                                {/*用户和系统信息*/}
                                 <InformationCard platform={this.state.platform}/>
+                                {/*具体应用配置信息*/}
                                 {this.state.applications
                                     .sort((a1, a2) => compareChar(a1.group, a2.group))
                                     .map(app => <SettingCard application={app}/>)}
