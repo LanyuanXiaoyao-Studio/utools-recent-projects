@@ -1,4 +1,4 @@
-import {ApplicationImpl, Platform, ProjectItemImpl, ShellExecutor} from '../../types'
+import {ApplicationImpl, Platform, ProjectItemImpl, SettingItem, ShellExecutor, SwitchSettingItem} from '../../types'
 import {readFile} from 'fs/promises'
 import {isNil} from 'licia'
 import {parse} from 'path'
@@ -8,6 +8,8 @@ const SUBLIME: string = 'sublime'
 export class SublimeProjectItemImpl extends ProjectItemImpl {}
 
 export class SublimeApplicationImpl extends ApplicationImpl<SublimeProjectItemImpl> {
+    openInNew: boolean = false
+
     constructor() {
         super(
             'sublime',
@@ -28,6 +30,7 @@ export class SublimeApplicationImpl extends ApplicationImpl<SublimeProjectItemIm
         let items: Array<SublimeProjectItemImpl> = []
         let buffer = await readFile(this.config)
         if (!isNil(buffer)) {
+            let args = this.openInNew ? '-n' : ''
             let content = buffer.toString()
             let session = JSON.parse(content)
             let folderSet = new Set<string>()
@@ -58,11 +61,33 @@ export class SublimeApplicationImpl extends ApplicationImpl<SublimeProjectItemIm
                     description: readPath,
                     icon: utools.getFileIcon(readPath),
                     searchKey: path,
-                    command: new ShellExecutor(`"${this.executor}" "${this.parsePath(path)}"`),
+                    command: new ShellExecutor(`"${this.executor}" ${args} "${this.parsePath(path)}"`),
                 })
             })
         }
         return items
+    }
+
+    openInNewId(nativeId: string) {
+        return `${nativeId}/${this.id}-open-in-new`
+    }
+
+    update(nativeId: string) {
+        super.update(nativeId)
+        this.openInNew = utools.dbStorage.getItem(this.openInNewId(nativeId))
+    }
+
+    generateSettingItems(nativeId: string): Array<SettingItem> {
+        let superSettings = super.generateSettingItems(nativeId)
+        return [
+            new SwitchSettingItem(
+                this.openInNewId(nativeId),
+                '新窗口打开',
+                this.openInNew,
+                '如果打开的是文件夹, 无论是否打开该选项, 都将在新窗口打开',
+            ),
+            ...superSettings,
+        ]
     }
 }
 
