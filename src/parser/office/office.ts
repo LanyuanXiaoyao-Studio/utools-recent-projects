@@ -101,7 +101,7 @@ export class OfficeWinApplicationImpl extends ApplicationImpl<OfficeProjectItemI
     private permitExtension: (string) => boolean = p => {
         let ext = parse(p).ext
         if (isEmpty(ext)) return false
-        return '.docx .docm .doc .dotx .dot .xps .odt .xlsx .xlsm .xlsb .xls .csv .xltx .xltm .xlt .prn .dif .slk .xlam .xla .ods .pptx .pptm .ppt .potx .potm .pot .thmx .ppsx .ppsm .pps .ppam .ppa .mp4 .wmv .gif .jpg .png .tif .bmp .wmf .emf .svg .odp .pub .ps .mht .mhtml .html .htm .mpp .mpt .vsdx .vssx .vstx .vsdm .vssm .vstm .vsd .vss .vst .svgz .dwg .dxf'.indexOf(ext) > -1
+        return '.docx .docm .doc .dotx .dot .xps .odt .xlsx .xlsm .xlsb .xls .csv .xltx .xltm .xlt .prn .dif .slk .xlam .xla .ods .pptx .pptm .ppt .potx .potm .pot .thmx .ppsx .ppsm .pps .ppam .ppa .mp4 .wmv .gif .jpg .png .tif .bmp .wmf .emf .svg .odp .pub .ps .mht .mhtml .html .htm .mpp .mpt .vsdx .vssx .vstx .vsdm .vssm .vstm .vsd .vss .vst .svgz .dwg .dxf .accdb .mdb .accdt .accde '.indexOf(ext) > -1
     }
     private generateCommand: (string) => string = link => `(New-Object -COM WScript.Shell).CreateShortcut('${link}').TargetPath;`
 
