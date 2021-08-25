@@ -18,9 +18,10 @@ $packageJson=@"
   "version"        : "1.0.0",
   "license"        : "MIT",
   "dependencies"   : {
-  "bplist-parser"  : "^0.3.0",
-  "licia"          : "^1.29.0",
-  "nano-jsx"       : "^0.0.20"
+      "bplist-parser"  : "^0.3.0",
+      "licia"          : "^1.29.0",
+      "nano-jsx"       : "^0.0.20",
+      "winreg"         : "^1.2.4"
   }
 }
 "@
@@ -43,6 +44,10 @@ Set-Location $temp
 
 Set-Location "$temp\node_modules\bplist-parser"
 Remove-Item -Force -Recurse *.md,.editorconfig,.eslintignore,.eslintrc.js
+Set-Location $temp
+
+Set-Location "$temp\node_modules\winreg"
+Remove-Item -Force -Recurse test *.md .npmignore jsdoc.conf.json
 Set-Location $temp
 
 Set-Location $current_path

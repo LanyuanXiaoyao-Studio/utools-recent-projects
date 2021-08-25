@@ -20,8 +20,9 @@ packageJson='{
                 "license"        : "MIT",
                 "dependencies"   : {
                   "bplist-parser": "^0.3.0",
-                  "licia"   : "^1.29.0",
-                  "nano-jsx": "^0.0.20"
+                  "licia"        : "^1.29.0",
+                  "nano-jsx"     : "^0.0.20",
+                  "winreg"       : "^1.2.4"
                 }
               }'
 echo $packageJson > package.json
@@ -43,6 +44,10 @@ cd $temp
 
 cd "${temp}/node_modules/bplist-parser"
 rm -rf *.md .editorconfig .eslintignore .eslintrc.js
+cd $temp
+
+cd "${temp}/node_modules/winreg"
+rm -rf test *.md .npmignore jsdoc.conf.json
 cd $temp
 
 cd $current_path
