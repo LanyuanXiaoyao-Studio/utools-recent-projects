@@ -17,6 +17,7 @@
     {
       "code"   : "setting",
       "explain": "设置软件最近项目数据存储的文件和软件启动文件",
+      "icon"   : "logo.png",
       "cmds"   : [
         "Setting",
         "设置"
@@ -29,7 +30,42 @@
       "cmds"   : [
         "jb",
         "JetBrains Projects",
-        "我的 JetBrains 项目"
+        "我的 JetBrains 项目",
+        {
+          "type" : "window",
+          "label": "打开其他 JetBrains 项目",
+          "match": {
+            "app": [
+              "Android Studio.app",
+              "AppCode.app",
+              "CLion.app",
+              "DataGrip.app",
+              "GoLand.app",
+              "IntelliJ IDEA CE.app",
+              "IntelliJ IDEA Edu.app",
+              "IntelliJ IDEA.app",
+              "PhpStorm.app",
+              "PyCharm CE.app",
+              "PyCharm Edu.app",
+              "PyCharm.app",
+              "Rider.app",
+              "RubyMine.app",
+              "WebStorm.app",
+              "studio.exe",
+              "studio64.exe",
+              "clion64.exe",
+              "datagrip64.exe",
+              "goland64.exe",
+              "idea64.exe",
+              "javaw.exe",
+              "phpstorm64.exe",
+              "pycharm64.exe",
+              "rider64.exe",
+              "rubymine64.exe",
+              "webstorm64.exe"
+            ]
+          }
+        }
       ]
     },
     {
@@ -39,7 +75,17 @@
       "cmds"   : [
         "vsc",
         "Visual Studio Code Projects",
-        "我的 Visual Studio Code 项目"
+        "我的 Visual Studio Code 项目",
+        {
+          "type" : "window",
+          "label": "打开其他 Visual Studio Code 项目",
+          "match": {
+            "app": [
+              "Visual Studio Code.app",
+              "Code.exe"
+            ]
+          }
+        }
       ]
     },
     {
@@ -49,7 +95,17 @@
       "cmds"   : [
         "sbt",
         "Sublime Text Projects",
-        "我的 Sublime Text 项目"
+        "我的 Sublime Text 项目",
+        {
+          "type" : "window",
+          "label": "打开其他 Sublime Text 项目",
+          "match": {
+            "app": [
+              "Sublime Text.app",
+              "sublime_text.exe"
+            ]
+          }
+        }
       ]
     },
     {
@@ -62,21 +118,44 @@
       "cmds"    : [
         "wps",
         "WPS Office Projects",
-        "我的 WPS Office 项目"
+        "我的 WPS Office 项目",
+        {
+          "type" : "window",
+          "label": "打开其他 WPS Office 项目",
+          "match": {
+            "app": [
+              "wpsoffice.app"
+            ]
+          }
+        }
       ]
     },
     {
-      "code"    : "office-project",
-      "explain" : "快速打开我的 Office 项目",
-      "icon"    : "icon/office.png",
-      "platform": [
-        "darwin",
-        "win32"
-      ],
-      "cmds"    : [
+      "code"   : "office-project",
+      "explain": "快速打开我的 Office 项目",
+      "icon"   : "icon/office.png",
+      "cmds"   : [
         "office",
         "Office Projects",
-        "我的 Office 项目"
+        "我的 Office 项目",
+        {
+          "type" : "window",
+          "label": "打开其他 Office 项目",
+          "match": {
+            "app": [
+              "Microsoft Word.app",
+              "Microsoft Excel.app",
+              "Microsoft PowerPoint.app",
+              "WINWORD.EXE",
+              "EXCEL.EXE",
+              "POWERPNT.EXE",
+              "WINPROJ.EXE",
+              "MSPUB.EXE",
+              "VISIO.EXE",
+              "MSACCESS.EXE"
+            ]
+          }
+        }
       ]
     },
     {
@@ -101,7 +180,16 @@
       ],
       "cmds"    : [
         "Xcode",
-        "我的 Xcode 项目"
+        "我的 Xcode 项目",
+        {
+          "type" : "window",
+          "label": "打开其他 Xcode 项目",
+          "match": {
+            "app": [
+              "Xcode.app"
+            ]
+          }
+        }
       ]
     }
   ]
