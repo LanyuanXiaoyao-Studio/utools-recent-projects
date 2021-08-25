@@ -47,7 +47,7 @@ Remove-Item -Force -Recurse *.md,.editorconfig,.eslintignore,.eslintrc.js
 Set-Location $temp
 
 Set-Location "$temp\node_modules\winreg"
-Remove-Item -Force -Recurse test *.md .npmignore jsdoc.conf.json
+Remove-Item -Force -Recurse test,*.md,.npmignore,jsdoc.conf.json
 Set-Location $temp
 
 Set-Location $current_path
