@@ -15,6 +15,8 @@ export interface SettingCardState {}
 export class SettingCard extends Component<SettingCardProps, SettingCardState> {
     store = settingStore.use()
 
+    pathExistsCache: { [key: string]: boolean } = {}
+
     constructor(props: SettingCardProps) {
         super(props)
     }
@@ -67,6 +69,19 @@ export class SettingCard extends Component<SettingCardProps, SettingCardState> {
         this.updateApplicationUI()
     }
 
+    pathExists(path: string): boolean {
+        if (isEmpty(path)) {
+            return true
+        }
+        let exists = this.pathExistsCache[path]
+        if (isNil(exists)) {
+            exists = fs.existsSync(path)
+            this.pathExistsCache[path] = exists
+            return exists
+        }
+        return exists
+    }
+
     render() {
         return (
             <Fragment>
@@ -102,7 +117,7 @@ export class SettingCard extends Component<SettingCardProps, SettingCardState> {
                             </blockquote>}
                         {this.props.application.generateSettingItems(utools.getNativeId()).map(item => {
                             switch (item.type) {
-                                case SettingType.input:
+                                case SettingType.path:
                                     return (
                                         <div class="form-group">
                                             <div class="form-label">{item.name}</div>
@@ -113,7 +128,7 @@ export class SettingCard extends Component<SettingCardProps, SettingCardState> {
                                             <div class="input-group">
                                                 <input
                                                     type="text"
-                                                    class="form-input input-sm"
+                                                    class={`form-input input-sm ${this.pathExists(item.value as string) ? '' : 'is-error'}`}
                                                     value={item.value == null ? '' : item.value}
                                                     placeholder="点击输入框选择路径"
                                                     onclick={() => this.select(item.id, item.name)}
@@ -125,6 +140,12 @@ export class SettingCard extends Component<SettingCardProps, SettingCardState> {
                                                 >
                                                     <i class="icon icon-cross"/>
                                                 </button>
+                                            </div>
+                                            <div
+                                                class="form-input-hint-error"
+                                                style={`display: ${this.pathExists(item.value as string) ? 'none' : 'block'}`}
+                                            >
+                                                文件路径不存在
                                             </div>
                                         </div>
                                     )

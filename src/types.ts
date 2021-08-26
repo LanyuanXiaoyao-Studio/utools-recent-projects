@@ -246,7 +246,7 @@ export enum SettingType {
     /**
      * 输入文本类型的配置
      */
-    input,
+    path,
     /**
      * 开关类型的配置
      */
@@ -285,7 +285,7 @@ export abstract class SettingItemImpl implements SettingItem {
 
 export class InputSettingItem extends SettingItemImpl {
     constructor(id: string, name: string, value: string, description?: string) {
-        super(SettingType.input, id, name, value, description)
+        super(SettingType.path, id, name, value, description)
     }
 }
 

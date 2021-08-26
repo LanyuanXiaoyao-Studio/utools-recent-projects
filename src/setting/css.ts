@@ -100,14 +100,19 @@ export const CustomCss: string = `
     background-color : white;
   }
 
+  .input-group + .form-input-hint-error {
+    font-size : 0.7rem;
+    color     : #e85600;
+  }
+
   .form-item .card-description {
-    padding    : 0 0.8rem;
-    font-size  : 0.7rem;
-    color      : gray;
-    width      : 100%;
-    word-break : break-word;
-    margin-block-start: 10px;
-    margin-block-end: 10px;
+    padding            : 0 0.8rem;
+    font-size          : 0.7rem;
+    color              : gray;
+    width              : 100%;
+    word-break         : break-word;
+    margin-block-start : 10px;
+    margin-block-end   : 10px;
   }
 
   .form-item .setting-item-description {
@@ -141,6 +146,10 @@ export const CustomDarkCss: string = `
     color            : #dedede;
     background-color : #3c3c3c;
     border-color     : #464646;
+  }
+
+  body.dark .form-input.is-error {
+    border-color : #e85600;
   }
 
   body.dark .btn.btn-error {
