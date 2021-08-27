@@ -206,9 +206,12 @@ export abstract class ProjectArgsImpl extends ArgsImpl<ProjectItemImpl> {
         this.updateApplications(localId)
         let platform = platformFromUtools()
         for (let app of this.applications) {
+            let finish = app.isFinishConfig()
             // 平台不适配的, 配置没有填完的, 都要被过滤掉
-            if (app.isFinishConfig() === ApplicationConfigState.done && contain(app.platform, platform)) {
+            if (finish === ApplicationConfigState.done && contain(app.platform, platform)) {
                 (await app.generateProjectItems()).forEach(p => this.projectItemCache.push(p))
+            } else if (finish === ApplicationConfigState.error) {
+                utools.showNotification(`${app.name} 获取项目记录错误, 请检查配置`)
             }
         }
         return this.projectItemCache.sort(this.compare)
