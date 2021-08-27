@@ -53,6 +53,7 @@ export class SettingCard extends Component<SettingCardProps, SettingCardState> {
                 if (!fs.existsSync(path)) {
                     alert('路径指示的文件不存在或已被删除')
                 }
+                this.pathExistsCache[path] = true
                 utools.dbStorage.setItem(id, path)
                 this.updateApplicationUI()
             }

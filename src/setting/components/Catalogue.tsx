@@ -64,6 +64,8 @@ export class Catalogue extends Component<CatalogueProps, CatalogueState> {
                 return { show: true, class: 'badge badge-unready', text: '待完善' }
             case ApplicationConfigState.done:
                 return { show: true, class: 'badge badge-ready', text: '已配置' }
+            case ApplicationConfigState.error:
+                return { show: true, class: 'badge badge-error', text: '有错误' }
         }
     }
 

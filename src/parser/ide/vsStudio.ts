@@ -2,12 +2,12 @@ import {
     Application,
     ApplicationConfigState,
     ApplicationImpl,
+    ElectronExecutor,
     Executor,
     InputSettingItem,
     Platform,
     ProjectItemImpl,
     SettingItem,
-    ElectronExecutor,
 } from '../../types'
 import {readFile} from 'fs/promises'
 import {isEmpty, isNil} from 'licia'
@@ -84,6 +84,8 @@ export class VsStudioApplicationImpl extends ApplicationImpl<VsStudioProjectItem
     isFinishConfig(): ApplicationConfigState {
         if (isEmpty(this.config)) {
             return ApplicationConfigState.empty
+        } else if (this.nonExistsPath(this.config)) {
+            return ApplicationConfigState.error
         } else {
             return ApplicationConfigState.done
         }

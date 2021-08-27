@@ -2,6 +2,7 @@ import {contain, isEmpty, isNil} from 'licia'
 import {exec} from 'child_process'
 import {shell} from 'electron'
 import {platformFromUtools} from './utils'
+import fs = require('fs')
 
 /**
  * 命令执行器
@@ -299,6 +300,7 @@ export enum ApplicationConfigState {
     empty,
     undone,
     done,
+    error,
 }
 
 /**
@@ -381,11 +383,21 @@ export abstract class ApplicationImpl<P extends ProjectItemImpl> implements Appl
         ]
     }
 
+    protected nonExistsPath(path: string): boolean {
+        return !this.existsPath(path)
+    }
+
+    protected existsPath(path: string): boolean {
+        return fs.existsSync(path)
+    }
+
     isFinishConfig(): ApplicationConfigState {
         if (isEmpty(this.config) && isEmpty(this.executor)) {
             return ApplicationConfigState.empty
         } else if (isEmpty(this.config) || isEmpty(this.executor)) {
             return ApplicationConfigState.undone
+        } else if (this.nonExistsPath(this.config) || this.nonExistsPath(this.executor)) {
+            return ApplicationConfigState.error
         } else {
             return ApplicationConfigState.done
         }

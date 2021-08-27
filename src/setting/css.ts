@@ -52,6 +52,10 @@ export const CustomCss: string = `
     background-color : #f3ae00;
   }
 
+  .badge[data-badge].badge-error::after {
+    background-color : #ff0000;
+  }
+
   .nav .nav-item .icon + b {
     margin-left : 10px;
   }

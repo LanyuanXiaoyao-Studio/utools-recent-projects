@@ -76,6 +76,8 @@ export class OfficeMacApplicationImpl extends ApplicationImpl<OfficeProjectItemI
     isFinishConfig(): ApplicationConfigState {
         if (isEmpty(this.config)) {
             return ApplicationConfigState.empty
+        } else if (this.nonExistsPath(this.config)) {
+            return ApplicationConfigState.error
         } else {
             return ApplicationConfigState.done
         }
