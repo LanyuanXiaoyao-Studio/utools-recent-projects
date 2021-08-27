@@ -9,7 +9,7 @@ import {
 } from '../../types'
 import {isEmpty, isNil} from 'licia'
 import {parse} from 'path'
-import {pathDescription} from '../../utils'
+import {existsOrNot} from '../../utils'
 import plistParser = require('bplist-parser')
 
 const WPS_MAC_INTERNATION: string = 'wps-mac-internation'
@@ -46,13 +46,17 @@ export class WpsMacInternationalApplicationImpl extends ApplicationImpl<WpsMacIn
                     let path = key.substr(end, key.length)
                     path = '/' + path.replace(/\./g, '/').replace(/·/g, '.')
                     let parser = parse(path)
-                    let icon = utools.getFileIcon(path)
+                    let { exists, description, icon } = existsOrNot(path, {
+                        description: path,
+                        icon: utools.getFileIcon(path),
+                    })
                     items.push({
                         id: '',
                         title: parser.name,
-                        description: pathDescription(path),
+                        description: description,
                         icon: icon,
                         searchKey: path,
+                        exists: exists,
                         command: new ShellExecutor(`open "${path}"`),
                     })
                 })

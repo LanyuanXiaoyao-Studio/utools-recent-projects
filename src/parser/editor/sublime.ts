@@ -2,7 +2,7 @@ import {ApplicationImpl, Platform, ProjectItemImpl, SettingItem, ShellExecutor, 
 import {readFile} from 'fs/promises'
 import {isNil} from 'licia'
 import {parse} from 'path'
-import {pathDescription} from '../../utils'
+import {existsOrNot} from '../../utils'
 
 const SUBLIME: string = 'sublime'
 
@@ -56,12 +56,17 @@ export class SublimeApplicationImpl extends ApplicationImpl<SublimeProjectItemIm
             ].forEach(path => {
                 let parser = parse(path)
                 let readPath = this.parsePath(path)
+                let { exists, description, icon } = existsOrNot(readPath, {
+                    description: readPath,
+                    icon: utools.getFileIcon(readPath),
+                })
                 items.push({
                     id: '',
                     title: `${parser.name}${parser.ext}`,
-                    description: pathDescription(readPath),
-                    icon: utools.getFileIcon(readPath),
+                    description: description,
+                    icon: icon,
                     searchKey: path,
+                    exists: exists,
                     command: new ShellExecutor(`"${this.executor}" ${args} "${this.parsePath(path)}"`),
                 })
             })

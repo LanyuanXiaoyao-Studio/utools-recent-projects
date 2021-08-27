@@ -11,9 +11,9 @@ import {
 import {isEmpty, isNil, Url} from 'licia'
 import {join, parse} from 'path'
 import {execSync} from 'child_process'
-import {pathDescription} from '../../utils'
+import {existsOrNot} from '../../utils'
+import {lstatSync, readdirSync} from 'fs'
 import plistParser = require('bplist-parser')
-import fs = require('fs')
 
 const OFFICE_MAC: string = 'office-mac'
 const OFFICE_WIN: string = 'office-win'
@@ -21,8 +21,8 @@ const OFFICE_WIN: string = 'office-win'
 export class OfficeProjectItemImpl extends ProjectItemImpl {
     datetime: number
 
-    constructor(id: string, title: string, description: string, icon: string, searchKey: string, command: Executor, datetime: number) {
-        super(id, title, description, icon, searchKey, command)
+    constructor(id: string, title: string, description: string, icon: string, searchKey: string, exists: boolean, command: Executor, datetime: number) {
+        super(id, title, description, icon, searchKey, exists, command)
         this.datetime = datetime
     }
 }
@@ -49,12 +49,17 @@ export class OfficeMacApplicationImpl extends ApplicationImpl<OfficeProjectItemI
                     key = decodeURI(key)
                     let url = Url.parse(key)
                     let parser = parse(url.pathname)
+                    let { exists, description, icon } = existsOrNot(url.pathname, {
+                        description: url.pathname,
+                        icon: utools.getFileIcon(url.pathname),
+                    })
                     items.push({
                         id: '',
                         title: parser.name,
-                        description: pathDescription(url.pathname),
-                        icon: utools.getFileIcon(url.pathname),
+                        description: description,
+                        icon: icon,
                         searchKey: url.pathname,
+                        exists: exists,
                         command: new ShellExecutor(`open ${url}`),
                         datetime: date,
                     })
@@ -109,12 +114,12 @@ export class OfficeWinApplicationImpl extends ApplicationImpl<OfficeProjectItemI
 
     async generateProjectItems(): Promise<Array<OfficeProjectItemImpl>> {
         let items: Array<OfficeProjectItemImpl> = []
-        let command = fs.readdirSync(this.recentPath)
+        let command = readdirSync(this.recentPath)
             .map(p => join(this.recentPath, p))
             .filter(p => p.endsWith('LNK'))
             .filter(p => this.permitExtension(p.replace(/\.LNK$/, '')))
             .map(p => {
-                let stat = fs.lstatSync(p)
+                let stat = lstatSync(p)
                 return {
                     path: p,
                     datetime: stat.mtimeMs,
@@ -127,12 +132,17 @@ export class OfficeWinApplicationImpl extends ApplicationImpl<OfficeProjectItemI
         let paths = result.split(/\r?\n/).slice(1)
         paths.forEach(p => {
             let parser = parse(p)
+            let { exists, description, icon } = existsOrNot(p, {
+                description: p,
+                icon: utools.getFileIcon(p),
+            })
             items.push({
                 id: '',
                 title: parser.name,
-                description: pathDescription(p),
-                icon: utools.getFileIcon(p),
+                description: description,
+                icon: icon,
                 searchKey: p,
+                exists: exists,
                 command: new ShellExecutor(`powershell.exe -command "Invoke-Item '${p}'"`),
                 datetime: 0,
             })

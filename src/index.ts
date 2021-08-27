@@ -19,6 +19,7 @@ const emptyTips: ProjectItemImpl = {
     description: '如果你还没有设置改软件的相关配置，请先在 Setting 关键字中设置相关配置内容，点击可跳转设置界面',
     icon: 'info.png',
     searchKey: '',
+    exists: true,
     command: new NoExecutor(),
 }
 
@@ -28,6 +29,7 @@ const unSupportTips: ProjectItemImpl = {
     description: '当然关键字对应的历史项目索引不支持当前平台，如果影响了你的日常操作，可以在插件详情中禁用',
     icon: 'info.png',
     searchKey: '',
+    exists: true,
     command: new NoExecutor(),
 }
 
@@ -69,6 +71,10 @@ export class AllProjectArgs extends ProjectArgsImpl {
     select = (action: Action, item: ProjectItemImpl, callback: Callback<ProjectItemImpl>) => {
         if (item.id === emptyTips.id) {
             utools.redirect('Setting', '')
+            return
+        }
+        if (!item.exists) {
+            utools.showNotification('文件不存在')
             return
         }
         item.command.execute()

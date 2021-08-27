@@ -12,16 +12,16 @@ import {
 import {readFile} from 'fs/promises'
 import {isEmpty, isNil} from 'licia'
 import {parse} from 'path'
+import {existsOrNot} from '../../utils'
 import $ = require('licia/$')
-import {pathDescription} from '../../utils'
 
 const VS_STUDIO: string = 'vs-studio'
 
 export class VsStudioProjectItemImpl extends ProjectItemImpl {
     datetime: number
 
-    constructor(id: string, title: string, description: string, icon: string, searchKey: string, command: Executor, datetime: number) {
-        super(id, title, description, icon, searchKey, command)
+    constructor(id: string, title: string, description: string, icon: string, searchKey: string, exists: boolean, command: Executor, datetime: number) {
+        super(id, title, description, icon, searchKey, exists, command)
         this.datetime = datetime
     }
 }
@@ -56,12 +56,17 @@ export class VsStudioApplicationImpl extends ApplicationImpl<VsStudioProjectItem
                     let path = p?.Value?.LocalProperties?.FullPath ?? ''
                     let datetime = Date.parse(p?.Value?.LastAccessed ?? '')
                     let parseObj = parse(path)
+                    let { exists, description, icon } = existsOrNot(path, {
+                        description: path,
+                        icon: utools.getFileIcon(path),
+                    })
                     items.push({
                         id: '',
                         title: parseObj.name,
-                        description: pathDescription(path),
-                        icon: utools.getFileIcon(path),
+                        description: description,
+                        icon: icon,
                         searchKey: parseObj.name,
+                        exists: exists,
                         command: new ElectronExecutor(path),
                         datetime: parseInt(`${datetime}`),
                     })

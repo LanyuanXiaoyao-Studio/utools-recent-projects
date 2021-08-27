@@ -2,7 +2,7 @@ import {ApplicationImpl, Platform, ProjectItemImpl, SettingItem, ShellExecutor, 
 import {readFile} from 'fs/promises'
 import {isEmpty, isNil, Url} from 'licia'
 import {parse} from 'path'
-import {pathDescription} from '../../utils'
+import {existsOrNot} from '../../utils'
 
 const VSCODE: string = 'vscode'
 
@@ -52,12 +52,17 @@ export class VscodeApplicationImpl extends ApplicationImpl<VscodeProjectItemImpl
                         path = path.substring(1)
                     }
                     let parser = parse(path)
+                    let { exists, description, icon } = existsOrNot(path, {
+                        description: path,
+                        icon: utools.getFileIcon(path),
+                    })
                     items.push({
                         id: '',
                         title: parser.name,
-                        description: pathDescription(path),
-                        icon: utools.getFileIcon(path),
+                        description: description,
+                        icon: icon,
                         searchKey: path,
+                        exists: exists,
                         command: new ShellExecutor(`"${this.executor}" ${args} "${path}"`),
                     })
                 }

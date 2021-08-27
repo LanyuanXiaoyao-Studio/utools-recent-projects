@@ -13,12 +13,17 @@ export const compareChar: (a: string, b: string) => number = (a, b) => {
     else return 0
 }
 
-/**
- * 生成当文件不存在时候的结果描述
- *
- * @param path 文件路径
- */
-export const pathDescription: (string) => string = path => existsSync(path) ? path : '文件不存在'
+export interface ExistsOrNotItem {
+    readonly exists: boolean
+    readonly description: string
+    readonly icon: string
+}
+
+export const existsOrNot: (string, ExistsOrNotItem) => ExistsOrNotItem = (path, item) => existsSync(path) ? item : {
+    exists: false,
+    description: `文件不存在`,
+    icon: 'delete.png',
+}
 
 /**
  * 用于从 uTools 的系统版本转换为枚举类型的系统版本, 方便后续比较使用

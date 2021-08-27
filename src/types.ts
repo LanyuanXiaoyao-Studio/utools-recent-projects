@@ -2,7 +2,7 @@ import {contain, isEmpty, isNil} from 'licia'
 import {exec} from 'child_process'
 import {shell} from 'electron'
 import {platformFromUtools} from './utils'
-import fs = require('fs')
+import {existsSync} from 'fs'
 
 /**
  * 命令执行器
@@ -120,10 +120,12 @@ export abstract class ItemImpl implements Item {
  * 查询历史记录后的结果, 增加了用于打开该历史的 command 命令
  */
 export abstract class ProjectItemImpl extends ItemImpl {
+    exists: boolean
     command: Executor
 
-    protected constructor(id: string, title: string, description: string, icon: string, searchKey: string, command: Executor) {
+    protected constructor(id: string, title: string, description: string, icon: string, searchKey: string, exists: boolean, command: Executor) {
         super(id, title, description, icon, searchKey)
+        this.exists = exists
         this.command = command
     }
 }
@@ -391,7 +393,7 @@ export abstract class ApplicationImpl<P extends ProjectItemImpl> implements Appl
     }
 
     protected existsPath(path: string): boolean {
-        return fs.existsSync(path)
+        return existsSync(path)
     }
 
     isFinishConfig(): ApplicationConfigState {

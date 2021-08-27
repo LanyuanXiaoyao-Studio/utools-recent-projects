@@ -1,16 +1,16 @@
 import {
     ApplicationConfigState,
     ApplicationImpl,
+    ElectronExecutor,
     Platform,
     ProjectItemImpl,
     SettingItem,
-    ElectronExecutor,
 } from '../../types'
 import {execSync} from 'child_process'
 import {isEmpty, isNil} from 'licia'
 import {parse} from 'path'
 import {statSync} from 'fs'
-import {pathDescription} from '../../utils'
+import {existsOrNot} from '../../utils'
 
 const XCODE: string = 'xcode'
 
@@ -64,12 +64,17 @@ export class XcodeApplicationImpl extends ApplicationImpl<XcodeProjectItemImpl> 
             let paths = result.split(',').map(p => p.trim())
             paths.forEach(p => {
                 let parseObj = parse(p)
+                let { exists, description, icon } = existsOrNot(p, {
+                    description: p,
+                    icon: utools.getFileIcon(p),
+                })
                 items.push({
                     id: '',
                     title: parseObj.name,
-                    description: pathDescription(p),
-                    icon: this.icon,
+                    description: description,
+                    icon: icon,
                     searchKey: parseObj.name,
+                    exists: exists,
                     command: new ElectronExecutor(p),
                 })
             })

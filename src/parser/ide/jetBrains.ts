@@ -2,16 +2,16 @@ import {Application, ApplicationImpl, Executor, Platform, ProjectItemImpl, Shell
 import {readFile} from 'fs/promises'
 import {isEmpty, isNil} from 'licia'
 import {parse} from 'path'
+import {existsOrNot} from '../../utils'
 import $ = require('licia/$')
-import {pathDescription} from '../../utils'
 
 const JETBRAINS: string = 'jetbrains'
 
 export class JetBrainsProjectItemImpl extends ProjectItemImpl {
     datetime: number
 
-    constructor(id: string, title: string, description: string, icon: string, searchKey: string, command: Executor, datetime: number) {
-        super(id, title, description, icon, searchKey, command)
+    constructor(id: string, title: string, description: string, icon: string, searchKey: string, exists: boolean, command: Executor, datetime: number) {
+        super(id, title, description, icon, searchKey, exists, command)
         this.datetime = datetime
     }
 }
@@ -37,12 +37,17 @@ export class JetBrainsApplicationImpl extends ApplicationImpl<JetBrainsProjectIt
                     let home = utools.getPath('home')
                     path = path!.replace('$USER_HOME$', home)
                     let parseObj = parse(path)
+                    let { exists, description, icon } = existsOrNot(path, {
+                        description: path,
+                        icon: this.icon,
+                    })
                     items.push({
                         id: '',
                         title: parseObj.name,
-                        description: pathDescription(path),
-                        icon: this.icon,
+                        description: description,
+                        icon: icon,
                         searchKey: parseObj.name,
+                        exists: exists,
                         command: new ShellExecutor(`"${this.executor}" "${path}"`),
                         datetime: parseInt(`${datetime}`),
                     })
