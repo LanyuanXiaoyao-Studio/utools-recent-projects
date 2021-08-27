@@ -2,6 +2,7 @@ import {ApplicationImpl, Platform, ProjectItemImpl, SettingItem, ShellExecutor, 
 import {readFile} from 'fs/promises'
 import {isNil} from 'licia'
 import {parse} from 'path'
+import {pathDescription} from '../../utils'
 
 const SUBLIME: string = 'sublime'
 
@@ -58,7 +59,7 @@ export class SublimeApplicationImpl extends ApplicationImpl<SublimeProjectItemIm
                 items.push({
                     id: '',
                     title: `${parser.name}${parser.ext}`,
-                    description: readPath,
+                    description: pathDescription(readPath),
                     icon: utools.getFileIcon(readPath),
                     searchKey: path,
                     command: new ShellExecutor(`"${this.executor}" ${args} "${this.parsePath(path)}"`),

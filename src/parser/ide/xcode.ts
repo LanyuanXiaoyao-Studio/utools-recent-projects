@@ -10,6 +10,7 @@ import {execSync} from 'child_process'
 import {isEmpty, isNil} from 'licia'
 import {parse} from 'path'
 import {statSync} from 'fs'
+import {pathDescription} from '../../utils'
 
 const XCODE: string = 'xcode'
 
@@ -66,7 +67,7 @@ export class XcodeApplicationImpl extends ApplicationImpl<XcodeProjectItemImpl> 
                 items.push({
                     id: '',
                     title: parseObj.name,
-                    description: p,
+                    description: pathDescription(p),
                     icon: this.icon,
                     searchKey: parseObj.name,
                     command: new ElectronExecutor(p),

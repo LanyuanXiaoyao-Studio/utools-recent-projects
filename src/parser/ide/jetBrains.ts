@@ -3,6 +3,7 @@ import {readFile} from 'fs/promises'
 import {isEmpty, isNil} from 'licia'
 import {parse} from 'path'
 import $ = require('licia/$')
+import {pathDescription} from '../../utils'
 
 const JETBRAINS: string = 'jetbrains'
 
@@ -39,7 +40,7 @@ export class JetBrainsApplicationImpl extends ApplicationImpl<JetBrainsProjectIt
                     items.push({
                         id: '',
                         title: parseObj.name,
-                        description: path,
+                        description: pathDescription(path),
                         icon: this.icon,
                         searchKey: parseObj.name,
                         command: new ShellExecutor(`"${this.executor}" "${path}"`),

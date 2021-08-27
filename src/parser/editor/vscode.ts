@@ -2,6 +2,7 @@ import {ApplicationImpl, Platform, ProjectItemImpl, SettingItem, ShellExecutor, 
 import {readFile} from 'fs/promises'
 import {isEmpty, isNil, Url} from 'licia'
 import {parse} from 'path'
+import {pathDescription} from '../../utils'
 
 const VSCODE: string = 'vscode'
 
@@ -54,7 +55,7 @@ export class VscodeApplicationImpl extends ApplicationImpl<VscodeProjectItemImpl
                     items.push({
                         id: '',
                         title: parser.name,
-                        description: path,
+                        description: pathDescription(path),
                         icon: utools.getFileIcon(path),
                         searchKey: path,
                         command: new ShellExecutor(`"${this.executor}" ${args} "${path}"`),

@@ -13,6 +13,7 @@ import {readFile} from 'fs/promises'
 import {isEmpty, isNil} from 'licia'
 import {parse} from 'path'
 import $ = require('licia/$')
+import {pathDescription} from '../../utils'
 
 const VS_STUDIO: string = 'vs-studio'
 
@@ -58,7 +59,7 @@ export class VsStudioApplicationImpl extends ApplicationImpl<VsStudioProjectItem
                     items.push({
                         id: '',
                         title: parseObj.name,
-                        description: path,
+                        description: pathDescription(path),
                         icon: utools.getFileIcon(path),
                         searchKey: parseObj.name,
                         command: new ElectronExecutor(path),
