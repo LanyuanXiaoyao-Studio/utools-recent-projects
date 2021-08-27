@@ -73,7 +73,6 @@ export class AllProjectArgs extends ProjectArgsImpl {
             utools.redirect('Setting', '')
             return
         }
-        console.log('select', item)
         if (!item.exists) {
             utools.showNotification('文件不存在')
             return
