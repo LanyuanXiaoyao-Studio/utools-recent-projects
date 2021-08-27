@@ -22,7 +22,7 @@ export interface ExistsOrNotItem {
 export const existsOrNot: (string, ExistsOrNotItem) => ExistsOrNotItem = (path, item) => existsSync(path) ? item : {
     exists: false,
     description: `文件不存在`,
-    icon: 'delete.png',
+    icon: item.icon,
 }
 
 /**
