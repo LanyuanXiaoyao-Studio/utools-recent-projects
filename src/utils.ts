@@ -19,11 +19,16 @@ export interface ExistsOrNotItem {
     readonly icon: string
 }
 
-export const existsOrNot: (string, ExistsOrNotItem) => ExistsOrNotItem = (path, item) => existsSync(path) ? item : {
-    exists: false,
-    description: `文件不存在`,
-    icon: item.icon,
-}
+export const existsOrNot: (string, ExistsOrNotItem) => ExistsOrNotItem = (path, item) => existsSync(path)
+    ? {
+        exists: true,
+        ...item,
+    }
+    : {
+        exists: false,
+        description: `文件不存在`,
+        icon: item.icon,
+    }
 
 /**
  * 用于从 uTools 的系统版本转换为枚举类型的系统版本, 方便后续比较使用
