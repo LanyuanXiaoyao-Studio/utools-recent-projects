@@ -1,4 +1,4 @@
-import {Application, ApplicationImpl, Executor, Platform, ProjectItemImpl, ShellExecutor} from '../../types'
+import {Application, ApplicationImpl, Executor, NohupShellExecutor, Platform, ProjectItemImpl} from '../../types'
 import {readFile} from 'fs/promises'
 import {isEmpty, isNil} from 'licia'
 import {parse} from 'path'
@@ -48,7 +48,7 @@ export class JetBrainsApplicationImpl extends ApplicationImpl<JetBrainsProjectIt
                         icon: icon,
                         searchKey: parseObj.name,
                         exists: exists,
-                        command: new ShellExecutor(`"${this.executor}" "${path}"`),
+                        command: new NohupShellExecutor(`"${this.executor}" "${path}"`),
                         datetime: parseInt(`${datetime}`),
                     })
                 }
