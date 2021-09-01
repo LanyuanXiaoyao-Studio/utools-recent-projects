@@ -45,35 +45,15 @@ export class ShellExecutor implements Executor {
             utools.showNotification('参数错误，请向作者反馈')
             return
         }
-        console.log(this.command)
         exec(this.command, error => {
             console.log('error', error)
             if (isNil(error)) {
                 utools.hideMainWindow()
-                // utools.outPlugin()
+                utools.outPlugin()
             } else {
                 utools.showNotification(error?.message ?? '未知错误，请向作者反馈')
             }
         })
-    }
-}
-
-export class NohupShellExecutor extends ShellExecutor {
-    constructor(command: string) {
-        super(NohupShellExecutor.generateNohupCommand(command))
-    }
-
-    private static generateNohupCommand(command: string): string {
-        let platform: Platform = platformFromUtools()
-        switch (platform) {
-            case Platform.darwin:
-            case Platform.linux:
-                return `nohup ${command} > /dev/null 2>&1 &`
-            case Platform.win32:
-                return `powershell.exe -command 'Start-Job { & ${command.replace(/\\"/g, '\"')} }'`
-            case Platform.unknown:
-                return command
-        }
     }
 }
 

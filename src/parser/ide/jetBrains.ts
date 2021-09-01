@@ -1,8 +1,8 @@
-import {Application, ApplicationImpl, Executor, NohupShellExecutor, Platform, ProjectItemImpl} from '../../types'
+import {Application, ApplicationImpl, Executor, Platform, ProjectItemImpl, ShellExecutor} from '../../types'
 import {readFile} from 'fs/promises'
 import {isEmpty, isNil} from 'licia'
 import {parse} from 'path'
-import {existsOrNot} from '../../utils'
+import {existsOrNot, platformFromUtools} from '../../utils'
 import $ = require('licia/$')
 
 const JETBRAINS: string = 'jetbrains'
@@ -48,7 +48,7 @@ export class JetBrainsApplicationImpl extends ApplicationImpl<JetBrainsProjectIt
                         icon: icon,
                         searchKey: parseObj.name,
                         exists: exists,
-                        command: new NohupShellExecutor(`"${this.executor}" "${path}"`),
+                        command: new ShellExecutor(this.generateNohupCommand(path)),
                         datetime: parseInt(`${datetime}`),
                     })
                 }
@@ -56,6 +56,19 @@ export class JetBrainsApplicationImpl extends ApplicationImpl<JetBrainsProjectIt
             $(`#${this.id}`).remove()
         }
         return items
+    }
+
+    private generateNohupCommand: (path: string) => string = (path) => {
+        let platform: Platform = platformFromUtools()
+            switch (platform) {
+                case Platform.darwin:
+                case Platform.linux:
+                    return `nohup "${this.executor}" "${path}" > /dev/null 2>&1 &`
+                case Platform.win32:
+                    return `powershell.exe -command "Start-Process -FilePath '${this.executor}' -ArgumentList '${path}'"`
+                case Platform.unknown:
+                    return ``
+            }
     }
 }
 
