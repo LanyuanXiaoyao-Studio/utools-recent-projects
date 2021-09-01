@@ -60,15 +60,15 @@ export class JetBrainsApplicationImpl extends ApplicationImpl<JetBrainsProjectIt
 
     private generateNohupCommand: (path: string) => string = (path) => {
         let platform: Platform = platformFromUtools()
-            switch (platform) {
-                case Platform.darwin:
-                case Platform.linux:
-                    return `nohup "${this.executor}" "${path}" > /dev/null 2>&1 &`
-                case Platform.win32:
-                    return `powershell.exe -command "Start-Process -FilePath '${this.executor}' -ArgumentList '${path}'"`
-                case Platform.unknown:
-                    return ``
-            }
+        switch (platform) {
+            case Platform.darwin:
+            case Platform.linux:
+                return `nohup "${this.executor}" "${path}" > /dev/null 2>&1 &`
+            case Platform.win32:
+                return `powershell.exe -command "Start-Process -FilePath '${this.executor}' -ArgumentList '${path}'"`
+            case Platform.unknown:
+                return ``
+        }
     }
 }
 

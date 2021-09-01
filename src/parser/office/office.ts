@@ -90,6 +90,8 @@ export class OfficeMacApplicationImpl extends ApplicationImpl<OfficeProjectItemI
 }
 
 export class OfficeWinApplicationImpl extends ApplicationImpl<OfficeProjectItemImpl> {
+    private recentPath: string = 'C:\\Users\\Administrator\\AppData\\Roaming\\Microsoft\\Office\\Recent'
+
     constructor() {
         super(
             `office-win`,
@@ -103,14 +105,6 @@ export class OfficeWinApplicationImpl extends ApplicationImpl<OfficeProjectItemI
             true,
         )
     }
-
-    private recentPath: string = 'C:\\Users\\Administrator\\AppData\\Roaming\\Microsoft\\Office\\Recent'
-    private permitExtension: (string) => boolean = p => {
-        let ext = parse(p).ext
-        if (isEmpty(ext)) return false
-        return '.docx .docm .doc .dotx .dot .xps .odt .xlsx .xlsm .xlsb .xls .csv .xltx .xltm .xlt .prn .dif .slk .xlam .xla .ods .pptx .pptm .ppt .potx .potm .pot .thmx .ppsx .ppsm .pps .ppam .ppa .mp4 .wmv .gif .jpg .png .tif .bmp .wmf .emf .svg .odp .pub .ps .mht .mhtml .html .htm .mpp .mpt .vsdx .vssx .vstx .vsdm .vssm .vstm .vsd .vss .vst .svgz .dwg .dxf .accdb .mdb .accdt .accde '.indexOf(ext) > -1
-    }
-    private generateCommand: (string) => string = link => `(New-Object -COM WScript.Shell).CreateShortcut('${link}').TargetPath;`
 
     async generateProjectItems(): Promise<Array<OfficeProjectItemImpl>> {
         let items: Array<OfficeProjectItemImpl> = []
@@ -157,6 +151,14 @@ export class OfficeWinApplicationImpl extends ApplicationImpl<OfficeProjectItemI
     isFinishConfig(): ApplicationConfigState {
         return ApplicationConfigState.done
     }
+
+    private permitExtension: (string) => boolean = p => {
+        let ext = parse(p).ext
+        if (isEmpty(ext)) return false
+        return '.docx .docm .doc .dotx .dot .xps .odt .xlsx .xlsm .xlsb .xls .csv .xltx .xltm .xlt .prn .dif .slk .xlam .xla .ods .pptx .pptm .ppt .potx .potm .pot .thmx .ppsx .ppsm .pps .ppam .ppa .mp4 .wmv .gif .jpg .png .tif .bmp .wmf .emf .svg .odp .pub .ps .mht .mhtml .html .htm .mpp .mpt .vsdx .vssx .vstx .vsdm .vssm .vstm .vsd .vss .vst .svgz .dwg .dxf .accdb .mdb .accdt .accde '.indexOf(ext) > -1
+    }
+
+    private generateCommand: (string) => string = link => `(New-Object -COM WScript.Shell).CreateShortcut('${link}').TargetPath;`
 }
 
 export const applications: Array<ApplicationImpl<OfficeProjectItemImpl>> = [

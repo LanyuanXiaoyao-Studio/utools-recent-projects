@@ -389,14 +389,6 @@ export abstract class ApplicationImpl<P extends ProjectItemImpl> implements Appl
         ]
     }
 
-    protected nonExistsPath(path: string): boolean {
-        return !this.existsPath(path)
-    }
-
-    protected existsPath(path: string): boolean {
-        return existsSync(path)
-    }
-
     isFinishConfig(): ApplicationConfigState {
         if (isEmpty(this.config) && isEmpty(this.executor)) {
             return ApplicationConfigState.empty
@@ -410,4 +402,12 @@ export abstract class ApplicationImpl<P extends ProjectItemImpl> implements Appl
     }
 
     abstract generateProjectItems(): Promise<Array<P>>
+
+    protected nonExistsPath(path: string): boolean {
+        return !this.existsPath(path)
+    }
+
+    protected existsPath(path: string): boolean {
+        return existsSync(path)
+    }
 }

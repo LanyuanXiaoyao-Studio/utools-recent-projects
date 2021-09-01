@@ -10,6 +10,7 @@ export class VscodeProjectItemImpl extends ProjectItemImpl {}
 
 export class VscodeApplicationImpl extends ApplicationImpl<VscodeProjectItemImpl> {
     openInNew: boolean = false
+    private isWindows: boolean = utools.isWindows()
 
     constructor() {
         super(
@@ -22,8 +23,6 @@ export class VscodeApplicationImpl extends ApplicationImpl<VscodeProjectItemImpl
             'storage.json',
         )
     }
-
-    private isWindows: boolean = utools.isWindows()
 
     async generateProjectItems(): Promise<Array<VscodeProjectItemImpl>> {
         let items: Array<VscodeProjectItemImpl> = []
