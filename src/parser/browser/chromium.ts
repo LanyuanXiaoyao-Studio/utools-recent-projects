@@ -41,7 +41,6 @@ export class ChromiumHistoryApplicationImpl extends SqliteBrowserApplicationImpl
         }
         if (!isEmpty(jsonText)) {
             let json = JSON.parse(jsonText)
-            console.log(json)
             json.forEach(i => {
                 let title: string = i['title'] ?? ''
                 let url: string = i['url'] ?? ''
