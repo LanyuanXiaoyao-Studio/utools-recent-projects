@@ -10,18 +10,8 @@ const CHROMIUM: string = 'chromium'
 export class ChromiumHistoryProjectItemImpl extends DatetimeProjectItemImpl {}
 
 export class ChromiumHistoryApplicationImpl extends SqliteBrowserApplicationImpl<ChromiumHistoryProjectItemImpl> {
-    constructor() {
-        super(
-            `${CHROMIUM}-history`,
-            'Chromium History',
-            `icon/browser-${CHROMIUM}.png`,
-            CHROMIUM,
-            [Platform.win32, Platform.darwin, Platform.linux],
-            Group[GroupName.browser],
-            'History',
-            undefined,
-            true,
-        )
+    constructor(id: string, name: string, type: string, platfrom: Array<Platform> = [Platform.win32, Platform.darwin, Platform.linux], configName: string, description?: string, beta: boolean = true) {
+        super(`${id}-history`, `${name} History`, `icon/browser-${id}.png`, type, platfrom, Group[GroupName.browser], configName, description, beta)
     }
 
     async generateProjectItems(): Promise<Array<ChromiumHistoryProjectItemImpl>> {
@@ -61,5 +51,6 @@ export class ChromiumHistoryApplicationImpl extends SqliteBrowserApplicationImpl
 }
 
 export const applications: Array<ApplicationImpl<ChromiumHistoryProjectItemImpl>> = [
-    new ChromiumHistoryApplicationImpl(),
+    new ChromiumHistoryApplicationImpl('chromium', 'Chromium', CHROMIUM, undefined, 'History'),
+    new ChromiumHistoryApplicationImpl('chrome', 'Chrome', CHROMIUM, undefined, 'History'),
 ]
