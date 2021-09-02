@@ -4,6 +4,8 @@ Remove-Item -Force -Recurse $dist
 mkdir $dist
 
 node .\build-icon.js
+node .\build-css.js
+
 Copy-Item -Recurse -Path .\public\* $dist
 tsc --outDir $dist
 

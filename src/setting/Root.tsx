@@ -1,5 +1,5 @@
 import {Component, Fragment} from 'nano-jsx'
-import {CustomCss, CustomDarkCss, SpectreCss, SpectreIconCss} from './css'
+import {CustomCss, SpectreCss, SpectreIconCss} from './css'
 import {applications} from '../applications'
 import {Application, Platform, ProjectItemImpl} from '../types'
 import {SettingCard} from './components/SettingCard'
@@ -8,6 +8,7 @@ import {Announcement} from './components/Announcement'
 import {contain} from 'licia'
 import {InformationCard} from './components/InformationCard'
 import {compareChar, platformFromUtools} from '../utils'
+import {ApplicationSettingCard} from './components/ApplicationSettingCard'
 import Nano = require('nano-jsx')
 
 interface RootProps {}
@@ -42,7 +43,6 @@ class Root extends Component<RootProps, RootState> {
                     <style>{SpectreCss}</style>
                     <style>{SpectreIconCss}</style>
                     <style>{CustomCss}</style>
-                    <style>{CustomDarkCss}</style>
                     {/*保留 uTools 模板插件原本的 js 文件*/}
                     <script src="index.js"/>
                 </head>
@@ -62,6 +62,7 @@ class Root extends Component<RootProps, RootState> {
                                 {/*右侧配置信息*/}
                                 {/*用户和系统信息*/}
                                 <InformationCard platform={this.state.platform}/>
+                                <ApplicationSettingCard/>
                                 {/*具体应用配置信息*/}
                                 {this.state.applications
                                     .sort((a1, a2) => compareChar(a1.group, a2.group))

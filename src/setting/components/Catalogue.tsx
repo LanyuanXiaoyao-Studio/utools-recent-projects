@@ -74,9 +74,22 @@ export class Catalogue extends Component<CatalogueProps, CatalogueState> {
             <Fragment>
                 <ul class="nav">
                     <li class="nav-item">
+                        <a href="#information-card">
+                            <i class="icon icon-people"/>
+                            <b>系统信息</b>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#application-setting-card">
+                            <i class="icon icon-edit"/>
+                            <b>插件配置</b>
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a
                             href="#"
-                            onclick={() => this.help()}
+                            oncl
+                            ick={() => this.help()}
                         >
                             <i class="icon icon-message"/>
                             <b>配置文档</b>

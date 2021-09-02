@@ -1,12 +1,11 @@
 import {
     Application,
     ApplicationConfigState,
-    ApplicationImpl, DatetimeProjectItemImpl,
+    ApplicationImpl,
+    DatetimeProjectItemImpl,
     ElectronExecutor,
-    Executor,
     InputSettingItem,
     Platform,
-    ProjectItemImpl,
     SettingItem,
 } from '../../types'
 import {readFile} from 'fs/promises'

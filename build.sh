@@ -6,6 +6,8 @@ rm -rf $dist
 mkdir $dist
 
 node build-icon.js
+node build-css.js
+
 cp -r public/* $dist
 tsc --outDir $dist
 

@@ -91,7 +91,7 @@ export class SettingCard extends Component<SettingCardProps, SettingCardState> {
                     class="gap"
                     id={this.props.application.id}
                 />
-                <div class="form-item card">
+                <div class="form-item setting-card card">
                     <div
                         class={this.props.application.beta ? 'form-legend card-header tooltip tooltip-top' : 'form-legend card-header'}
                         data-tooltip="beta 意味着这个功能处于试验阶段
@@ -99,11 +99,11 @@ export class SettingCard extends Component<SettingCardProps, SettingCardState> {
 需要你在遇到无法正常使用的时候积极向我反馈"
                     >
                         <Img
-                            class="form-legend-icon"
+                            class="icon"
                             src={iconMap[this.props.application.icon] ?? ''}
                         />
                         <span
-                            class={this.props.application.beta ? 'form-legend-title badge badge-unready' : 'form-legend-title'}
+                            class={this.props.application.beta ? 'title badge badge-unready' : 'title'}
                             data-badge="beta"
                         >
                             {this.props.application.name}
@@ -162,7 +162,7 @@ export class SettingCard extends Component<SettingCardProps, SettingCardState> {
                                                 {item.value
                                                     ? <input
                                                         type="checkbox"
-                                                        checked=""
+                                                        checked
                                                         onchange={() => this.switch(item.id, false)}
                                                     />
                                                     : <input

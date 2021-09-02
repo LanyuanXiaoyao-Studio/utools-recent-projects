@@ -4,8 +4,6 @@
   "author": "lanyuanxiaoyao",
   "license": "MIT",
   "dependencies": {
-    "better-sqlite3": "^7.4.3",
-    "node-sqlite-purejs": "^0.0.2",
-    "sql.js": "^1.6.1"
+    "stylus": "^0.54.8"
   }
 }

@@ -11,7 +11,6 @@ import {
     wpsApplications,
     xcodeApplications,
 } from './applications'
-import {JetBrainsProjectItemImpl} from './parser/ide/jetBrains'
 import $ = require('licia/$')
 
 const emptyTips: ProjectItemImpl = {

@@ -40,7 +40,10 @@ export class InformationCard extends Component<InformationCardProps, Information
     render() {
         return (
             <Fragment>
-                <div class="gap"/>
+                <div
+                    id="information-card"
+                    class="gap"
+                />
                 <div class="form-item information-card card">
                     <div class="card-header">
                         <Img

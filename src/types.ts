@@ -3,6 +3,7 @@ import {exec} from 'child_process'
 import {shell} from 'electron'
 import {platformFromUtools} from './utils'
 import {existsSync} from 'fs'
+import {enableFilterNonExistsFilesId} from './setting/components/ApplicationSettingCard'
 
 /**
  * 命令执行器
@@ -217,11 +218,14 @@ export abstract class ProjectArgsImpl extends ArgsImpl<ProjectItemImpl> {
     getProjectItems: (localId: string) => Promise<Array<ProjectItemImpl>> = async localId => {
         this.updateApplications(localId)
         let platform = platformFromUtools()
+        let enableFilterNonExistsFiles = utools.dbStorage.getItem(enableFilterNonExistsFilesId(localId)) ?? false
         for (let app of this.applications) {
             let finish = app.isFinishConfig()
             // 平台不适配的, 配置没有填完的, 都要被过滤掉
             if (finish === ApplicationConfigState.done && contain(app.platform, platform)) {
-                (await app.generateProjectItems()).forEach(p => this.projectItemCache.push(p))
+                (await app.generateProjectItems())
+                    .filter(p => enableFilterNonExistsFiles ? p.exists : true)
+                    .forEach(p => this.projectItemCache.push(p))
             } else if (finish === ApplicationConfigState.error) {
                 utools.showNotification(`${app.name} 获取项目记录错误, 请检查配置`)
             }
