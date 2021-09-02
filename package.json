@@ -4,7 +4,8 @@
   "author": "lanyuanxiaoyao",
   "license": "MIT",
   "scripts": {
-    "build": "bash build.sh"
+    "build": "bash build.sh",
+    "build-win": "powershell.exe .\\build.ps1"
   },
   "devDependencies": {
     "@types/electron": "^1.6.10",
