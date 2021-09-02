@@ -195,7 +195,7 @@
     {
       "code"   : "browser-history-project",
       "explain": "快速打开我的浏览器历史记录",
-      "icon"   : "icon/browser-firefox.png",
+      "icon"   : "icon/browser.png",
       "cmds"   : [
         "Browser History",
         "浏览器历史记录"
