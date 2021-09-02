@@ -1,0 +1,11 @@
+{
+  "name": "test",
+  "version": "1.0.0",
+  "author": "lanyuanxiaoyao",
+  "license": "MIT",
+  "dependencies": {
+    "better-sqlite3": "^7.4.3",
+    "node-sqlite-purejs": "^0.0.2",
+    "sql.js": "^1.6.1"
+  }
+}
