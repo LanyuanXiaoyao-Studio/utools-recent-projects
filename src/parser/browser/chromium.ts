@@ -52,5 +52,6 @@ export class ChromiumHistoryApplicationImpl extends SqliteBrowserApplicationImpl
 
 export const applications: Array<ApplicationImpl<ChromiumHistoryProjectItemImpl>> = [
     new ChromiumHistoryApplicationImpl('chromium', 'Chromium', CHROMIUM, undefined, 'History'),
-    new ChromiumHistoryApplicationImpl('chrome', 'Chrome', CHROMIUM, undefined, 'History'),
+    new ChromiumHistoryApplicationImpl('chrome', 'Google Chrome', CHROMIUM, undefined, 'History'),
+    new ChromiumHistoryApplicationImpl('edge', 'Microsoft Edge', CHROMIUM, undefined, 'History'),
 ]
