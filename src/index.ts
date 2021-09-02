@@ -1,7 +1,8 @@
-import {Action, Callback, NoExecutor, ProjectArgsImpl, ProjectItemImpl} from './types'
+import {Action, Callback, DatetimeProjectItemImpl, NoExecutor, ProjectArgsImpl, ProjectItemImpl} from './types'
 import {isEmpty} from 'licia'
 import {SettingUIFeature} from './setting/setting'
 import {
+    browserApplications,
     jetBrainsApplications,
     officeApplications,
     sublimeApplications,
@@ -82,7 +83,7 @@ export class AllProjectArgs extends ProjectArgsImpl {
 }
 
 export class AllProjectSortByTimeArgs extends AllProjectArgs {
-    compare(p1: JetBrainsProjectItemImpl, p2: JetBrainsProjectItemImpl): number {
+    compare(p1: DatetimeProjectItemImpl, p2: DatetimeProjectItemImpl): number {
         return p2.datetime - p1.datetime
     }
 }
@@ -115,6 +116,10 @@ export const build: any = {
     },
     'office-project': {
         args: new AllProjectSortByTimeArgs(officeApplications),
+        mode: 'list',
+    },
+    'browser-history-project': {
+        args: new AllProjectSortByTimeArgs(browserApplications),
         mode: 'list',
     },
 }

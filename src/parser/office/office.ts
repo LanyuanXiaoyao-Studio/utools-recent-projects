@@ -1,10 +1,9 @@
 import {
     ApplicationConfigState,
     ApplicationImpl,
-    Executor,
+    DatetimeProjectItemImpl,
     InputSettingItem,
     Platform,
-    ProjectItemImpl,
     SettingItem,
     ShellExecutor,
 } from '../../types'
@@ -18,14 +17,7 @@ import plistParser = require('bplist-parser')
 const OFFICE_MAC: string = 'office-mac'
 const OFFICE_WIN: string = 'office-win'
 
-export class OfficeProjectItemImpl extends ProjectItemImpl {
-    datetime: number
-
-    constructor(id: string, title: string, description: string, icon: string, searchKey: string, exists: boolean, command: Executor, datetime: number) {
-        super(id, title, description, icon, searchKey, exists, command)
-        this.datetime = datetime
-    }
-}
+export class OfficeProjectItemImpl extends DatetimeProjectItemImpl {}
 
 export class OfficeMacApplicationImpl extends ApplicationImpl<OfficeProjectItemImpl> {
     constructor(id: string, name: string, icon: string, configFilename: string, description: string = '') {

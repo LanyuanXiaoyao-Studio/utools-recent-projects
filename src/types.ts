@@ -131,6 +131,15 @@ export abstract class ProjectItemImpl extends ItemImpl {
     }
 }
 
+export abstract class DatetimeProjectItemImpl extends ProjectItemImpl {
+    datetime: number
+
+    protected constructor(id: string, title: string, description: string, icon: string, searchKey: string, exists: boolean, command: Executor, datetime: number) {
+        super(id, title, description, icon, searchKey, exists, command)
+        this.datetime = datetime
+    }
+}
+
 /**
  * callbackSetList
  */

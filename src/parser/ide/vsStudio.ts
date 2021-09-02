@@ -1,7 +1,7 @@
 import {
     Application,
     ApplicationConfigState,
-    ApplicationImpl,
+    ApplicationImpl, DatetimeProjectItemImpl,
     ElectronExecutor,
     Executor,
     InputSettingItem,
@@ -17,14 +17,7 @@ import $ = require('licia/$')
 
 const VS_STUDIO: string = 'vs-studio'
 
-export class VsStudioProjectItemImpl extends ProjectItemImpl {
-    datetime: number
-
-    constructor(id: string, title: string, description: string, icon: string, searchKey: string, exists: boolean, command: Executor, datetime: number) {
-        super(id, title, description, icon, searchKey, exists, command)
-        this.datetime = datetime
-    }
-}
+export class VsStudioProjectItemImpl extends DatetimeProjectItemImpl {}
 
 export class VsStudioApplicationImpl extends ApplicationImpl<VsStudioProjectItemImpl> {
     constructor(id: string, name: string, icon: string, platform: Array<Platform> = [Platform.win32], configFilename: string = 'ApplicationPrivateSettings.xml') {

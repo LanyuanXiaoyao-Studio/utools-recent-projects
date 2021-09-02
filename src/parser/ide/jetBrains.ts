@@ -1,4 +1,4 @@
-import {Application, ApplicationImpl, Executor, Platform, ProjectItemImpl, ShellExecutor} from '../../types'
+import {Application, ApplicationImpl, DatetimeProjectItemImpl, Platform, ShellExecutor} from '../../types'
 import {readFile} from 'fs/promises'
 import {isEmpty, isNil} from 'licia'
 import {parse} from 'path'
@@ -7,14 +7,7 @@ import $ = require('licia/$')
 
 const JETBRAINS: string = 'jetbrains'
 
-export class JetBrainsProjectItemImpl extends ProjectItemImpl {
-    datetime: number
-
-    constructor(id: string, title: string, description: string, icon: string, searchKey: string, exists: boolean, command: Executor, datetime: number) {
-        super(id, title, description, icon, searchKey, exists, command)
-        this.datetime = datetime
-    }
-}
+export class JetBrainsProjectItemImpl extends DatetimeProjectItemImpl {}
 
 /**
  * JetBrains 系列应用实现
