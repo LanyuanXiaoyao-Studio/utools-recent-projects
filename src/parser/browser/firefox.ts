@@ -25,7 +25,7 @@ export class FirefoxHistoryApplicationImpl extends SqliteBrowserApplicationImpl<
     async generateProjectItems(): Promise<Array<FirefoxHistoryProjectItemImpl>> {
         let items: Array<FirefoxHistoryProjectItemImpl> = []
         // language=SQLite
-        let sql = 'select url, title, last_visit_date, description from main.moz_places where last_visit_date is not null order by last_visit_date desc limit 100;'
+        let sql = 'select url, title, description, cast(strftime(\'%s\', datetime((last_visit_date / 1000000), \'unixepoch\', \'localtime\')) as numeric) as timestamp\nfrom main.moz_places\nwhere last_visit_date is not null\norder by last_visit_date desc\nlimit 100'
         let jsonText = execFileSync(this.executor, [this.config, sql, '-readonly', '-json'], { encoding: 'utf-8' })
         if (!isEmpty(jsonText)) {
             let json = JSON.parse(jsonText)
@@ -41,7 +41,7 @@ export class FirefoxHistoryApplicationImpl extends SqliteBrowserApplicationImpl<
                     searchKey: `${title} ${description} ${url}`,
                     exists: true,
                     command: new ElectronExecutor(url),
-                    datetime: i['last_visit_date'] ?? 0,
+                    datetime: i['timestamp'] ?? 0,
                 })
             })
         }
