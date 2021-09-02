@@ -1,4 +1,4 @@
-import {ApplicationImpl, DatetimeProjectItemImpl, ElectronExecutor, Platform} from '../../types'
+import {ApplicationImpl, DatetimeProjectItemImpl, ElectronExecutor, Group, GroupName, Platform} from '../../types'
 import {SqliteBrowserApplicationImpl} from './index'
 import {execFileSync} from 'child_process'
 import {isEmpty} from 'licia'
@@ -15,7 +15,7 @@ export class FirefoxHistoryApplicationImpl extends SqliteBrowserApplicationImpl<
             `icon/browser-${FIREFOX}.png`,
             FIREFOX,
             [Platform.win32, Platform.darwin, Platform.linux],
-            'Browser',
+            Group[GroupName.browser],
             'places.sqlite',
             undefined,
             true,

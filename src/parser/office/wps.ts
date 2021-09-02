@@ -1,6 +1,8 @@
 import {
     ApplicationConfigState,
     ApplicationImpl,
+    Group,
+    GroupName,
     InputSettingItem,
     Platform,
     ProjectItemImpl,
@@ -24,7 +26,7 @@ export class WpsMacInternationalApplicationImpl extends ApplicationImpl<WpsMacIn
             'icon/wps-mac-internation.png',
             WPS_MAC_INTERNATION,
             [Platform.darwin],
-            'Office',
+            Group[GroupName.office],
             'com.kingsoft.plist',
             '刚关闭的文档没有出现在历史记录里是因为配置文件还没有更新, 但 wps 更新配置文件的时机不明, 通常是等一会儿',
             true,

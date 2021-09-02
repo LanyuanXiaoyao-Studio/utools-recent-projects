@@ -1,4 +1,4 @@
-import {ApplicationImpl, DatetimeProjectItemImpl, ElectronExecutor, Platform} from '../../types'
+import {ApplicationImpl, DatetimeProjectItemImpl, ElectronExecutor, Group, GroupName, Platform} from '../../types'
 import {SqliteBrowserApplicationImpl} from './index'
 import {execFileSync} from 'child_process'
 import {isEmpty, randomId} from 'licia'
@@ -17,7 +17,7 @@ export class ChromiumHistoryApplicationImpl extends SqliteBrowserApplicationImpl
             `icon/browser-${CHROMIUM}.png`,
             CHROMIUM,
             [Platform.win32, Platform.darwin, Platform.linux],
-            'Browser',
+            Group[GroupName.browser],
             'History',
             undefined,
             true,

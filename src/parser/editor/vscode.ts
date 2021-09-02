@@ -1,4 +1,13 @@
-import {ApplicationImpl, Platform, ProjectItemImpl, SettingItem, ShellExecutor, SwitchSettingItem} from '../../types'
+import {
+    ApplicationImpl,
+    Group,
+    GroupName,
+    Platform,
+    ProjectItemImpl,
+    SettingItem,
+    ShellExecutor,
+    SwitchSettingItem,
+} from '../../types'
 import {readFile} from 'fs/promises'
 import {isEmpty, isNil, Url} from 'licia'
 import {parse} from 'path'
@@ -19,7 +28,7 @@ export class VscodeApplicationImpl extends ApplicationImpl<VscodeProjectItemImpl
             'icon/ms-visual-studio-code.png',
             VSCODE,
             [Platform.win32, Platform.darwin, Platform.linux],
-            'Editor',
+            Group[GroupName.editor],
             'storage.json',
         )
     }

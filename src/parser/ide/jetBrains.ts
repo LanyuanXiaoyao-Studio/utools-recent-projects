@@ -1,4 +1,12 @@
-import {Application, ApplicationImpl, DatetimeProjectItemImpl, Platform, ShellExecutor} from '../../types'
+import {
+    Application,
+    ApplicationImpl,
+    DatetimeProjectItemImpl,
+    Group,
+    GroupName,
+    Platform,
+    ShellExecutor,
+} from '../../types'
 import {readFile} from 'fs/promises'
 import {isEmpty, isNil} from 'licia'
 import {parse} from 'path'
@@ -14,7 +22,7 @@ export class JetBrainsProjectItemImpl extends DatetimeProjectItemImpl {}
  */
 export class JetBrainsApplicationImpl extends ApplicationImpl<JetBrainsProjectItemImpl> {
     constructor(id: string, name: string, icon: string, platform: Array<Platform> = [Platform.win32, Platform.darwin, Platform.linux], configFilename: string = 'recentProject.xml', description: string = '', beta: boolean = false) {
-        super(id, name, icon, JETBRAINS, platform, 'JetBrains', configFilename, description, beta)
+        super(id, name, icon, JETBRAINS, platform, Group[GroupName.jetbrains], configFilename, description, beta)
     }
 
     async generateProjectItems(): Promise<Array<JetBrainsProjectItemImpl>> {

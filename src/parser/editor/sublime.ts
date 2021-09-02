@@ -1,4 +1,13 @@
-import {ApplicationImpl, Platform, ProjectItemImpl, SettingItem, ShellExecutor, SwitchSettingItem} from '../../types'
+import {
+    ApplicationImpl,
+    Group,
+    GroupName,
+    Platform,
+    ProjectItemImpl,
+    SettingItem,
+    ShellExecutor,
+    SwitchSettingItem,
+} from '../../types'
 import {readFile} from 'fs/promises'
 import {isNil} from 'licia'
 import {parse} from 'path'
@@ -18,7 +27,7 @@ export class SublimeApplicationImpl extends ApplicationImpl<SublimeProjectItemIm
             'icon/sublime.png',
             SUBLIME,
             [Platform.win32, Platform.darwin, Platform.linux],
-            'Editor',
+            Group[GroupName.editor],
             'Session.sublime_session',
         )
     }

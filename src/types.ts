@@ -322,6 +322,26 @@ export enum ApplicationConfigState {
     error,
 }
 
+export enum GroupName {
+    browser,
+    editor,
+    ide,
+    jetbrains,
+    vsStudio,
+    xcode,
+    office,
+}
+
+export const Group: { [keys in GroupName]: string } = {
+    [GroupName.browser]: 'Browser',
+    [GroupName.editor]: 'Editor',
+    [GroupName.ide]: 'IDE',
+    [GroupName.jetbrains]: 'JetBrains',
+    [GroupName.vsStudio]: 'Visual Studio',
+    [GroupName.xcode]: 'Xcode',
+    [GroupName.office]: 'Office',
+}
+
 /**
  * 应用
  */
