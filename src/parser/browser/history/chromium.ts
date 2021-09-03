@@ -1,18 +1,17 @@
 import {ApplicationImpl, DatetimeProjectItemImpl, ElectronExecutor, Group, GroupName, Platform} from '../../../types'
-import {SqliteBrowserApplicationImpl} from './index'
+import {generatePathDescription, SqliteBrowserApplicationImpl} from './index'
 import {execFileSync} from 'child_process'
 import {isEmpty, randomId} from 'licia'
 import {join} from 'path'
 import {copyFile, rm} from 'fs/promises'
-import {platformFromUtools} from '../../../utils'
 
 const CHROMIUM: string = 'chromium'
 
 export class ChromiumHistoryProjectItemImpl extends DatetimeProjectItemImpl {}
 
 export class ChromiumHistoryApplicationImpl extends SqliteBrowserApplicationImpl<ChromiumHistoryProjectItemImpl> {
-    constructor(id: string, name: string, type: string, platfrom: Array<Platform> = [Platform.win32, Platform.darwin, Platform.linux], configName: string, description?: string, beta: boolean = true) {
-        super(`${id}-history`, `${name}`, `icon/browser-${id}.png`, type, platfrom, Group[GroupName.browserHistory], configName, description, beta)
+    constructor(id: string, name: string, type: string, platforms: Array<Platform> = [Platform.win32, Platform.darwin, Platform.linux], configName: string, description?: string, beta: boolean = true) {
+        super(`${id}-history`, `${name}`, `icon/browser-${id}.png`, type, platforms, Group[GroupName.browserHistory], configName, description, beta)
     }
 
     async generateProjectItems(): Promise<Array<ChromiumHistoryProjectItemImpl>> {
@@ -39,7 +38,7 @@ export class ChromiumHistoryApplicationImpl extends SqliteBrowserApplicationImpl
                     id: '',
                     title: title,
                     description: url,
-                    icon: this.icon,
+                    icon: this.ifGetFavicon(url),
                     searchKey: `${title} ${url}`,
                     exists: true,
                     command: new ElectronExecutor(url),
@@ -48,27 +47,6 @@ export class ChromiumHistoryApplicationImpl extends SqliteBrowserApplicationImpl
             })
         }
         return items
-    }
-}
-
-interface PathDescription {
-    win?: string,
-    mac?: string,
-    linux?: string,
-}
-
-const generatePathDescription: (path: PathDescription) => string | undefined = path => {
-    let prefix = 'History 文件通常放在: '
-    let platform = platformFromUtools()
-    switch (platform) {
-        case Platform.win32:
-            return prefix + path.win
-        case Platform.darwin:
-            return prefix + path.mac
-        case Platform.linux:
-            return prefix + path.linux
-        case Platform.unknown:
-            return undefined
     }
 }
 

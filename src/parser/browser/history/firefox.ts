@@ -1,5 +1,5 @@
 import {ApplicationImpl, DatetimeProjectItemImpl, ElectronExecutor, Group, GroupName, Platform} from '../../../types'
-import {SqliteBrowserApplicationImpl} from './index'
+import {generatePathDescription, SqliteBrowserApplicationImpl} from './index'
 import {execFileSync} from 'child_process'
 import {isEmpty} from 'licia'
 
@@ -8,18 +8,8 @@ const FIREFOX: string = 'firefox'
 export class FirefoxHistoryProjectItemImpl extends DatetimeProjectItemImpl {}
 
 export class FirefoxHistoryApplicationImpl extends SqliteBrowserApplicationImpl<FirefoxHistoryProjectItemImpl> {
-    constructor() {
-        super(
-            `${FIREFOX}-history`,
-            'Firefox',
-            `icon/browser-${FIREFOX}.png`,
-            FIREFOX,
-            [Platform.win32, Platform.darwin, Platform.linux],
-            Group[GroupName.browserHistory],
-            'places.sqlite',
-            undefined,
-            true,
-        )
+    constructor(id: string, name: string, type: string, platforms: Array<Platform> = [Platform.win32, Platform.darwin, Platform.linux], configName: string, description?: string, beta: boolean = true) {
+        super(`${id}-history`, `${name}`, `icon/browser-${id}.png`, type, platforms, Group[GroupName.browserHistory], configName, description, beta)
     }
 
     async generateProjectItems(): Promise<Array<FirefoxHistoryProjectItemImpl>> {
@@ -37,7 +27,7 @@ export class FirefoxHistoryApplicationImpl extends SqliteBrowserApplicationImpl<
                     id: '',
                     title: title,
                     description: description,
-                    icon: this.icon,
+                    icon: this.ifGetFavicon(url),
                     searchKey: `${title} ${description} ${url}`,
                     exists: true,
                     command: new ElectronExecutor(url),
@@ -50,5 +40,10 @@ export class FirefoxHistoryApplicationImpl extends SqliteBrowserApplicationImpl<
 }
 
 export const applications: Array<ApplicationImpl<FirefoxHistoryProjectItemImpl>> = [
-    new FirefoxHistoryApplicationImpl(),
+    new FirefoxHistoryApplicationImpl('firefox', 'Firefox', FIREFOX, undefined, 'places.sqlite', generatePathDescription({
+        win: 'C:\\Users\\Administrator\\AppData\\Roaming\\Mozilla\\Firefox\\Profiles\\xxx.default-release',
+    })),
+    new FirefoxHistoryApplicationImpl('pale', 'Pale Moon', FIREFOX, [Platform.win32, Platform.linux], 'places.sqlite', generatePathDescription({
+        win: 'C:\\Users\\Administrator\\AppData\\Roaming\\Moonchild Productions\\Pale Moon\\Profiles\\xxx.default',
+    })),
 ]
