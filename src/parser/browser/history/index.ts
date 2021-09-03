@@ -1,6 +1,7 @@
 import {ApplicationImpl, InputSettingItem, Platform, ProjectItemImpl, SettingItem} from '../../../types'
 import {platformFromUtools} from '../../../utils'
 import {enableGetFaviconFromNetId} from '../../../setting/components/ApplicationSettingCard'
+import {isEmpty, isNil} from 'licia'
 
 export abstract class BrowserApplicationImpl<P extends ProjectItemImpl> extends ApplicationImpl<P> {
     protected ifGetFavicon: (url: string) => string = url => {
@@ -36,13 +37,14 @@ export interface PathDescription {
 export const generatePathDescription: (path: PathDescription) => string | undefined = path => {
     let prefix = 'History 文件通常放在: '
     let platform = platformFromUtools()
+    let emptyAndUndefined = (path) => (isNil(path) || isEmpty(path)) ? undefined : prefix + path
     switch (platform) {
         case Platform.win32:
-            return prefix + path.win
+            return emptyAndUndefined(path.win)
         case Platform.darwin:
-            return prefix + path.mac
+            return emptyAndUndefined(path.mac)
         case Platform.linux:
-            return prefix + path.linux
+            return emptyAndUndefined(path.linux)
         case Platform.unknown:
             return undefined
     }
