@@ -52,7 +52,7 @@ export class ApplicationSettingCard extends Component<ApplicationSettingCardProp
                                     <div class="form-label">过滤不存在的文件</div>
                                     <div class="form-description">插件会如实显示历史记录内容, 如同软件本身一样, 但如果你希望插件替你将不存在的文件过滤掉, 那么可以考虑启用该选项</div>
                                 </div>
-                                <div class="col-1">
+                                <div class="col-1 flex-column-center">
                                     <label class="form-switch float-right">
                                         {this.stateMap[this.enableFilterNonExistsFilesId]
                                             ? <input
@@ -69,12 +69,13 @@ export class ApplicationSettingCard extends Component<ApplicationSettingCardProp
                                     </label>
                                 </div>
                             </div>
+                            <div class="divider"/>
                             <div class="form-group">
                                 <div class="col-10 col-mr-auto">
                                     <div class="form-label">获取 favicon</div>
                                     <div class="form-description">启动该选项可以使用互联网提供的「api.clowntool.cn」来获取网站图标显示在结果里代替浏览器图标, 但该 API 较慢; 另由于需要将网址传到该 API, 隐私问题也最好考虑在内</div>
                                 </div>
-                                <div class="col-1">
+                                <div class="col-1 flex-column-center">
                                     <label class="form-switch float-right">
                                         {this.stateMap[this.enableGetFaviconFromNetId]
                                             ? <input

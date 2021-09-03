@@ -1,3 +1,20 @@
+1.1.0
+1. 增加浏览器历史适配, 新增如下
+   Firefox
+   Chromium
+   Google Chrome
+   Microsoft Edge
+   QQ Browser
+   Maxthon
+   Opera
+   Brave
+   CentBrowser
+   Yandex
+   猎豹浏览器
+   Safari
+2. 增加插件配置, 可以选择过滤不存在的文件
+3. 优化了一些样式
+
 1.0.13
 JetBrains 使用后台命令打开, 使插件可以及时退出
 

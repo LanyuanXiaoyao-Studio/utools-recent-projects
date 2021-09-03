@@ -19,15 +19,31 @@
 
 # 软件支持列表
 
-- JetBrains 全家桶
-- Android Studio
-- Visual Studio (Windows)
-- Visual Studio Code
-- Sublime Text
-- Xcode
-- WPS Office International for mac
-- Office 2019 (Windows)
-- Office 2019 For Mac
+- Browser History
+  - Firefox
+  - Chromium
+  - Google Chrome
+  - Microsoft Edge
+  - QQ Browser
+  - Maxthon
+  - Opera
+  - Brave
+  - CentBrowser
+  - Yandex
+  - 猎豹浏览器
+  - Safari
+- Editor
+  - Visual Studio Code
+  - Sublime Text
+- IDE
+  - JetBrains 全家桶
+  - Android Studio
+  - Visual Studio (Windows)
+  - Xcode
+- Office
+  - WPS Office International for mac
+  - Office 2019 (Windows)
+  - Office 2019 For Mac
 
 # 源码地址
 
@@ -46,6 +62,8 @@
 > 关于 m1 的 mac, 由于 mac 现在分为 x86 和 arm 两种 CPU 架构, 所以当下原生支持 m1 的应用, 如 JetBrains, 都会在程序内置两套可执行程序作为入口, 所以在 m1 mac 下如果按下面的文档设置可执行程序路径, 会导致报错且无法执行, 所以对于 m1 的 mac 需要单独配置属于 arm 架构的可执行程序路径, 由于我没有 m1 的 mac, 所以无法调试, 需要大家自己尝试.  
 > 目前已知的是, JetBrains 安装完成后会在`/usr/local/bin`下设置一个软链链接到正确的入口, 如`/usr/local/bin/idea`, 所以可以尝试将可执行程序的路径设置为这个, 同样的, Visual Studio Code 也有类似的东西.
 
+- **Browser History**  
+  目前所有支持的浏览器历史记录获取都需要通过 sqlite3 进行, 为了避免不同浏览器采用的 sqlite 版本不同, 所以需要用户自行下载 sqlite 命令行作为可执行程序路径, sqlite 命令行可以在 sqlite 官网下载到: [官网下载页面](https://www.sqlite.org/download.html), 需要自行下载对应平台的命令行程序.
 - **JetBrains 系列**
   - **数据文件**  
     macOS: `/Users/用户名/Library/Application Support/JetBrains/软件名称/options/recentProjects.xml`
@@ -99,7 +117,8 @@
 
 # 已知问题
 
-JetBrains 的配置文件里面可能存在内置变量, 如`$APPLICATION_CONFIG_DIR$`, `$MODULE_DIR$`, `$PROJECT_DIR$`, `$APPLICATION_HOME_DIR$`等, 这些变量插件无法主动获取, 如果配置文件中存在类似的变量, 将无法正常通过插件打开项目, 暂时还没有好的方式能够解决这个问题, 如果有朋友知道如何获取这些变量, 可以告诉我适配到插件里.
+JetBrains 的配置文件里面可能存在内置变量, 如`$APPLICATION_CONFIG_DIR$`, `$MODULE_DIR$`, `$PROJECT_DIR$`, `$APPLICATION_HOME_DIR$`等,
+这些变量插件无法主动获取, 如果配置文件中存在类似的变量, 将无法正常通过插件打开项目, 暂时还没有好的方式能够解决这个问题, 如果有朋友知道如何获取这些变量, 可以告诉我适配到插件里.
 
 # 开发说明
 

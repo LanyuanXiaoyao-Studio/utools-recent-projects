@@ -152,25 +152,29 @@ export class SettingCard extends Component<SettingCardProps, SettingCardState> {
                                     )
                                 case SettingType.switch:
                                     return (
-                                        <div class="form-group">
-                                            <div class="form-label">{item.name}</div>
-                                            {isEmpty(item.description)
-                                                ? <Fragment/>
-                                                :
-                                                <div class="setting-item-description">{item.description}</div>}
-                                            <label class="form-switch">
-                                                {item.value
-                                                    ? <input
-                                                        type="checkbox"
-                                                        checked
-                                                        onchange={() => this.switch(item.id, false)}
-                                                    />
-                                                    : <input
-                                                        type="checkbox"
-                                                        onchange={() => this.switch(item.id, true)}
-                                                    />}
-                                                <i class="form-icon"/>
-                                            </label>
+                                        <div class="form-group d-flex">
+                                            <div class="col-10 col-mr-auto">
+                                                <div class="form-label">{item.name}</div>
+                                                {isEmpty(item.description)
+                                                    ? <Fragment/>
+                                                    :
+                                                    <div class="setting-item-description">{item.description}</div>}
+                                            </div>
+                                            <div class="col-1 flex-column-center">
+                                                <label class="form-switch float-right">
+                                                    {item.value
+                                                        ? <input
+                                                            type="checkbox"
+                                                            checked
+                                                            onchange={() => this.switch(item.id, false)}
+                                                        />
+                                                        : <input
+                                                            type="checkbox"
+                                                            onchange={() => this.switch(item.id, true)}
+                                                        />}
+                                                    <i class="form-icon"/>
+                                                </label>
+                                            </div>
                                         </div>
                                     )
                             }
