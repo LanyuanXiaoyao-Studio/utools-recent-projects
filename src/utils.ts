@@ -1,5 +1,6 @@
 import {existsSync} from 'fs'
 import {Platform} from './types'
+import {isEmpty, Url} from 'licia'
 
 /**
  * 字符比较, 用于在 array.sort() 使用
@@ -38,4 +39,9 @@ export const platformFromUtools: () => Platform = () => {
     else if (utools.isMacOs()) return Platform.darwin
     else if (utools.isLinux()) return Platform.linux
     else return Platform.unknown
+}
+
+export const removeAllQueryFromUrl: (url: string) => string = url => {
+    let parser = Url.parse(url)
+    return `${parser.protocol}//${parser.hostname}${isEmpty(parser.port) ? '' : `:${parser.port}`}`
 }

@@ -4,6 +4,7 @@
   "author": "lanyuanxiaoyao",
   "license": "MIT",
   "dependencies": {
+    "licia": "^1.29.0",
     "stylus": "^0.54.8"
   }
 }

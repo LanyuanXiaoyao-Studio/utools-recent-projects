@@ -1,9 +1,5 @@
-const stylus = require('stylus')
-// language=Stylus
-let css = `.application
-  background-color red
-  .card
-    color aliceblue`
-stylus.render(css, (error, result) => {
-  console.log(result)
-})
+const Url = require('licia/Url')
+const isEmpty = require('licia/isEmpty')
+let par = Url.parse('http://sexinsex.net:8080/bbs/viewthread.php?tid=7384931&extra=page%3D11%26amp%3Bfilter%3Dtype%26amp%3Btypeid%3D225')
+console.log(par)
+console.log(`${par.protocol}//${par.hostname}${isEmpty(par.port) ? '' : `:${par.port}`}`)

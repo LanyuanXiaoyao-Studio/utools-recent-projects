@@ -2,6 +2,7 @@ import {ApplicationImpl, DatetimeProjectItemImpl, ElectronExecutor, Group, Group
 import {generatePathDescription, SqliteBrowserApplicationImpl} from './index'
 import {execFileSync} from 'child_process'
 import {isEmpty} from 'licia'
+import {removeAllQueryFromUrl} from '../../../utils'
 
 const FIREFOX: string = 'firefox'
 
@@ -27,7 +28,7 @@ export class FirefoxHistoryApplicationImpl extends SqliteBrowserApplicationImpl<
                     id: '',
                     title: title,
                     description: description,
-                    icon: this.ifGetFavicon(url),
+                    icon: this.ifGetFavicon(removeAllQueryFromUrl(url)),
                     searchKey: `${title} ${description} ${url}`,
                     exists: true,
                     command: new ElectronExecutor(url),

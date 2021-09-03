@@ -12,6 +12,7 @@ import {
 import {SqliteBrowserApplicationImpl} from './index'
 import {execFileSync} from 'child_process'
 import {isEmpty} from 'licia'
+import {removeAllQueryFromUrl} from '../../../utils'
 
 const SAFARI: string = 'safari'
 
@@ -47,7 +48,7 @@ export class SafariHistoryApplicationImpl extends SqliteBrowserApplicationImpl<S
                     id: '',
                     title: title,
                     description: url,
-                    icon: this.ifGetFavicon(url),
+                    icon: this.ifGetFavicon(removeAllQueryFromUrl(url)),
                     searchKey: `${title} ${url}`,
                     exists: true,
                     command: new ElectronExecutor(url),

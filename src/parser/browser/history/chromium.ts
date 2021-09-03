@@ -4,6 +4,7 @@ import {execFileSync} from 'child_process'
 import {isEmpty, randomId} from 'licia'
 import {join} from 'path'
 import {copyFile, rm} from 'fs/promises'
+import {removeAllQueryFromUrl} from '../../../utils'
 
 const CHROMIUM: string = 'chromium'
 
@@ -38,7 +39,7 @@ export class ChromiumHistoryApplicationImpl extends SqliteBrowserApplicationImpl
                     id: '',
                     title: title,
                     description: url,
-                    icon: this.ifGetFavicon(url),
+                    icon: this.ifGetFavicon(removeAllQueryFromUrl(url)),
                     searchKey: `${title} ${url}`,
                     exists: true,
                     command: new ElectronExecutor(url),
@@ -54,6 +55,7 @@ export const applications: Array<ApplicationImpl<ChromiumHistoryProjectItemImpl>
     new ChromiumHistoryApplicationImpl('chromium', 'Chromium', CHROMIUM, undefined, 'History'),
     new ChromiumHistoryApplicationImpl('chrome', 'Google Chrome', CHROMIUM, undefined, 'History', generatePathDescription({
         win: 'C:\\Users\\Administrator\\AppData\\Local\\Google\\Chrome\\User Data\\Default',
+        mac: '/Users/xxx/Library/Application Support/Google/Chrome/Default',
     })),
     new ChromiumHistoryApplicationImpl('edge', 'Microsoft Edge', CHROMIUM, undefined, 'History', generatePathDescription({
         win: 'C:\\Users\\Administrator\\AppData\\Local\\Microsoft\\Edge\\User Data\\Default',

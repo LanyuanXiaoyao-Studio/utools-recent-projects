@@ -84,6 +84,11 @@ inherits@2, inherits@^2.0.3:
   resolved "https://registry.nlark.com/inherits/download/inherits-2.0.4.tgz#0fa2c64f932917c3433a0ded55363aae37416b7c"
   integrity sha1-D6LGT5MpF8NDOg3tVTY6rjdBa3w=
 
+licia@^1.29.0:
+  version "1.29.0"
+  resolved "https://registry.npm.taobao.org/licia/download/licia-1.29.0.tgz#2651d620ac44b8626cd0b027f0fb2e221b5bd264"
+  integrity sha1-JlHWIKxEuGJs0LAn8PsuIhtb0mQ=
+
 minimatch@^3.0.4:
   version "3.0.4"
   resolved "https://registry.nlark.com/minimatch/download/minimatch-3.0.4.tgz#5166e286457f03306064be5497e8dbb0c3d32083"
