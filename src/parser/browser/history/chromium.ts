@@ -1,4 +1,4 @@
-import {ApplicationImpl, DatetimeProjectItemImpl, ElectronExecutor, Group, GroupName, Platform} from '../../types'
+import {ApplicationImpl, DatetimeProjectItemImpl, ElectronExecutor, Group, GroupName, Platform} from '../../../types'
 import {SqliteBrowserApplicationImpl} from './index'
 import {execFileSync} from 'child_process'
 import {isEmpty, randomId} from 'licia'
@@ -11,7 +11,7 @@ export class ChromiumHistoryProjectItemImpl extends DatetimeProjectItemImpl {}
 
 export class ChromiumHistoryApplicationImpl extends SqliteBrowserApplicationImpl<ChromiumHistoryProjectItemImpl> {
     constructor(id: string, name: string, type: string, platfrom: Array<Platform> = [Platform.win32, Platform.darwin, Platform.linux], configName: string, description?: string, beta: boolean = true) {
-        super(`${id}-history`, `${name} History`, `icon/browser-${id}.png`, type, platfrom, Group[GroupName.browser], configName, description, beta)
+        super(`${id}-history`, `${name}`, `icon/browser-${id}.png`, type, platfrom, Group[GroupName.browserHistory], configName, description, beta)
     }
 
     async generateProjectItems(): Promise<Array<ChromiumHistoryProjectItemImpl>> {

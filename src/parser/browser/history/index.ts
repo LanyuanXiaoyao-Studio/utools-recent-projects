@@ -1,4 +1,4 @@
-import {ApplicationImpl, InputSettingItem, ProjectItemImpl, SettingItem} from '../../types'
+import {ApplicationImpl, InputSettingItem, ProjectItemImpl, SettingItem} from '../../../types'
 
 export abstract class BrowserApplicationImpl<P extends ProjectItemImpl> extends ApplicationImpl<P> {}
 

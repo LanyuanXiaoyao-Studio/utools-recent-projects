@@ -1,4 +1,4 @@
-import {ApplicationImpl, DatetimeProjectItemImpl, ElectronExecutor, Group, GroupName, Platform} from '../../types'
+import {ApplicationImpl, DatetimeProjectItemImpl, ElectronExecutor, Group, GroupName, Platform} from '../../../types'
 import {SqliteBrowserApplicationImpl} from './index'
 import {execFileSync} from 'child_process'
 import {isEmpty} from 'licia'
@@ -11,11 +11,11 @@ export class FirefoxHistoryApplicationImpl extends SqliteBrowserApplicationImpl<
     constructor() {
         super(
             `${FIREFOX}-history`,
-            'Firefox History',
+            'Firefox',
             `icon/browser-${FIREFOX}.png`,
             FIREFOX,
             [Platform.win32, Platform.darwin, Platform.linux],
-            Group[GroupName.browser],
+            Group[GroupName.browserHistory],
             'places.sqlite',
             undefined,
             true,

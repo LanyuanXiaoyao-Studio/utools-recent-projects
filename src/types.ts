@@ -324,6 +324,8 @@ export enum ApplicationConfigState {
 
 export enum GroupName {
     browser,
+    browserHistory,
+    browserBookmark,
     editor,
     ide,
     jetbrains,
@@ -334,6 +336,8 @@ export enum GroupName {
 
 export const Group: { [keys in GroupName]: string } = {
     [GroupName.browser]: 'Browser',
+    [GroupName.browserHistory]: 'Browser History',
+    [GroupName.browserBookmark]: 'Browser Bookmark',
     [GroupName.editor]: 'Editor',
     [GroupName.ide]: 'IDE',
     [GroupName.jetbrains]: 'JetBrains',

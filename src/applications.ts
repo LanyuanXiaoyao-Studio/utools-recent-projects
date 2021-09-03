@@ -6,8 +6,9 @@ import {applications as WpsApplications} from './parser/office/wps'
 import {applications as VsStudioApplications} from './parser/ide/vsStudio'
 import {applications as XcodeApplications} from './parser/ide/xcode'
 import {applications as OfficeApplications} from './parser/office/office'
-import {applications as FirefoxApplications} from './parser/browser/firefox'
-import {applications as ChromiumApplications} from './parser/browser/chromium'
+import {applications as FirefoxApplications} from './parser/browser/history/firefox'
+import {applications as ChromiumApplications} from './parser/browser/history/chromium'
+import {applications as SafariApplications} from './parser/browser/history/safari'
 
 export const applications: Array<Application<ProjectItemImpl>> = [
     ...JetBrainsApplications,
@@ -19,6 +20,7 @@ export const applications: Array<Application<ProjectItemImpl>> = [
     ...OfficeApplications,
     ...FirefoxApplications,
     ...ChromiumApplications,
+    ...SafariApplications,
 ]
 
 export const jetBrainsApplications: Array<Application<ProjectItemImpl>> = [...JetBrainsApplications]
@@ -38,4 +40,5 @@ export const officeApplications: Array<Application<ProjectItemImpl>> = [...Offic
 export const browserApplications: Array<Application<ProjectItemImpl>> = [
     ...FirefoxApplications,
     ...ChromiumApplications,
+    ...SafariApplications,
 ]
