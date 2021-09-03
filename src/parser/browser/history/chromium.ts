@@ -5,6 +5,7 @@ import {isEmpty, randomId} from 'licia'
 import {join} from 'path'
 import {copyFile, rm} from 'fs/promises'
 import {removeAllQueryFromUrl} from '../../../utils'
+import {Context} from '../../../context'
 
 const CHROMIUM: string = 'chromium'
 
@@ -15,7 +16,7 @@ export class ChromiumHistoryApplicationImpl extends SqliteBrowserApplicationImpl
         super(`${id}-history`, `${name}`, `icon/browser-${id}.png`, type, platforms, Group[GroupName.browserHistory], configName, description, beta)
     }
 
-    async generateProjectItems(): Promise<Array<ChromiumHistoryProjectItemImpl>> {
+    async generateProjectItems(context: Context): Promise<Array<ChromiumHistoryProjectItemImpl>> {
         let items: Array<ChromiumHistoryProjectItemImpl> = []
         let tmpPath = utools.getPath('temp')
         let tmpDatabasePath = join(tmpPath, randomId())
@@ -39,7 +40,7 @@ export class ChromiumHistoryApplicationImpl extends SqliteBrowserApplicationImpl
                     id: '',
                     title: title,
                     description: url,
-                    icon: this.ifGetFavicon(removeAllQueryFromUrl(url)),
+                    icon: this.ifGetFavicon(removeAllQueryFromUrl(url), context),
                     searchKey: `${title} ${url}`,
                     exists: true,
                     command: new ElectronExecutor(url),

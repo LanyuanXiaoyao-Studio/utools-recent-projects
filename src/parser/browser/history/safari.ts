@@ -13,6 +13,7 @@ import {SqliteBrowserApplicationImpl} from './index'
 import {execFileSync} from 'child_process'
 import {isEmpty} from 'licia'
 import {removeAllQueryFromUrl} from '../../../utils'
+import {Context} from '../../../context'
 
 const SAFARI: string = 'safari'
 
@@ -33,7 +34,7 @@ export class SafariHistoryApplicationImpl extends SqliteBrowserApplicationImpl<S
         )
     }
 
-    async generateProjectItems(): Promise<Array<SafariHistoryProjectItemImpl>> {
+    async generateProjectItems(context: Context): Promise<Array<SafariHistoryProjectItemImpl>> {
         let items: Array<SafariHistoryProjectItemImpl> = []
         let configPath = `${utools.getPath('home')}/Library/Safari/History.db`
         // language=SQLite
@@ -48,7 +49,7 @@ export class SafariHistoryApplicationImpl extends SqliteBrowserApplicationImpl<S
                     id: '',
                     title: title,
                     description: url,
-                    icon: this.ifGetFavicon(removeAllQueryFromUrl(url)),
+                    icon: this.ifGetFavicon(removeAllQueryFromUrl(url), context),
                     searchKey: `${title} ${url}`,
                     exists: true,
                     command: new ElectronExecutor(url),

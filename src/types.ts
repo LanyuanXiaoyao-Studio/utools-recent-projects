@@ -4,6 +4,7 @@ import {shell} from 'electron'
 import {platformFromUtools} from './utils'
 import {existsSync} from 'fs'
 import {enableFilterNonExistsFilesId} from './setting/components/ApplicationSettingCard'
+import {Context} from './context'
 
 /**
  * 命令执行器
@@ -218,12 +219,13 @@ export abstract class ProjectArgsImpl extends ArgsImpl<ProjectItemImpl> {
     getProjectItems: (localId: string) => Promise<Array<ProjectItemImpl>> = async localId => {
         this.updateApplications(localId)
         let platform = platformFromUtools()
+        let context = Context.get()
         let enableFilterNonExistsFiles = utools.dbStorage.getItem(enableFilterNonExistsFilesId(localId)) ?? false
         for (let app of this.applications) {
             let finish = app.isFinishConfig()
             // 平台不适配的, 配置没有填完的, 都要被过滤掉
             if (finish === ApplicationConfigState.done && contain(app.platform, platform)) {
-                (await app.generateProjectItems())
+                (await app.generateProjectItems(context))
                     .filter(p => enableFilterNonExistsFiles ? p.exists : true)
                     .forEach(p => this.projectItemCache.push(p))
             } else if (finish === ApplicationConfigState.error) {
@@ -364,7 +366,7 @@ export interface Application<P extends ProjectItemImpl> {
     executorId: (nativeId: string) => string
     update: (nativeId: string) => void
     generateSettingItems: (nativeId: string) => Array<SettingItem>
-    generateProjectItems: () => Promise<Array<P>>
+    generateProjectItems: (context: Context) => Promise<Array<P>>
     isFinishConfig: () => ApplicationConfigState
 }
 
@@ -438,7 +440,7 @@ export abstract class ApplicationImpl<P extends ProjectItemImpl> implements Appl
         }
     }
 
-    abstract generateProjectItems(): Promise<Array<P>>
+    abstract generateProjectItems(context: Context): Promise<Array<P>>
 
     protected nonExistsPath(path: string): boolean {
         return !this.existsPath(path)

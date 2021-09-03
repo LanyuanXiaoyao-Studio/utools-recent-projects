@@ -3,6 +3,7 @@ import {generatePathDescription, SqliteBrowserApplicationImpl} from './index'
 import {execFileSync} from 'child_process'
 import {isEmpty} from 'licia'
 import {removeAllQueryFromUrl} from '../../../utils'
+import {Context} from '../../../context'
 
 const FIREFOX: string = 'firefox'
 
@@ -13,7 +14,7 @@ export class FirefoxHistoryApplicationImpl extends SqliteBrowserApplicationImpl<
         super(`${id}-history`, `${name}`, `icon/browser-${id}.png`, type, platforms, Group[GroupName.browserHistory], configName, description, beta)
     }
 
-    async generateProjectItems(): Promise<Array<FirefoxHistoryProjectItemImpl>> {
+    async generateProjectItems(context: Context): Promise<Array<FirefoxHistoryProjectItemImpl>> {
         let items: Array<FirefoxHistoryProjectItemImpl> = []
         // language=SQLite
         let sql = 'select url, title, description, cast(strftime(\'%s\', datetime((last_visit_date / 1000000), \'unixepoch\', \'localtime\')) as numeric) as timestamp\nfrom main.moz_places\nwhere last_visit_date is not null\norder by last_visit_date desc\nlimit 100'
@@ -28,7 +29,7 @@ export class FirefoxHistoryApplicationImpl extends SqliteBrowserApplicationImpl<
                     id: '',
                     title: title,
                     description: description,
-                    icon: this.ifGetFavicon(removeAllQueryFromUrl(url)),
+                    icon: this.ifGetFavicon(removeAllQueryFromUrl(url), context),
                     searchKey: `${title} ${description} ${url}`,
                     exists: true,
                     command: new ElectronExecutor(url),

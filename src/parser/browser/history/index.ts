@@ -1,12 +1,11 @@
 import {ApplicationImpl, InputSettingItem, Platform, ProjectItemImpl, SettingItem} from '../../../types'
 import {platformFromUtools} from '../../../utils'
-import {enableGetFaviconFromNetId} from '../../../setting/components/ApplicationSettingCard'
 import {isEmpty, isNil} from 'licia'
+import {Context} from '../../../context'
 
 export abstract class BrowserApplicationImpl<P extends ProjectItemImpl> extends ApplicationImpl<P> {
-    protected ifGetFavicon: (url: string) => string = url => {
-        let enable = utools.dbStorage.getItem(enableGetFaviconFromNetId(utools.getNativeId())) ?? false
-        return enable ? `https://api.clowntool.cn/getico/?url=${url}` : this.icon
+    protected ifGetFavicon: (url: string, context: Context) => string = (url, context) => {
+        return context.enableGetFaviconFromNet ? `https://api.clowntool.cn/getico/?url=${url}` : this.icon
     }
 }
 
