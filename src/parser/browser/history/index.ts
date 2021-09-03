@@ -37,7 +37,7 @@ export interface PathDescription {
 export const generatePathDescription: (path: PathDescription) => string | undefined = path => {
     let prefix = 'History 文件通常放在: '
     let platform = platformFromUtools()
-    let emptyAndUndefined = (path) => (isNil(path) || isEmpty(path)) ? undefined : prefix + path
+    let emptyAndUndefined = (p) => (isNil(p) || isEmpty(p)) ? undefined : prefix + p
     switch (platform) {
         case Platform.win32:
             return emptyAndUndefined(path.win)
