@@ -54,5 +54,11 @@ export const applications: Array<ApplicationImpl<ChromiumHistoryProjectItemImpl>
     new ChromiumHistoryApplicationImpl('chromium', 'Chromium', CHROMIUM, undefined, 'History'),
     new ChromiumHistoryApplicationImpl('chrome', 'Google Chrome', CHROMIUM, undefined, 'History'),
     new ChromiumHistoryApplicationImpl('edge', 'Microsoft Edge', CHROMIUM, undefined, 'History'),
-    // new ChromiumHistoryApplicationImpl('twinkstar', '星愿', CHROMIUM, undefined, 'History2'),
+    new ChromiumHistoryApplicationImpl('qq', 'QQ Browser', CHROMIUM, [Platform.win32], 'History'),
+    new ChromiumHistoryApplicationImpl('maxthon', 'Maxthon (傲游)', CHROMIUM, [Platform.win32], 'History'),
+    new ChromiumHistoryApplicationImpl('opera', 'Opera', CHROMIUM, [Platform.win32, Platform.darwin], 'History'),
+    new ChromiumHistoryApplicationImpl('brave', 'Brave', CHROMIUM, [Platform.win32, Platform.darwin], 'History'),
+    new ChromiumHistoryApplicationImpl('cent', 'CentBrowser (百分)', CHROMIUM, [Platform.win32], 'History'),
+    new ChromiumHistoryApplicationImpl('yandex', 'Yandex', CHROMIUM, [Platform.win32, Platform.darwin], 'History'),
+    new ChromiumHistoryApplicationImpl('liebao', '猎豹浏览器', CHROMIUM, [Platform.win32], 'History'),
 ]
