@@ -63,7 +63,8 @@
 > 目前已知的是, JetBrains 安装完成后会在`/usr/local/bin`下设置一个软链链接到正确的入口, 如`/usr/local/bin/idea`, 所以可以尝试将可执行程序的路径设置为这个, 同样的, Visual Studio Code 也有类似的东西.
 
 - **Browser History**  
-  目前所有支持的浏览器历史记录获取都需要通过 sqlite3 进行, 为了避免不同浏览器采用的 sqlite 版本不同, 所以需要用户自行下载 sqlite 命令行作为可执行程序路径, sqlite 命令行可以在 sqlite 官网下载到: [官网下载页面](https://www.sqlite.org/download.html), 需要自行下载对应平台的命令行程序.
+  目前所有支持的浏览器历史记录获取都需要通过 sqlite3 进行, 为了避免不同浏览器采用的 sqlite 版本不同, 所以需要用户自行下载 sqlite 命令行作为可执行程序路径, sqlite 命令行可以在 sqlite 官网下载到: [官网下载页面](https://www.sqlite.org/download.html), 需要自行下载对应平台的命令行程序.  
+  > 360 安全浏览器因为安全, 所以相关数据是加密过的, 无法适配
 - **JetBrains 系列**
   - **数据文件**  
     macOS: `/Users/用户名/Library/Application Support/JetBrains/软件名称/options/recentProjects.xml`

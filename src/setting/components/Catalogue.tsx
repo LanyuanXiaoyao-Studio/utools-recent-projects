@@ -88,8 +88,7 @@ export class Catalogue extends Component<CatalogueProps, CatalogueState> {
                     <li class="nav-item">
                         <a
                             href="#"
-                            oncl
-                            ick={() => this.help()}
+                            onclick={() => this.help()}
                         >
                             <i class="icon icon-message"/>
                             <b>配置文档</b>

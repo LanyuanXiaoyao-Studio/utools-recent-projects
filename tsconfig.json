@@ -1,17 +1,18 @@
 {
   "compilerOptions": {
-    "noImplicitAny"   : false,
-    "strict"          : true,
-    "module"          : "CommonJS",
-    "target"          : "ESNext",
-    "moduleResolution": "Node",
-    "esModuleInterop" : true,
-    "removeComments"  : true,
-    "types"           : [
+    "noImplicitAny"     : false,
+    "strict"            : true,
+    "module"            : "CommonJS",
+    "target"            : "ESNext",
+    "downlevelIteration": true,
+    "moduleResolution"  : "Node",
+    "esModuleInterop"   : true,
+    "removeComments"    : true,
+    "types"             : [
       "@types/node",
       "utools-api-types"
     ],
-    "jsx"             : "react",
-    "jsxFactory"      : "Nano.h"
+    "jsx"               : "react",
+    "jsxFactory"        : "Nano.h"
   }
 }
