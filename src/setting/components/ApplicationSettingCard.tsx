@@ -48,7 +48,7 @@ export class ApplicationSettingCard extends Component<ApplicationSettingCardProp
                                     <div class="form-description">插件会如实显示历史记录内容, 如同软件本身一样, 但如果你希望插件替你将不存在的文件过滤掉, 那么可以考虑启用该选项</div>
                                 </div>
                                 <div class="col-1">
-                                    <label class="form-switch">
+                                    <label class="form-switch float-right">
                                         {this.enableFilterNonExistsFiles
                                             ? <input
                                                 type="checkbox"
