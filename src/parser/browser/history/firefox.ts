@@ -44,7 +44,4 @@ export const applications: Array<ApplicationImpl<FirefoxHistoryProjectItemImpl>>
     new FirefoxHistoryApplicationImpl('firefox', 'Firefox', FIREFOX, undefined, 'places.sqlite', generatePathDescription({
         win: 'C:\\Users\\Administrator\\AppData\\Roaming\\Mozilla\\Firefox\\Profiles\\xxx.default-release',
     })),
-    new FirefoxHistoryApplicationImpl('pale', 'Pale Moon', FIREFOX, [Platform.win32, Platform.linux], 'places.sqlite', generatePathDescription({
-        win: 'C:\\Users\\Administrator\\AppData\\Roaming\\Moonchild Productions\\Pale Moon\\Profiles\\xxx.default',
-    })),
 ]
