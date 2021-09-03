@@ -20,7 +20,7 @@ export class ChromiumHistoryApplicationImpl extends SqliteBrowserApplicationImpl
         let tmpDatabasePath = join(tmpPath, randomId())
         await copyFile(this.config, tmpDatabasePath)
         // language=SQLite
-        let sql = 'select v.id, u.url, u.title, cast(strftime(\'%s\', datetime((v.visit_time / 1000000) - 11644473600, \'unixepoch\', \'localtime\')) as numeric) as timestamp\nfrom visits v,\n     urls u\nwhere v.url = u.id\n  and v.visit_time is not null\n  and v.url is not null\norder by v.visit_time desc\nlimit 100'
+        let sql = 'select v.id, u.url, u.title, cast(strftime(\'%s\', datetime((v.visit_time / 1000000) - 11644473600, \'unixepoch\', \'localtime\')) as numeric) as timestamp\nfrom visits v,\n     urls u\nwhere v.url = u.id\n  and v.visit_time is not null\n  and v.url is not null\nand v.visit_duration != 0\norder by v.visit_time desc, v.id desc\nlimit 100'
         let jsonText = ''
         try {
             jsonText = execFileSync(this.executor, [tmpDatabasePath, sql, '-readonly', '-json'], { encoding: 'utf-8' })
