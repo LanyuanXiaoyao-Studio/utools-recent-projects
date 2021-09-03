@@ -2,10 +2,6 @@ import {Component, Fragment, Img} from 'nano-jsx'
 import {Context} from '../../context'
 import Nano = require('nano-jsx')
 
-export const enableFilterNonExistsFilesId: (nativeId: string) => string = nativeId => `${nativeId}/setting-filter-non-exists-files`
-
-export const enableGetFaviconFromNetId: (nativeId: string) => string = nativeId => `${nativeId}/setting-get-favicon-from-net`
-
 export interface ApplicationSettingCardProps {}
 
 export interface ApplicationSettingCardState {}
@@ -83,6 +79,29 @@ export class ApplicationSettingCard extends Component<ApplicationSettingCardProp
                                             <input
                                                 type="checkbox"
                                                 onchange={() => this.switch(Context.enableGetFaviconFromNetId, true)}
+                                            />}
+                                        <i class="form-icon"/>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="divider"/>
+                            <div class="form-group">
+                                <div class="col-10 col-mr-auto">
+                                    <div class="form-label">获取文件图标</div>
+                                    <div class="form-description">启动该选项可以在文件型历史记录的结果里显示系统文件图标作为 Icon, 但这会影响一些性能, 在低性能的机器上不建议开启</div>
+                                </div>
+                                <div class="col-1 flex-column-center">
+                                    <label class="form-switch float-right">
+                                        {this.context.enableGetFileIcon
+                                            ? <input
+                                                type="checkbox"
+                                                checked
+                                                onchange={() => this.switch(Context.enableGetFileIconId, false)}
+                                            />
+                                            :
+                                            <input
+                                                type="checkbox"
+                                                onchange={() => this.switch(Context.enableGetFileIconId, true)}
                                             />}
                                         <i class="form-icon"/>
                                     </label>

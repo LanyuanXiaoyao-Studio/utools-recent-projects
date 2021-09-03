@@ -12,6 +12,7 @@ import {
 import {isEmpty, isNil} from 'licia'
 import {parse} from 'path'
 import {existsOrNot} from '../../utils'
+import {Context} from '../../context'
 import plistParser = require('bplist-parser')
 
 const WPS_MAC_INTERNATION: string = 'wps-mac-internation'
@@ -33,7 +34,7 @@ export class WpsMacInternationalApplicationImpl extends ApplicationImpl<WpsMacIn
         )
     }
 
-    async generateProjectItems(): Promise<Array<WpsMacInternationalProjectItemImpl>> {
+    async generateProjectItems(context: Context): Promise<Array<WpsMacInternationalProjectItemImpl>> {
         let items: Array<WpsMacInternationalProjectItemImpl> = []
         let data = await plistParser.parseFile(this.config)
         if (!isNil(data) && !isEmpty(data)) {
@@ -50,7 +51,7 @@ export class WpsMacInternationalApplicationImpl extends ApplicationImpl<WpsMacIn
                     let parser = parse(path)
                     let { exists, description, icon } = existsOrNot(path, {
                         description: path,
-                        icon: utools.getFileIcon(path),
+                        icon: context.enableGetFileIcon ? utools.getFileIcon(path) : this.icon,
                     })
                     items.push({
                         id: '',

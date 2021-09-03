@@ -14,6 +14,7 @@ import {join, parse} from 'path'
 import {execSync} from 'child_process'
 import {existsOrNot} from '../../utils'
 import {lstatSync, readdirSync} from 'fs'
+import {Context} from '../../context'
 import plistParser = require('bplist-parser')
 
 const OFFICE_MAC: string = 'office-mac'
@@ -26,7 +27,7 @@ export class OfficeMacApplicationImpl extends ApplicationImpl<OfficeProjectItemI
         super(`office-mac-${id}`, name, icon, OFFICE_MAC, [Platform.darwin], Group[GroupName.office], configFilename, description, true)
     }
 
-    async generateProjectItems(): Promise<Array<OfficeProjectItemImpl>> {
+    async generateProjectItems(context: Context): Promise<Array<OfficeProjectItemImpl>> {
         let items: Array<OfficeProjectItemImpl> = []
         let data = await plistParser.parseFile(this.config)
         if (!isNil(data) && !isEmpty(data)) {
@@ -45,7 +46,7 @@ export class OfficeMacApplicationImpl extends ApplicationImpl<OfficeProjectItemI
                     let parser = parse(url.pathname)
                     let { exists, description, icon } = existsOrNot(url.pathname, {
                         description: url.pathname,
-                        icon: utools.getFileIcon(url.pathname),
+                        icon: context.enableGetFileIcon ? utools.getFileIcon(url.pathname) : this.icon,
                     })
                     items.push({
                         id: '',

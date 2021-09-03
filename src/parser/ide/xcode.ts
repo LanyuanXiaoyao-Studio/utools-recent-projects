@@ -13,6 +13,7 @@ import {isEmpty, isNil} from 'licia'
 import {parse} from 'path'
 import {statSync} from 'fs'
 import {existsOrNot} from '../../utils'
+import {Context} from '../../context'
 
 const XCODE: string = 'xcode'
 
@@ -54,7 +55,7 @@ export class XcodeApplicationImpl extends ApplicationImpl<XcodeProjectItemImpl> 
         )
     }
 
-    async generateProjectItems(): Promise<Array<XcodeProjectItemImpl>> {
+    async generateProjectItems(context: Context): Promise<Array<XcodeProjectItemImpl>> {
         let items: Array<XcodeProjectItemImpl> = []
         let userPath = utools.getPath('home')
         let configPath = `${userPath}/Library/Application Support/com.apple.sharedfilelist/com.apple.LSSharedFileList.ApplicationRecentDocuments/com.apple.dt.xcode.sfl2`
@@ -68,7 +69,7 @@ export class XcodeApplicationImpl extends ApplicationImpl<XcodeProjectItemImpl> 
                 let parseObj = parse(p)
                 let { exists, description, icon } = existsOrNot(p, {
                     description: p,
-                    icon: utools.getFileIcon(p),
+                    icon: context.enableGetFileIcon ? utools.getFileIcon(p) : this.icon,
                 })
                 items.push({
                     id: '',

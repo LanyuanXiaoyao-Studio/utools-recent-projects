@@ -14,6 +14,7 @@ import {readFile} from 'fs/promises'
 import {isEmpty, isNil} from 'licia'
 import {parse} from 'path'
 import {existsOrNot} from '../../utils'
+import {Context} from '../../context'
 import $ = require('licia/$')
 
 const VS_STUDIO: string = 'vs-studio'
@@ -36,7 +37,7 @@ export class VsStudioApplicationImpl extends ApplicationImpl<VsStudioProjectItem
         )
     }
 
-    async generateProjectItems(): Promise<Array<VsStudioProjectItemImpl>> {
+    async generateProjectItems(context: Context): Promise<Array<VsStudioProjectItemImpl>> {
         let items: Array<VsStudioProjectItemImpl> = []
         let buffer = await readFile(this.config)
         if (!isNil(buffer)) {
@@ -52,7 +53,7 @@ export class VsStudioApplicationImpl extends ApplicationImpl<VsStudioProjectItem
                     let parseObj = parse(path)
                     let { exists, description, icon } = existsOrNot(path, {
                         description: path,
-                        icon: utools.getFileIcon(path),
+                        icon: context.enableGetFileIcon ? utools.getFileIcon(path) : this.icon,
                     })
                     items.push({
                         id: '',

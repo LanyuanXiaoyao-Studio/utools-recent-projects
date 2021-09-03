@@ -12,6 +12,7 @@ import {readFile} from 'fs/promises'
 import {isNil} from 'licia'
 import {parse} from 'path'
 import {existsOrNot} from '../../utils'
+import {Context} from '../../context'
 
 const SUBLIME: string = 'sublime'
 
@@ -36,7 +37,7 @@ export class SublimeApplicationImpl extends ApplicationImpl<SublimeProjectItemIm
         return utools.isWindows() ? source.replace(/^\/(\w+)(?=\/)/g, '$1:') : source
     }
 
-    async generateProjectItems(): Promise<Array<SublimeProjectItemImpl>> {
+    async generateProjectItems(context: Context): Promise<Array<SublimeProjectItemImpl>> {
         let items: Array<SublimeProjectItemImpl> = []
         let buffer = await readFile(this.config)
         if (!isNil(buffer)) {
@@ -67,7 +68,7 @@ export class SublimeApplicationImpl extends ApplicationImpl<SublimeProjectItemIm
                 let readPath = this.parsePath(path)
                 let { exists, description, icon } = existsOrNot(readPath, {
                     description: readPath,
-                    icon: utools.getFileIcon(readPath),
+                    icon: context.enableGetFileIcon ? utools.getFileIcon(readPath) : this.icon,
                 })
                 items.push({
                     id: '',

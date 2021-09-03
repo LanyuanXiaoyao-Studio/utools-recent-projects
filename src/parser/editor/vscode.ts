@@ -12,6 +12,7 @@ import {readFile} from 'fs/promises'
 import {isEmpty, isNil, Url} from 'licia'
 import {parse} from 'path'
 import {existsOrNot} from '../../utils'
+import {Context} from '../../context'
 
 const VSCODE: string = 'vscode'
 
@@ -33,7 +34,7 @@ export class VscodeApplicationImpl extends ApplicationImpl<VscodeProjectItemImpl
         )
     }
 
-    async generateProjectItems(): Promise<Array<VscodeProjectItemImpl>> {
+    async generateProjectItems(context: Context): Promise<Array<VscodeProjectItemImpl>> {
         let items: Array<VscodeProjectItemImpl> = []
         let buffer = await readFile(this.config)
         if (!isNil(buffer)) {
@@ -62,7 +63,7 @@ export class VscodeApplicationImpl extends ApplicationImpl<VscodeProjectItemImpl
                     let parser = parse(path)
                     let { exists, description, icon } = existsOrNot(path, {
                         description: path,
-                        icon: utools.getFileIcon(path),
+                        icon: context.enableGetFileIcon ? utools.getFileIcon(path) : this.icon,
                     })
                     items.push({
                         id: '',
