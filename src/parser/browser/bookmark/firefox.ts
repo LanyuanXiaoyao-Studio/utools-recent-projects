@@ -39,7 +39,8 @@ export class FirefoxBookmarkApplicationImpl extends SqliteBrowserApplicationImpl
                 reverse(generateParent(i))
                     .filter(i1 => !isEmpty(i1.title))
                     .filter(i1 => !contain(['menu', 'toolbar', 'tags', 'unfiled', 'mobile'], i1.title))
-                    .map(i1 => i1.title).join('/'))
+                    .map(i1 => i1.title)
+                    .join('/'))
             json.filter(i => !isEmpty(i?.['url'] ?? ''))
                 .forEach(i => {
                     let title = `${isEmpty(i?.['parents'] ?? '') ? '' : `[${i['parents']}]`} ${i?.['title'] ?? ''}`
