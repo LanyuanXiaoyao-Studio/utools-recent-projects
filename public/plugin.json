@@ -200,6 +200,15 @@
         "Browser History",
         "浏览器历史记录"
       ]
+    },
+    {
+      "code"   : "browser-bookmark-project",
+      "explain": "快速打开我的浏览器书签",
+      "icon"   : "icon/browser.png",
+      "cmds"   : [
+        "Browser Bookmark",
+        "浏览器书签"
+      ]
     }
   ]
 }

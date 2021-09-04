@@ -1,5 +1,5 @@
 import {ApplicationImpl, DatetimeProjectItemImpl, ElectronExecutor, Group, GroupName, Platform} from '../../../types'
-import {generatePathDescription, SqliteBrowserApplicationImpl} from './index'
+import {generatePathDescription, SqliteBrowserApplicationImpl} from '../index'
 import {execFileSync} from 'child_process'
 import {isEmpty, randomId} from 'licia'
 import {join} from 'path'

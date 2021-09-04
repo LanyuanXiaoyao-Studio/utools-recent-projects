@@ -1,5 +1,32 @@
-const Url = require('licia/Url')
-const isEmpty = require('licia/isEmpty')
-let par = Url.parse('http://sexinsex.net:8080/bbs/viewthread.php?tid=7384931&extra=page%3D11%26amp%3Bfilter%3Dtype%26amp%3Btypeid%3D225')
-console.log(par)
-console.log(`${par.protocol}//${par.hostname}${isEmpty(par.port) ? '' : `:${par.port}`}`)
+const plistParser = require('bplist-parser')
+const {isNil, isEmpty} = require('licia')
+const generateParents = (parent, children, parentsName, childrenName) => {
+  if (isEmpty(children)) {
+    return []
+  }
+  let array = []
+  children.forEach(child => {
+    if (isNil(child?.[parentsName])) {
+      child[parentsName] = []
+    }
+    if (!isNil(parent)) {
+      if (!isNil(parent[parentsName]) && isEmpty(parent[parentsName])) {
+        child[parentsName].push(...parent[parentsName])
+      }
+      child[parentsName].push(parent)
+    }
+    if (isNil(child?.[childrenName]) || isEmpty(child?.[childrenName])) {
+      array.push(child)
+    } else {
+      array.push(...generateParents(child, child[childrenName], parentsName, childrenName))
+    }
+  })
+  return array
+}
+plistParser.parseFile('/Users/lanyuanxiaoyao/Library/Safari/Bookmarks.plist')
+           .then(result => {
+             let root = result?.[0]?.['Children'].filter(i => i?.['Title'] === 'BookmarksBar')?.[0]?.['Children']
+             if (!isNil(root)) {
+               console.log(generateParents(undefined, root, 'Parents', 'Children'))
+             }
+           })

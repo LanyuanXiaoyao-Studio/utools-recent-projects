@@ -2,7 +2,8 @@ import {Action, Callback, DatetimeProjectItemImpl, NoExecutor, ProjectArgsImpl, 
 import {isEmpty} from 'licia'
 import {SettingUIFeature} from './setting/setting'
 import {
-    browserApplications,
+    browserBookmarkApplications,
+    browserHistoryApplications,
     jetBrainsApplications,
     officeApplications,
     sublimeApplications,
@@ -118,7 +119,11 @@ export const build: any = {
         mode: 'list',
     },
     'browser-history-project': {
-        args: new AllProjectSortByTimeArgs(browserApplications),
+        args: new AllProjectSortByTimeArgs(browserHistoryApplications),
+        mode: 'list',
+    },
+    'browser-bookmark-project': {
+        args: new AllProjectSortByTimeArgs(browserBookmarkApplications),
         mode: 'list',
     },
 }

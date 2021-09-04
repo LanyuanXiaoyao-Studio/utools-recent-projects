@@ -1,6 +1,6 @@
 import {existsSync} from 'fs'
 import {Platform} from './types'
-import {isEmpty, Url} from 'licia'
+import {isEmpty, isNil, Url} from 'licia'
 
 /**
  * 字符比较, 用于在 array.sort() 使用
@@ -44,4 +44,36 @@ export const platformFromUtools: () => Platform = () => {
 export const removeAllQueryFromUrl: (url: string) => string = url => {
     let parser = Url.parse(url)
     return `${parser.protocol}//${parser.hostname}${isEmpty(parser.port) ? '' : `:${parser.port}`}`
+}
+
+export const parseTimeFrom1604: (source: number) => number = source => {
+    let key = -11644473600000
+    if (source === 0) {
+        return 0
+    }
+    return key + source / 1000
+}
+
+export const generateParents: (parent: any, children: Array<any>, parentsName: string, childrenName: string) => Array<any> = (parent, children, parentsName, childrenName) => {
+    if (isEmpty(children)) {
+        return []
+    }
+    let array: Array<any> = []
+    children.forEach(child => {
+        if (isNil(child?.[parentsName])) {
+            child[parentsName] = []
+        }
+        if (!isNil(parent)) {
+            if (!isNil(parent[parentsName]) && isEmpty(parent[parentsName])) {
+                child[parentsName].push(...parent[parentsName])
+            }
+            child[parentsName].push(parent)
+        }
+        if (isNil(child?.[childrenName]) || isEmpty(child?.[childrenName])) {
+            array.push(child)
+        } else {
+            array.push(...generateParents(child, child[childrenName], parentsName, childrenName))
+        }
+    })
+    return array
 }

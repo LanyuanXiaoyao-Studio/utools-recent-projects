@@ -1,5 +1,5 @@
 import {ApplicationImpl, DatetimeProjectItemImpl, ElectronExecutor, Group, GroupName, Platform} from '../../../types'
-import {generatePathDescription, SqliteBrowserApplicationImpl} from './index'
+import {generatePathDescription, SqliteBrowserApplicationImpl} from '../index'
 import {execFileSync} from 'child_process'
 import {isEmpty} from 'licia'
 import {removeAllQueryFromUrl} from '../../../utils'
@@ -17,7 +17,7 @@ export class FirefoxHistoryApplicationImpl extends SqliteBrowserApplicationImpl<
     async generateProjectItems(context: Context): Promise<Array<FirefoxHistoryProjectItemImpl>> {
         let items: Array<FirefoxHistoryProjectItemImpl> = []
         // language=SQLite
-        let sql = 'select url, title, description, cast(strftime(\'%s\', datetime((last_visit_date / 1000000), \'unixepoch\', \'localtime\')) as numeric) as timestamp\nfrom main.moz_places\nwhere last_visit_date is not null\norder by last_visit_date desc\nlimit 100'
+        let sql = 'select p.url as url, p.title as title, p.description as description, cast(strftime(\'%s\', datetime((h.visit_date / 1000000), \'unixepoch\', \'localtime\')) as numeric) as timestamp\nfrom moz_historyvisits h,\n     moz_places p\nwhere h.place_id = p.id\n  and p.hidden = 0\n  and h.visit_date is not null\norder by h.visit_date desc\nlimit 100'
         let jsonText = execFileSync(this.executor, [this.config, sql, '-readonly', '-json'], { encoding: 'utf-8' })
         if (!isEmpty(jsonText)) {
             let json = JSON.parse(jsonText)
@@ -44,5 +44,6 @@ export class FirefoxHistoryApplicationImpl extends SqliteBrowserApplicationImpl<
 export const applications: Array<ApplicationImpl<FirefoxHistoryProjectItemImpl>> = [
     new FirefoxHistoryApplicationImpl('firefox', 'Firefox', FIREFOX, undefined, 'places.sqlite', generatePathDescription({
         win: 'C:\\Users\\Administrator\\AppData\\Roaming\\Mozilla\\Firefox\\Profiles\\xxx.default-release',
+        mac: '/Users/xxx/Library/Application Support/Firefox/Profiles/xxx.default-release-xxx',
     })),
 ]

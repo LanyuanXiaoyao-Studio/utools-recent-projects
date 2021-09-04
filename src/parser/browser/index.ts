@@ -1,7 +1,7 @@
-import {ApplicationImpl, InputSettingItem, Platform, ProjectItemImpl, SettingItem} from '../../../types'
-import {platformFromUtools} from '../../../utils'
+import {ApplicationImpl, InputSettingItem, Platform, ProjectItemImpl, SettingItem} from '../../types'
+import {platformFromUtools} from '../../utils'
 import {isEmpty, isNil} from 'licia'
-import {Context} from '../../../context'
+import {Context} from '../../context'
 
 export abstract class BrowserApplicationImpl<P extends ProjectItemImpl> extends ApplicationImpl<P> {
     protected ifGetFavicon: (url: string, context: Context) => string = (url, context) => {

@@ -9,7 +9,7 @@ import {
     Platform,
     SettingItem,
 } from '../../../types'
-import {SqliteBrowserApplicationImpl} from './index'
+import {SqliteBrowserApplicationImpl} from '../index'
 import {execFileSync} from 'child_process'
 import {isEmpty} from 'licia'
 import {removeAllQueryFromUrl} from '../../../utils'

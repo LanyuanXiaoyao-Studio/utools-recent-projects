@@ -92,6 +92,7 @@ export class SettingCard extends Component<SettingCardProps, SettingCardState> {
                     id={this.props.application.id}
                 />
                 <div class="form-item setting-card card">
+                    <div class="card-mark">{this.props.application.group}</div>
                     <div
                         class={this.props.application.beta ? 'form-legend card-header tooltip tooltip-top' : 'form-legend card-header'}
                         data-tooltip="beta 意味着这个功能处于试验阶段
