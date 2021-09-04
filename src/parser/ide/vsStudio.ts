@@ -1,14 +1,11 @@
 import {
     Application,
-    ApplicationConfigState,
-    ApplicationImpl,
+    ApplicationConfigImpl,
     DatetimeProjectItemImpl,
     ElectronExecutor,
     Group,
     GroupName,
-    InputSettingItem,
     Platform,
-    SettingItem,
 } from '../../types'
 import {readFile} from 'fs/promises'
 import {isEmpty, isNil} from 'licia'
@@ -21,7 +18,7 @@ const VS_STUDIO: string = 'vs-studio'
 
 export class VsStudioProjectItemImpl extends DatetimeProjectItemImpl {}
 
-export class VsStudioApplicationImpl extends ApplicationImpl<VsStudioProjectItemImpl> {
+export class VsStudioApplicationImpl extends ApplicationConfigImpl<VsStudioProjectItemImpl> {
     constructor(id: string, name: string, icon: string, platform: Array<Platform> = [Platform.win32], configFilename: string = 'ApplicationPrivateSettings.xml') {
         super(
             id,
@@ -30,10 +27,10 @@ export class VsStudioApplicationImpl extends ApplicationImpl<VsStudioProjectItem
             VS_STUDIO,
             platform,
             Group[GroupName.vsStudio],
-            configFilename,
             `历史项目将使用默认关联的应用打开, 想要实现直接通过 Visual Studio 打开, 需要自行设置 sln 文件与 Visual Studio 默认关联
 本功能依据官网最新的 Visual Studio 2019 开发`,
             true,
+            configFilename,
         )
     }
 
@@ -70,26 +67,6 @@ export class VsStudioApplicationImpl extends ApplicationImpl<VsStudioProjectItem
             $(`#${this.id}`).remove()
         }
         return items
-    }
-
-    generateSettingItems(nativeId: string): Array<SettingItem> {
-        return [
-            new InputSettingItem(
-                this.configId(nativeId),
-                `设置 ${this.name} 「${this.configFilename}」文件路径`,
-                this.config,
-            ),
-        ]
-    }
-
-    isFinishConfig(): ApplicationConfigState {
-        if (isEmpty(this.config)) {
-            return ApplicationConfigState.empty
-        } else if (this.nonExistsPath(this.config)) {
-            return ApplicationConfigState.error
-        } else {
-            return ApplicationConfigState.done
-        }
     }
 }
 

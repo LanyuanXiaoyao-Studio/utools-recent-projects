@@ -21,7 +21,7 @@ export class SettingCard extends Component<SettingCardProps, SettingCardState> {
         super(props)
     }
 
-    didUnmount(): any {
+    override didUnmount(): any {
         this.store.cancel()
     }
 
@@ -83,7 +83,7 @@ export class SettingCard extends Component<SettingCardProps, SettingCardState> {
         return exists
     }
 
-    render() {
+    override render() {
         return (
             <Fragment>
                 <div class="gap"/>

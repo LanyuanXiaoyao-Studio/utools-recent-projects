@@ -1,13 +1,4 @@
-import {
-    ApplicationConfigState,
-    ApplicationImpl,
-    ElectronExecutor,
-    Group,
-    GroupName,
-    Platform,
-    ProjectItemImpl,
-    SettingItem,
-} from '../../types'
+import {ApplicationImpl, ElectronExecutor, Group, GroupName, Platform, ProjectItemImpl} from '../../types'
 import {execSync} from 'child_process'
 import {isEmpty, isNil} from 'licia'
 import {parse} from 'path'
@@ -49,7 +40,6 @@ export class XcodeApplicationImpl extends ApplicationImpl<XcodeProjectItemImpl> 
             XCODE,
             [Platform.darwin],
             Group[GroupName.xcode],
-            'com.apple.dt.xcode.sfl2',
             'Xcode 配置文件位置固定在 /Users/xxx/Library/Application Support/com.apple.sharedfilelist/com.apple.LSSharedFileList.ApplicationRecentDocuments/com.apple.dt.xcode.sfl2, 应该无需额外配置, 如果你的配置文件存在不在默认路径的情况, 请向我反馈',
             true,
         )
@@ -83,14 +73,6 @@ export class XcodeApplicationImpl extends ApplicationImpl<XcodeProjectItemImpl> 
             })
         }
         return items
-    }
-
-    generateSettingItems(nativeId: string): Array<SettingItem> {
-        return []
-    }
-
-    isFinishConfig(): ApplicationConfigState {
-        return ApplicationConfigState.done
     }
 }
 

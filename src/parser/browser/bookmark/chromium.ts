@@ -20,8 +20,8 @@ const CHROMIUM: string = 'chromium'
 export class ChromiumBookmarkProjectItemImpl extends DatetimeProjectItemImpl {}
 
 export class ChromiumBookmarkApplicationImpl extends BrowserApplicationImpl<ChromiumBookmarkProjectItemImpl> {
-    constructor(id: string, name: string, type: string, platforms: Array<Platform> = [Platform.win32, Platform.darwin, Platform.linux], configName: string, description?: string, beta: boolean = true) {
-        super(`${id}-bookmark`, `${name}`, `icon/browser-${id}.png`, type, platforms, Group[GroupName.browserBookmark], configName, description, beta)
+    constructor(id: string, name: string, type: string, platforms: Array<Platform> = [Platform.win32, Platform.darwin, Platform.linux], description?: string, beta: boolean = true, configName: string = '') {
+        super(`${id}-bookmark`, `${name}`, `icon/browser-${id}.png`, type, platforms, Group[GroupName.browserBookmark], description, beta, configName)
     }
 
     async generateProjectItems(context: Context): Promise<Array<ChromiumBookmarkProjectItemImpl>> {
@@ -52,7 +52,7 @@ export class ChromiumBookmarkApplicationImpl extends BrowserApplicationImpl<Chro
         return items
     }
 
-    generateSettingItems(nativeId: string): Array<SettingItem> {
+    override generateSettingItems(nativeId: string): Array<SettingItem> {
         return [
             new InputSettingItem(
                 this.configId(nativeId),
@@ -62,11 +62,11 @@ export class ChromiumBookmarkApplicationImpl extends BrowserApplicationImpl<Chro
         ]
     }
 
-    isFinishConfig(): ApplicationConfigState {
+    override isFinishConfig(): ApplicationConfigState {
         return isEmpty(this.config) ? ApplicationConfigState.empty : ApplicationConfigState.done
     }
 }
 
 export const applications: Array<ApplicationImpl<ChromiumBookmarkProjectItemImpl>> = [
-    new ChromiumBookmarkApplicationImpl('chromium', 'Chromium', CHROMIUM, undefined, 'Bookmark'),
+    new ChromiumBookmarkApplicationImpl('chromium', 'Chromium', CHROMIUM, undefined, undefined, undefined, 'Bookmark'),
 ]

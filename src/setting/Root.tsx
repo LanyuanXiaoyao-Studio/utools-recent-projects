@@ -30,7 +30,7 @@ class Root extends Component<RootProps, RootState> {
         this.state.applications.forEach(app => app.update(utools.getNativeId()))
     }
 
-    render() {
+    override render() {
         return (
             <Fragment>
                 <head>

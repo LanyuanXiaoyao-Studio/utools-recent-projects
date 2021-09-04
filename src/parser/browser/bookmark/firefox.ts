@@ -9,8 +9,8 @@ const FIREFOX: string = 'firefox'
 export class FirefoxBookmarkProjectItemImpl extends DatetimeProjectItemImpl {}
 
 export class FirefoxBookmarkApplicationImpl extends SqliteBrowserApplicationImpl<FirefoxBookmarkProjectItemImpl> {
-    constructor(id: string, name: string, type: string, platforms: Array<Platform> = [Platform.win32, Platform.darwin, Platform.linux], configName: string, description?: string, beta: boolean = true) {
-        super(`${id}-bookmark`, `${name}`, `icon/browser-${id}.png`, type, platforms, Group[GroupName.browserBookmark], configName, description, beta)
+    constructor(id: string, name: string, type: string, platforms: Array<Platform> = [Platform.win32, Platform.darwin, Platform.linux], description?: string, beta: boolean = true, configName: string = '') {
+        super(`${id}-bookmark`, `${name}`, `icon/browser-${id}.png`, type, platforms, Group[GroupName.browserBookmark], description, beta, configName)
     }
 
     async generateProjectItems(context: Context): Promise<Array<FirefoxBookmarkProjectItemImpl>> {
@@ -54,8 +54,8 @@ export class FirefoxBookmarkApplicationImpl extends SqliteBrowserApplicationImpl
 }
 
 export const applications: Array<ApplicationImpl<FirefoxBookmarkProjectItemImpl>> = [
-    new FirefoxBookmarkApplicationImpl('firefox', 'Firefox', FIREFOX, undefined, 'places.sqlite', generatePathDescription({
+    new FirefoxBookmarkApplicationImpl('firefox', 'Firefox', FIREFOX, undefined, generatePathDescription({
         win: 'C:\\Users\\Administrator\\AppData\\Roaming\\Mozilla\\Firefox\\Profiles\\xxx.default-release',
         mac: '/Users/xxx/Library/Application Support/Firefox/Profiles/xxx.default-release-xxx',
-    })),
+    }), undefined, 'places.sqlite'),
 ]

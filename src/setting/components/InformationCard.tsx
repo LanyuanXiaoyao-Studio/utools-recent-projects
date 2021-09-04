@@ -37,7 +37,7 @@ export class InformationCard extends Component<InformationCardProps, Information
         }
     }
 
-    render() {
+    override render() {
         return (
             <Fragment>
                 <div

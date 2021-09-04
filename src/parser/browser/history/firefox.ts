@@ -10,8 +10,8 @@ const FIREFOX: string = 'firefox'
 export class FirefoxHistoryProjectItemImpl extends DatetimeProjectItemImpl {}
 
 export class FirefoxHistoryApplicationImpl extends SqliteBrowserApplicationImpl<FirefoxHistoryProjectItemImpl> {
-    constructor(id: string, name: string, type: string, platforms: Array<Platform> = [Platform.win32, Platform.darwin, Platform.linux], configName: string, description?: string, beta: boolean = true) {
-        super(`${id}-history`, `${name}`, `icon/browser-${id}.png`, type, platforms, Group[GroupName.browserHistory], configName, description, beta)
+    constructor(id: string, name: string, type: string, platforms: Array<Platform> = [Platform.win32, Platform.darwin, Platform.linux], description?: string, beta: boolean = true, configName: string = '') {
+        super(`${id}-history`, `${name}`, `icon/browser-${id}.png`, type, platforms, Group[GroupName.browserHistory], description, beta, configName)
     }
 
     async generateProjectItems(context: Context): Promise<Array<FirefoxHistoryProjectItemImpl>> {
@@ -42,8 +42,8 @@ export class FirefoxHistoryApplicationImpl extends SqliteBrowserApplicationImpl<
 }
 
 export const applications: Array<ApplicationImpl<FirefoxHistoryProjectItemImpl>> = [
-    new FirefoxHistoryApplicationImpl('firefox', 'Firefox', FIREFOX, undefined, 'places.sqlite', generatePathDescription({
+    new FirefoxHistoryApplicationImpl('firefox', 'Firefox', FIREFOX, undefined, generatePathDescription({
         win: 'C:\\Users\\Administrator\\AppData\\Roaming\\Mozilla\\Firefox\\Profiles\\xxx.default-release',
         mac: '/Users/xxx/Library/Application Support/Firefox/Profiles/xxx.default-release-xxx',
-    })),
+    }), undefined, 'places.sqlite'),
 ]

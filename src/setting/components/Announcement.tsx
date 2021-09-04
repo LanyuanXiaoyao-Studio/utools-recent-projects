@@ -29,7 +29,7 @@ export class Announcement extends Component<AnnouncementProps, AnnouncementState
         utools.shellOpenExternal('https://yuanliao.info/d/3978')
     }
 
-    render() {
+    override render() {
         return (
             <Fragment>
                 <div class={'modal ' + (this.dialog ? 'active' : '')}>

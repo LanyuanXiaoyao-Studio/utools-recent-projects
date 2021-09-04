@@ -1,12 +1,10 @@
 import {
-    ApplicationConfigState,
+    ApplicationConfigImpl,
     ApplicationImpl,
     DatetimeProjectItemImpl,
     Group,
     GroupName,
-    InputSettingItem,
     Platform,
-    SettingItem,
     ShellExecutor,
 } from '../../types'
 import {isEmpty, isNil, Url} from 'licia'
@@ -22,9 +20,9 @@ const OFFICE_WIN: string = 'office-win'
 
 export class OfficeProjectItemImpl extends DatetimeProjectItemImpl {}
 
-export class OfficeMacApplicationImpl extends ApplicationImpl<OfficeProjectItemImpl> {
+export class OfficeMacApplicationImpl extends ApplicationConfigImpl<OfficeProjectItemImpl> {
     constructor(id: string, name: string, icon: string, configFilename: string, description: string = '') {
-        super(`office-mac-${id}`, name, icon, OFFICE_MAC, [Platform.darwin], Group[GroupName.office], configFilename, description, true)
+        super(`office-mac-${id}`, name, icon, OFFICE_MAC, [Platform.darwin], Group[GroupName.office], configFilename, true, description)
     }
 
     async generateProjectItems(context: Context): Promise<Array<OfficeProjectItemImpl>> {
@@ -62,26 +60,6 @@ export class OfficeMacApplicationImpl extends ApplicationImpl<OfficeProjectItemI
         }
         return items
     }
-
-    generateSettingItems(nativeId: string): Array<SettingItem> {
-        return [
-            new InputSettingItem(
-                this.configId(nativeId),
-                `设置 ${this.name} 「${this.configFilename}」文件路径`,
-                this.config,
-            ),
-        ]
-    }
-
-    isFinishConfig(): ApplicationConfigState {
-        if (isEmpty(this.config)) {
-            return ApplicationConfigState.empty
-        } else if (this.nonExistsPath(this.config)) {
-            return ApplicationConfigState.error
-        } else {
-            return ApplicationConfigState.done
-        }
-    }
 }
 
 export class OfficeWinApplicationImpl extends ApplicationImpl<OfficeProjectItemImpl> {
@@ -95,7 +73,6 @@ export class OfficeWinApplicationImpl extends ApplicationImpl<OfficeProjectItemI
             OFFICE_WIN,
             [Platform.win32],
             Group[GroupName.office],
-            'Recent',
             'Office 2019 通过解析 C:\\Users\\Administrator\\AppData\\Roaming\\Microsoft\\Office\\Recent 下的文件记录来得到历史打开文件列表, 这种方式依赖于默认的 Office 行为, 目前仅支持有限的 Office 文档格式',
             true,
         )
@@ -137,14 +114,6 @@ export class OfficeWinApplicationImpl extends ApplicationImpl<OfficeProjectItemI
             })
         })
         return items
-    }
-
-    generateSettingItems(nativeId: string): Array<SettingItem> {
-        return []
-    }
-
-    isFinishConfig(): ApplicationConfigState {
-        return ApplicationConfigState.done
     }
 
     private permitExtension: (string) => boolean = p => {

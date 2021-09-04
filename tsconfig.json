@@ -4,6 +4,7 @@
     "strict"            : true,
     "module"            : "CommonJS",
     "target"            : "ESNext",
+    "noImplicitOverride": true,
     "downlevelIteration": true,
     "moduleResolution"  : "Node",
     "esModuleInterop"   : true,

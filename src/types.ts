@@ -356,12 +356,8 @@ export interface Application<P extends ProjectItemImpl> {
     readonly type: string
     readonly platform: Array<Platform>
     readonly group: string
-    readonly beta: boolean
     readonly description: string
-    config: string
-    configId: (nativeId: string) => string
-    executor: string
-    executorId: (nativeId: string) => string
+    readonly beta: boolean
     update: (nativeId: string) => void
     generateSettingItems: (nativeId: string) => Array<SettingItem>
     generateProjectItems: (context: Context) => Promise<Array<P>>
@@ -379,45 +375,95 @@ export abstract class ApplicationImpl<P extends ProjectItemImpl> implements Appl
     readonly type: string
     readonly platform: Array<Platform>
     readonly group: string
-    readonly configFilename: string
     readonly description: string
     readonly beta: boolean
-    config: string = ''
-    executor: string = ''
 
-    protected constructor(id: string, name: string, icon: string, type: string, platform: Array<Platform>, group: string = 'default', configFilename: string, description: string = '', beta: boolean = false) {
+    protected constructor(id: string, name: string, icon: string, type: string, platform: Array<Platform>, group: string = 'default', description: string = '', beta: boolean = false) {
         this.id = id
         this.name = name
         this.icon = icon
         this.type = type
         this.platform = platform
         this.group = group
-        this.configFilename = configFilename
         this.description = description
         this.beta = beta
+    }
+
+    update(nativeId: string) {}
+
+    generateSettingItems(nativeId: string): Array<SettingItem> {
+        return []
+    }
+
+    abstract generateProjectItems(context: Context): Promise<Array<P>>
+
+    isFinishConfig(): ApplicationConfigState {
+        return ApplicationConfigState.done
+    }
+
+    protected nonExistsPath(path: string): boolean {
+        return !this.existsPath(path)
+    }
+
+    protected existsPath(path: string): boolean {
+        return existsSync(path)
+    }
+}
+
+export abstract class ApplicationConfigImpl<P extends ProjectItemImpl> extends ApplicationImpl<P> {
+    readonly configFilename: string
+    config: string = ''
+
+    constructor(id: string, name: string, icon: string, type: string, platform: Array<Platform>, group: string = 'default', description: string = '', beta: boolean = false, configFilename: string) {
+        super(id, name, icon, type, platform, group, description, beta)
+        this.configFilename = configFilename
     }
 
     configId(nativeId: string): string {
         return `${nativeId}/${this.id}-config`
     }
 
-
-    executorId(nativeId: string): string {
-        return `${nativeId}/${this.id}-executor`
-    }
-
-    update(nativeId: string) {
+    override update(nativeId: string) {
+        super.update(nativeId)
         this.config = utools.dbStorage.getItem(this.configId(nativeId))
-        this.executor = utools.dbStorage.getItem(this.executorId(nativeId))
     }
 
-    generateSettingItems(nativeId: string): Array<SettingItem> {
+    override generateSettingItems(nativeId: string): Array<SettingItem> {
         return [
             new InputSettingItem(
                 this.configId(nativeId),
                 `设置 ${this.name} 「${this.configFilename}」文件路径`,
                 this.config,
             ),
+        ]
+    }
+
+    override isFinishConfig(): ApplicationConfigState {
+        if (isEmpty(this.config)) {
+            return ApplicationConfigState.empty
+        } else if (this.nonExistsPath(this.config)) {
+            return ApplicationConfigState.error
+        } else {
+            return ApplicationConfigState.done
+        }
+    }
+}
+
+export abstract class ApplicationConfigAndExecutorImpl<P extends ProjectItemImpl> extends ApplicationConfigImpl<P> {
+    executor: string = ''
+
+    executorId(nativeId: string): string {
+        return `${nativeId}/${this.id}-executor`
+    }
+
+    override update(nativeId: string) {
+        super.update(nativeId)
+        this.executor = utools.dbStorage.getItem(this.executorId(nativeId))
+    }
+
+    override generateSettingItems(nativeId: string): Array<SettingItem> {
+        return [
+            ...super.generateSettingItems(nativeId),
             new InputSettingItem(
                 this.executorId(nativeId),
                 `设置 ${this.name} 可执行程序路径`,
@@ -426,7 +472,7 @@ export abstract class ApplicationImpl<P extends ProjectItemImpl> implements Appl
         ]
     }
 
-    isFinishConfig(): ApplicationConfigState {
+    override isFinishConfig(): ApplicationConfigState {
         if (isEmpty(this.config) && isEmpty(this.executor)) {
             return ApplicationConfigState.empty
         } else if (isEmpty(this.config) || isEmpty(this.executor)) {
@@ -436,15 +482,5 @@ export abstract class ApplicationImpl<P extends ProjectItemImpl> implements Appl
         } else {
             return ApplicationConfigState.done
         }
-    }
-
-    abstract generateProjectItems(context: Context): Promise<Array<P>>
-
-    protected nonExistsPath(path: string): boolean {
-        return !this.existsPath(path)
-    }
-
-    protected existsPath(path: string): boolean {
-        return existsSync(path)
     }
 }

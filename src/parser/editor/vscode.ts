@@ -1,4 +1,5 @@
 import {
+    ApplicationConfigAndExecutorImpl,
     ApplicationImpl,
     Group,
     GroupName,
@@ -18,7 +19,7 @@ const VSCODE: string = 'vscode'
 
 export class VscodeProjectItemImpl extends ProjectItemImpl {}
 
-export class VscodeApplicationImpl extends ApplicationImpl<VscodeProjectItemImpl> {
+export class VscodeApplicationImpl extends ApplicationConfigAndExecutorImpl<VscodeProjectItemImpl> {
     openInNew: boolean = false
     private isWindows: boolean = utools.isWindows()
 
@@ -30,6 +31,8 @@ export class VscodeApplicationImpl extends ApplicationImpl<VscodeProjectItemImpl
             VSCODE,
             [Platform.win32, Platform.darwin, Platform.linux],
             Group[GroupName.editor],
+            undefined,
+            undefined,
             'storage.json',
         )
     }
@@ -84,12 +87,12 @@ export class VscodeApplicationImpl extends ApplicationImpl<VscodeProjectItemImpl
         return `${nativeId}/${this.id}-open-in-new`
     }
 
-    update(nativeId: string) {
+    override update(nativeId: string) {
         super.update(nativeId)
         this.openInNew = utools.dbStorage.getItem(this.openInNewId(nativeId))
     }
 
-    generateSettingItems(nativeId: string): Array<SettingItem> {
+    override generateSettingItems(nativeId: string): Array<SettingItem> {
         let superSettings = super.generateSettingItems(nativeId)
         return [
             new SwitchSettingItem(

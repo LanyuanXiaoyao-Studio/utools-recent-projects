@@ -1,6 +1,6 @@
 import {
     Application,
-    ApplicationImpl,
+    ApplicationConfigAndExecutorImpl,
     DatetimeProjectItemImpl,
     Group,
     GroupName,
@@ -20,9 +20,9 @@ export class JetBrainsProjectItemImpl extends DatetimeProjectItemImpl {}
 /**
  * JetBrains 系列应用实现
  */
-export class JetBrainsApplicationImpl extends ApplicationImpl<JetBrainsProjectItemImpl> {
-    constructor(id: string, name: string, icon: string, platform: Array<Platform> = [Platform.win32, Platform.darwin, Platform.linux], configFilename: string = 'recentProject.xml', description: string = '', beta: boolean = false) {
-        super(id, name, icon, JETBRAINS, platform, Group[GroupName.jetbrains], configFilename, description, beta)
+export class JetBrainsApplicationImpl extends ApplicationConfigAndExecutorImpl<JetBrainsProjectItemImpl> {
+    constructor(id: string, name: string, icon: string, platform: Array<Platform> = [Platform.win32, Platform.darwin, Platform.linux], description: string = '', beta: boolean = false, configFilename: string = 'recentProject.xml') {
+        super(id, name, icon, JETBRAINS, platform, Group[GroupName.jetbrains], description, beta, configFilename)
     }
 
     async generateProjectItems(): Promise<Array<JetBrainsProjectItemImpl>> {
@@ -87,7 +87,7 @@ export const applications: Array<Application<JetBrainsProjectItemImpl>> = [
     new JetBrainsApplicationImpl('pycharm', 'PyCharm Professional', 'icon/jetbrains-pycharm.png'),
     new JetBrainsApplicationImpl('pycharm-ce', 'PyCharm Community', 'icon/jetbrains-pycharm-ce.png'),
     new JetBrainsApplicationImpl('pycharm-edu', 'PyCharm Edu', 'icon/jetbrains-pycharm-edu.png'),
-    new JetBrainsApplicationImpl('rider', 'Rider', 'icon/jetbrains-rider.png', undefined, 'recentSolution.xml'),
+    new JetBrainsApplicationImpl('rider', 'Rider', 'icon/jetbrains-rider.png', undefined, undefined, undefined, 'recentSolution.xml'),
     new JetBrainsApplicationImpl('rubymine', 'RubyMine', 'icon/jetbrains-rubymine.png'),
     new JetBrainsApplicationImpl('webstorm', 'WebStorm', 'icon/jetbrains-webstorm.png'),
 ]

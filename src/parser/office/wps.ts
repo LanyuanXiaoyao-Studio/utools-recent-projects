@@ -1,12 +1,10 @@
 import {
-    ApplicationConfigState,
+    ApplicationConfigImpl,
     ApplicationImpl,
     Group,
     GroupName,
-    InputSettingItem,
     Platform,
     ProjectItemImpl,
-    SettingItem,
     ShellExecutor,
 } from '../../types'
 import {isEmpty, isNil} from 'licia'
@@ -19,7 +17,7 @@ const WPS_MAC_INTERNATION: string = 'wps-mac-internation'
 
 export class WpsMacInternationalProjectItemImpl extends ProjectItemImpl {}
 
-export class WpsMacInternationalApplicationImpl extends ApplicationImpl<WpsMacInternationalProjectItemImpl> {
+export class WpsMacInternationalApplicationImpl extends ApplicationConfigImpl<WpsMacInternationalProjectItemImpl> {
     constructor() {
         super(
             'wps-mac-internation',
@@ -29,8 +27,8 @@ export class WpsMacInternationalApplicationImpl extends ApplicationImpl<WpsMacIn
             [Platform.darwin],
             Group[GroupName.office],
             'com.kingsoft.plist',
-            '刚关闭的文档没有出现在历史记录里是因为配置文件还没有更新, 但 wps 更新配置文件的时机不明, 通常是等一会儿',
             true,
+            '刚关闭的文档没有出现在历史记录里是因为配置文件还没有更新, 但 wps 更新配置文件的时机不明, 通常是等一会儿',
         )
     }
 
@@ -65,26 +63,6 @@ export class WpsMacInternationalApplicationImpl extends ApplicationImpl<WpsMacIn
                 })
         }
         return items
-    }
-
-    generateSettingItems(nativeId: string): Array<SettingItem> {
-        return [
-            new InputSettingItem(
-                this.configId(nativeId),
-                `设置 ${this.name} 「${this.configFilename}」文件路径`,
-                this.config,
-            ),
-        ]
-    }
-
-    isFinishConfig(): ApplicationConfigState {
-        if (isEmpty(this.config)) {
-            return ApplicationConfigState.empty
-        } else if (this.nonExistsPath(this.config)) {
-            return ApplicationConfigState.error
-        } else {
-            return ApplicationConfigState.done
-        }
     }
 }
 

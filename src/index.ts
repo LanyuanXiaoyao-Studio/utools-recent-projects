@@ -83,7 +83,7 @@ export class AllProjectArgs extends ProjectArgsImpl {
 }
 
 export class AllProjectSortByTimeArgs extends AllProjectArgs {
-    compare(p1: DatetimeProjectItemImpl, p2: DatetimeProjectItemImpl): number {
+    override compare(p1: DatetimeProjectItemImpl, p2: DatetimeProjectItemImpl): number {
         return p2.datetime - p1.datetime
     }
 }

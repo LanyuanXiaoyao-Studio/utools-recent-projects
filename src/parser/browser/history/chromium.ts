@@ -12,8 +12,8 @@ const CHROMIUM: string = 'chromium'
 export class ChromiumHistoryProjectItemImpl extends DatetimeProjectItemImpl {}
 
 export class ChromiumHistoryApplicationImpl extends SqliteBrowserApplicationImpl<ChromiumHistoryProjectItemImpl> {
-    constructor(id: string, name: string, type: string, platforms: Array<Platform> = [Platform.win32, Platform.darwin, Platform.linux], configName: string, description?: string, beta: boolean = true) {
-        super(`${id}-history`, `${name}`, `icon/browser-${id}.png`, type, platforms, Group[GroupName.browserHistory], configName, description, beta)
+    constructor(id: string, name: string, type: string, platforms: Array<Platform> = [Platform.win32, Platform.darwin, Platform.linux], description?: string, beta: boolean = true, configName: string = '') {
+        super(`${id}-history`, `${name}`, `icon/browser-${id}.png`, type, platforms, Group[GroupName.browserHistory], description, beta, configName)
     }
 
     async generateProjectItems(context: Context): Promise<Array<ChromiumHistoryProjectItemImpl>> {
@@ -53,33 +53,33 @@ export class ChromiumHistoryApplicationImpl extends SqliteBrowserApplicationImpl
 }
 
 export const applications: Array<ApplicationImpl<ChromiumHistoryProjectItemImpl>> = [
-    new ChromiumHistoryApplicationImpl('chromium', 'Chromium', CHROMIUM, undefined, 'History'),
-    new ChromiumHistoryApplicationImpl('chrome', 'Google Chrome', CHROMIUM, undefined, 'History', generatePathDescription({
+    new ChromiumHistoryApplicationImpl('chromium', 'Chromium', CHROMIUM, undefined, undefined, undefined, 'History'),
+    new ChromiumHistoryApplicationImpl('chrome', 'Google Chrome', CHROMIUM, undefined, generatePathDescription({
         win: 'C:\\Users\\Administrator\\AppData\\Local\\Google\\Chrome\\User Data\\Default',
         mac: '/Users/xxx/Library/Application Support/Google/Chrome/Default',
-    })),
-    new ChromiumHistoryApplicationImpl('edge', 'Microsoft Edge', CHROMIUM, undefined, 'History', generatePathDescription({
+    }), undefined, 'History'),
+    new ChromiumHistoryApplicationImpl('edge', 'Microsoft Edge', CHROMIUM, undefined, generatePathDescription({
         win: 'C:\\Users\\Administrator\\AppData\\Local\\Microsoft\\Edge\\User Data\\Default',
-    })),
-    new ChromiumHistoryApplicationImpl('qq', 'QQ Browser', CHROMIUM, [Platform.win32], 'History', generatePathDescription({
+    }), undefined, 'History'),
+    new ChromiumHistoryApplicationImpl('qq', 'QQ Browser', CHROMIUM, [Platform.win32], generatePathDescription({
         win: 'C:\\Users\\Administrator\\AppData\\Local\\Tencent\\QQBrowser\\User Data\\Default',
-    })),
-    new ChromiumHistoryApplicationImpl('maxthon', 'Maxthon (傲游)', CHROMIUM, [Platform.win32], 'History', generatePathDescription({
+    }), undefined, 'History'),
+    new ChromiumHistoryApplicationImpl('maxthon', 'Maxthon (傲游)', CHROMIUM, [Platform.win32], generatePathDescription({
         win: 'C:\\Users\\Administrator\\AppData\\Local\\Maxthon\\Application\\User Data\\Default',
-    })),
-    new ChromiumHistoryApplicationImpl('opera', 'Opera', CHROMIUM, [Platform.win32, Platform.darwin], 'History', generatePathDescription({
+    }), undefined, 'History'),
+    new ChromiumHistoryApplicationImpl('opera', 'Opera', CHROMIUM, [Platform.win32, Platform.darwin], generatePathDescription({
         win: 'C:\\Users\\Administrator\\AppData\\Roaming\\Opera Software\\Opera Stable',
-    })),
-    new ChromiumHistoryApplicationImpl('brave', 'Brave', CHROMIUM, [Platform.win32, Platform.darwin], 'History', generatePathDescription({
+    }), undefined, 'History'),
+    new ChromiumHistoryApplicationImpl('brave', 'Brave', CHROMIUM, [Platform.win32, Platform.darwin], generatePathDescription({
         win: 'C:\\Users\\Administrator\\AppData\\Local\\BraveSoftware\\Brave-Browser\\User Data\\Default',
-    })),
-    new ChromiumHistoryApplicationImpl('cent', 'CentBrowser (百分)', CHROMIUM, [Platform.win32], 'History', generatePathDescription({
+    }), undefined, 'History'),
+    new ChromiumHistoryApplicationImpl('cent', 'CentBrowser (百分)', CHROMIUM, [Platform.win32], generatePathDescription({
         win: 'C:\\Users\\Administrator\\AppData\\Local\\CentBrowser\\User Data\\Default',
-    })),
-    new ChromiumHistoryApplicationImpl('yandex', 'Yandex', CHROMIUM, [Platform.win32, Platform.darwin], 'History', generatePathDescription({
+    }), undefined, 'History'),
+    new ChromiumHistoryApplicationImpl('yandex', 'Yandex', CHROMIUM, [Platform.win32, Platform.darwin], generatePathDescription({
         win: 'C:\\Users\\Administrator\\AppData\\Local\\Yandex\\YandexBrowser\\User Data\\Default',
-    })),
-    new ChromiumHistoryApplicationImpl('liebao', '猎豹浏览器', CHROMIUM, [Platform.win32], 'History', generatePathDescription({
+    }), undefined, 'History'),
+    new ChromiumHistoryApplicationImpl('liebao', '猎豹浏览器', CHROMIUM, [Platform.win32], generatePathDescription({
         win: 'C:\\Users\\Administrator\\AppData\\Local\\liebao\\User Data\\Default',
-    })),
+    }), undefined, 'History'),
 ]

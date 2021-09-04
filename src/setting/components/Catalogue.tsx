@@ -38,13 +38,13 @@ export class Catalogue extends Component<CatalogueProps, CatalogueState> {
         }
     }
 
-    didMount(): any {
+    override didMount(): any {
         this.store.subscribe((newState: any, prevState: any) => {
             if (newState.catalogueUpdate !== prevState.catalogueUpdate) this.update()
         })
     }
 
-    didUnmount(): any {
+    override didUnmount(): any {
         this.store.cancel()
     }
 
@@ -69,7 +69,7 @@ export class Catalogue extends Component<CatalogueProps, CatalogueState> {
         }
     }
 
-    render() {
+    override render() {
         return (
             <Fragment>
                 <ul class="nav">

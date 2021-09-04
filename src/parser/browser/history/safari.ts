@@ -28,9 +28,9 @@ export class SafariHistoryApplicationImpl extends SqliteBrowserApplicationImpl<S
             SAFARI,
             [Platform.darwin],
             Group[GroupName.browserHistory],
-            'History.db',
             undefined,
             true,
+            'History.db',
         )
     }
 
@@ -60,7 +60,7 @@ export class SafariHistoryApplicationImpl extends SqliteBrowserApplicationImpl<S
         return items
     }
 
-    generateSettingItems(nativeId: string): Array<SettingItem> {
+    override generateSettingItems(nativeId: string): Array<SettingItem> {
         return [
             new InputSettingItem(
                 this.executorId(nativeId),
@@ -71,7 +71,7 @@ export class SafariHistoryApplicationImpl extends SqliteBrowserApplicationImpl<S
         ]
     }
 
-    isFinishConfig(): ApplicationConfigState {
+    override isFinishConfig(): ApplicationConfigState {
         return this.executor ? ApplicationConfigState.done : ApplicationConfigState.empty
     }
 }

@@ -21,7 +21,7 @@ export class ApplicationSettingCard extends Component<ApplicationSettingCardProp
         this.update()
     }
 
-    render() {
+    override render() {
         return (
             <Fragment>
                 <div class="gap"/>

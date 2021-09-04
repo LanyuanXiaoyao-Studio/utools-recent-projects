@@ -1,4 +1,5 @@
 import {
+    ApplicationConfigAndExecutorImpl,
     ApplicationImpl,
     Group,
     GroupName,
@@ -18,7 +19,7 @@ const SUBLIME: string = 'sublime'
 
 export class SublimeProjectItemImpl extends ProjectItemImpl {}
 
-export class SublimeApplicationImpl extends ApplicationImpl<SublimeProjectItemImpl> {
+export class SublimeApplicationImpl extends ApplicationConfigAndExecutorImpl<SublimeProjectItemImpl> {
     openInNew: boolean = false
 
     constructor() {
@@ -29,6 +30,8 @@ export class SublimeApplicationImpl extends ApplicationImpl<SublimeProjectItemIm
             SUBLIME,
             [Platform.win32, Platform.darwin, Platform.linux],
             Group[GroupName.editor],
+            undefined,
+            undefined,
             'Session.sublime_session',
         )
     }
@@ -88,12 +91,12 @@ export class SublimeApplicationImpl extends ApplicationImpl<SublimeProjectItemIm
         return `${nativeId}/${this.id}-open-in-new`
     }
 
-    update(nativeId: string) {
+    override update(nativeId: string) {
         super.update(nativeId)
         this.openInNew = utools.dbStorage.getItem(this.openInNewId(nativeId))
     }
 
-    generateSettingItems(nativeId: string): Array<SettingItem> {
+    override generateSettingItems(nativeId: string): Array<SettingItem> {
         let superSettings = super.generateSettingItems(nativeId)
         return [
             new SwitchSettingItem(
