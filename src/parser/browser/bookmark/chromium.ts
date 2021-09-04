@@ -47,7 +47,6 @@ export class ChromiumBookmarkApplicationImpl extends BrowserApplicationImpl<Chro
                 command: new ElectronExecutor(url),
                 datetime: time,
             })
-            console.log(site)
         })
         return items
     }

@@ -1,7 +1,9 @@
 import {ApplicationConfigAndExecutorImpl, InputSettingItem, Platform, ProjectItemImpl, SettingItem} from '../../types'
 import {platformFromUtools} from '../../utils'
-import {isEmpty, isNil} from 'licia'
+import {isEmpty, isNil, randomId} from 'licia'
 import {Context} from '../../context'
+import {copyFile, rm} from 'fs/promises'
+import {join} from 'path'
 
 export abstract class BrowserApplicationImpl<P extends ProjectItemImpl> extends ApplicationConfigAndExecutorImpl<P> {
     protected ifGetFavicon: (url: string, context: Context) => string = (url, context) => {
@@ -10,6 +12,17 @@ export abstract class BrowserApplicationImpl<P extends ProjectItemImpl> extends 
 }
 
 export abstract class SqliteBrowserApplicationImpl<P extends ProjectItemImpl> extends BrowserApplicationImpl<P> {
+    protected copyAndReadFile: (path: string, handle: (tmpPath: string) => void) => void = async (path, handle) => {
+        let tmpPath = utools.getPath('temp')
+        let tmpDatabasePath = join(tmpPath, randomId())
+        await copyFile(path, tmpDatabasePath)
+        try {
+            handle(tmpDatabasePath)
+        } finally {
+            await rm(tmpDatabasePath, { force: true })
+        }
+    }
+
     override generateSettingItems(nativeId: string): Array<SettingItem> {
         return [
             new InputSettingItem(

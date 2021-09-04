@@ -123,7 +123,7 @@ export const build: any = {
         mode: 'list',
     },
     'browser-bookmark-project': {
-        args: new AllProjectSortByTimeArgs(browserBookmarkApplications),
+        args: new AllProjectArgs(browserBookmarkApplications),
         mode: 'list',
     },
 }
