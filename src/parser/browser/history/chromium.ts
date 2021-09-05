@@ -19,7 +19,7 @@ export class ChromiumHistoryApplicationImpl extends SqliteBrowserApplicationImpl
     async generateProjectItems(context: Context): Promise<Array<ChromiumHistoryProjectItemImpl>> {
         let items: Array<ChromiumHistoryProjectItemImpl> = []
         // language=SQLite
-        let sql = 'select v.id, u.url, u.title, cast(strftime(\'%s\', datetime((v.visit_time / 1000000) - 11644473600, \'unixepoch\', \'localtime\')) as numeric) as timestamp\nfrom visits v,\n     urls u\nwhere v.url = u.id\n  and v.visit_time is not null\n  and v.url is not null\nand v.visit_duration != 0\norder by v.visit_time desc, v.id desc\nlimit 100'
+        let sql = 'select v.id, u.url, u.title, cast(strftime(\'%s\', datetime((v.visit_time / 1000000) - 11644473600, \'unixepoch\', \'localtime\')) as numeric) as timestamp\nfrom visits v\n         left join urls u on v.url = u.id\nwhere v.visit_time is not null\n  and v.url is not null\n  and v.visit_duration != 0\ngroup by u.last_visit_time\norder by timestamp desc\nlimit 100'
         let jsonText = ''
         await this.copyAndReadFile(this.config, path => {
             jsonText = execFileSync(this.executor, [path, sql, '-readonly', '-json'], { encoding: 'utf-8' })

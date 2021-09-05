@@ -38,7 +38,7 @@ export class SafariHistoryApplicationImpl extends SqliteBrowserApplicationImpl<S
         let items: Array<SafariHistoryProjectItemImpl> = []
         let configPath = `${utools.getPath('home')}/Library/Safari/History.db`
         // language=SQLite
-        let sql = 'select i.url, v.title, cast(strftime(\'%s\', datetime(v.visit_time + 978307200, \'unixepoch\', \'localtime\')) as numeric) as timestamp\nfrom history_items i,\n     history_visits v\nwhere i.id = v.history_item\norder by v.visit_time desc\nlimit 100;'
+        let sql = 'select i.url, v.title, cast(strftime(\'%s\', datetime(v.visit_time + 978307200, \'unixepoch\', \'localtime\')) as numeric) as timestamp\nfrom history_items i,\n     history_visits v\nwhere i.id = v.history_item\ngroup by i.url\norder by timestamp desc\n'
         let jsonText = ''
         await this.copyAndReadFile(configPath, path => {
             jsonText = execFileSync(this.executor, [path, sql, '-readonly', '-json'], { encoding: 'utf-8' })
