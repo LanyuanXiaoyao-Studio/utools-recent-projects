@@ -20,7 +20,6 @@ export class FirefoxBookmarkApplicationImpl extends SqliteBrowserApplicationImpl
         let jsonText = ''
         await this.copyAndReadFile(this.config, path => {
             jsonText = execFileSync(this.executor, [path, sql, '-readonly', '-json'], { encoding: 'utf-8' })
-            console.log(path, jsonText)
         })
         if (!isEmpty(jsonText)) {
             let json = JSON.parse(jsonText)

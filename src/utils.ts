@@ -64,7 +64,7 @@ export const generateParents: (parent: any, children: Array<any>, parentsName: s
             child[parentsName] = []
         }
         if (!isNil(parent)) {
-            if (!isNil(parent[parentsName]) && isEmpty(parent[parentsName])) {
+            if (!isNil(parent[parentsName]) && !isEmpty(parent[parentsName])) {
                 child[parentsName].push(...parent[parentsName])
             }
             child[parentsName].push(parent)
