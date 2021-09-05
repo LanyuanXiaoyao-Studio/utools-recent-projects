@@ -1,5 +1,13 @@
-import {Action, Callback, DatetimeProjectItemImpl, NoExecutor, ProjectArgsImpl, ProjectItemImpl} from './types'
-import {isEmpty} from 'licia'
+import {
+    Action,
+    Application,
+    Callback,
+    DatetimeProjectItemImpl,
+    NoExecutor,
+    ProjectArgsImpl,
+    ProjectItemImpl,
+} from './types'
+import {isEmpty, isNil} from 'licia'
 import {SettingUIFeature} from './setting/setting'
 import {
     browserBookmarkApplications,
@@ -88,6 +96,18 @@ export class AllProjectSortByTimeArgs extends AllProjectArgs {
     }
 }
 
+export class AllProjectSortByTitleArgs extends AllProjectArgs {
+    override compare(p1: ProjectItemImpl, p2: ProjectItemImpl): number {
+        if (!isNil(p1?.['title']) && !isNil(p2?.['title'])) {
+            let a = p1['title'], b = p2['title']
+            if (a === b) return 0
+            else if (a > b) return 1
+            else if (a < b) return -1
+            else return 0
+        } else return 0
+    }
+}
+
 export const build: any = {
     'setting': new SettingUIFeature(),
     'jetbrains-project': {
@@ -123,7 +143,7 @@ export const build: any = {
         mode: 'list',
     },
     'browser-bookmark-project': {
-        args: new AllProjectArgs(browserBookmarkApplications),
+        args: new AllProjectSortByTitleArgs(browserBookmarkApplications),
         mode: 'list',
     },
 }
