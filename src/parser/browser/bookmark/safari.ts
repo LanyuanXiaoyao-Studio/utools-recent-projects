@@ -13,6 +13,7 @@ import {Context} from '../../../context'
 import {parseFile} from 'bplist-parser'
 import {isEmpty, isNil} from 'licia'
 import {generateParents} from '../../../utils'
+import {existsSync} from 'fs'
 
 const SAFARI: string = 'safari'
 
@@ -36,6 +37,9 @@ export class SafariBookmarkApplicationImpl extends BrowserApplicationImpl<Safari
     async generateProjectItems(context: Context): Promise<Array<SafariBookmarkProjectItemImpl>> {
         let items: Array<SafariBookmarkProjectItemImpl> = []
         let configPath = `${utools.getPath('home')}/Library/Safari/Bookmarks.plist`
+        if (!existsSync(configPath)) {
+            return []
+        }
         let result = await parseFile(configPath)
         let root = result?.[0]?.['Children'].filter(i => i?.['Title'] === 'BookmarksBar')?.[0]?.['Children']
         if (!isNil(root)) {

@@ -14,6 +14,7 @@ import {execFileSync} from 'child_process'
 import {isEmpty} from 'licia'
 import {removeAllQueryFromUrl} from '../../../utils'
 import {Context} from '../../../context'
+import {existsSync} from 'fs'
 
 const SAFARI: string = 'safari'
 
@@ -37,6 +38,9 @@ export class SafariHistoryApplicationImpl extends SqliteBrowserApplicationImpl<S
     async generateProjectItems(context: Context): Promise<Array<SafariHistoryProjectItemImpl>> {
         let items: Array<SafariHistoryProjectItemImpl> = []
         let configPath = `${utools.getPath('home')}/Library/Safari/History.db`
+        if (!existsSync(configPath)) {
+            return []
+        }
         // language=SQLite
         let sql = 'select i.url, v.title, cast(strftime(\'%s\', datetime(v.visit_time + 978307200, \'unixepoch\', \'localtime\')) as numeric) as timestamp\nfrom history_items i,\n     history_visits v\nwhere i.id = v.history_item\ngroup by i.url\norder by timestamp desc\n'
         let jsonText = ''
