@@ -12,17 +12,6 @@ export abstract class BrowserApplicationImpl<P extends ProjectItemImpl> extends 
 }
 
 export abstract class SqliteBrowserApplicationImpl<P extends ProjectItemImpl> extends BrowserApplicationImpl<P> {
-    protected copyAndReadFile: (path: string, handle: (tmpPath: string) => void) => void = async (path, handle) => {
-        let tmpPath = utools.getPath('temp')
-        let tmpDatabasePath = join(tmpPath, randomId())
-        await copyFile(path, tmpDatabasePath)
-        try {
-            handle(tmpDatabasePath)
-        } finally {
-            await rm(tmpDatabasePath, { force: true })
-        }
-    }
-
     override generateSettingItems(nativeId: string): Array<SettingItem> {
         return [
             new InputSettingItem(
@@ -37,6 +26,17 @@ export abstract class SqliteBrowserApplicationImpl<P extends ProjectItemImpl> ex
                 '读取数据需要使用 Sqlite3 命令行程序, 可以自行前往「https://www.sqlite.org/download.html」下载对应平台的可执行文件',
             ),
         ]
+    }
+
+    protected copyAndReadFile: (path: string, handle: (tmpPath: string) => void) => void = async (path, handle) => {
+        let tmpPath = utools.getPath('temp')
+        let tmpDatabasePath = join(tmpPath, randomId())
+        await copyFile(path, tmpDatabasePath)
+        try {
+            handle(tmpDatabasePath)
+        } finally {
+            await rm(tmpDatabasePath, { force: true })
+        }
     }
 }
 
@@ -75,8 +75,16 @@ export type BrowserId =
     | 'yandex'
     | 'liebao'
 
-export const generatePathDescriptionById: (id: BrowserId, filename: string) => string | undefined = (id, filename) => {
+export const getPathDescription: (id: BrowserId, filename: string) => string | undefined = (id, filename) => {
     return generatePathDescription(pathDescriptionMap[id], filename)
+}
+
+export const getBookmarkDescription: (id: BrowserId) => string | undefined = id => {
+    return generatePathDescription(pathDescriptionMap[id], 'Bookmarks')
+}
+
+export const getHistoryDescription: (id: BrowserId) => string | undefined = id => {
+    return generatePathDescription(pathDescriptionMap[id], 'History')
 }
 
 const pathDescriptionMap: { [key: string]: PathDescription } = {

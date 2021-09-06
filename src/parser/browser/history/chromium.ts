@@ -1,5 +1,5 @@
 import {ApplicationImpl, DatetimeProjectItemImpl, ElectronExecutor, Group, GroupName, Platform} from '../../../types'
-import {BrowserId, generatePathDescriptionById, SqliteBrowserApplicationImpl} from '../index'
+import {BrowserId, getHistoryDescription, SqliteBrowserApplicationImpl} from '../index'
 import {execFileSync} from 'child_process'
 import {isEmpty} from 'licia'
 import {removeAllQueryFromUrl} from '../../../utils'
@@ -46,13 +46,13 @@ export class ChromiumHistoryApplicationImpl extends SqliteBrowserApplicationImpl
 const configName = 'History'
 export const applications: Array<ApplicationImpl<ChromiumHistoryProjectItemImpl>> = [
     new ChromiumHistoryApplicationImpl('chromium', 'Chromium', CHROMIUM, undefined, undefined, undefined, configName),
-    new ChromiumHistoryApplicationImpl('chrome', 'Google Chrome', CHROMIUM, undefined, generatePathDescriptionById('chrome', configName), undefined, configName),
-    new ChromiumHistoryApplicationImpl('edge', 'Microsoft Edge', CHROMIUM, undefined, generatePathDescriptionById('edge', configName), undefined, configName),
-    new ChromiumHistoryApplicationImpl('qq', 'QQ Browser', CHROMIUM, [Platform.win32], generatePathDescriptionById('qq', configName), undefined, configName),
-    new ChromiumHistoryApplicationImpl('maxthon', 'Maxthon (傲游)', CHROMIUM, [Platform.win32], generatePathDescriptionById('maxthon', configName), undefined, configName),
-    new ChromiumHistoryApplicationImpl('opera', 'Opera', CHROMIUM, [Platform.win32, Platform.darwin], generatePathDescriptionById('opera', configName), undefined, configName),
-    new ChromiumHistoryApplicationImpl('brave', 'Brave', CHROMIUM, [Platform.win32, Platform.darwin], generatePathDescriptionById('brave', configName), undefined, configName),
-    new ChromiumHistoryApplicationImpl('cent', 'CentBrowser (百分)', CHROMIUM, [Platform.win32], generatePathDescriptionById('cent', configName), undefined, configName),
-    new ChromiumHistoryApplicationImpl('yandex', 'Yandex', CHROMIUM, [Platform.win32, Platform.darwin], generatePathDescriptionById('yandex', configName), undefined, configName),
-    new ChromiumHistoryApplicationImpl('liebao', '猎豹浏览器', CHROMIUM, [Platform.win32], generatePathDescriptionById('liebao', configName), undefined, configName),
+    new ChromiumHistoryApplicationImpl('chrome', 'Google Chrome', CHROMIUM, undefined, getHistoryDescription('chrome'), undefined, configName),
+    new ChromiumHistoryApplicationImpl('edge', 'Microsoft Edge', CHROMIUM, undefined, getHistoryDescription('edge'), undefined, configName),
+    new ChromiumHistoryApplicationImpl('qq', 'QQ Browser', CHROMIUM, [Platform.win32], getHistoryDescription('qq'), undefined, configName),
+    new ChromiumHistoryApplicationImpl('maxthon', 'Maxthon (傲游)', CHROMIUM, [Platform.win32], getHistoryDescription('maxthon'), undefined, configName),
+    new ChromiumHistoryApplicationImpl('opera', 'Opera', CHROMIUM, [Platform.win32, Platform.darwin], getHistoryDescription('opera'), undefined, configName),
+    new ChromiumHistoryApplicationImpl('brave', 'Brave', CHROMIUM, [Platform.win32, Platform.darwin], getHistoryDescription('brave'), undefined, configName),
+    new ChromiumHistoryApplicationImpl('cent', 'CentBrowser (百分)', CHROMIUM, [Platform.win32], getHistoryDescription('cent'), undefined, configName),
+    new ChromiumHistoryApplicationImpl('yandex', 'Yandex', CHROMIUM, [Platform.win32, Platform.darwin], getHistoryDescription('yandex'), undefined, configName),
+    new ChromiumHistoryApplicationImpl('liebao', '猎豹浏览器', CHROMIUM, [Platform.win32], getHistoryDescription('liebao'), undefined, configName),
 ]

@@ -1,5 +1,5 @@
 import {ApplicationImpl, DatetimeProjectItemImpl, ElectronExecutor, Group, GroupName, Platform} from '../../../types'
-import {BrowserId, generatePathDescriptionById, SqliteBrowserApplicationImpl} from '../index'
+import {BrowserId, getPathDescription, SqliteBrowserApplicationImpl} from '../index'
 import {execFileSync} from 'child_process'
 import {isEmpty} from 'licia'
 import {removeAllQueryFromUrl} from '../../../utils'
@@ -45,5 +45,5 @@ export class FirefoxHistoryApplicationImpl extends SqliteBrowserApplicationImpl<
 }
 
 export const applications: Array<ApplicationImpl<FirefoxHistoryProjectItemImpl>> = [
-    new FirefoxHistoryApplicationImpl('firefox', 'Firefox', FIREFOX, undefined, generatePathDescriptionById('firefox', 'places.sqlite'), undefined, 'places.sqlite'),
+    new FirefoxHistoryApplicationImpl('firefox', 'Firefox', FIREFOX, undefined, getPathDescription('firefox', 'places.sqlite'), undefined, 'places.sqlite'),
 ]

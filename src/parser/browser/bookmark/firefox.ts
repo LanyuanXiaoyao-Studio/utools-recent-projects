@@ -1,5 +1,5 @@
 import {ApplicationImpl, DatetimeProjectItemImpl, ElectronExecutor, Group, GroupName, Platform} from '../../../types'
-import {BrowserId, generatePathDescription, generatePathDescriptionById, SqliteBrowserApplicationImpl} from '../index'
+import {BrowserId, getPathDescription, SqliteBrowserApplicationImpl} from '../index'
 import {execFileSync} from 'child_process'
 import {contain, isEmpty, isNil, reverse} from 'licia'
 import {Context} from '../../../context'
@@ -62,5 +62,5 @@ export class FirefoxBookmarkApplicationImpl extends SqliteBrowserApplicationImpl
 }
 
 export const applications: Array<ApplicationImpl<FirefoxBookmarkProjectItemImpl>> = [
-    new FirefoxBookmarkApplicationImpl('firefox', 'Firefox', FIREFOX, undefined, generatePathDescriptionById('firefox', 'places.sqlite'), undefined, 'places.sqlite'),
+    new FirefoxBookmarkApplicationImpl('firefox', 'Firefox', FIREFOX, undefined, getPathDescription('firefox', 'places.sqlite'), undefined, 'places.sqlite'),
 ]
