@@ -73,9 +73,9 @@ export const applications: Array<ApplicationImpl<ChromiumBookmarkProjectItemImpl
     new ChromiumBookmarkApplicationImpl('edge', 'Microsoft Edge', CHROMIUM, undefined, getBookmarkDescription('edge'), undefined, configName),
     new ChromiumBookmarkApplicationImpl('qq', 'QQ Browser', CHROMIUM, [Platform.win32], getBookmarkDescription('qq'), undefined, configName),
     new ChromiumBookmarkApplicationImpl('maxthon', 'Maxthon (傲游)', CHROMIUM, [Platform.win32], getBookmarkDescription('maxthon'), undefined, configName),
-    new ChromiumBookmarkApplicationImpl('opera', 'Opera', CHROMIUM, [Platform.win32, Platform.darwin], getBookmarkDescription('opera'), undefined, configName),
-    new ChromiumBookmarkApplicationImpl('brave', 'Brave', CHROMIUM, [Platform.win32, Platform.darwin], getBookmarkDescription('brave'), undefined, configName),
+    new ChromiumBookmarkApplicationImpl('opera', 'Opera', CHROMIUM, undefined, getBookmarkDescription('opera'), undefined, configName),
+    new ChromiumBookmarkApplicationImpl('brave', 'Brave', CHROMIUM, undefined, getBookmarkDescription('brave'), undefined, configName),
     new ChromiumBookmarkApplicationImpl('cent', 'CentBrowser (百分)', CHROMIUM, [Platform.win32], getBookmarkDescription('cent'), undefined, configName),
-    new ChromiumBookmarkApplicationImpl('yandex', 'Yandex', CHROMIUM, [Platform.win32, Platform.darwin], getBookmarkDescription('yandex'), undefined, configName),
+    new ChromiumBookmarkApplicationImpl('yandex', 'Yandex', CHROMIUM, undefined, getBookmarkDescription('yandex'), undefined, configName),
     new ChromiumBookmarkApplicationImpl('liebao', '猎豹浏览器', CHROMIUM, [Platform.win32], getBookmarkDescription('liebao'), undefined, configName),
 ]

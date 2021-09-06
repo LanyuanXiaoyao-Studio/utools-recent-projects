@@ -50,9 +50,9 @@ export const applications: Array<ApplicationImpl<ChromiumHistoryProjectItemImpl>
     new ChromiumHistoryApplicationImpl('edge', 'Microsoft Edge', CHROMIUM, undefined, getHistoryDescription('edge'), undefined, configName),
     new ChromiumHistoryApplicationImpl('qq', 'QQ Browser', CHROMIUM, [Platform.win32], getHistoryDescription('qq'), undefined, configName),
     new ChromiumHistoryApplicationImpl('maxthon', 'Maxthon (傲游)', CHROMIUM, [Platform.win32], getHistoryDescription('maxthon'), undefined, configName),
-    new ChromiumHistoryApplicationImpl('opera', 'Opera', CHROMIUM, [Platform.win32, Platform.darwin], getHistoryDescription('opera'), undefined, configName),
-    new ChromiumHistoryApplicationImpl('brave', 'Brave', CHROMIUM, [Platform.win32, Platform.darwin], getHistoryDescription('brave'), undefined, configName),
+    new ChromiumHistoryApplicationImpl('opera', 'Opera', CHROMIUM, undefined, getHistoryDescription('opera'), undefined, configName),
+    new ChromiumHistoryApplicationImpl('brave', 'Brave', CHROMIUM, undefined, getHistoryDescription('brave'), undefined, configName),
     new ChromiumHistoryApplicationImpl('cent', 'CentBrowser (百分)', CHROMIUM, [Platform.win32], getHistoryDescription('cent'), undefined, configName),
-    new ChromiumHistoryApplicationImpl('yandex', 'Yandex', CHROMIUM, [Platform.win32, Platform.darwin], getHistoryDescription('yandex'), undefined, configName),
+    new ChromiumHistoryApplicationImpl('yandex', 'Yandex', CHROMIUM, undefined, getHistoryDescription('yandex'), undefined, configName),
     new ChromiumHistoryApplicationImpl('liebao', '猎豹浏览器', CHROMIUM, [Platform.win32], getHistoryDescription('liebao'), undefined, configName),
 ]
