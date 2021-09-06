@@ -1,5 +1,5 @@
 import {ApplicationImpl, DatetimeProjectItemImpl, ElectronExecutor, Group, GroupName, Platform} from '../../../types'
-import {generatePathDescription, SqliteBrowserApplicationImpl} from '../index'
+import {BrowserId, generatePathDescription, generatePathDescriptionById, SqliteBrowserApplicationImpl} from '../index'
 import {execFileSync} from 'child_process'
 import {contain, isEmpty, isNil, reverse} from 'licia'
 import {Context} from '../../../context'
@@ -9,7 +9,7 @@ const FIREFOX: string = 'firefox'
 export class FirefoxBookmarkProjectItemImpl extends DatetimeProjectItemImpl {}
 
 export class FirefoxBookmarkApplicationImpl extends SqliteBrowserApplicationImpl<FirefoxBookmarkProjectItemImpl> {
-    constructor(id: string, name: string, type: string, platforms: Array<Platform> = [Platform.win32, Platform.darwin, Platform.linux], description?: string, beta: boolean = true, configName: string = '') {
+    constructor(id: BrowserId, name: string, type: string, platforms: Array<Platform> = [Platform.win32, Platform.darwin, Platform.linux], description?: string, beta: boolean = true, configName: string = '') {
         super(`${id}-bookmark`, `${name}`, `icon/browser-${id}.png`, type, platforms, Group[GroupName.browserBookmark], description, beta, configName)
     }
 
@@ -62,8 +62,5 @@ export class FirefoxBookmarkApplicationImpl extends SqliteBrowserApplicationImpl
 }
 
 export const applications: Array<ApplicationImpl<FirefoxBookmarkProjectItemImpl>> = [
-    new FirefoxBookmarkApplicationImpl('firefox', 'Firefox', FIREFOX, undefined, generatePathDescription({
-        win: 'C:\\Users\\Administrator\\AppData\\Roaming\\Mozilla\\Firefox\\Profiles\\xxx.default-release',
-        mac: '/Users/xxx/Library/Application Support/Firefox/Profiles/xxx.default-release-xxx',
-    }), undefined, 'places.sqlite'),
+    new FirefoxBookmarkApplicationImpl('firefox', 'Firefox', FIREFOX, undefined, generatePathDescriptionById('firefox', 'places.sqlite'), undefined, 'places.sqlite'),
 ]
