@@ -16,16 +16,16 @@ export class FirefoxBookmarkApplicationImpl extends SqliteBrowserApplicationImpl
     async generateProjectItems(context: Context): Promise<Array<FirefoxBookmarkProjectItemImpl>> {
         let items: Array<FirefoxBookmarkProjectItemImpl> = []
         // language=SQLite
-        let sql = 'select b.id as id, b.type as type, b.parent as parent, b.title as title, p.url as url, b.dateAdded as date_added\nfrom moz_bookmarks b\n         left join moz_places p on b.fk = p.id\norder by b.dateAdded desc '
-        let jsonText = ''
+        let sql = 'select b.id as id, b.type as type, b.parent as parent, b.title as title, p.url as url, b.dateAdded as date_added\nfrom moz_bookmarks b\n         left join moz_places p on b.fk = p.id\norder by b.dateAdded desc'
+        let result = ''
         await this.copyAndReadFile(this.config, path => {
-            jsonText = execFileSync(this.executor, [path, sql, '-readonly', '-json'], { encoding: 'utf-8' })
+            result = execFileSync(this.executor, [path, sql, '-readonly'], { encoding: 'utf-8', maxBuffer: 20971520 })
         })
-        if (!isEmpty(jsonText)) {
-            let json = JSON.parse(jsonText)
+        if (!isEmpty(result)) {
+            let array = this.parseSqliteDefaultResult(result, ['n/id', 'n/type', 'n/parent', 'title', 'url', 'n/date_added'])
             let map = {}
-            json.forEach(i => map[i.id] = i)
-            json.forEach(i => i.parent = map[i.parent])
+            array.forEach(i => map[i.id] = i)
+            array.forEach(i => i.parent = map[i.parent])
             let generateParent = item => {
                 if (isNil(item?.parent)) {
                     return []
@@ -34,13 +34,13 @@ export class FirefoxBookmarkApplicationImpl extends SqliteBrowserApplicationImpl
                 parents.push(...generateParent(item.parent))
                 return parents
             }
-            json.forEach(i => i.parents =
+            array.forEach(i => i.parents =
                 reverse(generateParent(i))
                     .filter(i1 => !isEmpty(i1.title))
                     .filter(i1 => !contain(['menu', 'toolbar', 'tags', 'unfiled', 'mobile'], i1.title))
                     .map(i1 => i1.title)
                     .join('/'))
-            json.filter(i => !isEmpty(i?.['url'] ?? ''))
+            array.filter(i => !isEmpty(i?.['url'] ?? ''))
                 .forEach(i => {
                     let title = `${isEmpty(i?.['parents'] ?? '') ? '' : `[${i['parents']}]`} ${i?.['title'] ?? ''}`
                     let url = i?.['url'] ?? ''

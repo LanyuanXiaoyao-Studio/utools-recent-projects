@@ -42,14 +42,14 @@ export class SafariHistoryApplicationImpl extends SqliteBrowserApplicationImpl<S
             return []
         }
         // language=SQLite
-        let sql = 'select i.url, v.title, cast(strftime(\'%s\', datetime(v.visit_time + 978307200, \'unixepoch\', \'localtime\')) as numeric) as timestamp\nfrom history_items i,\n     history_visits v\nwhere i.id = v.history_item\ngroup by i.url\norder by timestamp desc\n'
-        let jsonText = ''
+        let sql = 'select i.url                                                                                         as url,\n       v.title                                                                                       as title,\n       cast(strftime(\'%s\', datetime(v.visit_time + 978307200, \'unixepoch\', \'localtime\')) as numeric) as timestamp\nfrom history_items i,\n     history_visits v\nwhere i.id = v.history_item\ngroup by i.url\norder by timestamp desc\nlimit 100'
+        let result = ''
         await this.copyAndReadFile(configPath, path => {
-            jsonText = execFileSync(this.executor, [path, sql, '-readonly', '-json'], { encoding: 'utf-8' })
+            result = execFileSync(this.executor, [path, sql, '-readonly'], { encoding: 'utf-8', maxBuffer: 20971520 })
         })
-        if (!isEmpty(jsonText)) {
-            let json = JSON.parse(jsonText)
-            json.forEach(i => {
+        if (!isEmpty(result)) {
+            let array = this.parseSqliteDefaultResult(result, ['url', 'title', 'n/timestamp'])
+            array.forEach(i => {
                 let title: string = i['title'] ?? ''
                 let url: string = i['url'] ?? ''
                 items.push({

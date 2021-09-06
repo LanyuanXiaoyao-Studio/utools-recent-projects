@@ -17,14 +17,14 @@ export class FirefoxHistoryApplicationImpl extends SqliteBrowserApplicationImpl<
     async generateProjectItems(context: Context): Promise<Array<FirefoxHistoryProjectItemImpl>> {
         let items: Array<FirefoxHistoryProjectItemImpl> = []
         // language=SQLite
-        let sql = 'select p.url as url, p.title as title, p.description as description, cast(strftime(\'%s\', datetime((h.visit_date / 1000000), \'unixepoch\', \'localtime\')) as numeric) as timestamp\nfrom moz_historyvisits h,\n     moz_places p\nwhere h.place_id = p.id\n  and p.hidden = 0\n  and h.visit_date is not null\norder by h.visit_date desc\nlimit 100'
-        let jsonText = ''
+        let sql = 'select p.url                                                                                         as url,\n       p.title                                                                                       as title,\n       p.description                                                                                 as description,\n       cast(strftime(\'%s\', datetime((h.visit_date / 1000000), \'unixepoch\', \'localtime\')) as numeric) as timestamp\nfrom moz_historyvisits h,\n     moz_places p\nwhere h.place_id = p.id\n  and p.hidden = 0\n  and h.visit_date is not null\norder by h.visit_date desc\nlimit 100'
+        let result = ''
         await this.copyAndReadFile(this.config, path => {
-            jsonText = execFileSync(path, [this.config, sql, '-readonly', '-json'], { encoding: 'utf-8' })
+            result = execFileSync(path, [this.config, sql, '-readonly'], { encoding: 'utf-8', maxBuffer: 20971520 })
         })
-        if (!isEmpty(jsonText)) {
-            let json = JSON.parse(jsonText)
-            json.forEach(i => {
+        if (!isEmpty(result)) {
+            let array = this.parseSqliteDefaultResult(result, ['url', 'title', 'description', 'n/timestamp'])
+            array.forEach(i => {
                 let title: string = i['title'] ?? ''
                 let url: string = i['url'] ?? ''
                 let description: string = i['description'] ?? url
