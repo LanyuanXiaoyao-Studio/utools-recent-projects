@@ -9,7 +9,7 @@ import {
     Platform,
     SettingItem,
 } from '../../../types'
-import {BrowserApplicationImpl} from '../index'
+import {BrowserApplicationImpl, generatePathDescription} from '../index'
 import {Context} from '../../../context'
 import {readFile} from 'fs/promises'
 import {isEmpty} from 'licia'
@@ -68,4 +68,32 @@ export class ChromiumBookmarkApplicationImpl extends BrowserApplicationImpl<Chro
 
 export const applications: Array<ApplicationImpl<ChromiumBookmarkProjectItemImpl>> = [
     new ChromiumBookmarkApplicationImpl('chromium', 'Chromium', CHROMIUM, undefined, undefined, undefined, 'Bookmark'),
+    new ChromiumBookmarkApplicationImpl('chrome', 'Google Chrome', CHROMIUM, undefined, generatePathDescription({
+        win: 'C:\\Users\\Administrator\\AppData\\Local\\Google\\Chrome\\User Data\\Default',
+        mac: '/Users/xxx/Library/Application Support/Google/Chrome/Default',
+    }), undefined, 'Bookmark'),
+    new ChromiumBookmarkApplicationImpl('edge', 'Microsoft Edge', CHROMIUM, undefined, generatePathDescription({
+        win: 'C:\\Users\\Administrator\\AppData\\Local\\Microsoft\\Edge\\User Data\\Default',
+    }), undefined, 'Bookmark'),
+    new ChromiumBookmarkApplicationImpl('qq', 'QQ Browser', CHROMIUM, [Platform.win32], generatePathDescription({
+        win: 'C:\\Users\\Administrator\\AppData\\Local\\Tencent\\QQBrowser\\User Data\\Default',
+    }), undefined, 'Bookmark'),
+    new ChromiumBookmarkApplicationImpl('maxthon', 'Maxthon (傲游)', CHROMIUM, [Platform.win32], generatePathDescription({
+        win: 'C:\\Users\\Administrator\\AppData\\Local\\Maxthon\\Application\\User Data\\Default',
+    }), undefined, 'Bookmark'),
+    new ChromiumBookmarkApplicationImpl('opera', 'Opera', CHROMIUM, [Platform.win32, Platform.darwin], generatePathDescription({
+        win: 'C:\\Users\\Administrator\\AppData\\Roaming\\Opera Software\\Opera Stable',
+    }), undefined, 'Bookmark'),
+    new ChromiumBookmarkApplicationImpl('brave', 'Brave', CHROMIUM, [Platform.win32, Platform.darwin], generatePathDescription({
+        win: 'C:\\Users\\Administrator\\AppData\\Local\\BraveSoftware\\Brave-Browser\\User Data\\Default',
+    }), undefined, 'Bookmark'),
+    new ChromiumBookmarkApplicationImpl('cent', 'CentBrowser (百分)', CHROMIUM, [Platform.win32], generatePathDescription({
+        win: 'C:\\Users\\Administrator\\AppData\\Local\\CentBrowser\\User Data\\Default',
+    }), undefined, 'Bookmark'),
+    new ChromiumBookmarkApplicationImpl('yandex', 'Yandex', CHROMIUM, [Platform.win32, Platform.darwin], generatePathDescription({
+        win: 'C:\\Users\\Administrator\\AppData\\Local\\Yandex\\YandexBrowser\\User Data\\Default',
+    }), undefined, 'Bookmark'),
+    new ChromiumBookmarkApplicationImpl('liebao', '猎豹浏览器', CHROMIUM, [Platform.win32], generatePathDescription({
+        win: 'C:\\Users\\Administrator\\AppData\\Local\\liebao\\User Data\\Default',
+    }), undefined, 'Bookmark'),
 ]
