@@ -3,6 +3,7 @@ import {Component, Fragment, Img} from 'nano-jsx'
 import {isEmpty, isNil} from 'licia'
 import {iconMap} from '../../icon'
 import {settingStore} from '../store'
+import {Context} from '../../context'
 import Nano = require('nano-jsx')
 import fs = require('fs')
 
@@ -15,10 +16,13 @@ export interface SettingCardState {}
 export class SettingCard extends Component<SettingCardProps, SettingCardState> {
     store = settingStore.use()
 
+    private context: Context
+
     pathExistsCache: { [key: string]: boolean } = {}
 
     constructor(props: SettingCardProps) {
         super(props)
+        this.context = Context.get()
     }
 
     override didUnmount(): any {
@@ -35,7 +39,7 @@ export class SettingCard extends Component<SettingCardProps, SettingCardState> {
         this.store.setState({ catalogueUpdate: !this.store.state.catalogueUpdate })
     }
 
-    select(id: string, name: string) {
+    select(event, id: string, name: string) {
         let result = utools.showOpenDialog({
             title: name,
             message: name,
@@ -52,11 +56,32 @@ export class SettingCard extends Component<SettingCardProps, SettingCardState> {
             if (!isEmpty(path)) {
                 if (!fs.existsSync(path)) {
                     alert('路径指示的文件不存在或已被删除')
+                    event.target.value = ''
+                    return
                 }
                 this.pathExistsCache[path] = true
                 utools.dbStorage.setItem(id, path)
                 this.updateApplicationUI()
             }
+        }
+    }
+
+    input(event, id: string) {
+        let inputValue = event.target?.value
+        if (isNil(inputValue)) {
+            alert('出现未知的输入错误')
+        } else if (isEmpty(inputValue)) {
+            return
+        } else {
+            let path = inputValue
+            if (!fs.existsSync(path)) {
+                alert('路径指示的文件不存在或已被删除')
+                event.target.value = ''
+                return
+            }
+            this.pathExistsCache[path] = true
+            utools.dbStorage.setItem(id, path)
+            this.updateApplicationUI()
         }
     }
 
@@ -128,14 +153,26 @@ export class SettingCard extends Component<SettingCardProps, SettingCardState> {
                                                 :
                                                 <div class="setting-item-description">{item.description}</div>}
                                             <div class="input-group">
-                                                <input
-                                                    type="text"
-                                                    class={`form-input input-sm ${this.pathExists(item.value as string) ? '' : 'is-error'}`}
-                                                    value={item.value == null ? '' : item.value}
-                                                    placeholder="点击输入框选择路径"
-                                                    onclick={() => this.select(item.id, item.name)}
-                                                    readonly
-                                                />
+                                                {this.context.enableEditPathInputDirectly
+                                                    ? <Fragment>
+                                                        <input
+                                                            type="text"
+                                                            class={`form-input input-sm ${this.pathExists(item.value as string) ? '' : 'is-error'}`}
+                                                            value={item.value == null ? '' : item.value}
+                                                            placeholder="输入文件路径"
+                                                            onblur={event => this.input(event, item.id)}
+                                                        />
+                                                    </Fragment>
+                                                    : <Fragment>
+                                                        <input
+                                                            type="text"
+                                                            class={`form-input input-sm ${this.pathExists(item.value as string) ? '' : 'is-error'}`}
+                                                            value={item.value == null ? '' : item.value}
+                                                            placeholder="点击输入框选择路径"
+                                                            onclick={event => this.select(event, item.id, item.name)}
+                                                            readonly
+                                                        />
+                                                    </Fragment>}
                                                 <button
                                                     class="btn btn-error btn-sm input-group-btn"
                                                     onclick={() => this.clear(item.id)}

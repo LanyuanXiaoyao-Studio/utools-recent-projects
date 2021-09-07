@@ -107,6 +107,29 @@ export class ApplicationSettingCard extends Component<ApplicationSettingCardProp
                                     </label>
                                 </div>
                             </div>
+                            <div class="divider"/>
+                            <div class="form-group">
+                                <div class="col-10 col-mr-auto">
+                                    <div class="form-label">直接输入路径 (重启插件生效)</div>
+                                    <div class="form-description">启动该选项直接在下面的路径框中输入路径而非通过文件选择器选择, 有的时候这可能会比较方便, 但也容易因为人为输入失误导致插件运行错误</div>
+                                </div>
+                                <div class="col-1 flex-column-center">
+                                    <label class="form-switch float-right">
+                                        {this.context.enableEditPathInputDirectly
+                                            ? <input
+                                                type="checkbox"
+                                                checked
+                                                onchange={() => this.switch(Context.enableEditPathInputDirectlyId, false)}
+                                            />
+                                            :
+                                            <input
+                                                type="checkbox"
+                                                onchange={() => this.switch(Context.enableEditPathInputDirectlyId, true)}
+                                            />}
+                                        <i class="form-icon"/>
+                                    </label>
+                                </div>
+                            </div>
                         </form>
                     </div>
                 </div>
