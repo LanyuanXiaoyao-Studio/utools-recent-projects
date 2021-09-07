@@ -111,7 +111,7 @@ export class ApplicationSettingCard extends Component<ApplicationSettingCardProp
                             <div class="form-group">
                                 <div class="col-10 col-mr-auto">
                                     <div class="form-label">直接输入路径 (重启插件生效)</div>
-                                    <div class="form-description">启动该选项直接在下面的路径框中输入路径而非通过文件选择器选择, 有的时候这可能会比较方便, 但也容易因为人为输入失误导致插件运行错误</div>
+                                    <div class="form-description">启动该选项可直接在路径框中输入路径而非使用文件选择器, 特殊情况可能会带来方便, 但也容易因为人为输入失误导致插件运行错误. (重启插件指完全退出插件后再次打开设置)</div>
                                 </div>
                                 <div class="col-1 flex-column-center">
                                     <label class="form-switch float-right">
