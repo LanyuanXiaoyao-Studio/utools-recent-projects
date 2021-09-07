@@ -28,6 +28,9 @@ export class FirefoxHistoryApplicationImpl extends SqliteBrowserApplicationImpl<
                 let title: string = i['title'] ?? ''
                 let url: string = i['url'] ?? ''
                 let description: string = i['description'] ?? url
+                if (isEmpty(description)) {
+                    description = url
+                }
                 items.push({
                     id: '',
                     title: title,
