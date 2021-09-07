@@ -28,7 +28,7 @@ export class SafariBookmarkApplicationImpl extends BrowserApplicationImpl<Safari
             SAFARI,
             [Platform.darwin],
             Group[GroupName.browserBookmark],
-            undefined,
+            'Safari 书签配置固定, 无需额外配置',
             true,
             'Bookmarks.plist',
         )
