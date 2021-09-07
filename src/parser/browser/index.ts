@@ -100,6 +100,7 @@ export type BrowserId =
     | 'cent'
     | 'yandex'
     | 'liebao'
+    | 'deepin'
 
 export const getPathDescription: (id: BrowserId, filename: string) => string | undefined = (id, filename) => {
     return generatePathDescription(pathDescriptionMap[id], filename)

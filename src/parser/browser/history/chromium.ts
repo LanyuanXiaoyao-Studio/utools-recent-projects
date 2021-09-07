@@ -1,9 +1,10 @@
 import {ApplicationImpl, DatetimeProjectItemImpl, ElectronExecutor, Group, GroupName, Platform} from '../../../types'
-import {BrowserId, getHistoryDescription, SqliteBrowserApplicationImpl} from '../index'
+import {BrowserId, getBookmarkDescription, getHistoryDescription, SqliteBrowserApplicationImpl} from '../index'
 import {execFileSync} from 'child_process'
 import {isEmpty} from 'licia'
 import {removeAllQueryFromUrl} from '../../../utils'
 import {Context} from '../../../context'
+import {ChromiumBookmarkApplicationImpl} from '../bookmark/chromium'
 
 const CHROMIUM: string = 'chromium'
 
@@ -55,4 +56,5 @@ export const applications: Array<ApplicationImpl<ChromiumHistoryProjectItemImpl>
     new ChromiumHistoryApplicationImpl('cent', 'CentBrowser (百分)', CHROMIUM, [Platform.win32], getHistoryDescription('cent'), undefined, configName),
     new ChromiumHistoryApplicationImpl('yandex', 'Yandex', CHROMIUM, undefined, getHistoryDescription('yandex'), undefined, configName),
     new ChromiumHistoryApplicationImpl('liebao', '猎豹浏览器', CHROMIUM, [Platform.win32], getHistoryDescription('liebao'), undefined, configName),
+    new ChromiumBookmarkApplicationImpl('deepin', '深度浏览器', CHROMIUM, [Platform.linux], getBookmarkDescription('deepin'), undefined, configName),
 ]

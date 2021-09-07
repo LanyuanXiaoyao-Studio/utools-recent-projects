@@ -78,4 +78,5 @@ export const applications: Array<ApplicationImpl<ChromiumBookmarkProjectItemImpl
     new ChromiumBookmarkApplicationImpl('cent', 'CentBrowser (百分)', CHROMIUM, [Platform.win32], getBookmarkDescription('cent'), undefined, configName),
     new ChromiumBookmarkApplicationImpl('yandex', 'Yandex', CHROMIUM, undefined, getBookmarkDescription('yandex'), undefined, configName),
     new ChromiumBookmarkApplicationImpl('liebao', '猎豹浏览器', CHROMIUM, [Platform.win32], getBookmarkDescription('liebao'), undefined, configName),
+    new ChromiumBookmarkApplicationImpl('deepin', '深度浏览器', CHROMIUM, [Platform.linux], getBookmarkDescription('deepin'), undefined, configName),
 ]
