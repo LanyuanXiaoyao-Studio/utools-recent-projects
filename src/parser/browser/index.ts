@@ -72,8 +72,8 @@ export interface PathDescription {
     linux?: string,
 }
 
-export const generatePathDescription: (path: PathDescription, filname: string) => string | undefined = (path, filname) => {
-    let prefix = `${filname} 文件通常放在: `
+export const generatePathDescription: (path: PathDescription, filname: string) => string | undefined = (path, filename) => {
+    let prefix = `${filename} 文件通常放在: `
     let platform = platformFromUtools()
     let emptyAndUndefined = (p) => (isNil(p) || isEmpty(p)) ? undefined : prefix + p
     switch (platform) {
@@ -157,4 +157,7 @@ const pathDescriptionMap: { [key: string]: PathDescription } = {
         mac: '/Users/xxx/Library/Application Support/Firefox/Profiles/xxx.default-release-xxx',
         linux: '/home/xxx/.mozilla/firefox/xxx.default-release',
     },
+    'deepin': {
+        linux: '/home/xxx/.config/browser/Default'
+    }
 }
