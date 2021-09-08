@@ -22,7 +22,7 @@ export class OfficeProjectItemImpl extends DatetimeProjectItemImpl {}
 
 export class OfficeMacApplicationImpl extends ApplicationConfigImpl<OfficeProjectItemImpl> {
     constructor(id: string, name: string, icon: string, configFilename: string, description: string = '') {
-        super(`office-mac-${id}`, name, icon, OFFICE_MAC, [Platform.darwin], Group[GroupName.office], description, true, configFilename)
+        super(`office-mac-${id}`, name, icon, OFFICE_MAC, [Platform.darwin], Group[GroupName.office], description, false, configFilename)
     }
 
     async generateProjectItems(context: Context): Promise<Array<OfficeProjectItemImpl>> {
@@ -74,7 +74,7 @@ export class OfficeWinApplicationImpl extends ApplicationImpl<OfficeProjectItemI
             [Platform.win32],
             Group[GroupName.office],
             'Office 2019 通过解析 C:\\Users\\Administrator\\AppData\\Roaming\\Microsoft\\Office\\Recent 下的文件记录来得到历史打开文件列表, 这种方式依赖于默认的 Office 行为, 目前仅支持有限的 Office 文档格式',
-            true,
+            false,
         )
     }
 

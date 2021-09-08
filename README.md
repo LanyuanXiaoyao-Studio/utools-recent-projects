@@ -14,9 +14,6 @@
 
 > 由于有的软件的历史记录, 如 vscode, 没有打开时间, 所以在「Projects」关键字里面查看的所有历史项目将不会按照最近打开时间排序(不同软件的历史记录没办法互相排序), 在单独的关键字里, 如「JetBrains Projects」, 会根据最近打开时间排序
 
-
-> Linux 在 uTools 2.x 支持 Linux 之后再支持
-
 # 软件支持列表
 
 如果你希望插件能够支持更多的软件, 请通过 [uTools「历史记录」插件适配软件建议](https://docs.qq.com/form/page/DZFhlZXRSendzc3dR) 向我提出
@@ -34,6 +31,7 @@
   - Yandex
   - 猎豹浏览器
   - Safari
+  - 深度浏览器
 - Editor
   - Visual Studio Code
   - Typora
@@ -46,7 +44,7 @@
 - Office
   - WPS Office International for mac
   - Office 2019 (Windows)
-  - Office 2019 For Mac
+  - Office 2019 (macOS)
 
 # 源码地址
 
@@ -69,6 +67,7 @@
   目前所有支持的浏览器历史记录获取都需要通过 sqlite3 进行, 为了避免不同浏览器采用的 sqlite 版本不同, 所以需要用户自行下载 sqlite 命令行作为可执行程序路径, sqlite 命令行可以在 sqlite
   官网下载到: [官网下载页面](https://www.sqlite.org/download.html), 需要自行下载对应平台的命令行程序.
   > 360 安全浏览器因为安全, 所以相关数据是加密过的, 无法适配
+
 - **JetBrains 系列**
   - **数据文件**  
     macOS: `/Users/用户名/Library/Application Support/JetBrains/软件名称/options/recentProjects.xml`

@@ -31,7 +31,7 @@ export class WpsMacInternationalApplicationImpl extends ApplicationConfigImpl<Wp
                 handler: text => `配置文件通常放在 ${text}`,
                 darwin: '/Users/xxx/Library/Containers/com.kingsoft.wpsoffice.mac.global/Data/Library/Preferences/com.kingsoft.plist',
             }),
-            true,
+            false,
             'com.kingsoft.plist',
         )
     }
