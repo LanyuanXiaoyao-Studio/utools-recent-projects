@@ -4,8 +4,8 @@ import {
     DatetimeProjectItemImpl,
     Group,
     GroupName,
+    NohupShellExecutor,
     Platform,
-    ShellExecutor,
 } from '../../types'
 import {Context} from '../../context'
 import {readFileSync} from 'fs'
@@ -61,7 +61,7 @@ export class TyporaApplicationImpl extends ApplicationConfigAndExecutorImpl<Typo
                         icon: icon,
                         searchKey: path,
                         exists: exists,
-                        command: new ShellExecutor(''),
+                        command: new NohupShellExecutor(this.executor, path),
                         datetime: i?.['date'] ?? 0,
                     })
                 })
