@@ -58,6 +58,24 @@ export class ShellExecutor implements Executor {
     }
 }
 
+export class NohupShellExecutor extends ShellExecutor {
+    constructor(executor: string, path: string) {
+        let platform: Platform = platformFromUtools()
+        switch (platform) {
+            case Platform.darwin:
+            case Platform.linux:
+                super(`nohup "${executor}" "${path}" > /dev/null 2>&1 &`)
+                break
+            case Platform.win32:
+                super(`powershell.exe -command "Start-Process -FilePath '${executor}' -ArgumentList '${path}'"`)
+                break
+            case Platform.unknown:
+                super('')
+                break
+        }
+    }
+}
+
 /**
  * Electron 执行器
  *
