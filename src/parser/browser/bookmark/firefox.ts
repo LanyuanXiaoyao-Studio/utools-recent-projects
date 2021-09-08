@@ -1,8 +1,9 @@
 import {ApplicationImpl, DatetimeProjectItemImpl, ElectronExecutor, Group, GroupName, Platform} from '../../../types'
-import {BrowserId, getPathDescription, SqliteBrowserApplicationImpl} from '../index'
+import {BrowserId, SqliteBrowserApplicationImpl} from '../index'
 import {execFileSync} from 'child_process'
 import {contain, isEmpty, isNil, reverse} from 'licia'
 import {Context} from '../../../context'
+import {generateStringByOS} from '../../../utils'
 
 const FIREFOX: string = 'firefox'
 
@@ -62,5 +63,10 @@ export class FirefoxBookmarkApplicationImpl extends SqliteBrowserApplicationImpl
 }
 
 export const applications: Array<ApplicationImpl<FirefoxBookmarkProjectItemImpl>> = [
-    new FirefoxBookmarkApplicationImpl('firefox', 'Firefox', FIREFOX, undefined, getPathDescription('firefox', 'places.sqlite'), undefined, 'places.sqlite'),
+    new FirefoxBookmarkApplicationImpl('firefox', 'Firefox', FIREFOX, undefined, generateStringByOS({
+        handler: text => `places.sqlite 文件通常在 ${text}`,
+        win32: 'C:\\Users\\Administrator\\AppData\\Roaming\\Mozilla\\Firefox\\Profiles\\xxx.default-release',
+        darwin: '/Users/xxx/Library/Application Support/Firefox/Profiles/xxx.default-release-xxx',
+        linux: '/home/xxx/.mozilla/firefox/xxx.default-release',
+    }), undefined, 'places.sqlite'),
 ]

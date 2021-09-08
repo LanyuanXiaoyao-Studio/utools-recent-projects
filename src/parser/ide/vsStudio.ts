@@ -19,7 +19,7 @@ const VS_STUDIO: string = 'vs-studio'
 export class VsStudioProjectItemImpl extends DatetimeProjectItemImpl {}
 
 export class VsStudioApplicationImpl extends ApplicationConfigImpl<VsStudioProjectItemImpl> {
-    constructor(id: string, name: string, icon: string, platform: Array<Platform> = [Platform.win32], configFilename: string = 'ApplicationPrivateSettings.xml') {
+    constructor(id: string, name: string, icon: string, platform: Array<Platform> = [Platform.win32]) {
         super(
             id,
             name,
@@ -30,7 +30,7 @@ export class VsStudioApplicationImpl extends ApplicationConfigImpl<VsStudioProje
             `历史项目将使用默认关联的应用打开, 想要实现直接通过 Visual Studio 打开, 需要自行设置 sln 文件与 Visual Studio 默认关联
 本功能依据官网最新的 Visual Studio 2019 开发`,
             true,
-            configFilename,
+            'ApplicationPrivateSettings.xml',
         )
     }
 

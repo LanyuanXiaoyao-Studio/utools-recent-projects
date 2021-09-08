@@ -19,6 +19,8 @@
 
 # 软件支持列表
 
+如果你希望插件能够支持更多的软件, 请通过 [uTools「历史记录」插件适配软件建议](https://docs.qq.com/form/page/DZFhlZXRSendzc3dR) 向我提出
+
 - Browser History
   - Firefox
   - Chromium
@@ -34,6 +36,7 @@
   - Safari
 - Editor
   - Visual Studio Code
+  - Typora
   - Sublime Text
 - IDE
   - JetBrains 全家桶
@@ -63,7 +66,8 @@
 > 目前已知的是, JetBrains 安装完成后会在`/usr/local/bin`下设置一个软链链接到正确的入口, 如`/usr/local/bin/idea`, 所以可以尝试将可执行程序的路径设置为这个, 同样的, Visual Studio Code 也有类似的东西.
 
 - **Browser History**  
-  目前所有支持的浏览器历史记录获取都需要通过 sqlite3 进行, 为了避免不同浏览器采用的 sqlite 版本不同, 所以需要用户自行下载 sqlite 命令行作为可执行程序路径, sqlite 命令行可以在 sqlite 官网下载到: [官网下载页面](https://www.sqlite.org/download.html), 需要自行下载对应平台的命令行程序.  
+  目前所有支持的浏览器历史记录获取都需要通过 sqlite3 进行, 为了避免不同浏览器采用的 sqlite 版本不同, 所以需要用户自行下载 sqlite 命令行作为可执行程序路径, sqlite 命令行可以在 sqlite
+  官网下载到: [官网下载页面](https://www.sqlite.org/download.html), 需要自行下载对应平台的命令行程序.
   > 360 安全浏览器因为安全, 所以相关数据是加密过的, 无法适配
 - **JetBrains 系列**
   - **数据文件**  
@@ -73,21 +77,23 @@
     macOS:`/Applications/软件名称.app/Contents/MacOS/软件名称`(更早的版本, 数据文件路径里面没有`JetBrains`这一级)
     Windows: 默认安装在`C:\Program Files\JetBrains\软件名\bin\软件名64.exe`(如果使用 JetBrains Toolbox 安装的话,
     默认路径会在类似`C:\Users\用户名\AppData\Local\JetBrains\Toolbox\apps\软件名\ch-0\版本号`, 具体的可以在 JetBrains Toolbox 的设置里找到)
-    ![](https://z3.ax1x.com/2021/08/04/fktJsJ.png)
 - **Visual Studio Code**
   - **数据文件**  
-    macOS: `/Users/lanyuanxiaoyao/Library/Application Support/Code/storage.json`, Windows:
-    默认安装在`C:\Users\Administrator\AppData\Roaming\Code\storage.json`
+    macOS: `/Users/lanyuanxiaoyao/Library/Application Support/Code/storage.json`  
+    Windows: 默认安装在`C:\Users\Administrator\AppData\Roaming\Code\storage.json`
   - **可执行程序路径**  
     macOS: `/Applications/Visual Studio Code.app/Contents/Resources/app/bin/code`
     Windows: 默认安装在`C:\Users\Administrator\AppData\Local\Programs\Microsoft VS Code\Code.exe`
-    ![](https://z3.ax1x.com/2021/08/04/fktRot.png)
+- **Typora**
+  - **数据文件**
+    Windows: `C:\Users\Administrator\AppData\Roaming\Typora\history.data`
+  - **可执行程序路径**
+    Windows: `C:\Program Files\Typora\Typora.exe`
 - **Sublime Text**
   - **数据文件**  
     macOS: `/Users/lanyuanxiaoyao/Library/Application Support/Sublime Text/Local/Session.sublime_session`
   - **可执行程序路径 (注意 Sublime Text 单独提供了命令行程序, 不是程序本体)**  
     macOS: `/Users/lanyuanxiaoyao/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl`
-    ![](https://z3.ax1x.com/2021/08/11/fUU2rt.png)
 - **WPS Office International for mac**  
   WPS 使用`open`命令打开, 无需设置可执行程序路径
   - **数据文件**  

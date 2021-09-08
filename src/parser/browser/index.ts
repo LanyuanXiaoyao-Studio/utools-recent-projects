@@ -1,5 +1,5 @@
 import {ApplicationConfigAndExecutorImpl, InputSettingItem, Platform, ProjectItemImpl, SettingItem} from '../../types'
-import {platformFromUtools} from '../../utils'
+import {generateStringByOS, platformFromUtools, StringByOS} from '../../utils'
 import {isEmpty, isNil, randomId} from 'licia'
 import {Context} from '../../context'
 import {copyFile, rm} from 'fs/promises'
@@ -106,58 +106,57 @@ export const getPathDescription: (id: BrowserId, filename: string) => string | u
     return generatePathDescription(pathDescriptionMap[id], filename)
 }
 
-export const getBookmarkDescription: (id: BrowserId) => string | undefined = id => {
-    return generatePathDescription(pathDescriptionMap[id], 'Bookmarks')
+export const getDescription: (id: BrowserId, handler: (text: string) => string) => string | undefined = (id, handler) => {
+    return generateStringByOS({
+        handler: handler,
+        ...pathDescriptionMap[id],
+    })
 }
 
-export const getHistoryDescription: (id: BrowserId) => string | undefined = id => {
-    return generatePathDescription(pathDescriptionMap[id], 'History')
-}
-
-const pathDescriptionMap: { [key: string]: PathDescription } = {
+const pathDescriptionMap: { [key: string]: StringByOS } = {
     'chrome': {
-        win: 'C:\\Users\\Administrator\\AppData\\Local\\Google\\Chrome\\User Data\\Default',
-        mac: '/Users/xxx/Library/Application Support/Google/Chrome/Default',
+        win32: 'C:\\Users\\Administrator\\AppData\\Local\\Google\\Chrome\\User Data\\Default',
+        darwin: '/Users/xxx/Library/Application Support/Google/Chrome/Default',
         linux: '/home/xxx/.config/google-chrome/Default',
     },
     'edge': {
-        win: 'C:\\Users\\Administrator\\AppData\\Local\\Microsoft\\Edge\\User Data\\Default',
-        mac: '/Users/xxx/Library/Application Support/Microsoft Edge/Default',
+        win32: 'C:\\Users\\Administrator\\AppData\\Local\\Microsoft\\Edge\\User Data\\Default',
+        darwin: '/Users/xxx/Library/Application Support/Microsoft Edge/Default',
         linux: '/home/lanyuanxiaoyao/.config/microsoft-edge-beta/Default. Linux 为 beta 版本, 正式版需要去掉路径中的「beta」',
     },
     'qq': {
-        win: 'C:\\Users\\Administrator\\AppData\\Local\\Tencent\\QQBrowser\\User Data\\Default',
+        win32: 'C:\\Users\\Administrator\\AppData\\Local\\Tencent\\QQBrowser\\User Data\\Default',
     },
     'maxthon': {
-        win: 'C:\\Users\\Administrator\\AppData\\Local\\Maxthon\\Application\\User Data\\Default',
+        win32: 'C:\\Users\\Administrator\\AppData\\Local\\Maxthon\\Application\\User Data\\Default',
     },
     'opera': {
-        win: 'C:\\Users\\Administrator\\AppData\\Roaming\\Opera Software\\Opera Stable',
-        mac: '/Users/xxx/Library/Application Support/com.operasoftware.Opera',
+        win32: 'C:\\Users\\Administrator\\AppData\\Roaming\\Opera Software\\Opera Stable',
+        darwin: '/Users/xxx/Library/Application Support/com.operasoftware.Opera',
         linux: '/home/xxx/.config/opera',
     },
     'brave': {
-        win: 'C:\\Users\\Administrator\\AppData\\Local\\BraveSoftware\\Brave-Browser\\User Data\\Default',
-        mac: '/Users/xxx/Library/Application Support/BraveSoftware/Brave-Browser/Default',
+        win32: 'C:\\Users\\Administrator\\AppData\\Local\\BraveSoftware\\Brave-Browser\\User Data\\Default',
+        darwin: '/Users/xxx/Library/Application Support/BraveSoftware/Brave-Browser/Default',
         linux: '/home/xxx/.config/BraveSoftware/Brave-Browser/Default',
     },
     'cent': {
-        win: 'C:\\Users\\Administrator\\AppData\\Local\\CentBrowser\\User Data\\Default',
+        win32: 'C:\\Users\\Administrator\\AppData\\Local\\CentBrowser\\User Data\\Default',
     },
     'yandex': {
-        win: 'C:\\Users\\Administrator\\AppData\\Local\\Yandex\\YandexBrowser\\User Data\\Default',
-        mac: '/Users/xxx/Library/Application Support/Yandex/YandexBrowser/Default',
+        win32: 'C:\\Users\\Administrator\\AppData\\Local\\Yandex\\YandexBrowser\\User Data\\Default',
+        darwin: '/Users/xxx/Library/Application Support/Yandex/YandexBrowser/Default',
         linux: '/home/xxx/.config/yandex-browser-beta/Default. Linux 为 beta 版本, 正式版需要去掉路径中的「beta」',
     },
     'liebao': {
-        win: 'C:\\Users\\Administrator\\AppData\\Local\\liebao\\User Data\\Default',
+        win32: 'C:\\Users\\Administrator\\AppData\\Local\\liebao\\User Data\\Default',
     },
     'firefox': {
-        win: 'C:\\Users\\Administrator\\AppData\\Roaming\\Mozilla\\Firefox\\Profiles\\xxx.default-release',
-        mac: '/Users/xxx/Library/Application Support/Firefox/Profiles/xxx.default-release-xxx',
+        win32: 'C:\\Users\\Administrator\\AppData\\Roaming\\Mozilla\\Firefox\\Profiles\\xxx.default-release',
+        darwin: '/Users/xxx/Library/Application Support/Firefox/Profiles/xxx.default-release-xxx',
         linux: '/home/xxx/.mozilla/firefox/xxx.default-release',
     },
     'deepin': {
-        linux: '/home/xxx/.config/browser/Default'
-    }
+        linux: '/home/xxx/.config/browser/Default',
+    },
 }

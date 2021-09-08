@@ -12,7 +12,7 @@ import {
 import {readFile} from 'fs/promises'
 import {isEmpty, isNil, Url} from 'licia'
 import {parse} from 'path'
-import {existsOrNot} from '../../utils'
+import {existsOrNot, generateStringByOS} from '../../utils'
 import {Context} from '../../context'
 
 const VSCODE: string = 'vscode'
@@ -31,7 +31,13 @@ export class VscodeApplicationImpl extends ApplicationConfigAndExecutorImpl<Vsco
             VSCODE,
             [Platform.win32, Platform.darwin, Platform.linux],
             Group[GroupName.editor],
-            undefined,
+            `数据文件通常放在 ${generateStringByOS({
+                win32: 'C:\\Users\\Administrator\\AppData\\Roaming\\Code\\storage.json',
+                darwin: '/Users/xxx/Library/Application Support/Code/storage.json'
+            })}, 可执行程序通常放在 ${generateStringByOS({
+                win32: 'C:\\Users\\Administrator\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe',
+                darwin: '/Applications/Visual Studio Code.app/Contents/Resources/app/bin/code'
+            })}`,
             undefined,
             'storage.json',
         )

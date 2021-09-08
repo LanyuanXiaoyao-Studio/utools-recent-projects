@@ -1,6 +1,6 @@
 import {existsSync} from 'fs'
 import {Platform} from './types'
-import {isEmpty, isNil, Url} from 'licia'
+import {isEmpty, isFn, isNil, Url} from 'licia'
 
 /**
  * 字符比较, 用于在 array.sort() 使用
@@ -76,4 +76,36 @@ export const generateParents: (parent: any, children: Array<any>, parentsName: s
         }
     })
     return array
+}
+
+export interface StringByOS {
+    readonly handler?: (text: string) => string
+    readonly win32?: string
+    readonly darwin?: string
+    readonly linux?: string
+    readonly unknown?: string
+}
+
+export const generateStringByOS: (data: StringByOS) => string = data => {
+    let platform = platformFromUtools()
+    let text = ''
+    switch (platform) {
+        case Platform.win32:
+            text = data?.win32 ?? ''
+            break
+        case Platform.darwin:
+            text = data?.darwin ?? ''
+            break
+        case Platform.linux:
+            text = data?.linux ?? ''
+            break
+        case Platform.unknown:
+            text = data?.unknown ?? ''
+            break
+    }
+    if (isNil(data?.handler) || !isFn(data.handler)) {
+        return text
+    } else {
+        return data.handler!(text)
+    }
 }

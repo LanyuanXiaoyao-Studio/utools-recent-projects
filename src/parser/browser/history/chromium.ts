@@ -1,10 +1,9 @@
 import {ApplicationImpl, DatetimeProjectItemImpl, ElectronExecutor, Group, GroupName, Platform} from '../../../types'
-import {BrowserId, getBookmarkDescription, getHistoryDescription, SqliteBrowserApplicationImpl} from '../index'
+import {BrowserId, getDescription, SqliteBrowserApplicationImpl} from '../index'
 import {execFileSync} from 'child_process'
 import {isEmpty} from 'licia'
 import {removeAllQueryFromUrl} from '../../../utils'
 import {Context} from '../../../context'
-import {ChromiumBookmarkApplicationImpl} from '../bookmark/chromium'
 
 const CHROMIUM: string = 'chromium'
 
@@ -45,16 +44,17 @@ export class ChromiumHistoryApplicationImpl extends SqliteBrowserApplicationImpl
 }
 
 const configName = 'History'
+const handler = text => `${configName} 文件通常放在 ${text}/${configName}`
 export const applications: Array<ApplicationImpl<ChromiumHistoryProjectItemImpl>> = [
     new ChromiumHistoryApplicationImpl('chromium', 'Chromium', CHROMIUM, undefined, undefined, undefined, configName),
-    new ChromiumHistoryApplicationImpl('chrome', 'Google Chrome', CHROMIUM, undefined, getHistoryDescription('chrome'), undefined, configName),
-    new ChromiumHistoryApplicationImpl('edge', 'Microsoft Edge', CHROMIUM, undefined, getHistoryDescription('edge'), undefined, configName),
-    new ChromiumHistoryApplicationImpl('qq', 'QQ Browser', CHROMIUM, [Platform.win32], getHistoryDescription('qq'), undefined, configName),
-    new ChromiumHistoryApplicationImpl('maxthon', 'Maxthon (傲游)', CHROMIUM, [Platform.win32], getHistoryDescription('maxthon'), undefined, configName),
-    new ChromiumHistoryApplicationImpl('opera', 'Opera', CHROMIUM, undefined, getHistoryDescription('opera'), undefined, configName),
-    new ChromiumHistoryApplicationImpl('brave', 'Brave', CHROMIUM, undefined, getHistoryDescription('brave'), undefined, configName),
-    new ChromiumHistoryApplicationImpl('cent', 'CentBrowser (百分)', CHROMIUM, [Platform.win32], getHistoryDescription('cent'), undefined, configName),
-    new ChromiumHistoryApplicationImpl('yandex', 'Yandex', CHROMIUM, undefined, getHistoryDescription('yandex'), undefined, configName),
-    new ChromiumHistoryApplicationImpl('liebao', '猎豹浏览器', CHROMIUM, [Platform.win32], getHistoryDescription('liebao'), undefined, configName),
-    new ChromiumHistoryApplicationImpl('deepin', '深度浏览器', CHROMIUM, [Platform.linux], getBookmarkDescription('deepin'), undefined, configName),
+    new ChromiumHistoryApplicationImpl('chrome', 'Google Chrome', CHROMIUM, undefined, getDescription('chrome', handler), undefined, configName),
+    new ChromiumHistoryApplicationImpl('edge', 'Microsoft Edge', CHROMIUM, undefined, getDescription('edge', handler), undefined, configName),
+    new ChromiumHistoryApplicationImpl('qq', 'QQ Browser', CHROMIUM, [Platform.win32], getDescription('qq', handler), undefined, configName),
+    new ChromiumHistoryApplicationImpl('maxthon', 'Maxthon (傲游)', CHROMIUM, [Platform.win32], getDescription('maxthon', handler), undefined, configName),
+    new ChromiumHistoryApplicationImpl('opera', 'Opera', CHROMIUM, undefined, getDescription('opera', handler), undefined, configName),
+    new ChromiumHistoryApplicationImpl('brave', 'Brave', CHROMIUM, undefined, getDescription('brave', handler), undefined, configName),
+    new ChromiumHistoryApplicationImpl('cent', 'CentBrowser (百分)', CHROMIUM, [Platform.win32], getDescription('cent', handler), undefined, configName),
+    new ChromiumHistoryApplicationImpl('yandex', 'Yandex', CHROMIUM, undefined, getDescription('yandex', handler), undefined, configName),
+    new ChromiumHistoryApplicationImpl('liebao', '猎豹浏览器', CHROMIUM, [Platform.win32], getDescription('liebao', handler), undefined, configName),
+    new ChromiumHistoryApplicationImpl('deepin', '深度浏览器', CHROMIUM, [Platform.linux], getDescription('deepin', handler), undefined, configName),
 ]

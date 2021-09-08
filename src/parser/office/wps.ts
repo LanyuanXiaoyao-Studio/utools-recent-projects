@@ -9,7 +9,7 @@ import {
 } from '../../types'
 import {isEmpty, isNil} from 'licia'
 import {parse} from 'path'
-import {existsOrNot} from '../../utils'
+import {existsOrNot, generateStringByOS} from '../../utils'
 import {Context} from '../../context'
 import plistParser = require('bplist-parser')
 
@@ -26,9 +26,13 @@ export class WpsMacInternationalApplicationImpl extends ApplicationConfigImpl<Wp
             WPS_MAC_INTERNATION,
             [Platform.darwin],
             Group[GroupName.office],
-            'com.kingsoft.plist',
+            `刚关闭的文档没有出现在历史记录里是因为配置文件还没有更新, 但 wps 更新配置文件的时机不明, 通常是等一会儿.
+` + generateStringByOS({
+                handler: text => `配置文件通常放在 ${text}`,
+                darwin: '/Users/xxx/Library/Containers/com.kingsoft.wpsoffice.mac.global/Data/Library/Preferences/com.kingsoft.plist',
+            }),
             true,
-            '刚关闭的文档没有出现在历史记录里是因为配置文件还没有更新, 但 wps 更新配置文件的时机不明, 通常是等一会儿',
+            'com.kingsoft.plist',
         )
     }
 

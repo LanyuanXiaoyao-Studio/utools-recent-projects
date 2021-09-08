@@ -12,7 +12,7 @@ import {
 import {readFile} from 'fs/promises'
 import {isNil} from 'licia'
 import {parse} from 'path'
-import {existsOrNot} from '../../utils'
+import {existsOrNot, generateStringByOS} from '../../utils'
 import {Context} from '../../context'
 
 const SUBLIME: string = 'sublime'
@@ -30,7 +30,13 @@ export class SublimeApplicationImpl extends ApplicationConfigAndExecutorImpl<Sub
             SUBLIME,
             [Platform.win32, Platform.darwin, Platform.linux],
             Group[GroupName.editor],
-            undefined,
+            `数据文件通常放在 ${generateStringByOS({
+                win32: 'C:\\Users\\Administrator\\AppData\\Roaming\\Sublime Text 3\\Local\\Session.sublime_session',
+                darwin: '/Users/xxx/Library/Application Support/Sublime Text/Local/Session.sublime_session'
+            })}, 可执行程序通常放在 ${generateStringByOS({
+                win32: 'C:\\Program Files\\Sublime Text\\subl.exe',
+                darwin: '/Users/xxx/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl'
+            })} (注意 Sublime Text 单独提供了命令行程序, 不是程序本体)`,
             undefined,
             'Session.sublime_session',
         )
