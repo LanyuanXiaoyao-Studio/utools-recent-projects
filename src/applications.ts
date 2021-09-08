@@ -1,6 +1,7 @@
 import {Application, ProjectItemImpl} from './types'
 import {applications as JetBrainsApplications} from './parser/ide/jetBrains'
 import {applications as VscodeApplications} from './parser/editor/vscode'
+import {applications as TyporaApplications} from './parser/editor/typora'
 import {applications as SublimeApplications} from './parser/editor/sublime'
 import {applications as WpsApplications} from './parser/office/wps'
 import {applications as VsStudioApplications} from './parser/ide/vsStudio'
@@ -16,6 +17,7 @@ import {applications as SafariBookmarkApplications} from './parser/browser/bookm
 export const applications: Array<Application<ProjectItemImpl>> = [
     ...JetBrainsApplications,
     ...VscodeApplications,
+    ...TyporaApplications,
     ...SublimeApplications,
     ...WpsApplications,
     ...VsStudioApplications,
@@ -32,6 +34,8 @@ export const applications: Array<Application<ProjectItemImpl>> = [
 export const jetBrainsApplications: Array<Application<ProjectItemImpl>> = [...JetBrainsApplications]
 
 export const vscodeApplications: Array<Application<ProjectItemImpl>> = [...VscodeApplications]
+
+export const typoraApplications: Array<Application<ProjectItemImpl>> = [...TyporaApplications]
 
 export const sublimeApplications: Array<Application<ProjectItemImpl>> = [...SublimeApplications]
 

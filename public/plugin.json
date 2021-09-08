@@ -85,6 +85,15 @@
       ]
     },
     {
+      "code"   : "typora-project",
+      "explain": "快速打开我的 Typora 项目",
+      "icon"   : "icon/typora.png",
+      "cmds"   : [
+        "Typora Projects",
+        "我的 Typora 项目"
+      ]
+    },
+    {
       "code"   : "sublime-project",
       "explain": "快速打开我的 Sublime Text 项目",
       "icon"   : "icon/sublime.png",

@@ -1,12 +1,4 @@
-import {
-    Action,
-    Application,
-    Callback,
-    DatetimeProjectItemImpl,
-    NoExecutor,
-    ProjectArgsImpl,
-    ProjectItemImpl,
-} from './types'
+import {Action, Callback, DatetimeProjectItemImpl, NoExecutor, ProjectArgsImpl, ProjectItemImpl} from './types'
 import {isEmpty, isNil} from 'licia'
 import {SettingUIFeature} from './setting/setting'
 import {
@@ -15,6 +7,7 @@ import {
     jetBrainsApplications,
     officeApplications,
     sublimeApplications,
+    typoraApplications,
     vscodeApplications,
     vsStudioApplications,
     wpsApplications,
@@ -116,6 +109,10 @@ export const build: any = {
     },
     'vscode-project': {
         args: new AllProjectArgs(vscodeApplications),
+        mode: 'list',
+    },
+    'typora-project': {
+        args: new AllProjectSortByTimeArgs(typoraApplications),
         mode: 'list',
     },
     'sublime-project': {

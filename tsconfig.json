@@ -11,9 +11,13 @@
     "removeComments"    : true,
     "types"             : [
       "@types/node",
+      "@types/jest",
       "utools-api-types"
     ],
     "jsx"               : "react",
     "jsxFactory"        : "Nano.h"
-  }
+  },
+  "exclude"        : [
+    "test"
+  ]
 }
