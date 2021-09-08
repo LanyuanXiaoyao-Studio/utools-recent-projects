@@ -85,16 +85,26 @@
       ]
     },
     {
-      "code"   : "typora-project",
-      "explain": "快速打开我的 Typora 项目",
-      "icon"   : "icon/typora.png",
+      "code"    : "typora-project",
+      "explain" : "快速打开我的 Typora 项目",
+      "icon"    : "icon/typora.png",
       "platform": [
         "win32",
         "linux"
       ],
-      "cmds"   : [
+      "cmds"    : [
         "Typora Projects",
-        "我的 Typora 项目"
+        "我的 Typora 项目",
+        {
+          "type" : "window",
+          "label": "打开其他 Typora 项目",
+          "match": {
+            "app": [
+              "Typora.exe",
+              "Typora"
+            ]
+          }
+        }
       ]
     },
     {
@@ -211,7 +221,34 @@
       "icon"   : "icon/browser.png",
       "cmds"   : [
         "Browser History",
-        "浏览器历史记录"
+        "浏览器历史记录",
+        {
+          "type" : "window",
+          "label": "打开其他浏览器历史记录",
+          "match": {
+            "app": [
+              "chrome.exe",
+              "msedge.exe",
+              "QQBrowser.exe",
+              "Maxthon.exe",
+              "opera.exe",
+              "brave.exe",
+              "browser.exe",
+              "liebao.exe",
+              "firefox.exe",
+              "browser",
+              "firefox-bin",
+              "yandex_browser",
+              "brave",
+              "opera",
+              "chrome",
+              "msedge",
+              "com.google.Chrome",
+              "org.mozilla.firefox",
+              "com.apple.Safari"
+            ]
+          }
+        }
       ]
     },
     {
@@ -220,7 +257,34 @@
       "icon"   : "icon/browser.png",
       "cmds"   : [
         "Browser Bookmark",
-        "浏览器书签"
+        "浏览器书签",
+        {
+          "type" : "window",
+          "label": "打开其他浏览器书签",
+          "match": {
+            "app": [
+              "chrome.exe",
+              "msedge.exe",
+              "QQBrowser.exe",
+              "Maxthon.exe",
+              "opera.exe",
+              "brave.exe",
+              "browser.exe",
+              "liebao.exe",
+              "firefox.exe",
+              "browser",
+              "firefox-bin",
+              "yandex_browser",
+              "brave",
+              "opera",
+              "chrome",
+              "msedge",
+              "com.google.Chrome",
+              "org.mozilla.firefox",
+              "com.apple.Safari"
+            ]
+          }
+        }
       ]
     }
   ]
