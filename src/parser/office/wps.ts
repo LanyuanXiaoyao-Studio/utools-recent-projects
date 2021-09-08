@@ -21,7 +21,7 @@ export class WpsMacInternationalApplicationImpl extends ApplicationConfigImpl<Wp
     constructor() {
         super(
             'wps-mac-internation',
-            'WPS Office Suite for Mac',
+            'WPS Office',
             'icon/wps-mac-internation.png',
             WPS_MAC_INTERNATION,
             [Platform.darwin],

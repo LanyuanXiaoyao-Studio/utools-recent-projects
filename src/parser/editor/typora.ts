@@ -27,8 +27,10 @@ export class TyporaApplicationImpl extends ApplicationConfigAndExecutorImpl<Typo
             Group[GroupName.editor],
             `数据文件通常放在 ${generateStringByOS({
                 win32: 'C:\\Users\\Administrator\\AppData\\Roaming\\Typora\\history.data',
+                linux: '/home/xxx/.config/Typora/history.data',
             })}, 可执行程序通常放在 ${generateStringByOS({
                 win32: 'C:\\Program Files\\Typora\\Typora.exe',
+                linux: '(不同发行版安装路径差异较大, 自行使用 which 命令找到 typora 命令所在路径作为可执行文件路径)',
             })}`,
             undefined,
             'history.data',

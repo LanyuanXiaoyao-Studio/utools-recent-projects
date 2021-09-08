@@ -78,7 +78,8 @@
           "match": {
             "app": [
               "Visual Studio Code.app",
-              "Code.exe"
+              "Code.exe",
+              "code"
             ]
           }
         }
@@ -121,7 +122,8 @@
           "match": {
             "app": [
               "Sublime Text.app",
-              "sublime_text.exe"
+              "sublime_text.exe",
+              "sublime_text"
             ]
           }
         }
