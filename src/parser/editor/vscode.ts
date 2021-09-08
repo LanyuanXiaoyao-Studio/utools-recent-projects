@@ -102,15 +102,13 @@ export class VscodeApplicationImpl extends ApplicationConfigAndExecutorImpl<Vsco
 
     override generateSettingItems(nativeId: string): Array<SettingItem> {
         let superSettings = super.generateSettingItems(nativeId)
-        return [
-            new SwitchSettingItem(
-                this.openInNewId(nativeId),
-                '新窗口打开',
-                this.openInNew,
-                '如果打开的是文件夹, 无论是否打开该选项, 都将在新窗口打开',
-            ),
-            ...superSettings,
-        ]
+        superSettings.splice(1, 0, new SwitchSettingItem(
+            this.openInNewId(nativeId),
+            '新窗口打开',
+            this.openInNew,
+            '如果打开的是文件夹, 无论是否打开该选项, 都将在新窗口打开',
+        ))
+        return superSettings
     }
 }
 

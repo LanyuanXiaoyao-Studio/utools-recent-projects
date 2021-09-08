@@ -32,10 +32,10 @@ export class SublimeApplicationImpl extends ApplicationConfigAndExecutorImpl<Sub
             Group[GroupName.editor],
             `数据文件通常放在 ${generateStringByOS({
                 win32: 'C:\\Users\\Administrator\\AppData\\Roaming\\Sublime Text 3\\Local\\Session.sublime_session',
-                darwin: '/Users/xxx/Library/Application Support/Sublime Text/Local/Session.sublime_session'
+                darwin: '/Users/xxx/Library/Application Support/Sublime Text/Local/Session.sublime_session',
             })}, 可执行程序通常放在 ${generateStringByOS({
                 win32: 'C:\\Program Files\\Sublime Text\\subl.exe',
-                darwin: '/Users/xxx/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl'
+                darwin: '/Users/xxx/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl',
             })} (注意 Sublime Text 单独提供了命令行程序, 不是程序本体)`,
             undefined,
             'Session.sublime_session',
@@ -104,15 +104,13 @@ export class SublimeApplicationImpl extends ApplicationConfigAndExecutorImpl<Sub
 
     override generateSettingItems(nativeId: string): Array<SettingItem> {
         let superSettings = super.generateSettingItems(nativeId)
-        return [
-            new SwitchSettingItem(
-                this.openInNewId(nativeId),
-                '新窗口打开',
-                this.openInNew,
-                '如果打开的是文件夹, 无论是否打开该选项, 都将在新窗口打开',
-            ),
-            ...superSettings,
-        ]
+        superSettings.splice(1, 0, new SwitchSettingItem(
+            this.openInNewId(nativeId),
+            '新窗口打开',
+            this.openInNew,
+            '如果打开的是文件夹, 无论是否打开该选项, 都将在新窗口打开',
+        ))
+        return superSettings
     }
 }
 
