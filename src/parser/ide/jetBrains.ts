@@ -4,13 +4,13 @@ import {
     DatetimeProjectItemImpl,
     Group,
     GroupName,
+    NohupShellExecutor,
     Platform,
-    ShellExecutor,
 } from '../../types'
 import {readFile} from 'fs/promises'
 import {isEmpty, isNil} from 'licia'
 import {parse} from 'path'
-import {existsOrNot, platformFromUtools} from '../../utils'
+import {existsOrNot} from '../../utils'
 import $ = require('licia/$')
 
 const JETBRAINS: string = 'jetbrains'
@@ -49,7 +49,7 @@ export class JetBrainsApplicationImpl extends ApplicationConfigAndExecutorImpl<J
                         icon: icon,
                         searchKey: parseObj.name,
                         exists: exists,
-                        command: new ShellExecutor(this.generateNohupCommand(path)),
+                        command: new NohupShellExecutor(this.executor, path),
                         datetime: parseInt(`${datetime}`),
                     })
                 }
@@ -57,19 +57,6 @@ export class JetBrainsApplicationImpl extends ApplicationConfigAndExecutorImpl<J
             $(`#${this.id}`).remove()
         }
         return items
-    }
-
-    private generateNohupCommand: (path: string) => string = (path) => {
-        let platform: Platform = platformFromUtools()
-        switch (platform) {
-            case Platform.darwin:
-            case Platform.linux:
-                return `nohup "${this.executor}" "${path}" > /dev/null 2>&1 &`
-            case Platform.win32:
-                return `powershell.exe -command "Start-Process -FilePath '${this.executor}' -ArgumentList '${path}'"`
-            case Platform.unknown:
-                return ``
-        }
     }
 }
 
