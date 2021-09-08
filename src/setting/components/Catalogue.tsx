@@ -52,6 +52,10 @@ export class Catalogue extends Component<CatalogueProps, CatalogueState> {
         utools.shellOpenExternal('https://yuanliao.info/d/3978')
     }
 
+    survey() {
+        utools.shellOpenExternal('https://docs.qq.com/form/page/DZFhlZXRSendzc3dR')
+    }
+
     home() {
         utools.shellOpenExternal('https://github.com/LanyuanXiaoyao-Studio/utools-recent-projects')
     }
@@ -101,6 +105,15 @@ export class Catalogue extends Component<CatalogueProps, CatalogueState> {
                         >
                             <i class="icon icon-link"/>
                             <b>源码主页</b>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a
+                            href="#"
+                            onclick={() => this.survey()}
+                        >
+                            <i class="icon icon-emoji"/>
+                            <b>适配更多软件</b>
                         </a>
                     </li>
                     <div class="divider"/>
