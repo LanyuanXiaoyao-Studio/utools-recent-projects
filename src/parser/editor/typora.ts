@@ -23,14 +23,12 @@ export class TyporaApplicationImpl extends ApplicationConfigAndExecutorImpl<Typo
             'Typora',
             'icon/typora.png',
             TYPORA,
-            [Platform.win32, Platform.darwin, Platform.linux],
+            [Platform.win32, Platform.linux],
             Group[GroupName.editor],
             `数据文件通常放在 ${generateStringByOS({
                 win32: 'C:\\Users\\Administrator\\AppData\\Roaming\\Typora\\history.data',
-                darwin: '/Users/xxx/Library/Application Support/Code/storage.json',
             })}, 可执行程序通常放在 ${generateStringByOS({
                 win32: 'C:\\Program Files\\Typora\\Typora.exe',
-                darwin: '/Applications/Visual Studio Code.app/Contents/Resources/app/bin/code',
             })}`,
             undefined,
             'history.data',

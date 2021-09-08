@@ -88,6 +88,10 @@
       "code"   : "typora-project",
       "explain": "快速打开我的 Typora 项目",
       "icon"   : "icon/typora.png",
+      "platform": [
+        "win32",
+        "linux"
+      ],
       "cmds"   : [
         "Typora Projects",
         "我的 Typora 项目"
