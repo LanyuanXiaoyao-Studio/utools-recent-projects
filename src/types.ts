@@ -67,7 +67,7 @@ export class NohupShellExecutor extends ShellExecutor {
                 super(`nohup "${executor}" "${path}" > /dev/null 2>&1 &`)
                 break
             case Platform.win32:
-                super('\"powershell.exe -command "Start-Process -FilePath \'' + executor + '\' -ArgumentList \'\\\`"' + path + '\\\`"\'"\"')
+                super(`powershell.exe command "Start-Process -FilePath '${executor}' -ArgumentList '"""${path}"""'"`)
                 break
             case Platform.unknown:
                 super('')
