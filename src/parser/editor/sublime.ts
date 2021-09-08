@@ -99,7 +99,7 @@ export class SublimeApplicationImpl extends ApplicationConfigAndExecutorImpl<Sub
 
     override update(nativeId: string) {
         super.update(nativeId)
-        this.openInNew = utools.dbStorage.getItem(this.openInNewId(nativeId))
+        this.openInNew = utools.dbStorage.getItem(this.openInNewId(nativeId)) ?? false
     }
 
     override generateSettingItems(nativeId: string): Array<SettingItem> {

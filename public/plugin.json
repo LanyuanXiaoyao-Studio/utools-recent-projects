@@ -243,9 +243,9 @@
               "opera",
               "chrome",
               "msedge",
-              "com.google.Chrome",
-              "org.mozilla.firefox",
-              "com.apple.Safari"
+              "Google Chrome.app",
+              "Firefox.app",
+              "Safari.app"
             ]
           }
         }
@@ -279,9 +279,9 @@
               "opera",
               "chrome",
               "msedge",
-              "com.google.Chrome",
-              "org.mozilla.firefox",
-              "com.apple.Safari"
+              "Google Chrome.app",
+              "Firefox.app",
+              "Safari.app"
             ]
           }
         }

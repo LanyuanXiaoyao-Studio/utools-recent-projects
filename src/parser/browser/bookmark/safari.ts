@@ -71,7 +71,7 @@ export class SafariBookmarkApplicationImpl extends BrowserApplicationImpl<Safari
     }
 
     override generateSettingItems(nativeId: string): Array<SettingItem> {
-        return []
+        return [this.enabledSettingItem(nativeId)]
     }
 
     override isFinishConfig(): ApplicationConfigState {

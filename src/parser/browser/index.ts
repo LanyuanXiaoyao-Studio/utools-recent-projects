@@ -14,11 +14,8 @@ export abstract class BrowserApplicationImpl<P extends ProjectItemImpl> extends 
 export abstract class SqliteBrowserApplicationImpl<P extends ProjectItemImpl> extends BrowserApplicationImpl<P> {
     override generateSettingItems(nativeId: string): Array<SettingItem> {
         return [
-            new InputSettingItem(
-                this.configId(nativeId),
-                `设置 ${this.name} 「${this.configFilename}」文件路径`,
-                this.config,
-            ),
+            this.enabledSettingItem(nativeId),
+            this.configSettingItem(nativeId),
             new InputSettingItem(
                 this.executorId(nativeId),
                 `设置 Sqlite3 可执行程序路径`,

@@ -240,7 +240,7 @@ export abstract class ProjectArgsImpl extends ArgsImpl<ProjectItemImpl> {
         for (let app of this.applications) {
             let finish = app.isFinishConfig()
             // 平台不适配的, 配置没有填完的, 都要被过滤掉
-            if (finish === ApplicationConfigState.done && contain(app.platform, platform)) {
+            if (app.enabled && finish === ApplicationConfigState.done && contain(app.platform, platform)) {
                 (await app.generateProjectItems(context))
                     .filter(p => context.enableFilterNonExistsFiles ? p.exists : true)
                     .forEach(p => this.projectItemCache.push(p))
@@ -376,6 +376,7 @@ export interface Application<P extends ProjectItemImpl> {
     readonly group: string
     readonly description: string
     readonly beta: boolean
+    enabled: boolean
     update: (nativeId: string) => void
     generateSettingItems: (nativeId: string) => Array<SettingItem>
     generateProjectItems: (context: Context) => Promise<Array<P>>
@@ -395,6 +396,7 @@ export abstract class ApplicationImpl<P extends ProjectItemImpl> implements Appl
     readonly group: string
     readonly description: string
     readonly beta: boolean
+    enabled: boolean = true
 
     protected constructor(id: string, name: string, icon: string, type: string, platform: Array<Platform>, group: string = 'default', description: string = '', beta: boolean = false) {
         this.id = id
@@ -407,10 +409,27 @@ export abstract class ApplicationImpl<P extends ProjectItemImpl> implements Appl
         this.beta = beta
     }
 
-    update(nativeId: string) {}
+    update(nativeId: string) {
+        this.enabled = utools.dbStorage.getItem(this.enabledId(nativeId)) ?? true
+    }
+
+    enabledId(nativeId: string): string {
+        return `${nativeId}/${this.id}-enabled`
+    }
+
+    enabledSettingItem(nativeId: string): SettingItem {
+        return new SwitchSettingItem(
+            this.enabledId(nativeId),
+            '是否启用该应用',
+            this.enabled,
+            '关闭这个选项将如同没有配置这个应用适配一样',
+        )
+    }
 
     generateSettingItems(nativeId: string): Array<SettingItem> {
-        return []
+        return [
+            this.enabledSettingItem(nativeId),
+        ]
     }
 
     abstract generateProjectItems(context: Context): Promise<Array<P>>
@@ -437,22 +456,27 @@ export abstract class ApplicationConfigImpl<P extends ProjectItemImpl> extends A
         this.configFilename = configFilename
     }
 
+    override update(nativeId: string) {
+        super.update(nativeId)
+        this.config = utools.dbStorage.getItem(this.configId(nativeId)) ?? ''
+    }
+
     configId(nativeId: string): string {
         return `${nativeId}/${this.id}-config`
     }
 
-    override update(nativeId: string) {
-        super.update(nativeId)
-        this.config = utools.dbStorage.getItem(this.configId(nativeId))
+    configSettingItem(nativeId: string): SettingItem {
+        return new InputSettingItem(
+            this.configId(nativeId),
+            `设置 ${this.name} 「${this.configFilename}」文件路径`,
+            this.config,
+        )
     }
 
     override generateSettingItems(nativeId: string): Array<SettingItem> {
         return [
-            new InputSettingItem(
-                this.configId(nativeId),
-                `设置 ${this.name} 「${this.configFilename}」文件路径`,
-                this.config,
-            ),
+            ...super.generateSettingItems(nativeId),
+            this.configSettingItem(nativeId),
         ]
     }
 
@@ -470,23 +494,27 @@ export abstract class ApplicationConfigImpl<P extends ProjectItemImpl> extends A
 export abstract class ApplicationConfigAndExecutorImpl<P extends ProjectItemImpl> extends ApplicationConfigImpl<P> {
     executor: string = ''
 
+    override update(nativeId: string) {
+        super.update(nativeId)
+        this.executor = utools.dbStorage.getItem(this.executorId(nativeId)) ?? ''
+    }
+
     executorId(nativeId: string): string {
         return `${nativeId}/${this.id}-executor`
     }
 
-    override update(nativeId: string) {
-        super.update(nativeId)
-        this.executor = utools.dbStorage.getItem(this.executorId(nativeId))
+    executorSettingItem(nativeId: string): SettingItem {
+        return new InputSettingItem(
+            this.executorId(nativeId),
+            `设置 ${this.name} 可执行程序路径`,
+            this.executor,
+        )
     }
 
     override generateSettingItems(nativeId: string): Array<SettingItem> {
         return [
             ...super.generateSettingItems(nativeId),
-            new InputSettingItem(
-                this.executorId(nativeId),
-                `设置 ${this.name} 可执行程序路径`,
-                this.executor,
-            ),
+            this.executorSettingItem(nativeId),
         ]
     }
 
