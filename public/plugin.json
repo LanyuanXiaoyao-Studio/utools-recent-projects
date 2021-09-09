@@ -3,7 +3,7 @@
   "author"       : "lanyuanxiaoyao",
   "homepage"     : "http://lanyuanxiaoyao.com",
   "description"  : "Kotlin test.",
-  "version"      : "1.1.1",
+  "version"      : "1.1.2",
   "logo"         : "logo.png",
   "preload"      : "preload.js",
   "pluginSetting": {
@@ -287,6 +287,16 @@
             ]
           }
         }
+      ]
+    },
+    {
+      "code"   : "libre-project",
+      "explain": "快速打开我的 LibreOffice 项目",
+      "icon"   : "icon/libreoffice.png",
+      "cmds"   : [
+        "office",
+        "LibreOffice Projects",
+        "我的 LibreOffice 项目"
       ]
     }
   ]

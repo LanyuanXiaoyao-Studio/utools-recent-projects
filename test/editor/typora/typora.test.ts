@@ -1,5 +1,5 @@
-import {TyporaApplicationImpl} from '../../src/parser/editor/typora'
-import {Context} from '../../src/context'
+import {TyporaApplicationImpl} from '../../../src/parser/editor/typora'
+import {Context} from '../../../src/context'
 
 test('get project items', async () => {
     let app = new TyporaApplicationImpl()

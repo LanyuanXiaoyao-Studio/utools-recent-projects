@@ -5,6 +5,7 @@ import {
     browserBookmarkApplications,
     browserHistoryApplications,
     jetBrainsApplications,
+    libreOfficeApplications,
     officeApplications,
     sublimeApplications,
     typoraApplications,
@@ -141,6 +142,10 @@ export const build: any = {
     },
     'browser-bookmark-project': {
         args: new AllProjectSortByTitleArgs(browserBookmarkApplications),
+        mode: 'list',
+    },
+    'libre-project': {
+        args: new AllProjectArgs(libreOfficeApplications),
         mode: 'list',
     },
 }

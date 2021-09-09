@@ -13,6 +13,7 @@ import {applications as SafariHistoryApplications} from './parser/browser/histor
 import {applications as FirefoxBookmarkApplications} from './parser/browser/bookmark/firefox'
 import {applications as ChromiumBookmarkApplications} from './parser/browser/bookmark/chromium'
 import {applications as SafariBookmarkApplications} from './parser/browser/bookmark/safari'
+import {applications as LibreOfficeApplications} from './parser/office/libre'
 
 export const applications: Array<Application<ProjectItemImpl>> = [
     ...JetBrainsApplications,
@@ -29,6 +30,7 @@ export const applications: Array<Application<ProjectItemImpl>> = [
     ...FirefoxBookmarkApplications,
     ...SafariBookmarkApplications,
     ...ChromiumBookmarkApplications,
+    ...LibreOfficeApplications,
 ]
 
 export const jetBrainsApplications: Array<Application<ProjectItemImpl>> = [...JetBrainsApplications]
@@ -46,6 +48,8 @@ export const vsStudioApplications: Array<Application<ProjectItemImpl>> = [...VsS
 export const xcodeApplications: Array<Application<ProjectItemImpl>> = [...XcodeApplications]
 
 export const officeApplications: Array<Application<ProjectItemImpl>> = [...OfficeApplications]
+
+export const libreOfficeApplications: Array<Application<ProjectItemImpl>> = [...LibreOfficeApplications]
 
 export const browserHistoryApplications: Array<Application<ProjectItemImpl>> = [
     ...FirefoxHistoryApplications,
