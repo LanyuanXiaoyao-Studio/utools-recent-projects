@@ -240,7 +240,7 @@ export abstract class ProjectArgsImpl extends ArgsImpl<ProjectItemImpl> {
         for (let app of this.applications) {
             let finish = app.isFinishConfig()
             // 平台不适配的, 配置没有填完的, 都要被过滤掉
-            if (app.enabled && finish === ApplicationConfigState.done && contain(app.platform, platform)) {
+            if (app.enabled && contain(app.platform, platform) && finish === ApplicationConfigState.done) {
                 (await app.generateProjectItems(context))
                     .filter(p => context.enableFilterNonExistsFiles ? p.exists : true)
                     .forEach(p => this.projectItemCache.push(p))
