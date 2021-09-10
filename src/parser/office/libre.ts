@@ -7,16 +7,16 @@ import {
     Platform,
     UtoolsExecutor,
 } from '../../types'
-import { readFile } from 'fs/promises'
-import { isEmpty, isNil, Url } from 'licia'
-import { Context } from '../../context'
-import { existsOrNot } from '../../utils'
-import { parse } from 'path'
+import {readFile} from 'fs/promises'
+import {isEmpty, isNil, Url} from 'licia'
+import {Context} from '../../context'
+import {existsOrNot} from '../../utils'
+import {parse} from 'path'
 import $ = require('licia/$')
 
 const LIBRE: string = 'libre'
 
-export class LibreOfficeProjectItemImpl extends DatetimeProjectItemImpl { }
+export class LibreOfficeProjectItemImpl extends DatetimeProjectItemImpl {}
 
 export class LibreOfficeApplicationImpl extends ApplicationConfigImpl<LibreOfficeProjectItemImpl> {
     private isWindows: boolean = utools.isWindows()
