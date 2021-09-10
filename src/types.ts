@@ -102,6 +102,26 @@ export class ElectronExecutor implements Executor {
     }
 }
 
+export class UtoolsExecutor implements Executor {
+    readonly command: string
+
+    constructor(command: string) {
+        this.command = command
+    }
+
+    execute(): void {
+        if (isEmpty(this.command)) {
+            utools.showNotification('参数错误，请向作者反馈')
+            return
+        }
+        try {
+            utools.shellOpenExternal(this.command)
+        } catch (error: any) {
+            utools.showNotification(error?.message ?? '未知错误，请向作者反馈')
+        }
+    }
+}
+
 /**
  * 选项
  *

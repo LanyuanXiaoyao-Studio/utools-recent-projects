@@ -145,7 +145,7 @@ export const build: any = {
         mode: 'list',
     },
     'libre-project': {
-        args: new AllProjectArgs(libreOfficeApplications),
+        args: new AllProjectSortByTimeArgs(libreOfficeApplications),
         mode: 'list',
     },
 }
