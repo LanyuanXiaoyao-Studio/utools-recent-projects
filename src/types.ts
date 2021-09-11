@@ -251,10 +251,10 @@ export abstract class ProjectArgsImpl extends ArgsImpl<ProjectItemImpl> {
      *
      * 遍历应用配置, 调用配置里定义的获取历史记录的流程把所有历史记录都查出来, 汇集到缓存里
      *
-     * @param localId 本机识别码
+     * @param nativeId 本机识别码
      */
-    getProjectItems: (localId: string) => Promise<Array<ProjectItemImpl>> = async localId => {
-        this.updateApplications(localId)
+    getProjectItems: (nativeId: string) => Promise<Array<ProjectItemImpl>> = async nativeId => {
+        this.updateApplications(nativeId)
         let platform = platformFromUtools()
         let context = Context.get()
         for (let app of this.applications) {

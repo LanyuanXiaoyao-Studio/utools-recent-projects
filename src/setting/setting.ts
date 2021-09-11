@@ -3,7 +3,7 @@ import {ApplicationUI} from './Root'
 
 export class SettingUIArgsImpl implements Args<any> {
     enter(action: Action, callback: Callback<any>): void {
-        utools.setExpendHeight(480)
+        utools.setExpendHeight(520)
         let applicationUI = new ApplicationUI()
         applicationUI.render(document.documentElement)
     }

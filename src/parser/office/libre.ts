@@ -12,6 +12,7 @@ import {isEmpty, isNil, Url} from 'licia'
 import {Context} from '../../context'
 import {existsOrNot} from '../../utils'
 import {parse} from 'path'
+import {now} from 'licia'
 import $ = require('licia/$')
 
 const LIBRE: string = 'libre'
@@ -40,14 +41,14 @@ export class LibreOfficeApplicationImpl extends ApplicationConfigImpl<LibreOffic
         let buffer = await readFile(this.config)
         if (!isNil(buffer)) {
             let content = buffer.toString()
-            let now = new Date().getTime()
+            let timestamp = now()
             $('#root').append(`<div id=${this.id} style="display: none">${content}</div>`)
             $(`#${this.id} item[oor\\:path*="OrderList"]`).each((index, element) => {
                 let root = $(element)
                 let datetimeText = root.find('node').attr('oor:name')
                 let date = 0
                 if (!isEmpty(datetimeText)) {
-                    date = now - parseInt(datetimeText)
+                    date = timestamp - parseInt(datetimeText)
                 }
                 let path = root.find('node prop[oor\\:name="HistoryItemRef"] value').text()
                 let url = Url.parse(path)
