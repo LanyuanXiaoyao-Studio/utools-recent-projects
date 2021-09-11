@@ -45,7 +45,7 @@ export class ApplicationSettingCard extends Component<ApplicationSettingCardProp
                                     <div class="form-description">插件会如实显示历史记录内容, 如同软件本身一样, 但如果你希望插件替你将不存在的文件过滤掉, 那么可以考虑启用该选项</div>
                                 </div>
                                 <div class="col-1 flex-column-center">
-                                    <label class="form-switch float-right">
+                                    <label class="form-switch">
                                         {this.context.enableFilterNonExistsFiles
                                             ? <input
                                                 type="checkbox"
@@ -68,7 +68,7 @@ export class ApplicationSettingCard extends Component<ApplicationSettingCardProp
                                     <div class="form-description">启动该选项可以使用互联网提供的「api.clowntool.cn」来获取网站图标显示在结果里代替浏览器图标, 但该 API 较慢; 另由于需要将网址传到该 API, 隐私问题也最好考虑在内</div>
                                 </div>
                                 <div class="col-1 flex-column-center">
-                                    <label class="form-switch float-right">
+                                    <label class="form-switch">
                                         {this.context.enableGetFaviconFromNet
                                             ? <input
                                                 type="checkbox"
@@ -91,7 +91,7 @@ export class ApplicationSettingCard extends Component<ApplicationSettingCardProp
                                     <div class="form-description">启动该选项可以在文件型历史记录的结果里显示系统文件图标作为 Icon, 但这会影响一些性能, 在低性能的机器上不建议开启</div>
                                 </div>
                                 <div class="col-1 flex-column-center">
-                                    <label class="form-switch float-right">
+                                    <label class="form-switch">
                                         {this.context.enableGetFileIcon
                                             ? <input
                                                 type="checkbox"
@@ -114,7 +114,7 @@ export class ApplicationSettingCard extends Component<ApplicationSettingCardProp
                                     <div class="form-description">启动该选项可直接在路径框中输入路径而非使用文件选择器, 特殊情况可能会带来方便, 但也容易因为人为输入失误导致插件运行错误. (重启插件指完全退出插件后再次打开设置)</div>
                                 </div>
                                 <div class="col-1 flex-column-center">
-                                    <label class="form-switch float-right">
+                                    <label class="form-switch">
                                         {this.context.enableEditPathInputDirectly
                                             ? <input
                                                 type="checkbox"
