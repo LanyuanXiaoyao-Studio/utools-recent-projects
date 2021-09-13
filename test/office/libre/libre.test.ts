@@ -1,5 +1,5 @@
-import {LibreOfficeApplicationImpl} from '../../src/parser/office/libre'
-import {Context} from '../../src/context'
+import {LibreOfficeApplicationImpl} from '../../../src/parser/office/libre'
+import {Context} from '../../../src/context'
 
 test('get project items', async () => {
     document.body.innerHTML = '<div id="root"></div>'

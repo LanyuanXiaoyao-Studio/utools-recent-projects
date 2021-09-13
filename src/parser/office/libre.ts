@@ -1,11 +1,11 @@
 import {
-    ApplicationConfigImpl,
+    ApplicationConfigAndExecutorImpl,
     ApplicationImpl,
     DatetimeProjectItemImpl,
     Group,
     GroupName,
     Platform,
-    UtoolsExecutor,
+    ShellExecutor,
 } from '../../types'
 import {readFile} from 'fs/promises'
 import {isEmpty, isNil, Url} from 'licia'
@@ -19,7 +19,7 @@ const LIBRE: string = 'libre'
 
 export class LibreOfficeProjectItemImpl extends DatetimeProjectItemImpl {}
 
-export class LibreOfficeApplicationImpl extends ApplicationConfigImpl<LibreOfficeProjectItemImpl> {
+export class LibreOfficeApplicationImpl extends ApplicationConfigAndExecutorImpl<LibreOfficeProjectItemImpl> {
     private isWindows: boolean = utools.isWindows()
 
     constructor() {
@@ -62,6 +62,7 @@ export class LibreOfficeApplicationImpl extends ApplicationConfigImpl<LibreOffic
                     description: realPath,
                     icon: context.enableGetFileIcon ? utools.getFileIcon(realPath) : this.icon,
                 })
+                console.log(path)
                 items.push({
                     id: '',
                     title: name,
@@ -69,7 +70,7 @@ export class LibreOfficeApplicationImpl extends ApplicationConfigImpl<LibreOffic
                     icon: icon,
                     searchKey: realPath,
                     exists: exists,
-                    command: new UtoolsExecutor(path),
+                    command: new ShellExecutor(`"${this.executor}" "${path}"`),
                     datetime: date,
                 })
             })
