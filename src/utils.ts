@@ -1,6 +1,6 @@
 import {existsSync} from 'fs'
 import {Platform} from './types'
-import {isEmpty, isFn, isNil, Url} from 'licia'
+import {isEmpty, isFn, isNil, isUrl, Url} from 'licia'
 
 /**
  * 字符比较, 用于在 array.sort() 使用
@@ -42,8 +42,15 @@ export const platformFromUtools: () => Platform = () => {
 }
 
 export const removeAllQueryFromUrl: (url: string) => string = url => {
-    let parser = Url.parse(url)
-    return `${parser.protocol}//${parser.hostname}${isEmpty(parser.port) ? '' : `:${parser.port}`}`
+    try {
+        if (!isUrl(url)) {
+            return url
+        }
+        let parser = Url.parse(url)
+        return `${parser.protocol}//${parser.hostname}${isEmpty(parser.port) ? '' : `:${parser.port}`}`
+    } catch (error) {
+        return url
+    }
 }
 
 export const parseTimeFrom1604: (source: number) => number = source => {
