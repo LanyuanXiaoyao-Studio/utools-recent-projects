@@ -23,6 +23,7 @@ $packageJson=@"
       "bplist-parser"  : "^0.3.0",
       "licia"          : "^1.29.0",
       "nano-jsx"       : "^0.0.20",
+      "nanobar"        : "^0.4.2",
       "winreg"         : "^1.2.4"
   }
 }
@@ -50,6 +51,10 @@ Set-Location $temp
 
 Set-Location "$temp\node_modules\winreg"
 Remove-Item -Force -Recurse test,*.md,.npmignore,jsdoc.conf.json
+Set-Location $temp
+
+Set-Location "$temp\node_modules\nanobar"
+Remove-Item -Force -Recurse brand,demos,*.md,.npmignore,.eslintrc,bower.json,LICENSE
 Set-Location $temp
 
 Set-Location $current_path

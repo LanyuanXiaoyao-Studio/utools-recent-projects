@@ -24,6 +24,7 @@ packageJson='{
                   "bplist-parser": "^0.3.0",
                   "licia"        : "^1.29.0",
                   "nano-jsx"     : "^0.0.20",
+                  "nanobar"      : "^0.4.2",
                   "winreg"       : "^1.2.4"
                 }
               }'
@@ -50,6 +51,10 @@ cd $temp
 
 cd "${temp}/node_modules/winreg"
 rm -rf test *.md .npmignore jsdoc.conf.json
+cd $temp
+
+cd "${temp}/node_modules/nanobar"
+rm -rf brand demos *.md .npmignore .eslintrc bower.json LICENSE
 cd $temp
 
 cd $current_path

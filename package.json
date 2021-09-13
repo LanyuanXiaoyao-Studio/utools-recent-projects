@@ -27,6 +27,7 @@
     "bplist-parser": "^0.3.0",
     "licia": "^1.30.0",
     "nano-jsx": "^0.0.20",
+    "nanobar": "^0.4.2",
     "winreg": "^1.2.4"
   }
 }

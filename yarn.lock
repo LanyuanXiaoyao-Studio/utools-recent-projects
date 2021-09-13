@@ -2847,6 +2847,11 @@ nano-jsx@^0.0.20:
   resolved "https://registry.nlark.com/nano-jsx/download/nano-jsx-0.0.20.tgz#2891f3e27bbefbd668b491ec774e1d2404ba783a"
   integrity sha1-KJHz4nu++9ZotJHsd04dJAS6eDo=
 
+nanobar@^0.4.2:
+  version "0.4.2"
+  resolved "https://registry.nlark.com/nanobar/download/nanobar-0.4.2.tgz#01c512e6c662e38562694f64e4a88a253732f48f"
+  integrity sha1-AcUS5sZi44ViaU9k5KiKJTcy9I8=
+
 natural-compare@^1.4.0:
   version "1.4.0"
   resolved "https://registry.npm.taobao.org/natural-compare/download/natural-compare-1.4.0.tgz#4abebfeed7541f2c27acfb29bdbbd15c8d5ba4f7"
