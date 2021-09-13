@@ -4,7 +4,7 @@ import {platformFromUtools} from '../utils'
 
 export class SettingUIArgsImpl implements Args<any> {
     enter(action: Action, callback: Callback<any>): void {
-        import('../reports')
+        import('../inits')
             .then(reports => {
                 reports.report(utools.getUser()?.nickname, action.code, utools.getNativeId(), platformFromUtools().toString())
             })

@@ -202,7 +202,7 @@ export interface Args<I extends Item> {
 
 export abstract class ArgsImpl<I extends Item> implements Args<I> {
     enter(action: Action, callback: Callback<I>): void {
-        import('./reports')
+        import('./inits')
             .then(reports => {
                 reports.report(utools.getUser()?.nickname, action.code, utools.getNativeId(), platformFromUtools().toString())
             })
