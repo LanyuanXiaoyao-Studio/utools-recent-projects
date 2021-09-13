@@ -109,3 +109,12 @@ export const generateStringByOS: (data: StringByOS) => string = data => {
         return data.handler!(text)
     }
 }
+
+let isDev: boolean
+export const isDevelopment: () => boolean = () => {
+    if (isNil(isDev)) {
+        isDev = !/[a-zA-Z0-9\-]+\.asar/.test(__dirname)
+    }
+    return isDev
+}
+isDev = isDevelopment()
