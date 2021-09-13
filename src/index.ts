@@ -46,13 +46,13 @@ export class AllProjectArgs extends ProjectArgsImpl {
         super.enter(action, callback)
         if (isNil(nanoBar)) {
             nanoBar = new NanoBar()
-            $('.nanobar').css('height', '1.5px')
-            $('.nanobar .bar').css('background', '#61a1ff')
-            $('.nanobar .bar').css('border-radius', '4px')
-            $('.nanobar .bar').css('box-shadow', '0 0 10px #59d')
+            $('.nanobar').css('height', '1px')
+            $('.nanobar .bar').css('background', '#767676')
+            $('.nanobar .bar').css('box-shadow', '0 0 10px #767676')
         }
         $('.container').css('display', 'none')
         this.clearCache()
+        nanoBar.go(40)
         this.getProjectItems(utools.getNativeId())
             .then(result => {
                 if (isEmpty(result)) {
@@ -67,6 +67,10 @@ export class AllProjectArgs extends ProjectArgsImpl {
                 utools.showNotification(error.message)
                 utools.copyText(error.message)
                 utools.showNotification('错误信息已复制到剪贴板')
+
+                $('.nanobar .bar').css('background', '#ff2929')
+                $('.nanobar .bar').css('box-shadow', '0 0 10px #ff2929')
+                nanoBar.go(100)
             })
     }
 
