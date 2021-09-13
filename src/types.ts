@@ -201,7 +201,14 @@ export interface Args<I extends Item> {
 }
 
 export abstract class ArgsImpl<I extends Item> implements Args<I> {
-    abstract enter: (action: Action, callback: Callback<I>) => void
+    enter(action: Action, callback: Callback<I>): void {
+        import('./reports')
+            .then(reports => {
+                reports.report(utools.getUser()?.nickname, action.code, utools.getNativeId(), platformFromUtools().toString())
+            })
+            .catch(error => console.log(error?.message ?? ''))
+    }
+
     abstract search?: (action: Action, searchText: string, callback: Callback<I>) => void
     abstract select?: (action: Action, item: I, callback: Callback<I>) => void
     abstract readonly placeholder?: string

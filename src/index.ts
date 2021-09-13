@@ -39,7 +39,8 @@ const unSupportTips: ProjectItemImpl = {
 export class AllProjectArgs extends ProjectArgsImpl {
     placeholder = '通过项目名快速查找项目'
 
-    enter = (action: Action, callback: Callback<ProjectItemImpl>) => {
+    override enter(action: Action, callback: Callback<ProjectItemImpl>): void {
+        super.enter(action, callback)
         $('.container').css('display', 'none')
         this.clearCache()
         this.getProjectItems(utools.getNativeId())
