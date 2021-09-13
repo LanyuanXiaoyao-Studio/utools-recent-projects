@@ -15,6 +15,7 @@ import {
     xcodeApplications,
 } from './applications'
 import $ = require('licia/$')
+import NanoBar = require('nanobar')
 
 const emptyTips: ProjectItemImpl = {
     id: 'cc1b114e-5d1a-40df-b117-8c2cd7ddffa4',
@@ -36,11 +37,20 @@ const unSupportTips: ProjectItemImpl = {
     command: new NoExecutor(),
 }
 
+let nanoBar
+
 export class AllProjectArgs extends ProjectArgsImpl {
     placeholder = '通过项目名快速查找项目'
 
     override enter(action: Action, callback: Callback<ProjectItemImpl>): void {
         super.enter(action, callback)
+        if (isNil(nanoBar)) {
+            nanoBar = new NanoBar()
+            $('.nanobar').css('height', '1.5px')
+            $('.nanobar .bar').css('background', '#61a1ff')
+            $('.nanobar .bar').css('border-radius', '4px')
+            $('.nanobar .bar').css('box-shadow', '0 0 10px #59d')
+        }
         $('.container').css('display', 'none')
         this.clearCache()
         this.getProjectItems(utools.getNativeId())
@@ -50,6 +60,7 @@ export class AllProjectArgs extends ProjectArgsImpl {
                 } else {
                     callback(result)
                 }
+                nanoBar.go(100)
             })
             .catch(error => {
                 console.log(error)
