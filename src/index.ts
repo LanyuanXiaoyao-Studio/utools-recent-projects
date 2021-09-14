@@ -96,7 +96,7 @@ export class AllProjectArgs extends ProjectArgsImpl {
             utools.showNotification('文件不存在')
             return
         }
-        utools.showNotification(`正在打开文件: ${item.title}`)
+        utools.showNotification(`正在打开项目: ${item.title}`)
         item.command.execute()
     }
 }
