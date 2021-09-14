@@ -33,6 +33,7 @@
   - WPS Office International for mac
   - Office 2019 (Windows)
   - Office 2019 (macOS)
+  - LibreOffice
 
 源码地址
 Github https://github.com/LanyuanXiaoyao-Studio/utools-recent-projects
