@@ -54,7 +54,7 @@ Remove-Item -Force -Recurse test,*.md,.npmignore,jsdoc.conf.json
 Set-Location $temp
 
 Set-Location "$temp\node_modules\nanobar"
-Remove-Item -Force -Recurse brand,demos,*.md,.npmignore,.eslintrc,bower.json,LICENSE
+Remove-Item -Force -Recurse brand,demos,*.md,.npmignore,.eslintrc,bower.json,LICENSE,nanobar.min.js
 Set-Location $temp
 
 Set-Location $current_path

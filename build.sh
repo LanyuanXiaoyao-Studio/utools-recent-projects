@@ -54,7 +54,7 @@ rm -rf test *.md .npmignore jsdoc.conf.json
 cd $temp
 
 cd "${temp}/node_modules/nanobar"
-rm -rf brand demos *.md .npmignore .eslintrc bower.json LICENSE
+rm -rf brand demos *.md .npmignore .eslintrc bower.json LICENSE nanobar.min.js
 cd $temp
 
 cd $current_path
