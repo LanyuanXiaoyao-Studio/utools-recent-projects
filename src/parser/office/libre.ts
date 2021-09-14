@@ -8,11 +8,10 @@ import {
     ShellExecutor,
 } from '../../types'
 import {readFile} from 'fs/promises'
-import {isEmpty, isNil, Url} from 'licia'
+import {isEmpty, isNil, now, Url} from 'licia'
 import {Context} from '../../context'
-import {existsOrNot} from '../../utils'
+import {existsOrNot, generateStringByOS} from '../../utils'
 import {parse} from 'path'
-import {now} from 'licia'
 import $ = require('licia/$')
 
 const LIBRE: string = 'libre'
@@ -30,7 +29,15 @@ export class LibreOfficeApplicationImpl extends ApplicationConfigAndExecutorImpl
             LIBRE,
             [Platform.win32, Platform.darwin, Platform.linux],
             Group[GroupName.office],
-            undefined,
+            `数据文件通常放在 ${generateStringByOS({
+                win32: 'C:\\Users\\Administrator\\AppData\\Roaming\\LibreOffice\\4\\user\\registrymodifications.xcu',
+                darwin: '/Users/xxx/Library/Application Support/LibreOffice/4/user/registrymodifications.xcu',
+                linux: '/home/xxx/.config/LibreOffice/registrymodifications.xcu',
+            })}, 可执行程序通常放在 ${generateStringByOS({
+                win32: 'C:\\Program Files\\LibreOffice\\program\\soffice.exe',
+                darwin: '/Applications/LibreOffice.app/Contents/MacOS/soffice',
+                linux: '/usr/bin/soffice',
+            })}`,
             true,
             'registrymodifications.xcu',
         )

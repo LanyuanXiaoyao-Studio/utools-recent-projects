@@ -247,7 +247,11 @@
               "msedge",
               "Google Chrome.app",
               "Firefox.app",
-              "Safari.app"
+              "Safari.app",
+              "Opera.app",
+              "Brave Browser.app",
+              "Yandex.app",
+              "Microsoft Edge.app"
             ]
           }
         }
@@ -283,7 +287,11 @@
               "msedge",
               "Google Chrome.app",
               "Firefox.app",
-              "Safari.app"
+              "Safari.app",
+              "Opera.app",
+              "Brave Browser.app",
+              "Yandex.app",
+              "Microsoft Edge.app"
             ]
           }
         }
@@ -296,7 +304,17 @@
       "cmds"   : [
         "office",
         "LibreOffice Projects",
-        "我的 LibreOffice 项目"
+        "我的 LibreOffice 项目",
+        {
+          "type" : "window",
+          "label": "打开其他 LibreOffice 项目",
+          "match": {
+            "app": [
+              "soffice.bin",
+              "LibreOffice.app"
+            ]
+          }
+        }
       ]
     }
   ]
