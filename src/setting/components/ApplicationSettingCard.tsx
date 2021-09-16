@@ -110,6 +110,29 @@ export class ApplicationSettingCard extends Component<ApplicationSettingCardProp
                             <div class="divider"/>
                             <div class="form-group">
                                 <div class="col-10 col-mr-auto">
+                                    <div class="form-label">项目打开通知</div>
+                                    <div class="form-description">启动该选项会在打开项目时弹出系统通知, 部分软件打开项目需要一定的启动时间, 该设置旨在帮助用户确认插件的运行状态</div>
+                                </div>
+                                <div class="col-1 flex-column-center">
+                                    <label class="form-switch">
+                                        {this.context.enableOpenNotification
+                                            ? <input
+                                                type="checkbox"
+                                                checked
+                                                onchange={() => this.switch(Context.enableOpenNotificationId, false)}
+                                            />
+                                            :
+                                            <input
+                                                type="checkbox"
+                                                onchange={() => this.switch(Context.enableOpenNotificationId, true)}
+                                            />}
+                                        <i class="form-icon"/>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="divider"/>
+                            <div class="form-group">
+                                <div class="col-10 col-mr-auto">
                                     <div class="form-label">直接输入路径 (重启插件生效)</div>
                                     <div class="form-description">启动该选项可直接在路径框中输入路径而非使用文件选择器, 特殊情况可能会带来方便, 但也容易因为人为输入失误导致插件运行错误. (重启插件指完全退出插件后再次打开设置)</div>
                                 </div>

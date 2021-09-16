@@ -201,12 +201,15 @@ export interface Args<I extends Item> {
 }
 
 export abstract class ArgsImpl<I extends Item> implements Args<I> {
+    context: Context | undefined
+
     enter(action: Action, callback: Callback<I>): void {
         import('./inits')
             .then(reports => {
                 reports.report(utools.getUser()?.nickname, action.code, utools.getNativeId(), platformFromUtools().toString())
             })
             .catch(error => console.log(error?.message ?? ''))
+        this.context = Context.get()
     }
 
     abstract search?: (action: Action, searchText: string, callback: Callback<I>) => void
