@@ -51,6 +51,7 @@ export class AllProjectArgs extends ProjectArgsImpl {
             $('.nanobar .bar').css('box-shadow', '0 0 10px #767676')
         }
         $('.container').css('display', 'none')
+        $('style.custom').each((index, element) => element.remove())
         this.clearCache()
         nanoBar.go(40)
         this.getProjectItems(utools.getNativeId())

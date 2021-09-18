@@ -40,19 +40,16 @@ class Root extends Component<RootProps, RootState> {
                         content="width=device-width, initial-scale=1"
                     />
                     {/*引入样式文件*/}
-                    <style>{SpectreCss}</style>
-                    <style>{SpectreIconCss}</style>
-                    <style>{CustomCss}</style>
+                    <style class="custom">{SpectreCss}</style>
+                    <style class="custom">{SpectreIconCss}</style>
+                    <style class="custom">{CustomCss}</style>
                     {/*保留 uTools 模板插件原本的 js 文件*/}
                     <script src="index.js"/>
                 </head>
-                <body
-                    class={utools.isDarkColors() ? 'dark' : ''}
-                    style={{ padding: '5px' }}
-                >
+                <body style={{ padding: '5px' }}>
                     {/*保留 uTools 模板插件原本的布局*/}
                     <div id="root"/>
-                    <div class="container">
+                    <div class={utools.isDarkColors() ? 'container dark' : 'container'}>
                         <div class="columns">
                             <div class="column col-3">
                                 {/*左侧导航栏*/}
@@ -71,8 +68,8 @@ class Root extends Component<RootProps, RootState> {
                                 <div class="gap"/>
                             </div>
                         </div>
+                        <Announcement/>
                     </div>
-                    <Announcement/>
                 </body>
             </Fragment>
         )

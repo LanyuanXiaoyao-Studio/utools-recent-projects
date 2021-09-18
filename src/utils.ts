@@ -1,6 +1,7 @@
 import {existsSync} from 'fs'
 import {Platform} from './types'
 import {isEmpty, isFn, isNil, isUrl, Url} from 'licia'
+import $ = require('licia/$')
 
 /**
  * 字符比较, 用于在 array.sort() 使用
@@ -125,3 +126,15 @@ export const isDevelopment: () => boolean = () => {
     return isDev
 }
 isDev = isDevelopment()
+
+export const changeDark: () => void = () => {
+    if (utools.isDarkColors()) {
+        if (!$('body').hasClass('dark')) {
+            $('body').addClass('dark')
+        }
+    } else {
+        if ($('body').hasClass('dark')) {
+            $('body').rmClass('dark')
+        }
+    }
+}
