@@ -1,3 +1,36 @@
+1.1.3
+1. 增加默认关闭项目打开通知, 并增加设置项
+2. 修复第一次打开的声明弹框没有适配黑暗模式
+3. 修复项目加载进度条高度失控的 bug
+
+1.1.2
+1. 修复 Xcode 打开项目失败的问题
+2. 修复浏览器类型由于非网址格式记录导致插件报错的问题
+3. 增加 LibreOffice 的适配, 支持一下 Deepin 和 UOS
+4. 增加加载项目时的进度条和打开项目时的提示, 防止误以为插件卡住
+
+1.1.1
+1. 增加浏览器书签和历史记录的支持, 以及 Typora
+   Firefox
+   Chromium
+   Google Chrome
+   Microsoft Edge
+   QQ Browser
+   Maxthon
+   Opera
+   Brave
+   CentBrowser
+   Yandex
+   猎豹浏览器
+   Safari
+   深度浏览器
+2. 增加插件设置
+   a. 查询结果忽略文件不存在的项
+   b. 是否获取文件图标
+   c. 是否获取网站 favicon
+   d. 是否直接输入文件路径而不是用文件选择器
+3. 修复各种说不清道不明的 bug
+
 1.1.0
 1. 增加浏览器历史适配, 新增如下
    Firefox
