@@ -132,7 +132,7 @@
     {
       "code"    : "wps-project",
       "explain" : "快速打开我的 WPS Office 项目",
-      "icon"    : "icon/wps-mac-internation.png",
+      "icon"    : "icon/wps-internation.png",
       "platform": [
         "darwin"
       ],

@@ -1,4 +1,5 @@
 import {
+    ApplicationConfigAndExecutorImpl,
     ApplicationConfigImpl,
     ApplicationImpl,
     Group,
@@ -11,18 +12,20 @@ import {isEmpty, isNil} from 'licia'
 import {parse} from 'path'
 import {existsOrNot, generateStringByOS} from '../../utils'
 import {Context} from '../../context'
+import {readFile} from 'fs/promises'
 import plistParser = require('bplist-parser')
 
 const WPS_MAC_INTERNATION: string = 'wps-mac-internation'
+const WPS_LINUX_INTERNATION: string = 'wps-linux-internation'
 
 export class WpsMacInternationalProjectItemImpl extends ProjectItemImpl {}
 
 export class WpsMacInternationalApplicationImpl extends ApplicationConfigImpl<WpsMacInternationalProjectItemImpl> {
     constructor() {
         super(
-            'wps-mac-internation',
-            'WPS Office',
-            'icon/wps-mac-internation.png',
+            WPS_MAC_INTERNATION,
+            'WPS Office (International)',
+            'icon/wps-internation.png',
             WPS_MAC_INTERNATION,
             [Platform.darwin],
             Group[GroupName.office],
@@ -70,6 +73,63 @@ export class WpsMacInternationalApplicationImpl extends ApplicationConfigImpl<Wp
     }
 }
 
+export class WpsLinuxInternationalProjectItemImpl extends ProjectItemImpl {}
+
+export class WpsLinuxInternationalApplicationImpl extends ApplicationConfigAndExecutorImpl<WpsLinuxInternationalProjectItemImpl> {
+    constructor() {
+        super(
+            WPS_LINUX_INTERNATION,
+            'WPS Office (International)',
+            'icon/wps-internation.png',
+            WPS_LINUX_INTERNATION,
+            [Platform.linux],
+            Group[GroupName.office],
+            `配置文件通常放在 ${generateStringByOS({
+                linux: '/home/xxx/.config/Kingsoft/Office.conf',
+            })}, 可执行文件通常在${generateStringByOS({
+                linux: '/usr/bin/wps',
+            })}, 也可以直接填入 xdg-open 命令使用`,
+            false,
+            'Office.conf',
+        )
+    }
+
+    async generateProjectItems(context: Context): Promise<Array<WpsLinuxInternationalProjectItemImpl>> {
+        let items: Array<WpsLinuxInternationalProjectItemImpl> = []
+        let content = await readFile(this.config, { encoding: 'utf-8' })
+        content.split('\n')
+            .filter(line => /^(et|wps|wpp)\\RecentFiles\\files.+$/.test(line))
+            .map(line => {
+                let groups = line.match(/path=(.+)$/)
+                if (!isNil(groups) && !isEmpty(groups)) {
+                    return groups![1]
+                }
+                return null
+            })
+            .filter(line => !isNil(line))
+            .map(line => line!.replace(/\\x/g, '%u'))
+            .map(line => unescape(line))
+            .forEach(path => {
+                let parser = parse(path)
+                let { exists, description, icon } = existsOrNot(path, {
+                    description: path,
+                    icon: context.enableGetFileIcon ? utools.getFileIcon(path) : this.icon,
+                })
+                items.push({
+                    id: '',
+                    title: parser.name,
+                    description: description,
+                    icon: icon,
+                    searchKey: path,
+                    exists: exists,
+                    command: new ShellExecutor(`${this.executor} "${path}"`),
+                })
+            })
+        return items
+    }
+}
+
 export const applications: Array<ApplicationImpl<WpsMacInternationalProjectItemImpl>> = [
     new WpsMacInternationalApplicationImpl(),
+    new WpsLinuxInternationalApplicationImpl(),
 ]
