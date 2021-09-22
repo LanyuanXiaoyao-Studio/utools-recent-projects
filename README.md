@@ -39,13 +39,39 @@
 - IDE
   - JetBrains 全家桶
   - Android Studio
-  - Visual Studio (Windows)
+  - Visual Studio
   - Xcode
 - Office
-  - WPS Office International for mac
-  - Office 2019 (Windows)
-  - Office 2019 (macOS)
+  - WPS Office International
+  - Office 2019
   - LibreOffice
+
+## 操作系统支持
+
+|           名称           | Windows | macOS | Linux |
+| :----------------------: | :-----: | :---: | :---: |
+|         Firefox          |    √    |   √   |   √   |
+|         Chromium         |    √    |   √   |   √   |
+|      Google Chrome       |    √    |   √   |   √   |
+|      Microsoft Edge      |    √    |   √   |   √   |
+|          Opera           |    √    |   √   |   √   |
+|          Brave           |    √    |   √   |   √   |
+|          Yandex          |    √    |   √   |   √   |
+|        QQ Browser        |    √    |       |       |
+|         Maxthon          |    √    |       |       |
+|       CentBrowser        |    √    |       |       |
+|        猎豹浏览器        |    √    |       |       |
+|          Safari          |         |   √   |       |
+|        深度浏览器        |         |       |   √   |
+|    Visual Studio Code    |    √    |   √   |   √   |
+|          Typora          |    √    |       |   √   |
+|       Sublime Text       |    √    |   √   |   √   |
+|        JetBrains         |    √    |   √   |   √   |
+|      Android Studio      |    √    |   √   |   √   |
+|      Visual Studio       |    √    |       |       |
+| WPS Office International |         |   √   |       |
+|       Office 2019        |    √    |   √   |       |
+|       LibreOffice        |    √    |   √   |   √   |
 
 # 源码地址
 
