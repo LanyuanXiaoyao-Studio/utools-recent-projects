@@ -134,7 +134,8 @@
       "explain" : "快速打开我的 WPS Office 项目",
       "icon"    : "icon/wps-internation.png",
       "platform": [
-        "darwin"
+        "darwin",
+        "linux"
       ],
       "cmds"    : [
         "wps",
@@ -145,7 +146,8 @@
           "label": "打开其他 WPS Office 项目",
           "match": {
             "app": [
-              "wpsoffice.app"
+              "wpsoffice.app",
+              "wpsoffice"
             ]
           }
         }
