@@ -48,6 +48,32 @@
 
 ## 操作系统支持
 
+<table>
+<thead>
+<tr>
+<th rowspan="2">名称</th>
+<th colspan="2">浏览器</th>
+<th rowspan="2">Windows</th>
+<th rowspan="2">macOS</th>
+<th rowspan="2">Linux</th>
+</tr>
+<tr>
+<th>书签</th>
+<th>历史记录</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center">Firefox</td>
+<td style="text-align: center">√</td>
+<td style="text-align: center">√</td>
+<td style="text-align: center">√</td>
+<td style="text-align: center">√</td>
+<td style="text-align: center">√</td>
+</tr>
+</tbody>
+</table>
+
 |           名称           | Windows | macOS | Linux |
 | :----------------------: | :-----: | :---: | :---: |
 |         Firefox          |    √    |   √   |   √   |
