@@ -1,7 +1,7 @@
 import {contain, isEmpty, isNil} from 'licia'
 import {exec} from 'child_process'
 import {shell} from 'electron'
-import {platformFromUtools} from './utils'
+import {initLanguage, platformFromUtools} from './utils'
 import {existsSync} from 'fs'
 import {Context} from './context'
 import {i18n, sentenceKey} from './i18n'
@@ -211,6 +211,7 @@ export abstract class ArgsImpl<I extends Item> implements Args<I> {
             })
             .catch(error => console.log(error?.message ?? ''))
         this.context = Context.get()
+        initLanguage(this.context)
     }
 
     abstract search?: (action: Action, searchText: string, callback: Callback<I>) => void

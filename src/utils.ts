@@ -2,6 +2,8 @@ import {existsSync} from 'fs'
 import {Platform} from './types'
 import {isEmpty, isFn, isNil, isUrl, Url} from 'licia'
 import $ = require('licia/$')
+import {Context} from './context'
+import {i18n} from './i18n'
 
 /**
  * 字符比较, 用于在 array.sort() 使用
@@ -136,5 +138,16 @@ export const changeDark: () => void = () => {
         if ($('body').hasClass('dark')) {
             $('body').rmClass('dark')
         }
+    }
+}
+
+export const initLanguage: (context?: Context) => void = context => {
+    context = context ?? Context.get()
+    if (context.languageSetting === 'auto') {
+        if (!isNil(navigator.language) && !isEmpty(navigator.language)) {
+            i18n.locale(navigator.language)
+        }
+    } else {
+        i18n.locale(context.languageSetting)
     }
 }

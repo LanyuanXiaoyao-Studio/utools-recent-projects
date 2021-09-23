@@ -1,9 +1,6 @@
 import {Action, Args, Callback, Feature} from '../types'
 import {ApplicationUI} from './Root'
-import {platformFromUtools} from '../utils'
-import {Context} from '../context'
-import {i18n} from '../i18n'
-import {isEmpty, isNil} from 'licia'
+import {initLanguage, platformFromUtools} from '../utils'
 
 export class SettingUIArgsImpl implements Args<any> {
     enter(action: Action, callback: Callback<any>): void {
@@ -15,14 +12,7 @@ export class SettingUIArgsImpl implements Args<any> {
         utools.setExpendHeight(520)
 
         // 语言设置
-        let context = Context.get()
-        if (context.languageSetting === 'auto') {
-            if (!isNil(navigator.language) && !isEmpty(navigator.language)) {
-                i18n.locale(navigator.language)
-            }
-        } else {
-            i18n.locale(context.languageSetting)
-        }
+        initLanguage()
 
         let applicationUI = new ApplicationUI()
         applicationUI.render(document.documentElement)
