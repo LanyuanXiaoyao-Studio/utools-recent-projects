@@ -1,4 +1,12 @@
-import {ApplicationImpl, DatetimeProjectItemImpl, ElectronExecutor, Group, GroupName, Platform} from '../../../types'
+import {
+    ApplicationImpl,
+    DatetimeProjectItemImpl,
+    DescriptionGetter,
+    ElectronExecutor,
+    Group,
+    GroupName,
+    Platform,
+} from '../../../types'
 import {BrowserId, getPathDescription, SqliteBrowserApplicationImpl} from '../index'
 import {execFileSync} from 'child_process'
 import {isEmpty} from 'licia'
@@ -10,7 +18,7 @@ const FIREFOX: string = 'firefox'
 export class FirefoxHistoryProjectItemImpl extends DatetimeProjectItemImpl {}
 
 export class FirefoxHistoryApplicationImpl extends SqliteBrowserApplicationImpl<FirefoxHistoryProjectItemImpl> {
-    constructor(id: BrowserId, name: string, type: string, platforms: Array<Platform> = [Platform.win32, Platform.darwin, Platform.linux], description?: string, beta: boolean = true, configName: string = '') {
+    constructor(id: BrowserId, name: string, type: string, platforms: Array<Platform> = [Platform.win32, Platform.darwin, Platform.linux], description?: string | DescriptionGetter, beta: boolean = true, configName: string = '') {
         super(`${id}-history`, `${name}`, `icon/browser-${id}.png`, type, platforms, Group[GroupName.browserHistory], description, beta, configName)
     }
 
@@ -48,5 +56,5 @@ export class FirefoxHistoryApplicationImpl extends SqliteBrowserApplicationImpl<
 }
 
 export const applications: Array<ApplicationImpl<FirefoxHistoryProjectItemImpl>> = [
-    new FirefoxHistoryApplicationImpl('firefox', 'Firefox', FIREFOX, undefined, getPathDescription('firefox', 'places.sqlite'), undefined, 'places.sqlite'),
+    new FirefoxHistoryApplicationImpl('firefox', 'Firefox', FIREFOX, undefined, () => getPathDescription('firefox', 'places.sqlite'), undefined, 'places.sqlite'),
 ]

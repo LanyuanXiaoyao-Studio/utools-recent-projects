@@ -1,7 +1,7 @@
 import {
     ApplicationConfigImpl,
     ApplicationImpl,
-    DatetimeProjectItemImpl,
+    DatetimeProjectItemImpl, DescriptionGetter,
     Group,
     GroupName,
     Platform,
@@ -21,7 +21,7 @@ const OFFICE_WIN: string = 'office-win'
 export class OfficeProjectItemImpl extends DatetimeProjectItemImpl {}
 
 export class OfficeMacApplicationImpl extends ApplicationConfigImpl<OfficeProjectItemImpl> {
-    constructor(id: string, name: string, icon: string, configFilename: string, description: string = '') {
+    constructor(id: string, name: string, icon: string, configFilename: string, description: string | DescriptionGetter = '') {
         super(`office-mac-${id}`, name, icon, OFFICE_MAC, [Platform.darwin], Group[GroupName.office], description, false, configFilename)
     }
 

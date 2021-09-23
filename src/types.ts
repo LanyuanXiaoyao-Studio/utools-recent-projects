@@ -333,7 +333,7 @@ export interface SettingItem {
     readonly id: string
     readonly name: string
     readonly value: SettingValue
-    readonly description?: string
+    readonly description?: string | DescriptionGetter
 }
 
 export abstract class SettingItemImpl implements SettingItem {
@@ -341,10 +341,10 @@ export abstract class SettingItemImpl implements SettingItem {
     readonly id: string
     readonly name: string
     readonly value: SettingValue
-    readonly description?: string
+    readonly description?: string | DescriptionGetter
 
 
-    protected constructor(type: SettingType, id: string, name: string, value: SettingValue, description?: string) {
+    protected constructor(type: SettingType, id: string, name: string, value: SettingValue, description?: string | DescriptionGetter) {
         this.type = type
         this.id = id
         this.name = name
@@ -354,13 +354,13 @@ export abstract class SettingItemImpl implements SettingItem {
 }
 
 export class InputSettingItem extends SettingItemImpl {
-    constructor(id: string, name: string, value: string, description?: string) {
+    constructor(id: string, name: string, value: string, description?: string | DescriptionGetter) {
         super(SettingType.path, id, name, value, description)
     }
 }
 
 export class SwitchSettingItem extends SettingItemImpl {
-    constructor(id: string, name: string, value: boolean, description?: string) {
+    constructor(id: string, name: string, value: boolean, description?: string | DescriptionGetter) {
         super(SettingType.switch, id, name, value, description)
     }
 }
@@ -396,6 +396,8 @@ export const Group: { [keys in GroupName]: string } = {
     [GroupName.office]: 'Office',
 }
 
+export type DescriptionGetter = (context?: Context) => string | undefined
+
 /**
  * 应用
  */
@@ -406,7 +408,7 @@ export interface Application<P extends ProjectItemImpl> {
     readonly type: string
     readonly platform: Array<Platform>
     readonly group: string
-    readonly description: string
+    readonly description: string | DescriptionGetter
     readonly beta: boolean
     enabled: boolean
     update: (nativeId: string) => void
@@ -426,11 +428,11 @@ export abstract class ApplicationImpl<P extends ProjectItemImpl> implements Appl
     readonly type: string
     readonly platform: Array<Platform>
     readonly group: string
-    readonly description: string
+    readonly description: string | DescriptionGetter
     readonly beta: boolean
     enabled: boolean = true
 
-    protected constructor(id: string, name: string, icon: string, type: string, platform: Array<Platform>, group: string = 'default', description: string = '', beta: boolean = false) {
+    protected constructor(id: string, name: string, icon: string, type: string, platform: Array<Platform>, group: string = 'default', description: string | DescriptionGetter = '', beta: boolean = false) {
         this.id = id
         this.name = name
         this.icon = icon
@@ -483,7 +485,7 @@ export abstract class ApplicationConfigImpl<P extends ProjectItemImpl> extends A
     readonly configFilename: string
     config: string = ''
 
-    constructor(id: string, name: string, icon: string, type: string, platform: Array<Platform>, group: string = 'default', description: string = '', beta: boolean = false, configFilename: string) {
+    constructor(id: string, name: string, icon: string, type: string, platform: Array<Platform>, group: string = 'default', description: string | DescriptionGetter = '', beta: boolean = false, configFilename: string) {
         super(id, name, icon, type, platform, group, description, beta)
         this.configFilename = configFilename
     }

@@ -71,7 +71,7 @@ export interface PathDescription {
 }
 
 export const generatePathDescription: (path: PathDescription, filname: string) => string | undefined = (path, filename) => {
-    let prefix = `${filename} 文件通常放在: `
+    let prefix = `${filename} ${i18n.t(sentenceKey.browserPathDescPrefix)}: `
     let platform = platformFromUtools()
     let emptyAndUndefined = (p) => (isNil(p) || isEmpty(p)) ? undefined : prefix + p
     switch (platform) {

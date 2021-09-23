@@ -14,6 +14,7 @@ import {parseFile} from 'bplist-parser'
 import {isEmpty, isNil} from 'licia'
 import {generateParents} from '../../../utils'
 import {existsSync} from 'fs'
+import {i18n, sentenceKey} from '../../../i18n'
 
 const SAFARI: string = 'safari'
 
@@ -28,7 +29,7 @@ export class SafariBookmarkApplicationImpl extends BrowserApplicationImpl<Safari
             SAFARI,
             [Platform.darwin],
             Group[GroupName.browserBookmark],
-            'Safari 书签配置固定, 无需额外配置',
+            () => i18n.t(sentenceKey.safariBookmarkDesc),
             true,
             'Bookmarks.plist',
         )
