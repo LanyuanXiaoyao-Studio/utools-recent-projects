@@ -142,7 +142,7 @@ export class SettingCard extends Component<SettingCardProps, SettingCardState> {
                             <blockquote class="card-description">
                                 <cite>{this.props.application.description}</cite>
                             </blockquote>}
-                        {this.props.application.generateSettingItems(utools.getNativeId()).map(item => {
+                        {this.props.application.generateSettingItems(this.context, utools.getNativeId()).map(item => {
                             switch (item.type) {
                                 case SettingType.path:
                                     return (

@@ -51,9 +51,9 @@ export class ChromiumBookmarkApplicationImpl extends BrowserApplicationImpl<Chro
         return items
     }
 
-    override generateSettingItems(nativeId: string): Array<SettingItem> {
+    override generateSettingItems(context: Context, nativeId: string): Array<SettingItem> {
         return [
-            this.enabledSettingItem(nativeId),
+            this.enabledSettingItem(context, nativeId),
             new InputSettingItem(
                 this.configId(nativeId),
                 `设置 ${this.name} 「${this.configFilename}」文件路径`,

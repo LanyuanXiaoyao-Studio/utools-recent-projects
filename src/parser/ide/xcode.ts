@@ -1,19 +1,10 @@
-import {
-    ApplicationImpl,
-    ElectronExecutor,
-    Group,
-    GroupName,
-    Platform,
-    ProjectItemImpl,
-    ShellExecutor,
-} from '../../types'
+import {ApplicationImpl, Group, GroupName, Platform, ProjectItemImpl, ShellExecutor} from '../../types'
 import {execSync} from 'child_process'
 import {isEmpty, isNil} from 'licia'
 import {parse} from 'path'
 import {statSync} from 'fs'
 import {existsOrNot} from '../../utils'
 import {Context} from '../../context'
-import {shell} from 'electron'
 
 const XCODE: string = 'xcode'
 

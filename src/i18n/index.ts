@@ -3,12 +3,18 @@ import {ZhCn} from './zh-cn'
 import {I18n} from 'licia'
 
 export const sentenceKey = {
+    enableDesc: 'enableDesc',
+    enableLabel: 'enableLabel',
     filterNonExistsFiles: 'filterNonExistsFiles',
     filterNonExistsFilesDesc: 'filterNonExistsFilesDesc',
     getFavicon: 'getFavicon',
     getFaviconDesc: 'getFaviconDesc',
     getFileIcon: 'getFileIcon',
     getFileIconDesc: 'getFileIconDesc',
+    inputPathDirectly: 'inputPathDirectly',
+    inputPathDirectlyDesc: 'inputPathDirectlyDesc',
+    languageSetting: 'languageSetting',
+    languageSettingDesc: 'languageSettingDesc',
     nativeId: 'nativeId',
     notifyFileOpen: 'notifyFileOpen',
     notifyFileOpenDesc: 'notifyFileOpenDesc',
@@ -19,19 +25,25 @@ export const sentenceKey = {
     systemInformation: 'systemInformation',
     systemVersion: 'systemVersion',
     utoolsVersion: 'utoolsVersion',
-    languageSetting: 'languageSetting',
-    languageSettingDesc: 'languageSettingDesc',
-    inputPathDirectly: 'inputPathDirectly',
-    inputPathDirectlyDesc: 'inputPathDirectlyDesc',
+    configPrefix: 'configPrefix',
+    configSuffix: 'configSuffix',
+    executorPrefix: 'executorPrefix',
+    executorSuffix: 'executorSuffix',
 }
 
 export interface Sentence {
+    readonly enableDesc: string
+    readonly enableLabel: string
     readonly filterNonExistsFiles: string
     readonly filterNonExistsFilesDesc: string
     readonly getFavicon: string
     readonly getFaviconDesc: string
     readonly getFileIcon: string
     readonly getFileIconDesc: string
+    readonly inputPathDirectly: string
+    readonly inputPathDirectlyDesc: string
+    readonly languageSetting: string
+    readonly languageSettingDesc: string
     readonly nativeId: string
     readonly notifyFileOpen: string
     readonly notifyFileOpenDesc: string
@@ -42,10 +54,10 @@ export interface Sentence {
     readonly systemInformation: string
     readonly systemVersion: string
     readonly utoolsVersion: string
-    readonly languageSetting: string
-    readonly languageSettingDesc: string
-    readonly inputPathDirectly: string
-    readonly inputPathDirectlyDesc: string
+    readonly configPrefix: string
+    readonly configSuffix: string
+    readonly executorPrefix: string
+    readonly executorSuffix: string
 }
 
 let languageData = new I18n('zh-CN', {

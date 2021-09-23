@@ -67,9 +67,9 @@ export class SafariHistoryApplicationImpl extends SqliteBrowserApplicationImpl<S
         return items
     }
 
-    override generateSettingItems(nativeId: string): Array<SettingItem> {
+    override generateSettingItems(context: Context, nativeId: string): Array<SettingItem> {
         return [
-            this.enabledSettingItem(nativeId),
+            this.enabledSettingItem(context, nativeId),
             new InputSettingItem(
                 this.executorId(nativeId),
                 `设置 Sqlite3 可执行程序路径`,

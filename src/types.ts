@@ -4,6 +4,7 @@ import {shell} from 'electron'
 import {platformFromUtools} from './utils'
 import {existsSync} from 'fs'
 import {Context} from './context'
+import {i18n, sentenceKey} from './i18n'
 
 /**
  * 命令执行器
@@ -408,7 +409,7 @@ export interface Application<P extends ProjectItemImpl> {
     readonly beta: boolean
     enabled: boolean
     update: (nativeId: string) => void
-    generateSettingItems: (nativeId: string) => Array<SettingItem>
+    generateSettingItems: (context: Context, nativeId: string) => Array<SettingItem>
     generateProjectItems: (context: Context) => Promise<Array<P>>
     isFinishConfig: () => ApplicationConfigState
 }
@@ -447,18 +448,18 @@ export abstract class ApplicationImpl<P extends ProjectItemImpl> implements Appl
         return `${nativeId}/${this.id}-enabled`
     }
 
-    enabledSettingItem(nativeId: string): SettingItem {
+    enabledSettingItem(context: Context, nativeId: string): SettingItem {
         return new SwitchSettingItem(
             this.enabledId(nativeId),
-            '是否启用该应用',
+            i18n.t(sentenceKey.enableLabel),
             this.enabled,
-            '关闭这个选项将如同没有配置这个应用适配一样',
+            i18n.t(sentenceKey.enableDesc),
         )
     }
 
-    generateSettingItems(nativeId: string): Array<SettingItem> {
+    generateSettingItems(context: Context, nativeId: string): Array<SettingItem> {
         return [
-            this.enabledSettingItem(nativeId),
+            this.enabledSettingItem(context, nativeId),
         ]
     }
 
@@ -495,18 +496,18 @@ export abstract class ApplicationConfigImpl<P extends ProjectItemImpl> extends A
         return `${nativeId}/${this.id}-config`
     }
 
-    configSettingItem(nativeId: string): SettingItem {
+    configSettingItem(context: Context, nativeId: string): SettingItem {
         return new InputSettingItem(
             this.configId(nativeId),
-            `设置 ${this.name} 「${this.configFilename}」文件路径`,
+            `${i18n.t(sentenceKey.configPrefix)} ${this.name}「${this.configFilename}」${i18n.t(sentenceKey.configSuffix)}`,
             this.config,
         )
     }
 
-    override generateSettingItems(nativeId: string): Array<SettingItem> {
+    override generateSettingItems(context: Context, nativeId: string): Array<SettingItem> {
         return [
-            ...super.generateSettingItems(nativeId),
-            this.configSettingItem(nativeId),
+            ...super.generateSettingItems(context, nativeId),
+            this.configSettingItem(context, nativeId),
         ]
     }
 
@@ -533,18 +534,18 @@ export abstract class ApplicationConfigAndExecutorImpl<P extends ProjectItemImpl
         return `${nativeId}/${this.id}-executor`
     }
 
-    executorSettingItem(nativeId: string): SettingItem {
+    executorSettingItem(context: Context, nativeId: string): SettingItem {
         return new InputSettingItem(
             this.executorId(nativeId),
-            `设置 ${this.name} 可执行程序路径`,
+            `${i18n.t(sentenceKey.executorPrefix)} ${this.name} ${i18n.t(sentenceKey.executorSuffix)}`,
             this.executor,
         )
     }
 
-    override generateSettingItems(nativeId: string): Array<SettingItem> {
+    override generateSettingItems(context: Context, nativeId: string): Array<SettingItem> {
         return [
-            ...super.generateSettingItems(nativeId),
-            this.executorSettingItem(nativeId),
+            ...super.generateSettingItems(context, nativeId),
+            this.executorSettingItem(context, nativeId),
         ]
     }
 

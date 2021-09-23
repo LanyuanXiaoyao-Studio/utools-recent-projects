@@ -100,8 +100,8 @@ export class VscodeApplicationImpl extends ApplicationConfigAndExecutorImpl<Vsco
         this.openInNew = utools.dbStorage.getItem(this.openInNewId(nativeId)) ?? false
     }
 
-    override generateSettingItems(nativeId: string): Array<SettingItem> {
-        let superSettings = super.generateSettingItems(nativeId)
+    override generateSettingItems(context: Context, nativeId: string): Array<SettingItem> {
+        let superSettings = super.generateSettingItems(context, nativeId)
         superSettings.splice(1, 0, new SwitchSettingItem(
             this.openInNewId(nativeId),
             '新窗口打开',
