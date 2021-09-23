@@ -46,58 +46,36 @@
   - Office 2019
   - LibreOffice
 
-## 操作系统支持
+## 系统及功能支持
 
-<table>
-<thead>
-<tr>
-<th rowspan="2">名称</th>
-<th colspan="2">浏览器</th>
-<th rowspan="2">Windows</th>
-<th rowspan="2">macOS</th>
-<th rowspan="2">Linux</th>
-</tr>
-<tr>
-<th>书签</th>
-<th>历史记录</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: center">Firefox</td>
-<td style="text-align: center">√</td>
-<td style="text-align: center">√</td>
-<td style="text-align: center">√</td>
-<td style="text-align: center">√</td>
-<td style="text-align: center">√</td>
-</tr>
-</tbody>
-</table>
+> 支持列表仅从2021年开始, 此前版本如果由于历史数据的结构变化导致不可用, 将不再支持
 
-|           名称           | Windows | macOS | Linux |
-| :----------------------: | :-----: | :---: | :---: |
-|         Firefox          |    √    |   √   |   √   |
-|         Chromium         |    √    |   √   |   √   |
-|      Google Chrome       |    √    |   √   |   √   |
-|      Microsoft Edge      |    √    |   √   |   √   |
-|          Opera           |    √    |   √   |   √   |
-|          Brave           |    √    |   √   |   √   |
-|          Yandex          |    √    |   √   |   √   |
-|        QQ Browser        |    √    |       |       |
-|         Maxthon          |    √    |       |       |
-|       CentBrowser        |    √    |       |       |
-|        猎豹浏览器        |    √    |       |       |
-|          Safari          |         |   √   |       |
-|        深度浏览器        |         |       |   √   |
-|    Visual Studio Code    |    √    |   √   |   √   |
-|          Typora          |    √    |       |   √   |
-|       Sublime Text       |    √    |   √   |   √   |
-|        JetBrains         |    √    |   √   |   √   |
-|      Android Studio      |    √    |   √   |   √   |
-|      Visual Studio       |    √    |       |       |
-| WPS Office International |         |   √   |       |
-|       Office 2019        |    √    |   √   |       |
-|       LibreOffice        |    √    |   √   |   √   |
+> 表中的 JetBrains 即为 JetBrains 旗下的所有独立 IDE, 如 IDEA, PyCharm 等, 不再一一列举
+
+|           名称           | Bookmark | History | Windows | macOS | Linux |
+| :----------------------: | :------: | :-----: | :-----: | :---: | :---: |
+|         Firefox          |    √     |    √    |    √    |   √   |   √   |
+|         Chromium         |    √     |    √    |    √    |   √   |   √   |
+|      Google Chrome       |    √     |    √    |    √    |   √   |   √   |
+|      Microsoft Edge      |    √     |    √    |    √    |   √   |   √   |
+|          Opera           |    √     |    √    |    √    |   √   |   √   |
+|          Brave           |    √     |    √    |    √    |   √   |   √   |
+|          Yandex          |    √     |    √    |    √    |   √   |   √   |
+|        QQ Browser        |    √     |    √    |    √    |       |       |
+|         Maxthon          |    √     |    √    |    √    |       |       |
+|       CentBrowser        |    √     |    √    |    √    |       |       |
+|          LieBao          |    √     |    √    |    √    |       |       |
+|          Safari          |    √     |    √    |         |   √   |       |
+|          Deepin          |    √     |    √    |         |       |   √   |
+|    Visual Studio Code    |          |    √    |    √    |   √   |   √   |
+|          Typora          |          |    √    |    √    |       |   √   |
+|       Sublime Text       |          |    √    |    √    |   √   |   √   |
+|        JetBrains         |          |    √    |    √    |   √   |   √   |
+|      Android Studio      |          |    √    |    √    |   √   |   √   |
+|    Visual Studio 2019    |          |    √    |    √    |       |       |
+| WPS Office International |          |    √    |         |   √   |   √   |
+|       Office 2019        |          |    √    |    √    |   √   |       |
+|       LibreOffice        |          |    √    |    √    |   √   |   √   |
 
 # 源码地址
 
