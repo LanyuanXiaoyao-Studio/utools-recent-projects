@@ -1,5 +1,6 @@
 import {Component, Fragment, Img} from 'nano-jsx'
 import {Context} from '../../context'
+import {i18n, sentenceKey} from '../../i18n'
 import Nano = require('nano-jsx')
 
 export interface ApplicationSettingCardProps {}
@@ -21,6 +22,12 @@ export class ApplicationSettingCard extends Component<ApplicationSettingCardProp
         this.update()
     }
 
+    select(id: string, element: HTMLSelectElement) {
+        Context.update(id, element[element.selectedIndex]['value'])
+        this.context = Context.get()
+        this.update()
+    }
+
     override render() {
         return (
             <Fragment>
@@ -35,14 +42,45 @@ export class ApplicationSettingCard extends Component<ApplicationSettingCardProp
                             class="icon"
                             src={this.icon}
                         />
-                        <span class="title">插件设置</span>
+                        <span class="title">{i18n.t(sentenceKey.pluginSetting)}</span>
                     </div>
                     <div class="card-body">
                         <form class="form-horizontal">
                             <div class="form-group">
                                 <div class="col-10 col-mr-auto">
-                                    <div class="form-label">过滤不存在的文件</div>
-                                    <div class="form-description">插件会如实显示历史记录内容, 如同软件本身一样, 但如果你希望插件替你将不存在的文件过滤掉, 那么可以考虑启用该选项</div>
+                                    <div class="form-label">语言设置 (重启插件生效)</div>
+                                    <div class="form-description">尽管 uTools 几乎没有国外用户, 但还是可以选择其他语言</div>
+                                </div>
+                                <div class="col-2 flex-column-center">
+                                    <select
+                                        class="form-select select-sm"
+                                        onchange={event => this.select(Context.languageSettingId, event.target)}
+                                    >
+                                        {this.context.languageSetting === 'auto'
+                                            ? <option
+                                                value="auto"
+                                                selected
+                                            >自动</option>
+                                            : <option value="auto">自动</option>}
+                                        {this.context.languageSetting === 'zh-CN'
+                                            ? <option
+                                                value="zh-CN"
+                                                selected
+                                            >中文</option>
+                                            : <option value="zh-CN">中文</option>}
+                                        {this.context.languageSetting === 'en-US'
+                                            ? <option
+                                                value="en-US"
+                                                selected
+                                            >English</option>
+                                            : <option value="en-US">English</option>}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-10 col-mr-auto">
+                                    <div class="form-label">{i18n.t(sentenceKey.filterNonExistsFiles)}</div>
+                                    <div class="form-description">{i18n.t(sentenceKey.filterNonExistsFilesDesc)}</div>
                                 </div>
                                 <div class="col-1 flex-column-center">
                                     <label class="form-switch">
@@ -64,8 +102,8 @@ export class ApplicationSettingCard extends Component<ApplicationSettingCardProp
                             <div class="divider"/>
                             <div class="form-group">
                                 <div class="col-10 col-mr-auto">
-                                    <div class="form-label">获取 favicon</div>
-                                    <div class="form-description">启动该选项可以使用互联网提供的「api.clowntool.cn」来获取网站图标显示在结果里代替浏览器图标, 但该 API 较慢; 另由于需要将网址传到该 API, 隐私问题也最好考虑在内</div>
+                                    <div class="form-label">{i18n.t(sentenceKey.getFavicon)}</div>
+                                    <div class="form-description">{i18n.t(sentenceKey.getFaviconDesc)}</div>
                                 </div>
                                 <div class="col-1 flex-column-center">
                                     <label class="form-switch">
@@ -87,8 +125,8 @@ export class ApplicationSettingCard extends Component<ApplicationSettingCardProp
                             <div class="divider"/>
                             <div class="form-group">
                                 <div class="col-10 col-mr-auto">
-                                    <div class="form-label">获取文件图标</div>
-                                    <div class="form-description">启动该选项可以在文件型历史记录的结果里显示系统文件图标作为 Icon, 但这会影响一些性能, 在低性能的机器上不建议开启</div>
+                                    <div class="form-label">{i18n.t(sentenceKey.getFileIcon)}</div>
+                                    <div class="form-description">{i18n.t(sentenceKey.getFileIconDesc)}</div>
                                 </div>
                                 <div class="col-1 flex-column-center">
                                     <label class="form-switch">
@@ -110,8 +148,8 @@ export class ApplicationSettingCard extends Component<ApplicationSettingCardProp
                             <div class="divider"/>
                             <div class="form-group">
                                 <div class="col-10 col-mr-auto">
-                                    <div class="form-label">项目打开通知</div>
-                                    <div class="form-description">启动该选项会在打开项目时弹出系统通知, 部分软件打开项目需要一定的启动时间, 该设置旨在帮助用户确认插件的运行状态</div>
+                                    <div class="form-label">{i18n.t(sentenceKey.notifyFileOpen)}</div>
+                                    <div class="form-description">{i18n.t(sentenceKey.notifyFileOpenDesc)}</div>
                                 </div>
                                 <div class="col-1 flex-column-center">
                                     <label class="form-switch">

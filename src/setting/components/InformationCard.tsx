@@ -1,5 +1,6 @@
 import {Component, Fragment, Img} from 'nano-jsx'
 import {Platform} from '../../types'
+import {i18n, sentenceKey} from '../../i18n'
 import Nano = require('nano-jsx')
 
 const platformName: (Platform) => string = platform => {
@@ -60,7 +61,7 @@ export class InformationCard extends Component<InformationCardProps, Information
                                         class="form-label label-sm"
                                         for="utools-version"
                                     >
-                                        uTools 版本
+                                        {i18n.t(sentenceKey.utoolsVersion)}
                                     </label>
                                 </div>
                                 <div class="col-9 col-sm-12">
@@ -79,7 +80,7 @@ export class InformationCard extends Component<InformationCardProps, Information
                                         class="form-label label-sm"
                                         for="system-version"
                                     >
-                                        System 版本
+                                        {i18n.t(sentenceKey.systemVersion)}
                                     </label>
                                 </div>
                                 <div class="col-9 col-sm-12">
@@ -102,7 +103,7 @@ export class InformationCard extends Component<InformationCardProps, Information
                                         class="form-label label-sm"
                                         for="native-id"
                                     >
-                                        Native ID
+                                        {i18n.t(sentenceKey.nativeId)}
                                     </label>
                                 </div>
                                 <div class="col-9 col-sm-12">

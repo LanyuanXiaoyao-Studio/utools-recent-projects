@@ -3,6 +3,7 @@ import {Application, ApplicationConfigState, ProjectItemImpl} from '../../types'
 import {isNil} from 'licia'
 import {settingStore} from '../store'
 import {compareChar} from '../../utils'
+import {i18n, sentenceKey} from '../../i18n'
 import Nano = require('nano-jsx')
 
 export interface BadgeInfo {
@@ -80,13 +81,13 @@ export class Catalogue extends Component<CatalogueProps, CatalogueState> {
                     <li class="nav-item">
                         <a href="#information-card">
                             <i class="icon icon-people"/>
-                            <b>系统信息</b>
+                            <b>{i18n.t(sentenceKey.systemInformation)}</b>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="#application-setting-card">
                             <i class="icon icon-edit"/>
-                            <b>插件配置</b>
+                            <b>{i18n.t(sentenceKey.pluginSetting)}</b>
                         </a>
                     </li>
                     <li class="nav-item">
@@ -95,7 +96,7 @@ export class Catalogue extends Component<CatalogueProps, CatalogueState> {
                             onclick={() => this.help()}
                         >
                             <i class="icon icon-message"/>
-                            <b>配置文档</b>
+                            <b>{i18n.t(sentenceKey.settingDocument)}</b>
                         </a>
                     </li>
                     <li class="nav-item">
@@ -104,7 +105,7 @@ export class Catalogue extends Component<CatalogueProps, CatalogueState> {
                             onclick={() => this.home()}
                         >
                             <i class="icon icon-link"/>
-                            <b>源码主页</b>
+                            <b>{i18n.t(sentenceKey.sourceCodeRepository)}</b>
                         </a>
                     </li>
                     <li class="nav-item">
@@ -113,7 +114,7 @@ export class Catalogue extends Component<CatalogueProps, CatalogueState> {
                             onclick={() => this.survey()}
                         >
                             <i class="icon icon-emoji"/>
-                            <b>适配更多软件</b>
+                            <b>{i18n.t(sentenceKey.requestMoreApplication)}</b>
                         </a>
                     </li>
                     <div class="divider"/>

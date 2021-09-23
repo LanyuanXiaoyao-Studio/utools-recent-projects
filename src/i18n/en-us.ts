@@ -1,0 +1,20 @@
+import {Sentence} from './index'
+
+export class EnUs implements Sentence {
+    readonly filterNonExistsFiles: string = 'Filter non-exists\' files'
+    readonly filterNonExistsFilesDesc: string = 'The plugin will display the history content, just like the software itself, but if you want the plugin to filter out the non-exists files, then you can consider enabling this option.'
+    readonly getFavicon: string = 'Get favicon for website'
+    readonly getFaviconDesc: string = 'Enable this option, the plugin would use the 「api.clowntool.cn」 to get the website icon and show it in the result instead of the browser icon, but the API may slow; Plugin need to send the URL to this API, the privacy problem is also best considering within'
+    readonly getFileIcon: string = 'Get file icon from system'
+    readonly getFileIconDesc: string = 'Enable this option, Plugin would get the file icon from system and display it in the result, but this will affect some performance, which is not recommended on low-performance machines.'
+    readonly nativeId: string = 'Native ID'
+    readonly notifyFileOpen: string = 'Notify when file is opened'
+    readonly notifyFileOpenDesc: string = 'Enable this option, The system notification is pop-up when the project is turned on, and some software opens the project requires a certain startup time, which is intended to help the user confirm the operating status of the plugin.'
+    readonly pluginSetting: string = 'Setting'
+    readonly requestMoreApplication: string = 'Apply More Adaption'
+    readonly settingDocument: string = 'Document'
+    readonly sourceCodeRepository: string = 'Source Code'
+    readonly systemInformation: string = 'System Information'
+    readonly systemVersion: string = 'System Version'
+    readonly utoolsVersion: string = 'uTools Version'
+}

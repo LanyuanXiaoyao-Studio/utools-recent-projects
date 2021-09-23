@@ -1,0 +1,20 @@
+import {Sentence} from './index'
+
+export class ZhCn implements Sentence {
+    readonly filterNonExistsFiles: string = '过滤不存在的文件'
+    readonly filterNonExistsFilesDesc: string = '插件会如实显示历史记录内容, 如同软件本身一样, 但如果你希望插件替你将不存在的文件过滤掉, 那么可以考虑启用该选项'
+    readonly getFavicon: string = '获取 favicon'
+    readonly getFaviconDesc: string = '启动该选项可以使用互联网提供的「api.clowntool.cn」来获取网站图标显示在结果里代替浏览器图标, 但该 API 较慢; 另由于需要将网址传到该 API, 隐私问题也最好考虑在内'
+    readonly getFileIcon: string = '获取文件图标'
+    readonly getFileIconDesc: string = '启动该选项可以在文件型历史记录的结果里显示系统文件图标作为 Icon, 但这会影响一些性能, 在低性能的机器上不建议开启'
+    readonly nativeId: string = 'Native ID'
+    readonly notifyFileOpen: string = '项目打开通知'
+    readonly notifyFileOpenDesc: string = '启动该选项会在打开项目时弹出系统通知, 部分软件打开项目需要一定的启动时间, 该设置旨在帮助用户确认插件的运行状态'
+    readonly pluginSetting: string = '插件配置'
+    readonly requestMoreApplication: string = '适配更多软件'
+    readonly settingDocument: string = '配置文档'
+    readonly sourceCodeRepository: string = '源码主页'
+    readonly systemInformation: string = '系统信息'
+    readonly systemVersion: string = 'System 版本'
+    readonly utoolsVersion: string = 'uTools 版本'
+}
