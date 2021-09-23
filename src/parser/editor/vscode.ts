@@ -14,6 +14,7 @@ import {isEmpty, isNil, Url} from 'licia'
 import {parse} from 'path'
 import {existsOrNot, generateStringByOS} from '../../utils'
 import {Context} from '../../context'
+import {i18n, sentenceKey} from '../../i18n'
 
 const VSCODE: string = 'vscode'
 
@@ -104,9 +105,9 @@ export class VscodeApplicationImpl extends ApplicationConfigAndExecutorImpl<Vsco
         let superSettings = super.generateSettingItems(context, nativeId)
         superSettings.splice(1, 0, new SwitchSettingItem(
             this.openInNewId(nativeId),
-            '新窗口打开',
+            i18n.t(sentenceKey.openInNew),
             this.openInNew,
-            '如果打开的是文件夹, 无论是否打开该选项, 都将在新窗口打开',
+            i18n.t(sentenceKey.openInNewDesc),
         ))
         return superSettings
     }

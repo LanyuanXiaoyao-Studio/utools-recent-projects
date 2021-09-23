@@ -1,6 +1,8 @@
 import {Sentence} from './index'
 
 export class ZhCn implements Sentence {
+    readonly openInNew: string = '新窗口打开'
+    readonly openInNewDesc: string = '如果打开的是文件夹, 无论是否打开该选项, 都将在新窗口打开'
     readonly configPrefix: string = '设置'
     readonly configSuffix: string = '文件路径'
     readonly enableDesc: string = '关闭这个选项将如同没有配置这个应用适配一样'
@@ -27,4 +29,13 @@ export class ZhCn implements Sentence {
     readonly systemInformation: string = '系统信息'
     readonly systemVersion: string = 'System 版本'
     readonly utoolsVersion: string = 'uTools 版本'
+    readonly error: string = '有错误'
+    readonly ready: string = '已配置'
+    readonly unready: string = '待完善'
+    readonly filePathNonExistsTips: string = '文件路径不存在'
+    readonly fileSelectorPlaceholder: string = '点击输入框选择路径'
+    readonly inputDirectlyPlaceholder: string = '输入文件路径'
+    readonly sqlite3: string = '设置 Sqlite3 可执行程序路径'
+    readonly sqlite3Desc: string = '读取数据需要使用 Sqlite3 命令行程序, 可以自行前往「https://www.sqlite.org/download.html」下载对应平台的可执行文件'
+    readonly browserPathDescPrefix: string = '文件通常放在: '
 }

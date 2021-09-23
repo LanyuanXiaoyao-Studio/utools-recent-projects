@@ -4,6 +4,7 @@ import {isEmpty, isNil, randomId} from 'licia'
 import {Context} from '../../context'
 import {copyFile, rm} from 'fs/promises'
 import {join} from 'path'
+import {i18n, sentenceKey} from '../../i18n'
 
 export abstract class BrowserApplicationImpl<P extends ProjectItemImpl> extends ApplicationConfigAndExecutorImpl<P> {
     protected ifGetFavicon: (url: string, context: Context) => string = (url, context) => {
@@ -18,9 +19,9 @@ export abstract class SqliteBrowserApplicationImpl<P extends ProjectItemImpl> ex
             this.configSettingItem(context, nativeId),
             new InputSettingItem(
                 this.executorId(nativeId),
-                `设置 Sqlite3 可执行程序路径`,
+                i18n.t(sentenceKey.sqlite3),
                 this.executor,
-                '读取数据需要使用 Sqlite3 命令行程序, 可以自行前往「https://www.sqlite.org/download.html」下载对应平台的可执行文件',
+                i18n.t(sentenceKey.sqlite3Desc),
             ),
         ]
     }

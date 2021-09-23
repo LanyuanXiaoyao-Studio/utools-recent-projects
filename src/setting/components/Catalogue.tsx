@@ -66,11 +66,11 @@ export class Catalogue extends Component<CatalogueProps, CatalogueState> {
             case ApplicationConfigState.empty:
                 return { show: false, class: '', text: '' }
             case ApplicationConfigState.undone:
-                return { show: true, class: 'badge badge-unready', text: '待完善' }
+                return { show: true, class: 'badge badge-unready', text: i18n.t(sentenceKey.unready) }
             case ApplicationConfigState.done:
-                return { show: true, class: 'badge badge-ready', text: '已配置' }
+                return { show: true, class: 'badge badge-ready', text: i18n.t(sentenceKey.ready) }
             case ApplicationConfigState.error:
-                return { show: true, class: 'badge badge-error', text: '有错误' }
+                return { show: true, class: 'badge badge-error', text: i18n.t(sentenceKey.error) }
         }
     }
 

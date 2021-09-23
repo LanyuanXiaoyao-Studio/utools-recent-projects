@@ -14,6 +14,7 @@ import {Context} from '../../../context'
 import {readFile} from 'fs/promises'
 import {isEmpty} from 'licia'
 import {generateParents, parseTimeFrom1604} from '../../../utils'
+import {i18n, sentenceKey} from '../../../i18n'
 
 const CHROMIUM: string = 'chromium'
 
@@ -56,7 +57,7 @@ export class ChromiumBookmarkApplicationImpl extends BrowserApplicationImpl<Chro
             this.enabledSettingItem(context, nativeId),
             new InputSettingItem(
                 this.configId(nativeId),
-                `设置 ${this.name} 「${this.configFilename}」文件路径`,
+                `${i18n.t(sentenceKey.configPrefix)} ${this.name} 「${this.configFilename}」${i18n.t(sentenceKey.configSuffix)}`,
                 this.config,
             ),
         ]

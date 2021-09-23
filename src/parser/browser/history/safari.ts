@@ -15,6 +15,7 @@ import {isEmpty} from 'licia'
 import {removeAllQueryFromUrl} from '../../../utils'
 import {Context} from '../../../context'
 import {existsSync} from 'fs'
+import {i18n, sentenceKey} from '../../../i18n'
 
 const SAFARI: string = 'safari'
 
@@ -72,9 +73,9 @@ export class SafariHistoryApplicationImpl extends SqliteBrowserApplicationImpl<S
             this.enabledSettingItem(context, nativeId),
             new InputSettingItem(
                 this.executorId(nativeId),
-                `设置 Sqlite3 可执行程序路径`,
+                i18n.t(sentenceKey.sqlite3),
                 this.executor,
-                '读取数据需要使用 Sqlite3 命令行程序, 可以自行前往「https://www.sqlite.org/download.html」下载对应平台的可执行文件',
+                i18n.t(sentenceKey.sqlite3Desc),
             ),
         ]
     }

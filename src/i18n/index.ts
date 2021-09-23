@@ -29,6 +29,17 @@ export const sentenceKey = {
     configSuffix: 'configSuffix',
     executorPrefix: 'executorPrefix',
     executorSuffix: 'executorSuffix',
+    unready: 'unready',
+    ready: 'ready',
+    error: 'error',
+    inputDirectlyPlaceholder: 'inputDirectlyPlaceholder',
+    fileSelectorPlaceholder: 'fileSelectorPlaceholder',
+    filePathNonExistsTips: 'filePathNonExistsTips',
+    openInNew: 'openInNew',
+    openInNewDesc: 'openInNewDesc',
+    sqlite3: 'sqlite3',
+    sqlite3Desc: 'sqlite3Desc',
+    browserPathDescPrefix: 'browserPathDescPrefix',
 }
 
 export interface Sentence {
@@ -58,6 +69,17 @@ export interface Sentence {
     readonly configSuffix: string
     readonly executorPrefix: string
     readonly executorSuffix: string
+    readonly unready: string
+    readonly ready: string
+    readonly error: string
+    readonly inputDirectlyPlaceholder: string
+    readonly fileSelectorPlaceholder: string
+    readonly filePathNonExistsTips: string
+    readonly openInNew: string
+    readonly openInNewDesc: string
+    readonly sqlite3: string
+    readonly sqlite3Desc: string
+    readonly browserPathDescPrefix: string
 }
 
 let languageData = new I18n('zh-CN', {

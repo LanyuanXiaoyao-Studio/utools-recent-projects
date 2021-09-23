@@ -4,6 +4,7 @@ import {isEmpty, isNil} from 'licia'
 import {iconMap} from '../../icon'
 import {settingStore} from '../store'
 import {Context} from '../../context'
+import {i18n, sentenceKey} from '../../i18n'
 import Nano = require('nano-jsx')
 import fs = require('fs')
 
@@ -157,7 +158,7 @@ export class SettingCard extends Component<SettingCardProps, SettingCardState> {
                                                             type="text"
                                                             class={`form-input input-sm ${this.pathExists(item.value as string) ? '' : 'is-error'}`}
                                                             value={item.value == null ? '' : item.value}
-                                                            placeholder="输入文件路径"
+                                                            placeholder={i18n.t(sentenceKey.inputDirectlyPlaceholder)}
                                                             onblur={event => this.input(event, item.id)}
                                                         />
                                                     </Fragment>
@@ -166,7 +167,7 @@ export class SettingCard extends Component<SettingCardProps, SettingCardState> {
                                                             type="text"
                                                             class={`form-input input-sm ${this.pathExists(item.value as string) ? '' : 'is-error'}`}
                                                             value={item.value == null ? '' : item.value}
-                                                            placeholder="点击输入框选择路径"
+                                                            placeholder={i18n.t(sentenceKey.fileSelectorPlaceholder)}
                                                             onclick={event => this.select(event, item.id, item.name)}
                                                             readonly
                                                         />
@@ -182,7 +183,7 @@ export class SettingCard extends Component<SettingCardProps, SettingCardState> {
                                                 class="form-input-hint-error"
                                                 style={`display: ${this.pathExists(item.value as string) ? 'none' : 'block'}`}
                                             >
-                                                文件路径不存在
+                                                {i18n.t(sentenceKey.filePathNonExistsTips)}
                                             </div>
                                         </div>
                                     )
