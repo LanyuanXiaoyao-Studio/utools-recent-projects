@@ -48,8 +48,8 @@ export class ApplicationSettingCard extends Component<ApplicationSettingCardProp
                         <form class="form-horizontal">
                             <div class="form-group">
                                 <div class="col-10 col-mr-auto">
-                                    <div class="form-label">语言设置 (重启插件生效)</div>
-                                    <div class="form-description">尽管 uTools 几乎没有国外用户, 但还是可以选择其他语言</div>
+                                    <div class="form-label">{i18n.t(sentenceKey.languageSetting)}</div>
+                                    <div class="form-description">{i18n.t(sentenceKey.languageSettingDesc)}</div>
                                 </div>
                                 <div class="col-2 flex-column-center">
                                     <select
@@ -171,8 +171,8 @@ export class ApplicationSettingCard extends Component<ApplicationSettingCardProp
                             <div class="divider"/>
                             <div class="form-group">
                                 <div class="col-10 col-mr-auto">
-                                    <div class="form-label">直接输入路径 (重启插件生效)</div>
-                                    <div class="form-description">启动该选项可直接在路径框中输入路径而非使用文件选择器, 特殊情况可能会带来方便, 但也容易因为人为输入失误导致插件运行错误. (重启插件指完全退出插件后再次打开设置)</div>
+                                    <div class="form-label">{i18n.t(sentenceKey.inputPathDirectly)}</div>
+                                    <div class="form-description">{i18n.t(sentenceKey.inputPathDirectlyDesc)}</div>
                                 </div>
                                 <div class="col-1 flex-column-center">
                                     <label class="form-switch">

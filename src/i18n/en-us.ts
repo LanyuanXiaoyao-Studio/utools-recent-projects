@@ -17,4 +17,8 @@ export class EnUs implements Sentence {
     readonly systemInformation: string = 'System Information'
     readonly systemVersion: string = 'System Version'
     readonly utoolsVersion: string = 'uTools Version'
+    readonly inputPathDirectly: string = 'Input path directly (Without file selector)'
+    readonly inputPathDirectlyDesc: string = 'Enable this option to input the path directly instead of the file selector. But it is also easy for running error because the path is incorrect.'
+    readonly languageSetting: string = 'Language'
+    readonly languageSettingDesc: string = 'Although uTools has almost no foreign users, you can also choose language.'
 }

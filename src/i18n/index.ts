@@ -19,6 +19,10 @@ export const sentenceKey = {
     systemInformation: 'systemInformation',
     systemVersion: 'systemVersion',
     utoolsVersion: 'utoolsVersion',
+    languageSetting: 'languageSetting',
+    languageSettingDesc: 'languageSettingDesc',
+    inputPathDirectly: 'inputPathDirectly',
+    inputPathDirectlyDesc: 'inputPathDirectlyDesc',
 }
 
 export interface Sentence {
@@ -38,6 +42,10 @@ export interface Sentence {
     readonly systemInformation: string
     readonly systemVersion: string
     readonly utoolsVersion: string
+    readonly languageSetting: string
+    readonly languageSettingDesc: string
+    readonly inputPathDirectly: string
+    readonly inputPathDirectlyDesc: string
 }
 
 let languageData = new I18n('zh-CN', {
