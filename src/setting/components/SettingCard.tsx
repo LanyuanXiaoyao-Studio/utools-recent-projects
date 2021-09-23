@@ -8,6 +8,7 @@ import Nano = require('nano-jsx')
 import fs = require('fs')
 
 export interface SettingCardProps {
+    context: Context
     application: Application<ProjectItemImpl>
 }
 
@@ -16,13 +17,10 @@ export interface SettingCardState {}
 export class SettingCard extends Component<SettingCardProps, SettingCardState> {
     store = settingStore.use()
 
-    private context: Context
-
     pathExistsCache: { [key: string]: boolean } = {}
 
     constructor(props: SettingCardProps) {
         super(props)
-        this.context = Context.get()
     }
 
     override didUnmount(): any {
@@ -142,7 +140,7 @@ export class SettingCard extends Component<SettingCardProps, SettingCardState> {
                             <blockquote class="card-description">
                                 <cite>{this.props.application.description}</cite>
                             </blockquote>}
-                        {this.props.application.generateSettingItems(this.context, utools.getNativeId()).map(item => {
+                        {this.props.application.generateSettingItems(this.props.context, utools.getNativeId()).map(item => {
                             switch (item.type) {
                                 case SettingType.path:
                                     return (
@@ -153,7 +151,7 @@ export class SettingCard extends Component<SettingCardProps, SettingCardState> {
                                                 :
                                                 <div class="setting-item-description">{item.description}</div>}
                                             <div class="input-group">
-                                                {this.context.enableEditPathInputDirectly
+                                                {this.props.context.enableEditPathInputDirectly
                                                     ? <Fragment>
                                                         <input
                                                             type="text"

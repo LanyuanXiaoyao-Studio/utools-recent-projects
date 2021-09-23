@@ -9,9 +9,12 @@ import {contain} from 'licia'
 import {InformationCard} from './components/InformationCard'
 import {compareChar, platformFromUtools} from '../utils'
 import {ApplicationSettingCard} from './components/ApplicationSettingCard'
+import {Context} from '../context'
 import Nano = require('nano-jsx')
 
-interface RootProps {}
+interface RootProps {
+    context: Context
+}
 
 interface RootState {
     applications: Array<Application<ProjectItemImpl>>
@@ -63,7 +66,10 @@ class Root extends Component<RootProps, RootState> {
                                 {/*具体应用配置信息*/}
                                 {this.state.applications
                                     .sort((a1, a2) => compareChar(a1.group, a2.group))
-                                    .map(app => <SettingCard application={app}/>)}
+                                    .map(app => <SettingCard
+                                        context={this.props.context}
+                                        application={app}
+                                    />)}
                                 <div class="gap"/>
                                 <div class="gap"/>
                             </div>
@@ -77,7 +83,7 @@ class Root extends Component<RootProps, RootState> {
 }
 
 export class ApplicationUI {
-    render(root: HTMLElement) {
-        Nano.render(<Root/>, root)
+    render(context: Context, root: HTMLElement) {
+        Nano.render(<Root context={context}/>, root)
     }
 }

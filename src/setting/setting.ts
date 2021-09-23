@@ -1,6 +1,7 @@
 import {Action, Args, Callback, Feature} from '../types'
 import {ApplicationUI} from './Root'
 import {initLanguage, platformFromUtools} from '../utils'
+import {Context} from '../context'
 
 export class SettingUIArgsImpl implements Args<any> {
     enter(action: Action, callback: Callback<any>): void {
@@ -11,11 +12,12 @@ export class SettingUIArgsImpl implements Args<any> {
             .catch(error => console.log(error?.message ?? ''))
         utools.setExpendHeight(520)
 
+        let context = Context.get()
         // 语言设置
-        initLanguage()
+        initLanguage(context)
 
         let applicationUI = new ApplicationUI()
-        applicationUI.render(document.documentElement)
+        applicationUI.render(context, document.documentElement)
     }
 }
 
