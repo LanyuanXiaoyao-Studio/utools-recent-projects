@@ -44,7 +44,7 @@ export class ShellExecutor implements Executor {
 
     execute(): void {
         if (isEmpty(this.command)) {
-            utools.showNotification('参数错误，请向作者反馈')
+            utools.showNotification(i18n.t(sentenceKey.errorArgs))
             return
         }
         exec(this.command, error => {
@@ -53,7 +53,7 @@ export class ShellExecutor implements Executor {
                 utools.hideMainWindow()
                 utools.outPlugin()
             } else {
-                utools.showNotification(error?.message ?? '未知错误，请向作者反馈')
+                utools.showNotification(error?.message ?? i18n.t(sentenceKey.unknownError))
             }
         })
     }
@@ -91,7 +91,7 @@ export class ElectronExecutor implements Executor {
 
     execute(): void {
         if (isEmpty(this.command)) {
-            utools.showNotification('参数错误，请向作者反馈')
+            utools.showNotification(i18n.t(sentenceKey.errorArgs))
             return
         }
         shell.openExternal(this.command)
@@ -99,7 +99,7 @@ export class ElectronExecutor implements Executor {
                 utools.hideMainWindow()
                 utools.outPlugin()
             })
-            .catch(error => utools.showNotification(error?.message ?? '未知错误，请向作者反馈'))
+            .catch(error => utools.showNotification(error?.message ?? i18n.t(sentenceKey.unknownError)))
     }
 }
 
@@ -112,13 +112,13 @@ export class UtoolsExecutor implements Executor {
 
     execute(): void {
         if (isEmpty(this.command)) {
-            utools.showNotification('参数错误，请向作者反馈')
+            utools.showNotification(i18n.t(sentenceKey.errorArgs))
             return
         }
         try {
             utools.shellOpenExternal(this.command)
         } catch (error: any) {
-            utools.showNotification(error?.message ?? '未知错误，请向作者反馈')
+            utools.showNotification(error?.message ?? i18n.t(sentenceKey.unknownError))
         }
     }
 }
@@ -277,7 +277,7 @@ export abstract class ProjectArgsImpl extends ArgsImpl<ProjectItemImpl> {
                     .filter(p => context.enableFilterNonExistsFiles ? p.exists : true)
                     .forEach(p => this.projectItemCache.push(p))
             } else if (finish === ApplicationConfigState.error) {
-                utools.showNotification(`${app.name} 获取项目记录错误, 请检查配置`)
+                utools.showNotification(`${app.name} ${i18n.t(sentenceKey.getProjectsError)}`)
             }
         }
         return this.projectItemCache.sort(this.compare)

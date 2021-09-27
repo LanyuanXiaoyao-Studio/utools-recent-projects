@@ -16,25 +16,30 @@ import {
 } from './applications'
 import $ = require('licia/$')
 import NanoBar = require('nanobar')
+import {i18n, sentenceKey} from './i18n'
 
-const emptyTips: ProjectItemImpl = {
-    id: 'cc1b114e-5d1a-40df-b117-8c2cd7ddffa4',
-    title: `似乎什么都找不到`,
-    description: '如果你还没有设置改软件的相关配置，请先在 Setting 关键字中设置相关配置内容，点击可跳转设置界面',
-    icon: 'info.png',
-    searchKey: '',
-    exists: true,
-    command: new NoExecutor(),
+const emptyTips: () => ProjectItemImpl = () => {
+    return {
+        id: 'cc1b114e-5d1a-40df-b117-8c2cd7ddffa4',
+        title: i18n.t(sentenceKey.emptyTipsTitle),
+        description: i18n.t(sentenceKey.emptyTipsDesc),
+        icon: 'info.png',
+        searchKey: '',
+        exists: true,
+        command: new NoExecutor(),
+    }
 }
 
-const unSupportTips: ProjectItemImpl = {
-    id: '66ecef84-4bd7-4e06-85df-85035be54a19',
-    title: `该关键字不支持当前平台`,
-    description: '当然关键字对应的历史项目索引不支持当前平台，如果影响了你的日常操作，可以在插件详情中禁用',
-    icon: 'info.png',
-    searchKey: '',
-    exists: true,
-    command: new NoExecutor(),
+const unSupportTips: () => ProjectItemImpl = () => {
+    return {
+        id: '66ecef84-4bd7-4e06-85df-85035be54a19',
+        title: i18n.t(sentenceKey.unSupportTipsTitle),
+        description: i18n.t(sentenceKey.unSupportTipsDesc),
+        icon: 'info.png',
+        searchKey: '',
+        exists: true,
+        command: new NoExecutor(),
+    }
 }
 
 let nanoBar
@@ -57,7 +62,7 @@ export class AllProjectArgs extends ProjectArgsImpl {
         this.getProjectItems(utools.getNativeId())
             .then(result => {
                 if (isEmpty(result)) {
-                    callback([emptyTips])
+                    callback([emptyTips()])
                 } else {
                     callback(result)
                 }
@@ -78,7 +83,7 @@ export class AllProjectArgs extends ProjectArgsImpl {
     search = (action: Action, searchText: string, callback: Callback<ProjectItemImpl>) => {
         if (isEmpty(searchText)) {
             if (isEmpty(this.projectItemCache)) {
-                callback([emptyTips])
+                callback([emptyTips()])
             } else {
                 callback(this.projectItemCache)
             }
@@ -89,7 +94,7 @@ export class AllProjectArgs extends ProjectArgsImpl {
     }
 
     select = (action: Action, item: ProjectItemImpl, callback: Callback<ProjectItemImpl>) => {
-        if (item.id === emptyTips.id) {
+        if (item.id === emptyTips().id) {
             utools.redirect('Setting', '')
             return
         }

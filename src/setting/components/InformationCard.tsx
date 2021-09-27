@@ -95,8 +95,7 @@ export class InformationCard extends Component<InformationCardProps, Information
                             </div>
                             <div
                                 class="form-group tooltip tooltip-bottom"
-                                data-tooltip="Native ID 用于标识配置文件项的前缀
-本机配置文件可以在「账号与数据」中找到"
+                                data-tooltip={i18n.t(sentenceKey.nativeIdDesc)}
                             >
                                 <div class="col-3 col-sm-12">
                                     <label

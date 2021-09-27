@@ -3,7 +3,7 @@ import {Platform} from './types'
 import {isEmpty, isFn, isNil, isUrl, Url} from 'licia'
 import $ = require('licia/$')
 import {Context} from './context'
-import {i18n} from './i18n'
+import {i18n, sentenceKey} from './i18n'
 
 /**
  * 字符比较, 用于在 array.sort() 使用
@@ -30,7 +30,7 @@ export const existsOrNot: (string, ExistsOrNotItem) => ExistsOrNotItem = (path, 
     }
     : {
         exists: false,
-        description: `文件不存在`,
+        description: i18n.t(sentenceKey.pathNotFound),
         icon: item.icon,
     }
 

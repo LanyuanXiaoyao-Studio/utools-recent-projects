@@ -49,12 +49,12 @@ export class SettingCard extends Component<SettingCardProps, SettingCardState> {
             ],
         })
         if (isNil(result) || isEmpty(result)) {
-            alert('路径不存在或是您主动取消选择')
+            alert(i18n.t(sentenceKey.nonExistsPathOrCancel))
         } else {
             let path = result![0]
             if (!isEmpty(path)) {
                 if (!fs.existsSync(path)) {
-                    alert('路径指示的文件不存在或已被删除')
+                    alert(i18n.t(sentenceKey.nonExistsFileOrDeleted))
                     event.target.value = ''
                     return
                 }
@@ -68,13 +68,13 @@ export class SettingCard extends Component<SettingCardProps, SettingCardState> {
     input(event, id: string) {
         let inputValue = event.target?.value
         if (isNil(inputValue)) {
-            alert('出现未知的输入错误')
+            alert(i18n.t(sentenceKey.unknownInputError))
         } else if (isEmpty(inputValue)) {
             return
         } else {
             let path = inputValue
             if (!fs.existsSync(path)) {
-                alert('路径指示的文件不存在或已被删除')
+                alert(i18n.t(sentenceKey.nonExistsFileOrDeleted))
                 event.target.value = ''
                 return
             }

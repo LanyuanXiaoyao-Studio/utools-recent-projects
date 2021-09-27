@@ -48,7 +48,12 @@ export class ApplicationSettingCard extends Component<ApplicationSettingCardProp
                         <form class="form-horizontal">
                             <div class="form-group">
                                 <div class="col-10 col-mr-auto">
-                                    <div class="form-label">{i18n.t(sentenceKey.languageSetting)}</div>
+                                    <div
+                                        class="form-label badge"
+                                        data-badge={i18n.t(sentenceKey.needReboot)}
+                                    >
+                                        {i18n.t(sentenceKey.languageSetting)}
+                                    </div>
                                     <div class="form-description">{i18n.t(sentenceKey.languageSettingDesc)}</div>
                                 </div>
                                 <div class="col-2 flex-column-center">
@@ -171,7 +176,12 @@ export class ApplicationSettingCard extends Component<ApplicationSettingCardProp
                             <div class="divider"/>
                             <div class="form-group">
                                 <div class="col-10 col-mr-auto">
-                                    <div class="form-label">{i18n.t(sentenceKey.inputPathDirectly)}</div>
+                                    <div
+                                        class="form-label badge"
+                                        data-badge={i18n.t(sentenceKey.needReboot)}
+                                    >
+                                        {i18n.t(sentenceKey.inputPathDirectly)}
+                                    </div>
                                     <div class="form-description">{i18n.t(sentenceKey.inputPathDirectlyDesc)}</div>
                                 </div>
                                 <div class="col-1 flex-column-center">
