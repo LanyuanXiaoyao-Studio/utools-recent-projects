@@ -1,6 +1,7 @@
 import {Sentence} from './index'
 
 export class EnUs implements Sentence {
+    readonly auto: string = 'Auto'
     readonly betaDesc: string = `beta means that this adaption\nis in preview version\nI can't test all the use scenes\nI need you submit the feedback \nwhen you meet some error`
     readonly browserPathDescPrefix: string = 'file usually at: '
     readonly configPrefix: string = 'Configure'
@@ -26,11 +27,11 @@ export class EnUs implements Sentence {
     readonly getProjectsError: string = 'Error for getting projects, check settings please'
     readonly inputDirectlyPlaceholder: string = 'Input the file path'
     readonly inputPathDirectly: string = 'Input path directly'
-    readonly inputPathDirectlyDesc: string = 'Enable this option to input the path directly instead of the file selector. But it is also easy for running error because the path is incorrect.'
+    readonly inputPathDirectlyDesc: string = 'Enable this option to input the \npath directly instead of the file selector. But it is also easy for running error because the path is incorrect.'
     readonly languageSetting: string = 'Language'
     readonly languageSettingDesc: string = 'Although uTools has almost no foreign users, you can also choose language.'
     readonly nativeId: string = 'Native ID'
-    readonly nativeIdDesc: string = `Native ID is used to identify the prefix of the configuration item.\nNative configuration could be found in「账号与数据」`
+    readonly nativeIdDesc: string = `Native ID is used to identify the prefix of the configuration item.\nNative configuration could be \nfound in「账号与数据」`
     readonly needReboot: string = 'Reboot plugin needed'
     readonly nonExistsFileOrDeleted: string = 'Path non-exists or deleted'
     readonly nonExistsPathOrCancel: string = 'Path non-exists or you cancel the selector'

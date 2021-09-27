@@ -3,6 +3,7 @@ import {ZhCn} from './zh-cn'
 import {I18n} from 'licia'
 
 export const sentenceKey = {
+    auto: 'auto',
     betaDesc: 'betaDesc',
     browserPathDescPrefix: 'browserPathDescPrefix',
     configPrefix: 'configPrefix',
@@ -54,12 +55,13 @@ export const sentenceKey = {
     unknownError: 'unknownError',
     unknownInputError: 'unknownInputError',
     unready: 'unready',
-    unSupportTipsTitle: 'unSupportTipsTitle',
     unSupportTipsDesc: 'unSupportTipsDesc',
+    unSupportTipsTitle: 'unSupportTipsTitle',
     utoolsVersion: 'utoolsVersion',
 }
 
 export interface Sentence {
+    readonly auto: string
     readonly betaDesc: string
     readonly browserPathDescPrefix: string
     readonly configPrefix: string

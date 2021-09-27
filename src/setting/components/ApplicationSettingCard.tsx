@@ -65,8 +65,8 @@ export class ApplicationSettingCard extends Component<ApplicationSettingCardProp
                                             ? <option
                                                 value="auto"
                                                 selected
-                                            >自动</option>
-                                            : <option value="auto">自动</option>}
+                                            >{i18n.t(sentenceKey.auto)}</option>
+                                            : <option value="auto">{i18n.t(sentenceKey.auto)}</option>}
                                         {this.context.languageSetting === 'zh-CN'
                                             ? <option
                                                 value="zh-CN"

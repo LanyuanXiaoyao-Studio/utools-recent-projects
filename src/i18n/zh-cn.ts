@@ -1,6 +1,7 @@
 import {Sentence} from './index'
 
 export class ZhCn implements Sentence {
+    readonly auto: string = '自动'
     readonly betaDesc: string = `beta 意味着这个功能处于试验阶段\n但我无法测试所有使用场景\n需要你在遇到无法正常使用的时候积极向我反馈`
     readonly browserPathDescPrefix: string = '文件通常放在: '
     readonly configPrefix: string = '设置'
