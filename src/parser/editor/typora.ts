@@ -65,7 +65,7 @@ export class TyporaApplicationImpl extends ApplicationConfigAndExecutorImpl<Typo
                         title: i?.['name'] ?? '',
                         description: description,
                         icon: icon,
-                        searchKey: path,
+                        searchKey: [path],
                         exists: exists,
                         command: new NohupShellExecutor(this.executor, path),
                         datetime: i?.['date'] ?? 0,

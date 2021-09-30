@@ -87,7 +87,7 @@ export class SublimeApplicationImpl extends ApplicationConfigAndExecutorImpl<Sub
                     title: `${parser.name}${parser.ext}`,
                     description: description,
                     icon: icon,
-                    searchKey: path,
+                    searchKey: [path],
                     exists: exists,
                     command: new ShellExecutor(`"${this.executor}" ${args} "${this.parsePath(path)}"`),
                 })

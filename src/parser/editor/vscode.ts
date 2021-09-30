@@ -82,7 +82,7 @@ export class VscodeApplicationImpl extends ApplicationConfigAndExecutorImpl<Vsco
                         title: parser.name,
                         description: description,
                         icon: icon,
-                        searchKey: path,
+                        searchKey: [path],
                         exists: exists,
                         command: new ShellExecutor(`"${this.executor}" ${args} "${path}"`),
                     })

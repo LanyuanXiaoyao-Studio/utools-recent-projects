@@ -129,24 +129,25 @@ export class UtoolsExecutor implements Executor {
  * 对 uTools 模板插件中结果项的定义, 增加了 id 和 searchKey 的适配, 方便使用
  */
 export interface Item {
-    id: string
-    title: string
-    description: string
-    icon: string
-    searchKey: string
+    readonly id: string
+    readonly title: string
+    readonly description: string
+    readonly icon: string
+    readonly searchKey: Array<string>
 }
 
 /**
  * 对选项的简单抽象实现, 方便使用
  */
 export abstract class ItemImpl implements Item {
-    id: string
-    title: string
-    description: string
-    icon: string
-    searchKey: string
+    readonly id: string
+    readonly title: string
+    readonly description: string
+    readonly icon: string
+    readonly searchKey: Array<string>
+    score?: number
 
-    protected constructor(id: string, title: string, description: string, icon: string, searchKey: string) {
+    protected constructor(id: string, title: string, description: string, icon: string, searchKey: Array<string>) {
         this.id = id
         this.title = title
         this.description = description
@@ -164,7 +165,7 @@ export abstract class ProjectItemImpl extends ItemImpl {
     exists: boolean
     command: Executor
 
-    protected constructor(id: string, title: string, description: string, icon: string, searchKey: string, exists: boolean, command: Executor) {
+    protected constructor(id: string, title: string, description: string, icon: string, searchKey: Array<string>, exists: boolean, command: Executor) {
         super(id, title, description, icon, searchKey)
         this.exists = exists
         this.command = command
@@ -174,7 +175,7 @@ export abstract class ProjectItemImpl extends ItemImpl {
 export abstract class DatetimeProjectItemImpl extends ProjectItemImpl {
     datetime: number
 
-    protected constructor(id: string, title: string, description: string, icon: string, searchKey: string, exists: boolean, command: Executor, datetime: number) {
+    protected constructor(id: string, title: string, description: string, icon: string, searchKey: Array<string>, exists: boolean, command: Executor, datetime: number) {
         super(id, title, description, icon, searchKey, exists, command)
         this.datetime = datetime
     }

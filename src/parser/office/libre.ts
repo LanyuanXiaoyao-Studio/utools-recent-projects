@@ -75,7 +75,7 @@ export class LibreOfficeApplicationImpl extends ApplicationConfigAndExecutorImpl
                     title: name,
                     description: description,
                     icon: icon,
-                    searchKey: realPath,
+                    searchKey: [realPath],
                     exists: exists,
                     command: new ShellExecutor(`"${this.executor}" "${path}"`),
                     datetime: date,

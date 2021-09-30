@@ -14,9 +14,9 @@ import {
     wpsApplications,
     xcodeApplications,
 } from './applications'
+import {i18n, sentenceKey} from './i18n'
 import $ = require('licia/$')
 import NanoBar = require('nanobar')
-import {i18n, sentenceKey} from './i18n'
 
 const emptyTips: () => ProjectItemImpl = () => {
     return {
@@ -24,7 +24,7 @@ const emptyTips: () => ProjectItemImpl = () => {
         title: i18n.t(sentenceKey.emptyTipsTitle),
         description: i18n.t(sentenceKey.emptyTipsDesc),
         icon: 'info.png',
-        searchKey: '',
+        searchKey: [],
         exists: true,
         command: new NoExecutor(),
     }
@@ -36,7 +36,7 @@ const unSupportTips: () => ProjectItemImpl = () => {
         title: i18n.t(sentenceKey.unSupportTipsTitle),
         description: i18n.t(sentenceKey.unSupportTipsDesc),
         icon: 'info.png',
-        searchKey: '',
+        searchKey: [],
         exists: true,
         command: new NoExecutor(),
     }
@@ -89,7 +89,22 @@ export class AllProjectArgs extends ProjectArgsImpl {
             }
         } else {
             let text = searchText.toLocaleLowerCase()
-            callback(this.projectItemCache.filter(item => item.searchKey.toLocaleLowerCase().indexOf(text) > -1))
+            callback(this.projectItemCache.filter(item => {
+                for (let key of item.searchKey) {
+                    if (key.toLowerCase().indexOf(text) > -1) {
+                        return true
+                    }
+                }
+                return false
+            }))
+            /*callback(this.projectItemCache
+                .map(item => {
+                    item.score = max(...item.searchKey.map(k => score(k, text)))
+                    return item
+                })
+                .filter(item => item.score !== 0)
+                .sort((a, b) => b.score! - a.score!),
+            )*/
         }
     }
 

@@ -41,7 +41,7 @@ export class ChromiumHistoryApplicationImpl extends SqliteBrowserApplicationImpl
                     title: title,
                     description: url,
                     icon: this.ifGetFavicon(removeAllQueryFromUrl(url), context),
-                    searchKey: `${title} ${url}`,
+                    searchKey: [title, url],
                     exists: true,
                     command: new ElectronExecutor(url),
                     datetime: i['timestamp'] ?? 0,

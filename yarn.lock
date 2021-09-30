@@ -3024,6 +3024,11 @@ pify@^3.0.0:
   resolved "https://registry.npm.taobao.org/pify/download/pify-3.0.0.tgz#e5a4acd2c101fdf3d9a4d07f0dbc4db49dd28176"
   integrity sha1-5aSs0sEB/fPZpNB/DbxNtJ3SgXY=
 
+pinyinlite@^1.2.1:
+  version "1.2.1"
+  resolved "https://registry.nlark.com/pinyinlite/download/pinyinlite-1.2.1.tgz#48b30f68a4f1daf193756d9b6ea66acb233fa4fb"
+  integrity sha1-SLMPaKTx2vGTdW2bbqZqyyM/pPs=
+
 pirates@^4.0.1:
   version "4.0.1"
   resolved "https://registry.npm.taobao.org/pirates/download/pirates-4.0.1.tgz#643a92caf894566f91b2b986d2c66950a8e2fb87"
@@ -3357,6 +3362,11 @@ stack-utils@^2.0.3:
   integrity sha1-zV8DASb/EWt4zLPAJ/4wJxO2Enc=
   dependencies:
     escape-string-regexp "^2.0.0"
+
+string-comparison@^1.0.9:
+  version "1.0.9"
+  resolved "https://registry.npmmirror.com/string-comparison/download/string-comparison-1.0.9.tgz#1435c7d5553a76fc6ae12995fe8f3cf724bb8a54"
+  integrity sha1-FDXH1VU6dvxq4SmV/o889yS7ilQ=
 
 string-length@^4.0.1:
   version "4.0.2"

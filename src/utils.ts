@@ -1,9 +1,11 @@
 import {existsSync} from 'fs'
 import {Platform} from './types'
-import {isEmpty, isFn, isNil, isUrl, Url} from 'licia'
-import $ = require('licia/$')
+import {isEmpty, isFn, isNil, isUrl, unique, Url} from 'licia'
 import {Context} from './context'
 import {i18n, sentenceKey} from './i18n'
+import {levenshtein} from 'string-comparison'
+import pinyinLite = require('pinyinlite')
+import $ = require('licia/$')
 
 /**
  * 字符比较, 用于在 array.sort() 使用
@@ -150,4 +152,106 @@ export const initLanguage: (context?: Context) => void = context => {
     } else {
         i18n.locale(context.languageSetting)
     }
+}
+
+// @ts-ignore
+export const cartesian: (words: Array<Array<string>>) => Array<Array<string>> = words => {
+    if (words.length === 0) return []
+    if (words.length < 2) return words
+    // @ts-ignore
+    return words.reduce((a, b) => a.flatMap(d => b.map(e => [d, e].flat())))
+}
+
+export const pinyin: (text: string) => Array<string> = text => {
+    // console.log(text)
+    // @ts-ignore
+    return unique(cartesian(pinyinLite(text).filter((p) => p.length > 0)).map((i) => i.join('')))
+}
+
+export const score: (a: string, b: string) => number = (a, b) => levenshtein.similarity(a, b)
+
+export const generateSearchKeyWithPinyin: (text: string) => Array<string> = text => {
+    if (isNil(text) || isEmpty(text)) return []
+    let results: Array<string> = [],
+        length = text.length,
+        start = 0,
+        regex = /^[\u4e00-\u9fa5]+$/,
+        last = regex.test(text[0])
+    for (let index = 0; index < length; index++) {
+        if (index === length - 1) {
+            let cutting = text.substring(start, length).trim()
+            if (last) {
+                results.push(...pinyin(cutting))
+            } else {
+                results.push(cutting)
+            }
+        } else {
+            if (last !== regex.test(text[index].trim())) {
+                let cutting = text.substring(start, index).trim()
+                if (last) {
+                    results.push(...pinyin(cutting))
+                } else {
+                    results.push(cutting)
+                }
+                start = index
+                last = !last
+            }
+        }
+    }
+    return results
+}
+
+// Copy From https://github.com/joshaven/string_score/blob/master/string_score.js
+export const textScore: (text: string, words: string, fuzziness?: number) => number = (text, words, fuzziness) => {
+    if (text === words) return 1
+    if (text === '') return 0
+
+    let runningScore: number = 0,
+        finalScore: number = 0,
+        tLower: string = text.toLowerCase(),
+        tLen: number = text.length,
+        wLower: string = words.toLowerCase(),
+        wLen: number = words.length,
+        fuzzes: number = 1
+
+    if (isNil(fuzziness)) {
+        let charScore: number = 0
+        for (let i: number = 0, startAt: number = 0; i < wLen; i += 1) {
+            let index = tLower.indexOf(wLower[i], startAt)
+            if (-1 === index) { return 0 }
+            if (startAt === index) {
+                charScore = 0.7
+            } else {
+                charScore = 0.1
+                if (text[index - 1] === ' ') { charScore += 0.8 }
+            }
+            if (text[index] === words[i]) { charScore += 0.1 }
+            runningScore += charScore
+            startAt = index + 1
+        }
+    } else {
+        let charScore: number = 0,
+            fuzzyFactor: number = 1 - (fuzziness ?? 1)
+        for (let i: number = 0, startAt: number = 0; i < wLen; i += 1) {
+            let index = tLower.indexOf(wLower[i], startAt)
+            if (index === -1) {
+                fuzzes += fuzzyFactor
+            } else {
+                if (startAt === index) {
+                    charScore = 0.7
+                } else {
+                    charScore = 0.1
+                    if (text[index - 1] === ' ') { charScore += 0.8 }
+                }
+                if (text[index] === words[i]) { charScore += 0.1 }
+                runningScore += charScore
+                startAt = index + 1
+            }
+        }
+    }
+    finalScore = 0.5 * (runningScore / tLen + runningScore / wLen) / fuzzes
+    if ((wLower[0] === tLower[0]) && (finalScore < 0.85)) {
+        finalScore += 0.15
+    }
+    return finalScore
 }

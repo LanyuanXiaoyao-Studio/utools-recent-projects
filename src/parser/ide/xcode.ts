@@ -66,7 +66,7 @@ export class XcodeApplicationImpl extends ApplicationImpl<XcodeProjectItemImpl> 
                     title: parseObj.name,
                     description: description,
                     icon: icon,
-                    searchKey: parseObj.name,
+                    searchKey: [parseObj.name],
                     exists: exists,
                     command: new ShellExecutor(`open ${p}`),
                 })

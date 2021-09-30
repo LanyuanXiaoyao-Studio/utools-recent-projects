@@ -21,11 +21,13 @@ packageJson='{
                 "version"        : "1.0.0",
                 "license"        : "MIT",
                 "dependencies"   : {
-                  "bplist-parser": "^0.3.0",
-                  "licia"        : "^1.29.0",
-                  "nano-jsx"     : "^0.0.20",
-                  "nanobar"      : "^0.4.2",
-                  "winreg"       : "^1.2.4"
+                  "bplist-parser"    : "^0.3.0",
+                  "licia"            : "^1.30.0",
+                  "nano-jsx"         : "^0.0.20",
+                  "nanobar"          : "^0.4.2",
+                  "pinyinlite"       : "^1.2.1",
+                  "string-comparison": "^1.0.9",
+                  "winreg"           : "^1.2.4"
                 }
               }'
 echo $packageJson > package.json
@@ -55,6 +57,14 @@ cd $temp
 
 cd "${temp}/node_modules/nanobar"
 rm -rf brand demos *.md .npmignore .eslintrc bower.json LICENSE nanobar.min.js
+cd $temp
+
+rm -rf "${temp}/node_modules/pinyinlite"
+cp -r "${current_path}/libs/pinyinlite" "${temp}/node_modules"
+cd $temp
+
+cd "${temp}/node_modules/string-comparison"
+rm -rf LICENSE *.md
 cd $temp
 
 cd $current_path

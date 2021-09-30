@@ -20,11 +20,13 @@ $packageJson=@"
   "version"        : "1.0.0",
   "license"        : "MIT",
   "dependencies"   : {
-      "bplist-parser"  : "^0.3.0",
-      "licia"          : "^1.29.0",
-      "nano-jsx"       : "^0.0.20",
-      "nanobar"        : "^0.4.2",
-      "winreg"         : "^1.2.4"
+    "bplist-parser"    : "^0.3.0",
+    "licia"            : "^1.30.0",
+    "nano-jsx"         : "^0.0.20",
+    "nanobar"          : "^0.4.2",
+    "pinyinlite"       : "^1.2.1",
+    "string-comparison": "^1.0.9",
+    "winreg"           : "^1.2.4"
   }
 }
 "@
@@ -55,6 +57,14 @@ Set-Location $temp
 
 Set-Location "$temp\node_modules\nanobar"
 Remove-Item -Force -Recurse brand,demos,*.md,.npmignore,.eslintrc,bower.json,LICENSE,nanobar.min.js
+Set-Location $temp
+
+Remove-Item -Force -Recurse "${temp}\node_modules\pinyinlite"
+Copy-Item -Recurse "${current_path}\libs/pinyinlite" "${temp}\node_modules"
+Set-Location $temp
+
+Set-Location "$temp\node_modules\string-comparison"
+Remove-Item -Force -Recurse LICENSE,*.md
 Set-Location $temp
 
 Set-Location $current_path

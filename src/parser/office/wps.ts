@@ -63,7 +63,7 @@ export class WpsMacInternationalApplicationImpl extends ApplicationConfigImpl<Wp
                         title: parser.name,
                         description: description,
                         icon: icon,
-                        searchKey: path,
+                        searchKey: [path],
                         exists: exists,
                         command: new ShellExecutor(`open "${path}"`),
                     })
@@ -120,7 +120,7 @@ export class WpsLinuxInternationalApplicationImpl extends ApplicationConfigAndEx
                     title: parser.name,
                     description: description,
                     icon: icon,
-                    searchKey: path,
+                    searchKey: [path],
                     exists: exists,
                     command: new ShellExecutor(`${this.executor} "${path}"`),
                 })

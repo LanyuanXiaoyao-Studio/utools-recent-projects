@@ -57,7 +57,7 @@ export class VsStudioApplicationImpl extends ApplicationConfigImpl<VsStudioProje
                         title: parseObj.name,
                         description: description,
                         icon: icon,
-                        searchKey: parseObj.name,
+                        searchKey: [parseObj.name],
                         exists: exists,
                         command: new ElectronExecutor(path),
                         datetime: parseInt(`${datetime}`),
