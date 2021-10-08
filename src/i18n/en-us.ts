@@ -2,6 +2,7 @@ import {Sentence} from './index'
 
 export class EnUs implements Sentence {
     readonly auto: string = 'Auto'
+    readonly beta: string = 'Beta'
     readonly betaDesc: string = `beta means that this adaption\nis in preview version\nI can't test all the use scenes\nI need you submit the feedback \nwhen you meet some error`
     readonly browserPathDescPrefix: string = 'file usually at: '
     readonly configPrefix: string = 'Configure'
@@ -20,6 +21,8 @@ export class EnUs implements Sentence {
     readonly fileSelectorPlaceholder: string = 'Click the input to select file'
     readonly filterNonExistsFiles: string = 'Filter non-exists\' files'
     readonly filterNonExistsFilesDesc: string = 'The plugin will display the history content, just like the software itself, but if you want the plugin to filter out the non-exists files, then you can consider enabling this option.'
+    readonly fuzzyMatch: string = 'Fuzzy Match'
+    readonly fuzzyMatchDesc: string = 'You don\'t need to enter the full name, it can match the desired results quickly even if you enter only a few letters. However, few letters will bring too many results, and the desired results may not be ranked in the first place. It is recommended to use exact matching.'
     readonly getFavicon: string = 'Get favicon for website'
     readonly getFaviconDesc: string = 'Enable this option, the plugin would use the 「api.clowntool.cn」 to get the website icon and show it in the result instead of the browser icon, but the API may slow; Plugin need to send the URL to this API, the privacy problem is also best considering within'
     readonly getFileIcon: string = 'Get file icon from system'

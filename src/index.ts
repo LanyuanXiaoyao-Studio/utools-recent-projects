@@ -1,5 +1,5 @@
 import {Action, Callback, DatetimeProjectItemImpl, NoExecutor, ProjectArgsImpl, ProjectItemImpl} from './types'
-import {isEmpty, isNil} from 'licia'
+import {isEmpty, isNil, max} from 'licia'
 import {SettingUIFeature} from './setting/setting'
 import {
     browserBookmarkApplications,
@@ -15,6 +15,7 @@ import {
     xcodeApplications,
 } from './applications'
 import {i18n, sentenceKey} from './i18n'
+import {score} from './utils'
 import $ = require('licia/$')
 import NanoBar = require('nanobar')
 
@@ -89,22 +90,25 @@ export class AllProjectArgs extends ProjectArgsImpl {
             }
         } else {
             let text = searchText.toLocaleLowerCase()
-            callback(this.projectItemCache.filter(item => {
-                for (let key of item.searchKey) {
-                    if (key.toLowerCase().indexOf(text) > -1) {
-                        return true
+            if (this.context?.enableFuzzyMatch ?? false) {
+                callback(this.projectItemCache
+                    .map(item => {
+                        item.score = max(...item.searchKey.map(k => score(k, text)))
+                        return item
+                    })
+                    .filter(item => item.score !== 0)
+                    .sort((a, b) => b.score! - a.score!),
+                )
+            } else {
+                callback(this.projectItemCache.filter(item => {
+                    for (let key of item.searchKey) {
+                        if (key.toLowerCase().indexOf(text) > -1) {
+                            return true
+                        }
                     }
-                }
-                return false
-            }))
-            /*callback(this.projectItemCache
-                .map(item => {
-                    item.score = max(...item.searchKey.map(k => score(k, text)))
-                    return item
-                })
-                .filter(item => item.score !== 0)
-                .sort((a, b) => b.score! - a.score!),
-            )*/
+                    return false
+                }))
+            }
         }
     }
 

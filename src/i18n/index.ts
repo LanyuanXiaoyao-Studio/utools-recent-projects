@@ -4,6 +4,7 @@ import {I18n} from 'licia'
 
 export const sentenceKey = {
     auto: 'auto',
+    beta: 'beta',
     betaDesc: 'betaDesc',
     browserPathDescPrefix: 'browserPathDescPrefix',
     configPrefix: 'configPrefix',
@@ -22,6 +23,8 @@ export const sentenceKey = {
     fileSelectorPlaceholder: 'fileSelectorPlaceholder',
     filterNonExistsFiles: 'filterNonExistsFiles',
     filterNonExistsFilesDesc: 'filterNonExistsFilesDesc',
+    fuzzyMatch: 'fuzzyMatch',
+    fuzzyMatchDesc: 'fuzzyMatchDesc',
     getFavicon: 'getFavicon',
     getFaviconDesc: 'getFaviconDesc',
     getFileIcon: 'getFileIcon',
@@ -62,6 +65,7 @@ export const sentenceKey = {
 
 export interface Sentence {
     readonly auto: string
+    readonly beta: string
     readonly betaDesc: string
     readonly browserPathDescPrefix: string
     readonly configPrefix: string
@@ -80,6 +84,8 @@ export interface Sentence {
     readonly fileSelectorPlaceholder: string
     readonly filterNonExistsFiles: string
     readonly filterNonExistsFilesDesc: string
+    readonly fuzzyMatch: string
+    readonly fuzzyMatchDesc: string
     readonly getFavicon: string
     readonly getFaviconDesc: string
     readonly getFileIcon: string

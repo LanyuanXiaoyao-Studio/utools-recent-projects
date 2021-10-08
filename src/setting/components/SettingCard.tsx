@@ -127,7 +127,7 @@ export class SettingCard extends Component<SettingCardProps, SettingCardState> {
                         />
                         <span
                             class={this.props.application.beta ? 'title badge badge-unready' : 'title'}
-                            data-badge="beta"
+                            data-badge={i18n.t(sentenceKey.beta)}
                         >
                             {this.props.application.name}
                         </span>

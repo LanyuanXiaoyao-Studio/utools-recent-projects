@@ -201,6 +201,34 @@ export class ApplicationSettingCard extends Component<ApplicationSettingCardProp
                                     </label>
                                 </div>
                             </div>
+                            <div class="divider"/>
+                            <div class="form-group">
+                                <div class="col-10 col-mr-auto">
+                                    <div
+                                        class="form-label badge badge-unready"
+                                        data-badge={i18n.t(sentenceKey.beta)}
+                                    >
+                                        {i18n.t(sentenceKey.fuzzyMatch)}
+                                    </div>
+                                    <div class="form-description">{i18n.t(sentenceKey.fuzzyMatchDesc)}</div>
+                                </div>
+                                <div class="col-1 flex-column-center">
+                                    <label class="form-switch">
+                                        {this.context.enableFuzzyMatch
+                                            ? <input
+                                                type="checkbox"
+                                                checked
+                                                onchange={() => this.switch(Context.enableFuzzyMatchId, false)}
+                                            />
+                                            :
+                                            <input
+                                                type="checkbox"
+                                                onchange={() => this.switch(Context.enableFuzzyMatchId, true)}
+                                            />}
+                                        <i class="form-icon"/>
+                                    </label>
+                                </div>
+                            </div>
                         </form>
                     </div>
                 </div>

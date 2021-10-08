@@ -1,10 +1,11 @@
 export class Context {
-    static languageSettingId: string = 'language-setting'
+    static languageSettingId: string = 'setting-language-setting'
     static enableFilterNonExistsFilesId: string = 'setting-filter-non-exists-files'
     static enableGetFaviconFromNetId: string = 'setting-get-favicon-from-net'
     static enableGetFileIconId: string = 'setting-get-file-icon'
     static enableOpenNotificationId: string = 'setting-open-notification'
     static enableEditPathInputDirectlyId: string = 'setting-edit-path-input-directly'
+    static enableFuzzyMatchId: string = 'setting-fuzzy-match'
 
     readonly languageSetting: string = 'auto'
     readonly enableFilterNonExistsFiles: boolean = false
@@ -12,6 +13,7 @@ export class Context {
     readonly enableGetFileIcon: boolean = false
     readonly enableOpenNotification: boolean = false
     readonly enableEditPathInputDirectly: boolean = false
+    readonly enableFuzzyMatch: boolean = false
 
     constructor(nativeId: string) {
         this.languageSetting = utools.dbStorage.getItem(Context.joinId(nativeId, Context.languageSettingId)) ?? 'auto'
@@ -20,6 +22,7 @@ export class Context {
         this.enableGetFileIcon = utools.dbStorage.getItem(Context.joinId(nativeId, Context.enableGetFileIconId)) ?? false
         this.enableOpenNotification = utools.dbStorage.getItem(Context.joinId(nativeId, Context.enableOpenNotificationId)) ?? false
         this.enableEditPathInputDirectly = utools.dbStorage.getItem(Context.joinId(nativeId, Context.enableEditPathInputDirectlyId)) ?? false
+        this.enableFuzzyMatch = utools.dbStorage.getItem(Context.joinId(nativeId, Context.enableFuzzyMatchId)) ?? false
     }
 
     static joinId(nativeId: string, id: string): string {
