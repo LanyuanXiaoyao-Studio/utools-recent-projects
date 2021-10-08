@@ -10,7 +10,7 @@ import {
     SwitchSettingItem,
 } from '../../types'
 import {readFile} from 'fs/promises'
-import {isEmpty, isNil, Url} from 'licia'
+import {isEmpty, isNil, startWith, Url} from 'licia'
 import {parse} from 'path'
 import {existsOrNot, generateStringByOS} from '../../utils'
 import {Context} from '../../context'
@@ -55,14 +55,23 @@ export class VscodeApplicationImpl extends ApplicationConfigAndExecutorImpl<Vsco
             let entries = storage?.openedPathsList?.entries
             if (!isNil(entries)) {
                 for (let element of entries) {
-                    let folderUri = element['folderUri']
-                    let fileUri = element['fileUri']
-                    let uri
-                    let args = this.openInNew ? '-n' : ''
+                    let folderUri = element['folderUri'],
+                        fileUri = element['fileUri'],
+                        label = element['label'],
+                        workspace = element['workspace'],
+                        uri,
+                        args = this.openInNew ? '-n' : ''
                     if (!isEmpty(folderUri)) {
                         uri = folderUri
                     } else if (!isEmpty(fileUri)) {
                         uri = fileUri
+                    } else if (!isNil(workspace)) {
+                        let configPath = workspace['configPath']
+                        if (!isEmpty(configPath)) {
+                            uri = configPath
+                        } else {
+                            continue
+                        }
                     } else {
                         continue
                     }
@@ -77,6 +86,13 @@ export class VscodeApplicationImpl extends ApplicationConfigAndExecutorImpl<Vsco
                         description: path,
                         icon: context.enableGetFileIcon ? utools.getFileIcon(path) : this.icon,
                     })
+
+                    // 对 remote folder 进行处理
+                    if (startWith(uri, 'vscode-remote')) {
+                        exists = true
+                        description = label
+                    }
+
                     items.push({
                         id: '',
                         title: parser.name,
