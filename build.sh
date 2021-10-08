@@ -64,7 +64,7 @@ cp -r "${current_path}/libs/pinyinlite" "${temp}/node_modules"
 cd $temp
 
 cd "${temp}/node_modules/string-comparison"
-rm -rf LICENSE *.md
+rm -rf LICENCE *.md
 cd $temp
 
 cd $current_path

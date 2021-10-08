@@ -64,7 +64,7 @@ Copy-Item -Recurse "${current_path}\libs/pinyinlite" "${temp}\node_modules"
 Set-Location $temp
 
 Set-Location "$temp\node_modules\string-comparison"
-Remove-Item -Force -Recurse LICENSE,*.md
+Remove-Item -Force -Recurse LICENCE,*.md
 Set-Location $temp
 
 Set-Location $current_path
