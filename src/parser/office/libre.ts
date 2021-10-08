@@ -10,7 +10,7 @@ import {
 import {readFile} from 'fs/promises'
 import {isEmpty, isNil, now, Url} from 'licia'
 import {Context} from '../../context'
-import {existsOrNot, generateStringByOS} from '../../utils'
+import {existsOrNot, generateSearchKeyWithPinyin, generateStringByOS} from '../../utils'
 import {parse} from 'path'
 import $ = require('licia/$')
 
@@ -75,7 +75,7 @@ export class LibreOfficeApplicationImpl extends ApplicationConfigAndExecutorImpl
                     title: name,
                     description: description,
                     icon: icon,
-                    searchKey: [realPath],
+                    searchKey: [...generateSearchKeyWithPinyin(name), realPath],
                     exists: exists,
                     command: new ShellExecutor(`"${this.executor}" "${path}"`),
                     datetime: date,

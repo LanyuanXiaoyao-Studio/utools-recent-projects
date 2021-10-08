@@ -1,7 +1,8 @@
 import {
     ApplicationConfigImpl,
     ApplicationImpl,
-    DatetimeProjectItemImpl, DescriptionGetter,
+    DatetimeProjectItemImpl,
+    DescriptionGetter,
     Group,
     GroupName,
     Platform,
@@ -10,7 +11,7 @@ import {
 import {isEmpty, isNil, Url} from 'licia'
 import {join, parse} from 'path'
 import {execSync} from 'child_process'
-import {existsOrNot, generateStringByOS} from '../../utils'
+import {existsOrNot, generateSearchKeyWithPinyin, generateStringByOS} from '../../utils'
 import {lstatSync, readdirSync} from 'fs'
 import {Context} from '../../context'
 import plistParser = require('bplist-parser')
@@ -51,7 +52,7 @@ export class OfficeMacApplicationImpl extends ApplicationConfigImpl<OfficeProjec
                         title: parser.name,
                         description: description,
                         icon: icon,
-                        searchKey: [url.pathname],
+                        searchKey: [...generateSearchKeyWithPinyin(parser.name), url.pathname],
                         exists: exists,
                         command: new ShellExecutor(`open ${url}`),
                         datetime: date,
@@ -107,7 +108,7 @@ export class OfficeWinApplicationImpl extends ApplicationImpl<OfficeProjectItemI
                 title: parser.name,
                 description: description,
                 icon: icon,
-                searchKey: [p],
+                searchKey: [...generateSearchKeyWithPinyin(parser.name), p],
                 exists: exists,
                 command: new ShellExecutor(`powershell.exe -command "Invoke-Item '${p}'"`),
                 datetime: 0,

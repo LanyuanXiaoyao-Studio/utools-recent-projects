@@ -11,7 +11,7 @@ import {BrowserId, SqliteBrowserApplicationImpl} from '../index'
 import {execFileSync} from 'child_process'
 import {contain, isEmpty, isNil, reverse, Url} from 'licia'
 import {Context} from '../../../context'
-import {generateStringByOS} from '../../../utils'
+import {generateSearchKeyWithPinyin, generateStringByOS} from '../../../utils'
 import {i18n, sentenceKey} from '../../../i18n'
 
 const FIREFOX: string = 'firefox'
@@ -60,7 +60,7 @@ export class FirefoxBookmarkApplicationImpl extends SqliteBrowserApplicationImpl
                         title: title,
                         description: url,
                         icon: this.ifGetFavicon(url, context),
-                        searchKey: [title, Url.parse(url).hostname],
+                        searchKey: [...generateSearchKeyWithPinyin(title), Url.parse(url).hostname],
                         exists: true,
                         command: new ElectronExecutor(url),
                         datetime: time,

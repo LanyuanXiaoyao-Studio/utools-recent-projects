@@ -10,7 +10,7 @@ import {
 } from '../../types'
 import {isEmpty, isNil} from 'licia'
 import {parse} from 'path'
-import {existsOrNot, generateStringByOS} from '../../utils'
+import {existsOrNot, generateSearchKeyWithPinyin, generateStringByOS} from '../../utils'
 import {Context} from '../../context'
 import {readFile} from 'fs/promises'
 import plistParser = require('bplist-parser')
@@ -63,7 +63,7 @@ export class WpsMacInternationalApplicationImpl extends ApplicationConfigImpl<Wp
                         title: parser.name,
                         description: description,
                         icon: icon,
-                        searchKey: [path],
+                        searchKey: [...generateSearchKeyWithPinyin(parser.name), path],
                         exists: exists,
                         command: new ShellExecutor(`open "${path}"`),
                     })
@@ -120,7 +120,7 @@ export class WpsLinuxInternationalApplicationImpl extends ApplicationConfigAndEx
                     title: parser.name,
                     description: description,
                     icon: icon,
-                    searchKey: [path],
+                    searchKey: [...generateSearchKeyWithPinyin(parser.name), path],
                     exists: exists,
                     command: new ShellExecutor(`${this.executor} "${path}"`),
                 })

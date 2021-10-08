@@ -10,7 +10,7 @@ import {
 import {BrowserId, getPathDescription, SqliteBrowserApplicationImpl} from '../index'
 import {execFileSync} from 'child_process'
 import {isEmpty} from 'licia'
-import {removeAllQueryFromUrl} from '../../../utils'
+import {generateSearchKeyWithPinyin, removeAllQueryFromUrl} from '../../../utils'
 import {Context} from '../../../context'
 
 const FIREFOX: string = 'firefox'
@@ -44,7 +44,7 @@ export class FirefoxHistoryApplicationImpl extends SqliteBrowserApplicationImpl<
                     title: title,
                     description: description,
                     icon: this.ifGetFavicon(removeAllQueryFromUrl(url), context),
-                    searchKey: [title, description, url],
+                    searchKey: [...generateSearchKeyWithPinyin(title), description, url],
                     exists: true,
                     command: new ElectronExecutor(url),
                     datetime: i['timestamp'] ?? 0,

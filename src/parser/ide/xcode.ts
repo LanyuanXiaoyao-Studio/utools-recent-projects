@@ -3,7 +3,7 @@ import {execSync} from 'child_process'
 import {isEmpty, isNil} from 'licia'
 import {parse} from 'path'
 import {statSync} from 'fs'
-import {existsOrNot} from '../../utils'
+import {existsOrNot, generateSearchKeyWithPinyin} from '../../utils'
 import {Context} from '../../context'
 
 const XCODE: string = 'xcode'
@@ -66,7 +66,7 @@ export class XcodeApplicationImpl extends ApplicationImpl<XcodeProjectItemImpl> 
                     title: parseObj.name,
                     description: description,
                     icon: icon,
-                    searchKey: [parseObj.name],
+                    searchKey: [...generateSearchKeyWithPinyin(parseObj.name), parseObj.name],
                     exists: exists,
                     command: new ShellExecutor(`open ${p}`),
                 })

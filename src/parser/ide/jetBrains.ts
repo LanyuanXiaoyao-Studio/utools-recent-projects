@@ -1,7 +1,8 @@
 import {
     Application,
     ApplicationConfigAndExecutorImpl,
-    DatetimeProjectItemImpl, DescriptionGetter,
+    DatetimeProjectItemImpl,
+    DescriptionGetter,
     Group,
     GroupName,
     NohupShellExecutor,
@@ -10,7 +11,7 @@ import {
 import {readFile} from 'fs/promises'
 import {isEmpty, isNil} from 'licia'
 import {parse} from 'path'
-import {existsOrNot} from '../../utils'
+import {existsOrNot, generateSearchKeyWithPinyin} from '../../utils'
 import $ = require('licia/$')
 
 const JETBRAINS: string = 'jetbrains'
@@ -47,7 +48,7 @@ export class JetBrainsApplicationImpl extends ApplicationConfigAndExecutorImpl<J
                         title: parseObj.name,
                         description: description,
                         icon: icon,
-                        searchKey: [parseObj.name],
+                        searchKey: [...generateSearchKeyWithPinyin(parseObj.name), parseObj.name],
                         exists: exists,
                         command: new NohupShellExecutor(this.executor, path),
                         datetime: parseInt(`${datetime}`),
