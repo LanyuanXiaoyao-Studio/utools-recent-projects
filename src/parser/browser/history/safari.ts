@@ -11,7 +11,7 @@ import {
 } from '../../../types'
 import {SqliteBrowserApplicationImpl} from '../index'
 import {execFileSync} from 'child_process'
-import {isEmpty} from 'licia'
+import {isEmpty, unique} from 'licia'
 import {generateSearchKeyWithPinyin, removeAllQueryFromUrl} from '../../../utils'
 import {Context} from '../../../context'
 import {existsSync} from 'fs'
@@ -58,7 +58,7 @@ export class SafariHistoryApplicationImpl extends SqliteBrowserApplicationImpl<S
                     title: title,
                     description: url,
                     icon: this.ifGetFavicon(removeAllQueryFromUrl(url), context),
-                    searchKey: [...generateSearchKeyWithPinyin(title), url],
+                    searchKey: unique([...generateSearchKeyWithPinyin(title), url]),
                     exists: true,
                     command: new ElectronExecutor(url),
                     datetime: i['timestamp'] ?? 0,

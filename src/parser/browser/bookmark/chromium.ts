@@ -13,7 +13,7 @@ import {
 import {BrowserApplicationImpl, BrowserId, getDescription} from '../index'
 import {Context} from '../../../context'
 import {readFile} from 'fs/promises'
-import {isEmpty, Url} from 'licia'
+import {isEmpty, unique, Url} from 'licia'
 import {generateParents, generateSearchKeyWithPinyin, parseTimeFrom1604} from '../../../utils'
 import {i18n, sentenceKey} from '../../../i18n'
 
@@ -44,7 +44,7 @@ export class ChromiumBookmarkApplicationImpl extends BrowserApplicationImpl<Chro
                 title: title,
                 description: url,
                 icon: this.ifGetFavicon(url, context),
-                searchKey: [...generateSearchKeyWithPinyin(title), Url.parse(url).hostname],
+                searchKey: unique([...generateSearchKeyWithPinyin(title), Url.parse(url).hostname]),
                 exists: true,
                 command: new ElectronExecutor(url),
                 datetime: time,

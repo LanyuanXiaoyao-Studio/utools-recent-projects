@@ -9,7 +9,7 @@ import {
 } from '../../../types'
 import {BrowserId, getDescription, SqliteBrowserApplicationImpl} from '../index'
 import {execFileSync} from 'child_process'
-import {isEmpty} from 'licia'
+import {isEmpty, unique} from 'licia'
 import {generateSearchKeyWithPinyin, removeAllQueryFromUrl} from '../../../utils'
 import {Context} from '../../../context'
 import {i18n, sentenceKey} from '../../../i18n'
@@ -41,7 +41,7 @@ export class ChromiumHistoryApplicationImpl extends SqliteBrowserApplicationImpl
                     title: title,
                     description: url,
                     icon: this.ifGetFavicon(removeAllQueryFromUrl(url), context),
-                    searchKey: [...generateSearchKeyWithPinyin(title), url],
+                    searchKey: unique([...generateSearchKeyWithPinyin(title), url]),
                     exists: true,
                     command: new ElectronExecutor(url),
                     datetime: i['timestamp'] ?? 0,

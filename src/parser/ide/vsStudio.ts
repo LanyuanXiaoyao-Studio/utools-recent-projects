@@ -8,7 +8,7 @@ import {
     Platform,
 } from '../../types'
 import {readFile} from 'fs/promises'
-import {isEmpty, isNil} from 'licia'
+import {isEmpty, isNil, unique} from 'licia'
 import {parse} from 'path'
 import {existsOrNot, generateSearchKeyWithPinyin} from '../../utils'
 import {Context} from '../../context'
@@ -57,7 +57,7 @@ export class VsStudioApplicationImpl extends ApplicationConfigImpl<VsStudioProje
                         title: parseObj.name,
                         description: description,
                         icon: icon,
-                        searchKey: [...generateSearchKeyWithPinyin(parseObj.name), parseObj.name],
+                        searchKey: unique([...generateSearchKeyWithPinyin(parseObj.name), parseObj.name]),
                         exists: exists,
                         command: new ElectronExecutor(path),
                         datetime: parseInt(`${datetime}`),

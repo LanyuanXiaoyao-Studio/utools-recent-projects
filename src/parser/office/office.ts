@@ -8,7 +8,7 @@ import {
     Platform,
     ShellExecutor,
 } from '../../types'
-import {isEmpty, isNil, Url} from 'licia'
+import {isEmpty, isNil, unique, Url} from 'licia'
 import {join, parse} from 'path'
 import {execSync} from 'child_process'
 import {existsOrNot, generateSearchKeyWithPinyin, generateStringByOS} from '../../utils'
@@ -52,7 +52,7 @@ export class OfficeMacApplicationImpl extends ApplicationConfigImpl<OfficeProjec
                         title: parser.name,
                         description: description,
                         icon: icon,
-                        searchKey: [...generateSearchKeyWithPinyin(parser.name), url.pathname],
+                        searchKey: unique([...generateSearchKeyWithPinyin(parser.name), url.pathname]),
                         exists: exists,
                         command: new ShellExecutor(`open ${url}`),
                         datetime: date,
@@ -108,7 +108,7 @@ export class OfficeWinApplicationImpl extends ApplicationImpl<OfficeProjectItemI
                 title: parser.name,
                 description: description,
                 icon: icon,
-                searchKey: [...generateSearchKeyWithPinyin(parser.name), p],
+                searchKey: unique([...generateSearchKeyWithPinyin(parser.name), p]),
                 exists: exists,
                 command: new ShellExecutor(`powershell.exe -command "Invoke-Item '${p}'"`),
                 datetime: 0,

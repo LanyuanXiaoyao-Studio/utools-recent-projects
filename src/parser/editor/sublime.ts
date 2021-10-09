@@ -10,7 +10,7 @@ import {
     SwitchSettingItem,
 } from '../../types'
 import {readFile} from 'fs/promises'
-import {isNil} from 'licia'
+import {isNil, unique} from 'licia'
 import {parse} from 'path'
 import {existsOrNot, generateSearchKeyWithPinyin, generateStringByOS} from '../../utils'
 import {Context} from '../../context'
@@ -87,7 +87,7 @@ export class SublimeApplicationImpl extends ApplicationConfigAndExecutorImpl<Sub
                     title: `${parser.name}${parser.ext}`,
                     description: description,
                     icon: icon,
-                    searchKey: [...generateSearchKeyWithPinyin(path), path],
+                    searchKey: unique([...generateSearchKeyWithPinyin(path), path]),
                     exists: exists,
                     command: new ShellExecutor(`"${this.executor}" ${args} "${this.parsePath(path)}"`),
                 })

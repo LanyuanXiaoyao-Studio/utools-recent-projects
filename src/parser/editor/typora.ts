@@ -9,7 +9,7 @@ import {
 } from '../../types'
 import {Context} from '../../context'
 import {readFileSync} from 'fs'
-import {isEmpty, strToBytes} from 'licia'
+import {isEmpty, strToBytes, unique} from 'licia'
 import {existsOrNot, generateSearchKeyWithPinyin, generateStringByOS} from '../../utils'
 
 const TYPORA: string = 'typora'
@@ -65,7 +65,7 @@ export class TyporaApplicationImpl extends ApplicationConfigAndExecutorImpl<Typo
                         title: i?.['name'] ?? '',
                         description: description,
                         icon: icon,
-                        searchKey: [...generateSearchKeyWithPinyin(path), path],
+                        searchKey: unique([...generateSearchKeyWithPinyin(path), path]),
                         exists: exists,
                         command: new NohupShellExecutor(this.executor, path),
                         datetime: i?.['date'] ?? 0,

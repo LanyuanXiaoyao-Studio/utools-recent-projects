@@ -8,7 +8,7 @@ import {
     ShellExecutor,
 } from '../../types'
 import {readFile} from 'fs/promises'
-import {isEmpty, isNil, now, Url} from 'licia'
+import {isEmpty, isNil, now, unique, Url} from 'licia'
 import {Context} from '../../context'
 import {existsOrNot, generateSearchKeyWithPinyin, generateStringByOS} from '../../utils'
 import {parse} from 'path'
@@ -74,7 +74,7 @@ export class LibreOfficeApplicationImpl extends ApplicationConfigAndExecutorImpl
                     title: name,
                     description: description,
                     icon: icon,
-                    searchKey: [...generateSearchKeyWithPinyin(name), realPath],
+                    searchKey: unique([...generateSearchKeyWithPinyin(name), realPath]),
                     exists: exists,
                     command: new ShellExecutor(`"${this.executor}" "${path}"`),
                     datetime: date,

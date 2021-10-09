@@ -8,7 +8,7 @@ import {
     ProjectItemImpl,
     ShellExecutor,
 } from '../../types'
-import {isEmpty, isNil} from 'licia'
+import {isEmpty, isNil, unique} from 'licia'
 import {parse} from 'path'
 import {existsOrNot, generateSearchKeyWithPinyin, generateStringByOS} from '../../utils'
 import {Context} from '../../context'
@@ -63,7 +63,7 @@ export class WpsMacInternationalApplicationImpl extends ApplicationConfigImpl<Wp
                         title: parser.name,
                         description: description,
                         icon: icon,
-                        searchKey: [...generateSearchKeyWithPinyin(parser.name), path],
+                        searchKey: unique([...generateSearchKeyWithPinyin(parser.name), path]),
                         exists: exists,
                         command: new ShellExecutor(`open "${path}"`),
                     })
@@ -120,7 +120,7 @@ export class WpsLinuxInternationalApplicationImpl extends ApplicationConfigAndEx
                     title: parser.name,
                     description: description,
                     icon: icon,
-                    searchKey: [...generateSearchKeyWithPinyin(parser.name), path],
+                    searchKey: unique([...generateSearchKeyWithPinyin(parser.name), path]),
                     exists: exists,
                     command: new ShellExecutor(`${this.executor} "${path}"`),
                 })

@@ -1,6 +1,6 @@
 import {ApplicationImpl, Group, GroupName, Platform, ProjectItemImpl, ShellExecutor} from '../../types'
 import {execSync} from 'child_process'
-import {isEmpty, isNil} from 'licia'
+import {isEmpty, isNil, unique} from 'licia'
 import {parse} from 'path'
 import {statSync} from 'fs'
 import {existsOrNot, generateSearchKeyWithPinyin} from '../../utils'
@@ -66,7 +66,7 @@ export class XcodeApplicationImpl extends ApplicationImpl<XcodeProjectItemImpl> 
                     title: parseObj.name,
                     description: description,
                     icon: icon,
-                    searchKey: [...generateSearchKeyWithPinyin(parseObj.name), parseObj.name],
+                    searchKey: unique([...generateSearchKeyWithPinyin(parseObj.name), parseObj.name]),
                     exists: exists,
                     command: new ShellExecutor(`open ${p}`),
                 })

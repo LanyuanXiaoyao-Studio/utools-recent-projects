@@ -11,7 +11,7 @@ import {
 import {BrowserApplicationImpl} from '../index'
 import {Context} from '../../../context'
 import {parseFile} from 'bplist-parser'
-import {isEmpty, isNil, Url} from 'licia'
+import {isEmpty, isNil, unique, Url} from 'licia'
 import {generateParents, generateSearchKeyWithPinyin} from '../../../utils'
 import {existsSync} from 'fs'
 import {i18n, sentenceKey} from '../../../i18n'
@@ -62,7 +62,7 @@ export class SafariBookmarkApplicationImpl extends BrowserApplicationImpl<Safari
                     title: title,
                     description: url,
                     icon: this.ifGetFavicon(url, context),
-                    searchKey: [...generateSearchKeyWithPinyin(title), Url.parse(url).hostname],
+                    searchKey: unique([...generateSearchKeyWithPinyin(title), Url.parse(url).hostname]),
                     exists: true,
                     command: new ElectronExecutor(url),
                 })

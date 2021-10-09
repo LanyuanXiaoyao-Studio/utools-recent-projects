@@ -10,7 +10,7 @@ import {
     SwitchSettingItem,
 } from '../../types'
 import {readFile} from 'fs/promises'
-import {isEmpty, isNil, startWith, Url} from 'licia'
+import {isEmpty, isNil, startWith, unique, Url} from 'licia'
 import {parse} from 'path'
 import {existsOrNot, generateSearchKeyWithPinyin, generateStringByOS} from '../../utils'
 import {Context} from '../../context'
@@ -98,7 +98,7 @@ export class VscodeApplicationImpl extends ApplicationConfigAndExecutorImpl<Vsco
                         title: parser.name,
                         description: description,
                         icon: icon,
-                        searchKey: [...generateSearchKeyWithPinyin(path), path],
+                        searchKey: unique([...generateSearchKeyWithPinyin(path), path]),
                         exists: exists,
                         command: new ShellExecutor(`"${this.executor}" ${args} "${path}"`),
                     })

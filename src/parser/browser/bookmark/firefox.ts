@@ -9,7 +9,7 @@ import {
 } from '../../../types'
 import {BrowserId, SqliteBrowserApplicationImpl} from '../index'
 import {execFileSync} from 'child_process'
-import {contain, isEmpty, isNil, reverse, Url} from 'licia'
+import {contain, isEmpty, isNil, reverse, unique, Url} from 'licia'
 import {Context} from '../../../context'
 import {generateSearchKeyWithPinyin, generateStringByOS} from '../../../utils'
 import {i18n, sentenceKey} from '../../../i18n'
@@ -60,7 +60,7 @@ export class FirefoxBookmarkApplicationImpl extends SqliteBrowserApplicationImpl
                         title: title,
                         description: url,
                         icon: this.ifGetFavicon(url, context),
-                        searchKey: [...generateSearchKeyWithPinyin(title), Url.parse(url).hostname],
+                        searchKey: unique([...generateSearchKeyWithPinyin(title), Url.parse(url).hostname]),
                         exists: true,
                         command: new ElectronExecutor(url),
                         datetime: time,
