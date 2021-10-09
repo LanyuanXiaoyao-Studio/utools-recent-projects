@@ -61,6 +61,8 @@ export const sentenceKey = {
     unSupportTipsDesc: 'unSupportTipsDesc',
     unSupportTipsTitle: 'unSupportTipsTitle',
     utoolsVersion: 'utoolsVersion',
+    configFileAt: 'configFileAt',
+    executorFileAt: 'executorFileAt',
 }
 
 export interface Sentence {
@@ -122,6 +124,8 @@ export interface Sentence {
     readonly unSupportTipsDesc: string
     readonly unSupportTipsTitle: string
     readonly utoolsVersion: string
+    readonly configFileAt: string
+    readonly executorFileAt: string
 }
 
 let languageData = new I18n('zh-CN', {

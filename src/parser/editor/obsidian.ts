@@ -10,8 +10,9 @@ import {
 import {Context} from '../../context'
 import {readFileSync, statSync} from 'fs'
 import {endWith, isEmpty, isNil, unique} from 'licia'
-import {existsOrNot, generateSearchKeyWithPinyin, walker} from '../../utils'
+import {existsOrNot, generateSearchKeyWithPinyin, generateStringByOS, walker} from '../../utils'
 import {parse, resolve} from 'path'
+import {i18n, sentenceKey} from '../../i18n'
 
 const OBSIDIAN: string = 'obsidian'
 
@@ -22,11 +23,15 @@ export class ObsidianApplicationImpl extends ApplicationConfigImpl<ObsidianProje
         super(
             OBSIDIAN,
             'Obsidian',
-            'icon/typora.png',
+            'icon/obsidian.png',
             OBSIDIAN,
             [Platform.win32, Platform.darwin, Platform.linux],
             Group[GroupName.editor],
-            undefined,
+            () => `${i18n.t(sentenceKey.configFileAt)} ${generateStringByOS({
+                win32: 'C:\\Users\\Administrator\\AppData\\Roaming\\obsidian\\obsidian.json',
+                darwin: '/Users/xxx/Library/Application Support/obsidian/obsidian.json',
+                linux: '/home/xxx/.config/obsidian/obsidian.json',
+            })}`,
             undefined,
             'obsidian.json',
         )

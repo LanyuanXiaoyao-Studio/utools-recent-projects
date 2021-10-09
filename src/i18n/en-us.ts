@@ -59,4 +59,6 @@ export class EnUs implements Sentence {
     readonly unSupportTipsDesc: string = 'The current keyword corresponds to the historical project index does not support the current platform. If you affect your daily operation, you can disable in the plugin details.'
     readonly unSupportTipsTitle: string = 'Feature is not support this platform'
     readonly utoolsVersion: string = 'uTools Version'
+    readonly configFileAt: string = 'Config file usually at'
+    readonly executorFileAt: string = 'Executor file usually at'
 }

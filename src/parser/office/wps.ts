@@ -13,6 +13,7 @@ import {parse} from 'path'
 import {existsOrNot, generateSearchKeyWithPinyin, generateStringByOS} from '../../utils'
 import {Context} from '../../context'
 import {readFile} from 'fs/promises'
+import {i18n, sentenceKey} from '../../i18n'
 import plistParser = require('bplist-parser')
 
 const WPS_MAC_INTERNATION: string = 'wps-mac-internation'
@@ -84,9 +85,9 @@ export class WpsLinuxInternationalApplicationImpl extends ApplicationConfigAndEx
             WPS_LINUX_INTERNATION,
             [Platform.linux],
             Group[GroupName.office],
-            `配置文件通常放在 ${generateStringByOS({
+            () => `${i18n.t(sentenceKey.configFileAt)} ${generateStringByOS({
                 linux: '/home/xxx/.config/Kingsoft/Office.conf',
-            })}, 可执行文件通常在${generateStringByOS({
+            })}, ${i18n.t(sentenceKey.executorFileAt)} ${generateStringByOS({
                 linux: '/usr/bin/wps',
             })}, 也可以直接填入 xdg-open 命令使用`,
             false,

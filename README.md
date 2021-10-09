@@ -8,9 +8,7 @@
 
 > 为了玩一下自定义模板插件的设置界面, 所以造了个轮子, uTools 插件市场也有同类型的插件, 也非常好用, 比如「Quick Open」,「JetBrains」,「QuickJet」:P
 
-
 > 关于自定义模板插件设置界面的细节, 可以参照[这篇文章](https://yuanliao.info/d/3979)
-
 
 > 由于有的软件的历史记录, 如 vscode, 没有打开时间, 所以在「Projects」关键字里面查看的所有历史项目将不会按照最近打开时间排序(不同软件的历史记录没办法互相排序), 在单独的关键字里, 如「JetBrains Projects」, 会根据最近打开时间排序
 
@@ -36,6 +34,7 @@
   - Visual Studio Code
   - Typora
   - Sublime Text
+  - Obsidian
 - IDE
   - JetBrains 全家桶
   - Android Studio
@@ -48,7 +47,7 @@
 
 ## 系统及功能支持
 
-> 支持列表仅从2021年开始, 此前版本如果由于历史数据的结构变化导致不可用, 将不再支持
+> 支持列表仅从 2021 年开始, 此前版本如果由于历史数据的结构变化导致不可用, 将不再支持
 
 > 表中的 JetBrains 即为 JetBrains 旗下的所有独立 IDE, 如 IDEA, PyCharm 等, 不再一一列举
 
@@ -69,6 +68,7 @@
 |          Deepin          |    √     |    √    |         |       |   √   |
 |    Visual Studio Code    |          |    √    |    √    |   √   |   √   |
 |          Typora          |          |    √    |    √    |       |   √   |
+|         Obsidian         |          |    √    |    √    |   √   |   √   |
 |       Sublime Text       |          |    √    |    √    |   √   |   √   |
 |        JetBrains         |          |    √    |    √    |   √   |   √   |
 |      Android Studio      |          |    √    |    √    |   √   |   √   |
@@ -97,6 +97,7 @@
 - **Browser History**  
   目前所有支持的浏览器历史记录获取都需要通过 sqlite3 进行, 为了避免不同浏览器采用的 sqlite 版本不同, 所以需要用户自行下载 sqlite 命令行作为可执行程序路径, sqlite 命令行可以在 sqlite
   官网下载到: [官网下载页面](https://www.sqlite.org/download.html), 需要自行下载对应平台的命令行程序.
+
   > 360 安全浏览器因为安全, 所以相关数据是加密过的, 无法适配
 
 - **JetBrains 系列**

@@ -32,11 +32,11 @@ export class VscodeApplicationImpl extends ApplicationConfigAndExecutorImpl<Vsco
             VSCODE,
             [Platform.win32, Platform.darwin, Platform.linux],
             Group[GroupName.editor],
-            `数据文件通常放在 ${generateStringByOS({
+            () => `${i18n.t(sentenceKey.configFileAt)} ${generateStringByOS({
                 win32: 'C:\\Users\\Administrator\\AppData\\Roaming\\Code\\storage.json',
                 darwin: '/Users/xxx/Library/Application Support/Code/storage.json',
                 linux: '/home/xxx/.config/Code/storage.json',
-            })}, 可执行程序通常放在 ${generateStringByOS({
+            })}, ${i18n.t(sentenceKey.executorFileAt)} ${generateStringByOS({
                 win32: 'C:\\Users\\Administrator\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe',
                 darwin: '/Applications/Visual Studio Code.app/Contents/Resources/app/bin/code',
                 linux: '(不同发行版安装路径差异较大, 自行使用 which 命令找到 code 命令所在路径作为可执行文件路径)',

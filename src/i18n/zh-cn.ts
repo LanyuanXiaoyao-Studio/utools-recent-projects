@@ -59,4 +59,6 @@ export class ZhCn implements Sentence {
     readonly unSupportTipsDesc: string = '当前关键字对应的历史项目索引不支持当前平台，如果影响了你的日常操作，可以在插件详情中禁用'
     readonly unSupportTipsTitle: string = '该关键字不支持当前平台'
     readonly utoolsVersion: string = 'uTools 版本'
+    readonly configFileAt: string = '配置文件通常放在'
+    readonly executorFileAt: string = '可执行文件通常放在'
 }

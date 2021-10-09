@@ -24,6 +24,7 @@
   - Visual Studio Code
   - Typora
   - Sublime Text
+  - Obsidian
 - IDE
   - JetBrains 全家桶
   - Android Studio
