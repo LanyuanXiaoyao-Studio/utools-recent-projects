@@ -14,6 +14,7 @@ import {applications as FirefoxBookmarkApplications} from './parser/browser/book
 import {applications as ChromiumBookmarkApplications} from './parser/browser/bookmark/chromium'
 import {applications as SafariBookmarkApplications} from './parser/browser/bookmark/safari'
 import {applications as LibreOfficeApplications} from './parser/office/libre'
+import {applications as ObsidianApplications} from './parser/editor/obsidian'
 
 export const applications: Array<Application<ProjectItemImpl>> = [
     ...JetBrainsApplications,
@@ -31,6 +32,7 @@ export const applications: Array<Application<ProjectItemImpl>> = [
     ...SafariBookmarkApplications,
     ...ChromiumBookmarkApplications,
     ...LibreOfficeApplications,
+    ...ObsidianApplications,
 ]
 
 export const jetBrainsApplications: Array<Application<ProjectItemImpl>> = [...JetBrainsApplications]
@@ -38,6 +40,8 @@ export const jetBrainsApplications: Array<Application<ProjectItemImpl>> = [...Je
 export const vscodeApplications: Array<Application<ProjectItemImpl>> = [...VscodeApplications]
 
 export const typoraApplications: Array<Application<ProjectItemImpl>> = [...TyporaApplications]
+
+export const obsidianApplications: Array<Application<ProjectItemImpl>> = [...ObsidianApplications]
 
 export const sublimeApplications: Array<Application<ProjectItemImpl>> = [...SublimeApplications]
 

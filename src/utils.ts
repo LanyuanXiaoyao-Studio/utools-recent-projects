@@ -1,9 +1,10 @@
-import {existsSync} from 'fs'
+import {existsSync, readdirSync, statSync} from 'fs'
 import {Platform} from './types'
 import {isEmpty, isFn, isNil, isUrl, unique, Url} from 'licia'
 import {Context} from './context'
 import {i18n, sentenceKey} from './i18n'
 import {levenshtein} from 'string-comparison'
+import {join} from 'path'
 import pinyinLite = require('pinyinlite')
 import $ = require('licia/$')
 
@@ -199,4 +200,37 @@ export const generateSearchKeyWithPinyin: (text: string) => Array<string> = text
         }
     }
     return results
+}
+
+export const walker: (path: string, filter?: (fullPath: string) => boolean) => Array<string> = (path, filter) => {
+    if (!existsSync(path) || !statSync(path).isDirectory()) {
+        return []
+    }
+    let folders: Array<string> = [],
+        files: Array<string> = []
+    readdirSync(path)
+        .map(p => join(path, p))
+        .forEach(p => {
+            try {
+                let stat = statSync(p)
+                if (stat.isDirectory()) {
+                    folders.push(p)
+                } else if (stat.isFile()) {
+                    if (isNil(filter)) {
+                        files.push(p)
+                    } else {
+                        if (filter!(p)) {
+                            files.push(p)
+                        }
+                    }
+                } else {
+                    return
+                }
+            } catch (e) {
+                console.log(e)
+                files.push(p)
+            }
+        })
+    folders.forEach(p => files.push(...walker(p, filter)))
+    return files
 }

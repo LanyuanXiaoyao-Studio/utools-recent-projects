@@ -6,6 +6,7 @@ import {
     browserHistoryApplications,
     jetBrainsApplications,
     libreOfficeApplications,
+    obsidianApplications,
     officeApplications,
     sublimeApplications,
     typoraApplications,
@@ -190,6 +191,10 @@ export const build: any = {
     },
     'libre-project': {
         args: new AllProjectSortByTimeArgs(libreOfficeApplications),
+        mode: 'list',
+    },
+    'obsidian-project': {
+        args: new AllProjectSortByTimeArgs(obsidianApplications),
         mode: 'list',
     },
 }

@@ -1,0 +1,13 @@
+{
+  "vaults"        : {
+    "7aea71c59d5b534e": {
+      "path": "test/editor/obsidian/notes",
+      "ts"  : 1612322067283
+    },
+    "ba402dc2708e100f": {
+      "path": "test/editor/obsidian/help",
+      "ts"  : 1633750456407
+    }
+  },
+  "updateDisabled": true
+}
