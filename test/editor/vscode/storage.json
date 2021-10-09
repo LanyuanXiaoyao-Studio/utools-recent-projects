@@ -1,0 +1,23 @@
+{
+  "openedPathsList": {
+    "entries": [
+      {
+        "workspace": {
+          "id"        : "5ab2b6c0978df38fb486c7603913361a",
+          "configPath": "file:///Users/lanyuanxiaoyao/notes.code-workspace"
+        }
+      },
+      {
+        "folderUri": "file:///Users/lanyuanxiaoyao/notes"
+      },
+      {
+        "folderUri"      : "vscode-remote://ssh-remote+7b22686f73733e616d65223a2200656f63656e742d4c696c6578127d/root/notes-server",
+        "label"          : "~/notes-server [SSH: Tencent-Linux]",
+        "remoteAuthority": "ssh-remote+7b22686f73744e616d65223a2254656e63656e742d4c696e7578227d"
+      },
+      {
+        "fileUri": "file:///Users/lanyuanxiaoyao/notes.log"
+      }
+    ]
+  }
+}

@@ -1,7 +1,7 @@
 import {LibreOfficeApplicationImpl} from '../../../src/parser/office/libre'
 import {Context} from '../../../src/context'
 
-test('get project items', async () => {
+test('libraProjectItems', async () => {
     document.body.innerHTML = '<div id="root"></div>'
 
     let app = new LibreOfficeApplicationImpl()
@@ -9,7 +9,10 @@ test('get project items', async () => {
 
     let items = await app.generateProjectItems(Context.get())
     expect(items.length).toEqual(6)
-    expect(items[2].title).toEqual('Mess')
-    expect(items[4].title).toEqual('father')
-    expect(items[5].title).toEqual('gongshi')
+    expect(items.map(i => i.title)).toContainEqual('新建数据库')
+    expect(items.map(i => i.title)).toContainEqual('gongshi')
+    expect(items.map(i => i.title)).toContainEqual('Mess')
+    expect(items.map(i => i.title)).toContainEqual('father')
+    expect(items.map(i => i.title)).toContainEqual('Mother')
+    expect(items.map(i => i.title)).toContainEqual('Hello')
 })
