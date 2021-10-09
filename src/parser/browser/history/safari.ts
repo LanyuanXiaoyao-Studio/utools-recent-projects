@@ -31,7 +31,7 @@ export class SafariHistoryApplicationImpl extends SqliteBrowserApplicationImpl<S
             [Platform.darwin],
             Group[GroupName.browserHistory],
             undefined,
-            true,
+            false,
             'History.db',
         )
     }

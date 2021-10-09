@@ -30,7 +30,7 @@ export class SafariBookmarkApplicationImpl extends BrowserApplicationImpl<Safari
             [Platform.darwin],
             Group[GroupName.browserBookmark],
             () => i18n.t(sentenceKey.safariBookmarkDesc),
-            true,
+            false,
             'Bookmarks.plist',
         )
     }

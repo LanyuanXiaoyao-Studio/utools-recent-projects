@@ -32,7 +32,7 @@ export class ObsidianApplicationImpl extends ApplicationConfigImpl<ObsidianProje
                 darwin: '/Users/xxx/Library/Application Support/obsidian/obsidian.json',
                 linux: '/home/xxx/.config/obsidian/obsidian.json',
             })}`,
-            undefined,
+            true,
             'obsidian.json',
         )
     }

@@ -123,7 +123,7 @@ export class Catalogue extends Component<CatalogueProps, CatalogueState> {
                     <li class="nav-item">
                         <a
                             href="#"
-                            onclick={() => {utools.ubrowser.goto(`### 支付宝官方活动\n![](${this.donateImageBase64})`, '领取支付红包').run({width: 500, height: 800})}}
+                            onclick={() => {utools.ubrowser.goto(`## 新一轮支付宝官方活动\n每天都可以扫一扫，**100%** 获得随机金额无门槛支付红包，积少成多，省钱神器\n\n![](${this.donateImageBase64})`, '领取支付红包').run({width: 500, height: 870})}}
                         >
                             <i class="icon icon-bookmark text-error"/>
                             <b class="text-error" style="display: inline-flex;flex-direction: column;">
