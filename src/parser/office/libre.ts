@@ -69,7 +69,6 @@ export class LibreOfficeApplicationImpl extends ApplicationConfigAndExecutorImpl
                     description: realPath,
                     icon: context.enableGetFileIcon ? utools.getFileIcon(realPath) : this.icon,
                 })
-                console.log(path)
                 items.push({
                     id: '',
                     title: name,
