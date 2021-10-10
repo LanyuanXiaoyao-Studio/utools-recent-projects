@@ -1,10 +1,10 @@
 {
-  "pluginName"   : "我的项目",
+  "pluginName"   : "书签和历史记录",
   "author"       : "lanyuanxiaoyao",
   "homepage"     : "http://lanyuanxiaoyao.com",
   "description"  : "快速查找打开书签和历史记录,支持Visual Studio Code(vscode),Sublime Text,JetBrains(Android Studio,AppCode,CLion,DataGrip,GoLand,IDEA,PyCharm,Rider,RubyMine,Webstorm),WPS,Office(Word,Excel,Powerpoint),LibreOffice,Xcode,Chrome,Firefox,Safari,Edge,Opera,Brave,Yandex,QQ,猎豹,傲游",
-  "version"      : "1.3.0",
-  "logo"         : "logo.png",
+  "version"      : "2.0.0",
+  "logo"         : "fox.png",
   "preload"      : "preload.js",
   "pluginSetting": {
     "single": true
@@ -13,7 +13,7 @@
     {
       "code"   : "setting",
       "explain": "设置软件最近项目数据存储的文件和软件启动文件",
-      "icon"   : "logo.png",
+      "icon"   : "fox.png",
       "cmds"   : [
         "Setting",
         "设置"
