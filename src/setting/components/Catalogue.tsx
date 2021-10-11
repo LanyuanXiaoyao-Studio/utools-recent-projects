@@ -4,6 +4,7 @@ import {isNil} from 'licia'
 import {settingStore} from '../store'
 import {compareChar} from '../../utils'
 import {i18n, sentenceKey} from '../../i18n'
+import {iconMap} from '../../icon'
 import Nano = require('nano-jsx')
 
 export interface BadgeInfo {
@@ -123,10 +124,18 @@ export class Catalogue extends Component<CatalogueProps, CatalogueState> {
                     <li class="nav-item">
                         <a
                             href="#"
-                            onclick={() => {utools.ubrowser.goto(`## 新一轮支付宝官方活动\n每天都可以扫一扫，**100%** 获得随机金额无门槛支付红包，积少成多，省钱神器\n\n![](${this.donateImageBase64})`, '领取支付红包').run({width: 500, height: 870})}}
+                            onclick={() => {
+                                utools.ubrowser.goto(`## 新一轮支付宝官方活动\n每天都可以扫一扫，**100%** 获得随机金额无门槛支付红包，积少成多，省钱神器\n\n![](${this.donateImageBase64})`, '领取支付红包').run({
+                                    width: 500,
+                                    height: 870,
+                                })
+                            }}
                         >
                             <i class="icon icon-bookmark text-error"/>
-                            <b class="text-error" style="display: inline-flex;flex-direction: column;">
+                            <b
+                                class="text-error"
+                                style="display: inline-flex;flex-direction: column;"
+                            >
                                 <span>领取支付红包</span>
                                 <span style="font-size: 0.6rem">支持开发者持续更新</span>
                             </b>
@@ -146,7 +155,14 @@ export class Catalogue extends Component<CatalogueProps, CatalogueState> {
                                             class={'nav-item ' + this.badge(app).class}
                                             data-badge={this.badge(app).text}
                                         >
-                                            <a href={'#' + app.id}>{app.name}</a>
+                                            <a href={'#' + app.id}>
+                                                <img
+                                                    class="catalogue-app-icon"
+                                                    src={iconMap[app.icon] ?? ''}
+                                                    alt={app.name}
+                                                />
+                                                <span class="catalogue-app-name">{app.name}</span>
+                                            </a>
                                         </li>
                                     ))}
                                 </ul>
