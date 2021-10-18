@@ -48,7 +48,7 @@ export class JetBrainsApplicationImpl extends ApplicationConfigAndExecutorImpl<J
                         title: parseObj.name,
                         description: description,
                         icon: icon,
-                        searchKey: unique([...generateSearchKeyWithPinyin(parseObj.name), parseObj.name]),
+                        searchKey: unique([...generateSearchKeyWithPinyin(parseObj.name), parseObj.name, path]),
                         exists: exists,
                         command: new NohupShellExecutor(this.executor, path),
                         datetime: parseInt(`${datetime}`),

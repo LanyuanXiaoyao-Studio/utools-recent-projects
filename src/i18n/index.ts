@@ -7,6 +7,7 @@ export const sentenceKey = {
     beta: 'beta',
     betaDesc: 'betaDesc',
     browserPathDescPrefix: 'browserPathDescPrefix',
+    configFileAt: 'configFileAt',
     configPrefix: 'configPrefix',
     configSuffix: 'configSuffix',
     emptyTipsDesc: 'emptyTipsDesc',
@@ -16,6 +17,7 @@ export const sentenceKey = {
     error: 'error',
     errorArgs: 'errorArgs',
     errorInfoToClipboard: 'errorInfoToClipboard',
+    executorFileAt: 'executorFileAt',
     executorPrefix: 'executorPrefix',
     executorSuffix: 'executorSuffix',
     fileOpening: 'fileOpening',
@@ -61,8 +63,6 @@ export const sentenceKey = {
     unSupportTipsDesc: 'unSupportTipsDesc',
     unSupportTipsTitle: 'unSupportTipsTitle',
     utoolsVersion: 'utoolsVersion',
-    configFileAt: 'configFileAt',
-    executorFileAt: 'executorFileAt',
 }
 
 export interface Sentence {
@@ -70,6 +70,7 @@ export interface Sentence {
     readonly beta: string
     readonly betaDesc: string
     readonly browserPathDescPrefix: string
+    readonly configFileAt: string
     readonly configPrefix: string
     readonly configSuffix: string
     readonly emptyTipsDesc: string
@@ -79,6 +80,7 @@ export interface Sentence {
     readonly error: string
     readonly errorArgs: string
     readonly errorInfoToClipboard: string
+    readonly executorFileAt: string
     readonly executorPrefix: string
     readonly executorSuffix: string
     readonly fileOpening: string
@@ -124,8 +126,6 @@ export interface Sentence {
     readonly unSupportTipsDesc: string
     readonly unSupportTipsTitle: string
     readonly utoolsVersion: string
-    readonly configFileAt: string
-    readonly executorFileAt: string
 }
 
 let languageData = new I18n('zh-CN', {

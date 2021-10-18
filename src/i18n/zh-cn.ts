@@ -5,6 +5,7 @@ export class ZhCn implements Sentence {
     readonly beta: string = '测试'
     readonly betaDesc: string = `beta 意味着这个功能处于试验阶段\n但我无法测试所有使用场景\n需要你在遇到无法正常使用的时候积极向我反馈`
     readonly browserPathDescPrefix: string = '文件通常放在: '
+    readonly configFileAt: string = '配置文件通常放在'
     readonly configPrefix: string = '设置'
     readonly configSuffix: string = '文件路径'
     readonly emptyTipsDesc: string = '如果你还没有设置该软件的相关配置，请先在 Setting 关键字中设置相关配置内容，点击可跳转设置界面'
@@ -14,6 +15,7 @@ export class ZhCn implements Sentence {
     readonly error: string = '有错误'
     readonly errorArgs: string = '参数错误，请向作者反馈'
     readonly errorInfoToClipboard: string = '错误信息已复制到剪贴板'
+    readonly executorFileAt: string = '可执行文件通常放在'
     readonly executorPrefix: string = '设置'
     readonly executorSuffix: string = '可执行程序路径'
     readonly fileOpening: string = '正在打开项目'
@@ -59,6 +61,4 @@ export class ZhCn implements Sentence {
     readonly unSupportTipsDesc: string = '当前关键字对应的历史项目索引不支持当前平台，如果影响了你的日常操作，可以在插件详情中禁用'
     readonly unSupportTipsTitle: string = '该关键字不支持当前平台'
     readonly utoolsVersion: string = 'uTools 版本'
-    readonly configFileAt: string = '配置文件通常放在'
-    readonly executorFileAt: string = '可执行文件通常放在'
 }

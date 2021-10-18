@@ -5,6 +5,7 @@ export class EnUs implements Sentence {
     readonly beta: string = 'Beta'
     readonly betaDesc: string = `beta means that this adaption\nis in preview version\nI can't test all the use scenes\nI need you submit the feedback \nwhen you meet some error`
     readonly browserPathDescPrefix: string = 'file usually at: '
+    readonly configFileAt: string = 'Config file usually at'
     readonly configPrefix: string = 'Configure'
     readonly configSuffix: string = 'file path'
     readonly emptyTipsDesc: string = 'If you are not configure this program, please configure it in the setting page. Click this to setting page'
@@ -14,6 +15,7 @@ export class EnUs implements Sentence {
     readonly error: string = 'Error'
     readonly errorArgs: string = 'Arguments error, feedback please'
     readonly errorInfoToClipboard: string = 'Error message is copied to clipboard'
+    readonly executorFileAt: string = 'Executor file usually at'
     readonly executorPrefix: string = 'Configure'
     readonly executorSuffix: string = 'executable file path'
     readonly fileOpening: string = 'Opening'
@@ -59,6 +61,4 @@ export class EnUs implements Sentence {
     readonly unSupportTipsDesc: string = 'The current keyword corresponds to the historical project index does not support the current platform. If you affect your daily operation, you can disable in the plugin details.'
     readonly unSupportTipsTitle: string = 'Feature is not support this platform'
     readonly utoolsVersion: string = 'uTools Version'
-    readonly configFileAt: string = 'Config file usually at'
-    readonly executorFileAt: string = 'Executor file usually at'
 }

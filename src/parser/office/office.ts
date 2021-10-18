@@ -52,7 +52,7 @@ export class OfficeMacApplicationImpl extends ApplicationConfigImpl<OfficeProjec
                         title: parser.name,
                         description: description,
                         icon: icon,
-                        searchKey: unique([...generateSearchKeyWithPinyin(parser.name), url.pathname]),
+                        searchKey: unique([...generateSearchKeyWithPinyin(parser.name), parser.name, url.pathname]),
                         exists: exists,
                         command: new ShellExecutor(`open ${url}`),
                         datetime: date,
@@ -97,20 +97,20 @@ export class OfficeWinApplicationImpl extends ApplicationImpl<OfficeProjectItemI
             .join('')
         let result = execSync(`powershell.exe -command "chcp 65001;${command}"`, { encoding: 'utf8' }).trim()
         let paths = result.split(/\r?\n/).slice(1)
-        paths.forEach(p => {
-            let parser = parse(p)
-            let { exists, description, icon } = existsOrNot(p, {
-                description: p,
-                icon: utools.getFileIcon(p),
+        paths.forEach(path => {
+            let parser = parse(path)
+            let { exists, description, icon } = existsOrNot(path, {
+                description: path,
+                icon: utools.getFileIcon(path),
             })
             items.push({
                 id: '',
                 title: parser.name,
                 description: description,
                 icon: icon,
-                searchKey: unique([...generateSearchKeyWithPinyin(parser.name), p]),
+                searchKey: unique([...generateSearchKeyWithPinyin(parser.name), parser.name, path]),
                 exists: exists,
-                command: new ShellExecutor(`powershell.exe -command "Invoke-Item '${p}'"`),
+                command: new ShellExecutor(`powershell.exe -command "Invoke-Item '${path}'"`),
                 datetime: 0,
             })
         })

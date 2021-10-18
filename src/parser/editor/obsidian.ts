@@ -73,7 +73,7 @@ export class ObsidianApplicationImpl extends ApplicationConfigImpl<ObsidianProje
                             title: parseObj.name,
                             description: description,
                             icon: icon,
-                            searchKey: unique([...generateSearchKeyWithPinyin(parseObj.name), obj.path]),
+                            searchKey: unique([...generateSearchKeyWithPinyin(parseObj.name), parseObj.name, obj.path]),
                             exists: exists,
                             command: new UtoolsExecutor(`obsidian://open?vault=${obj.id}&file=${parseObj.name}`),
                             datetime: stat.atimeMs,

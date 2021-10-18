@@ -82,6 +82,7 @@ export class ApplicationSettingCard extends Component<ApplicationSettingCardProp
                                     </select>
                                 </div>
                             </div>
+                            <div class="divider"/>
                             <div class="form-group">
                                 <div class="col-10 col-mr-auto">
                                     <div class="form-label">{i18n.t(sentenceKey.filterNonExistsFiles)}</div>

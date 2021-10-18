@@ -55,20 +55,20 @@ export class XcodeApplicationImpl extends ApplicationImpl<XcodeProjectItemImpl> 
         let result = execSync(generateScript(configPath), { encoding: 'utf-8' })
         if (!isNil(result) && !isEmpty(result)) {
             let paths = result.split(',').map(p => p.trim())
-            paths.forEach(p => {
-                let parseObj = parse(p)
-                let { exists, description, icon } = existsOrNot(p, {
-                    description: p,
-                    icon: context.enableGetFileIcon ? utools.getFileIcon(p) : this.icon,
+            paths.forEach(path => {
+                let parseObj = parse(path)
+                let { exists, description, icon } = existsOrNot(path, {
+                    description: path,
+                    icon: context.enableGetFileIcon ? utools.getFileIcon(path) : this.icon,
                 })
                 items.push({
                     id: '',
                     title: parseObj.name,
                     description: description,
                     icon: icon,
-                    searchKey: unique([...generateSearchKeyWithPinyin(parseObj.name), parseObj.name]),
+                    searchKey: unique([...generateSearchKeyWithPinyin(parseObj.name), parseObj.name, path]),
                     exists: exists,
-                    command: new ShellExecutor(`open ${p}`),
+                    command: new ShellExecutor(`open ${path}`),
                 })
             })
         }
