@@ -52,8 +52,7 @@ export const removeAllQueryFromUrl: (url: string) => string = url => {
         if (!isUrl(url)) {
             return url
         }
-        let parser = Url.parse(url)
-        return `${parser.protocol}//${parser.hostname}${isEmpty(parser.port) ? '' : `:${parser.port}`}`
+        return Url.parse(url).hostname
     } catch (error) {
         return url
     }

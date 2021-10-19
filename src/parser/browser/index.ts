@@ -8,7 +8,8 @@ import {i18n, sentenceKey} from '../../i18n'
 
 export abstract class BrowserApplicationImpl<P extends ProjectItemImpl> extends ApplicationConfigAndExecutorImpl<P> {
     protected ifGetFavicon: (url: string, context: Context) => string = (url, context) => {
-        return context.enableGetFaviconFromNet ? `https://api.clowntool.cn/getico/?url=${url}` : this.icon
+        // return context.enableGetFaviconFromNet ? `https://api.clowntool.cn/getico/?url=${url}` : this.icon
+        return context.enableGetFaviconFromNet ? `https://f1.allesedv.com/${url}` : this.icon
     }
 }
 

@@ -31,6 +31,36 @@ export class ChromiumHistoryApplicationImpl extends SqliteBrowserApplicationImpl
         await this.copyAndReadFile(this.config, path => {
             result = execFileSync(this.executor, [path, sql, '-readonly'], { encoding: 'utf-8', maxBuffer: 20971520 })
         })
+
+        // 获取 favicon 的尝试
+        // language=SQLite
+        /*let faviconSql = 'select (substr((replace(replace(m.page_url, \'https://\', \'\'), \'http://\', \'\')), 1,\n               instr((replace(replace(m.page_url, \'https://\', \'\'), \'http://\', \'\')),\n                     \'/\') - 1)) as url,\n       hex(b.image_data)        as icon\nfrom icon_mapping m\n         left join favicon_bitmaps b on m.icon_id = b.icon_id'
+        let iconMap = {}
+        await this.copyAndReadFile('/Users/lanyuanxiaoyao/Library/Application Support/Google/Chrome/Default/Favicons', path => {
+            let iconResult = execFileSync(this.executor, [path, faviconSql, '-readonly'], {
+                encoding: 'utf-8',
+                maxBuffer: 524288000,
+            })
+            if (!isEmpty(iconResult)) {
+                let array = this.parseSqliteDefaultResult(iconResult, ['url', 'hex'])
+                array.forEach(icon => {
+                    if (isNil(iconMap[icon.url]) || isEmpty(iconMap[icon.url])) {
+                        iconMap[icon.url] = icon.hex
+                    } else {
+                        let last = iconMap[icon.url]
+                        if (icon.hex.length > last.length) {
+                            iconMap[icon.url] = icon.hex
+                        }
+                    }
+                })
+                Object.keys(iconMap).forEach(key => {
+                    iconMap[key] = `data:image/png;base64,${Buffer.from(iconMap[key], 'hex').toString('base64')}`
+                })
+                console.log(Object.keys(iconMap).length)
+                console.log(iconMap['sexinsex.net'])
+            }
+        })*/
+
         if (!isEmpty(result)) {
             let array = this.parseSqliteDefaultResult(result, ['n/id', 'url', 'title', 'n/timestamp'])
             array.forEach(i => {
@@ -40,6 +70,7 @@ export class ChromiumHistoryApplicationImpl extends SqliteBrowserApplicationImpl
                     id: '',
                     title: title,
                     description: url,
+                    // icon: iconMap[removeAllQueryFromUrl(url)],
                     icon: this.ifGetFavicon(removeAllQueryFromUrl(url), context),
                     searchKey: unique([...generateSearchKeyWithPinyin(title), url]),
                     exists: true,

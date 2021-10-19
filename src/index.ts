@@ -53,8 +53,8 @@ export class AllProjectArgs extends ProjectArgsImpl {
         super.enter(action, callback)
         if (isNil(nanoBar)) {
             nanoBar = new NanoBar()
-            $('.nanobar').css('height', '1px')
-            $('.nanobar .bar').css('background', '#767676')
+            $('.nanobar').css('height', '2px')
+            $('.nanobar .bar').css('background', '#0b2d64')
             $('.nanobar .bar').css('box-shadow', '0 0 10px #767676')
         }
         $('.container').css('display', 'none')
