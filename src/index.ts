@@ -63,22 +63,22 @@ export class AllProjectArgs extends ProjectArgsImpl {
         nanoBar.go(40)
         this.getProjectItems(utools.getNativeId())
             .then(result => {
+                nanoBar.go(100)
                 if (isEmpty(result)) {
                     callback([emptyTips()])
                 } else {
                     callback(result)
                 }
-                nanoBar.go(100)
             })
             .catch(error => {
+                $('.nanobar .bar').css('background', '#ff2929')
+                $('.nanobar .bar').css('box-shadow', '0 0 10px #ff2929')
+                nanoBar.go(100)
+
                 console.log(error)
                 utools.showNotification(error.message)
                 utools.copyText(error.message)
                 utools.showNotification('错误信息已复制到剪贴板')
-
-                $('.nanobar .bar').css('background', '#ff2929')
-                $('.nanobar .bar').css('box-shadow', '0 0 10px #ff2929')
-                nanoBar.go(100)
             })
     }
 

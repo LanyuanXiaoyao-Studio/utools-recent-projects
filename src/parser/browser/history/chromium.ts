@@ -56,8 +56,6 @@ export class ChromiumHistoryApplicationImpl extends SqliteBrowserApplicationImpl
                 Object.keys(iconMap).forEach(key => {
                     iconMap[key] = `data:image/png;base64,${Buffer.from(iconMap[key], 'hex').toString('base64')}`
                 })
-                console.log(Object.keys(iconMap).length)
-                console.log(iconMap['sexinsex.net'])
             }
         })*/
 
