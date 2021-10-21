@@ -62,7 +62,7 @@ export class SafariBookmarkApplicationImpl extends BrowserApplicationImpl<Safari
                     title: title,
                     description: url,
                     icon: this.ifGetFavicon(url, context),
-                    searchKey: unique([...generateSearchKeyWithPinyin(title), Url.parse(url).hostname]),
+                    searchKey: unique([...generateSearchKeyWithPinyin(title), title, Url.parse(url).hostname]),
                     exists: true,
                     command: new ElectronExecutor(url),
                 })

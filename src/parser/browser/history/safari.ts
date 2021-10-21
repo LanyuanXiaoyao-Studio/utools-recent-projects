@@ -58,7 +58,7 @@ export class SafariHistoryApplicationImpl extends SqliteBrowserApplicationImpl<S
                     title: title,
                     description: url,
                     icon: this.ifGetFavicon(removeAllQueryFromUrl(url), context),
-                    searchKey: unique([...generateSearchKeyWithPinyin(title), url]),
+                    searchKey: unique([...generateSearchKeyWithPinyin(title), title, url]),
                     exists: true,
                     command: new ElectronExecutor(url),
                     datetime: i['timestamp'] ?? 0,

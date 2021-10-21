@@ -44,7 +44,7 @@ export class FirefoxHistoryApplicationImpl extends SqliteBrowserApplicationImpl<
                     title: title,
                     description: description,
                     icon: this.ifGetFavicon(removeAllQueryFromUrl(url), context),
-                    searchKey: unique([...generateSearchKeyWithPinyin(title), description, url]),
+                    searchKey: unique([...generateSearchKeyWithPinyin(title), title, description, url]),
                     exists: true,
                     command: new ElectronExecutor(url),
                     datetime: i['timestamp'] ?? 0,
