@@ -2,24 +2,75 @@ import {
     ApplicationConfigAndExecutorImpl,
     ApplicationConfigImpl,
     ApplicationImpl,
+    DatetimeProjectItemImpl,
     Group,
     GroupName,
     Platform,
-    ProjectItemImpl,
     ShellExecutor,
 } from '../../types'
 import {isEmpty, isNil, unique} from 'licia'
 import {parse} from 'path'
-import {existsOrNot, generateSearchKeyWithPinyin, generateStringByOS} from '../../utils'
+import {existsOrNot, generateSearchKeyWithPinyin, generateStringByOS, listRegistry} from '../../utils'
 import {Context} from '../../context'
 import {readFile} from 'fs/promises'
 import {i18n, sentenceKey} from '../../i18n'
 import plistParser = require('bplist-parser')
 
+const WPS_WIN_INTERNATION: string = 'wps-win-internation'
 const WPS_MAC_INTERNATION: string = 'wps-mac-internation'
 const WPS_LINUX_INTERNATION: string = 'wps-linux-internation'
 
-export class WpsMacInternationalProjectItemImpl extends ProjectItemImpl {}
+export class WpsWinInternationalProjectItemImpl extends DatetimeProjectItemImpl {}
+
+export class WpsWinInternationalApplicationImpl extends ApplicationImpl<WpsWinInternationalProjectItemImpl> {
+    constructor() {
+        super(
+            WPS_WIN_INTERNATION,
+            'WPS Office (International)',
+            'icon/wps-internation.png',
+            WPS_WIN_INTERNATION,
+            [Platform.win32],
+            Group[GroupName.office],
+            '数据通过读取注册表 HKEY_CURRENT_USER\\SOFTWARE\\kingsoft\\Office\\6.0\\xxx\\RecentFiles\\Sequence 获得, 仅读取, 不会修改注册表信息',
+            true,
+        )
+    }
+
+    async generateProjectItems(context: Context): Promise<Array<WpsWinInternationalProjectItemImpl>> {
+        let items: Array<WpsWinInternationalProjectItemImpl> = []
+        let results = [
+            ...await listRegistry(Winreg.HKCU, '\\SOFTWARE\\kingsoft\\Office\\6.0\\wps\\RecentFiles\\Sequence'),
+            ...await listRegistry(Winreg.HKCU, '\\SOFTWARE\\kingsoft\\Office\\6.0\\pdf\\RecentFiles\\Sequence'),
+            ...await listRegistry(Winreg.HKCU, '\\SOFTWARE\\kingsoft\\Office\\6.0\\et\\RecentFiles\\Sequence'),
+            ...await listRegistry(Winreg.HKCU, '\\SOFTWARE\\kingsoft\\Office\\6.0\\wpp\\RecentFiles\\Sequence'),
+            ...await listRegistry(Winreg.HKCU, '\\SOFTWARE\\kingsoft\\Office\\6.0\\ofd\\RecentFiles\\Sequence'),
+        ]
+        if (!isNil(results) && !isEmpty(results)) {
+            results.forEach(result => {
+                let path = result.path
+                let datetime = result.datetime
+                let parser = parse(path)
+                let { exists, description, icon } = existsOrNot(path, {
+                    description: path,
+                    icon: context.enableGetFileIcon ? utools.getFileIcon(path) : this.icon,
+                })
+                items.push({
+                    id: '',
+                    title: parser.name,
+                    description: description,
+                    icon: icon,
+                    searchKey: unique([...generateSearchKeyWithPinyin(parser.name), parser.name, path]),
+                    exists: exists,
+                    command: new ShellExecutor(`powershell.exe -command "Invoke-Item '${path}'"`),
+                    datetime: datetime,
+                })
+            })
+        }
+        return items
+    }
+}
+
+export class WpsMacInternationalProjectItemImpl extends DatetimeProjectItemImpl {}
 
 export class WpsMacInternationalApplicationImpl extends ApplicationConfigImpl<WpsMacInternationalProjectItemImpl> {
     constructor() {
@@ -67,6 +118,7 @@ export class WpsMacInternationalApplicationImpl extends ApplicationConfigImpl<Wp
                         searchKey: unique([...generateSearchKeyWithPinyin(parser.name), parser.name, path]),
                         exists: exists,
                         command: new ShellExecutor(`open "${path}"`),
+                        datetime: 0,
                     })
                 })
         }
@@ -74,7 +126,7 @@ export class WpsMacInternationalApplicationImpl extends ApplicationConfigImpl<Wp
     }
 }
 
-export class WpsLinuxInternationalProjectItemImpl extends ProjectItemImpl {}
+export class WpsLinuxInternationalProjectItemImpl extends DatetimeProjectItemImpl {}
 
 export class WpsLinuxInternationalApplicationImpl extends ApplicationConfigAndExecutorImpl<WpsLinuxInternationalProjectItemImpl> {
     constructor() {
@@ -124,13 +176,15 @@ export class WpsLinuxInternationalApplicationImpl extends ApplicationConfigAndEx
                     searchKey: unique([...generateSearchKeyWithPinyin(parser.name), parser.name, path]),
                     exists: exists,
                     command: new ShellExecutor(`${this.executor} "${path}"`),
+                    datetime: 0,
                 })
             })
         return items
     }
 }
 
-export const applications: Array<ApplicationImpl<WpsMacInternationalProjectItemImpl>> = [
+export const applications: Array<ApplicationImpl<DatetimeProjectItemImpl>> = [
     new WpsMacInternationalApplicationImpl(),
     new WpsLinuxInternationalApplicationImpl(),
+    new WpsWinInternationalApplicationImpl(),
 ]

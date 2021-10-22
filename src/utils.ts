@@ -5,6 +5,7 @@ import {Context} from './context'
 import {i18n, sentenceKey} from './i18n'
 import {levenshtein} from 'string-comparison'
 import {join} from 'path'
+import WinReg from 'winreg'
 import pinyinLite = require('pinyinlite')
 import $ = require('licia/$')
 
@@ -233,3 +234,24 @@ export const walker: (path: string, filter?: (fullPath: string) => boolean) => A
     folders.forEach(p => files.push(...walker(p, filter)))
     return files
 }
+
+export interface PathAndTime {
+    path: string
+    datetime: number
+}
+
+export const listRegistry: (prefix: string, path: string) => Promise<Array<PathAndTime>> = (prefix, path) => new Promise<Array<PathAndTime>>((resolve, reject) => {
+    new WinReg({ hive: prefix, key: path }).values((error, items) => {
+        if (error) {
+            console.log(error)
+            resolve([])
+        } else {
+            resolve(items.map(item => {
+                return {
+                    path: item.name,
+                    datetime: parseInt(item.value),
+                }
+            }))
+        }
+    })
+})

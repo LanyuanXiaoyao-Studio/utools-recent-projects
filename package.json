@@ -1,6 +1,6 @@
 {
   "name": "utools-bookmark-and-history",
-  "version": "2.0.3",
+  "version": "2.1.0",
   "author": "lanyuanxiaoyao",
   "license": "MIT",
   "scripts": {
@@ -13,6 +13,7 @@
     "@types/jest": "^27.0.1",
     "@types/mousetrap": "^1.6.8",
     "@types/node": "^16.9.1",
+    "@types/winreg": "^1.2.31",
     "copy-webpack-plugin": "^9.0.1",
     "jest": "^27.1.1",
     "stylus": "^0.55.0",
