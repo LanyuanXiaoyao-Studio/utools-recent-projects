@@ -12,7 +12,6 @@ import {readFile} from 'fs/promises'
 import {isEmpty, isNil, unique} from 'licia'
 import {parse} from 'path'
 import {existsOrNot, generateSearchKeyWithPinyin} from '../../utils'
-import $ = require('licia/$')
 
 const JETBRAINS: string = 'jetbrains'
 
@@ -31,13 +30,12 @@ export class JetBrainsApplicationImpl extends ApplicationConfigAndExecutorImpl<J
         let buffer = await readFile(this.config)
         if (!isNil(buffer)) {
             let content = buffer.toString()
-            $('#root').append(`<div id=${this.id} style="display: none">${content}</div>`)
-            $(`#${this.id} application option[name=additionalInfo] entry`).each((index, element) => {
-                let path = $(element).attr('key')
-                let datetime = $(element).find('option[name=projectOpenTimestamp]').attr('value')
+            let domParser = new DOMParser().parseFromString(content, 'application/xml')
+            domParser.querySelectorAll('application option[name=additionalInfo] entry').forEach((element, index) => {
+                let path = element.getAttribute('key') ?? ''
+                let datetime = element.querySelector('option[name=projectOpenTimestamp]')?.getAttribute('value') ?? 0
                 if (!isEmpty(path)) {
-                    let home = utools.getPath('home')
-                    path = path!.replace('$USER_HOME$', home)
+                    path = path.replace('$USER_HOME$', utools.getPath('home'))
                     let parseObj = parse(path)
                     let { exists, description, icon } = existsOrNot(path, {
                         description: path,
@@ -55,7 +53,6 @@ export class JetBrainsApplicationImpl extends ApplicationConfigAndExecutorImpl<J
                     })
                 }
             })
-            $(`#${this.id}`).remove()
         }
         return items
     }

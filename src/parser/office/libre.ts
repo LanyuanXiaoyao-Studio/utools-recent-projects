@@ -13,7 +13,6 @@ import {Context} from '../../context'
 import {existsOrNot, generateSearchKeyWithPinyin, generateStringByOS} from '../../utils'
 import {parse} from 'path'
 import {i18n, sentenceKey} from '../../i18n'
-import $ = require('licia/$')
 
 const LIBRE: string = 'libre'
 
@@ -50,15 +49,14 @@ export class LibreOfficeApplicationImpl extends ApplicationConfigAndExecutorImpl
         if (!isNil(buffer)) {
             let content = buffer.toString()
             let timestamp = now()
-            $('#root').append(`<div id=${this.id} style="display: none">${content}</div>`)
-            $(`#${this.id} item[oor\\:path*="OrderList"]`).each((index, element) => {
-                let root = $(element)
-                let datetimeText = root.find('node').attr('oor:name')
+            let domParser = new DOMParser().parseFromString(content, 'application/xml')
+            domParser.querySelectorAll(`item[oor\\:path*="OrderList"]`).forEach((element, index) => {
+                let datetimeText = element.querySelector('node')?.getAttribute('oor:name') ?? ''
                 let date = 0
                 if (!isEmpty(datetimeText)) {
                     date = timestamp - parseInt(datetimeText)
                 }
-                let path = root.find('node prop[oor\\:name="HistoryItemRef"] value').text()
+                let path = element.querySelector(`node prop[oor\\:name="HistoryItemRef"] value`)?.textContent ?? ''
                 let url = Url.parse(path)
                 let realPath = decodeURI(url.pathname)
                 if (this.isWindows) {
@@ -81,7 +79,6 @@ export class LibreOfficeApplicationImpl extends ApplicationConfigAndExecutorImpl
                     datetime: date,
                 })
             })
-            $(`#${this.id}`).remove()
         }
         return items
     }
