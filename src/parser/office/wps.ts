@@ -15,6 +15,7 @@ import {Context} from '../../context'
 import {readFile} from 'fs/promises'
 import {i18n, sentenceKey} from '../../i18n'
 import plistParser = require('bplist-parser')
+import WinReg from 'winreg'
 
 const WPS_WIN_INTERNATION: string = 'wps-win-internation'
 const WPS_MAC_INTERNATION: string = 'wps-mac-internation'
@@ -39,11 +40,11 @@ export class WpsWinInternationalApplicationImpl extends ApplicationImpl<WpsWinIn
     async generateProjectItems(context: Context): Promise<Array<WpsWinInternationalProjectItemImpl>> {
         let items: Array<WpsWinInternationalProjectItemImpl> = []
         let results = [
-            ...await listRegistry(Winreg.HKCU, '\\SOFTWARE\\kingsoft\\Office\\6.0\\wps\\RecentFiles\\Sequence'),
-            ...await listRegistry(Winreg.HKCU, '\\SOFTWARE\\kingsoft\\Office\\6.0\\pdf\\RecentFiles\\Sequence'),
-            ...await listRegistry(Winreg.HKCU, '\\SOFTWARE\\kingsoft\\Office\\6.0\\et\\RecentFiles\\Sequence'),
-            ...await listRegistry(Winreg.HKCU, '\\SOFTWARE\\kingsoft\\Office\\6.0\\wpp\\RecentFiles\\Sequence'),
-            ...await listRegistry(Winreg.HKCU, '\\SOFTWARE\\kingsoft\\Office\\6.0\\ofd\\RecentFiles\\Sequence'),
+            ...await listRegistry(WinReg.HKCU, '\\SOFTWARE\\kingsoft\\Office\\6.0\\wps\\RecentFiles\\Sequence'),
+            ...await listRegistry(WinReg.HKCU, '\\SOFTWARE\\kingsoft\\Office\\6.0\\pdf\\RecentFiles\\Sequence'),
+            ...await listRegistry(WinReg.HKCU, '\\SOFTWARE\\kingsoft\\Office\\6.0\\et\\RecentFiles\\Sequence'),
+            ...await listRegistry(WinReg.HKCU, '\\SOFTWARE\\kingsoft\\Office\\6.0\\wpp\\RecentFiles\\Sequence'),
+            ...await listRegistry(WinReg.HKCU, '\\SOFTWARE\\kingsoft\\Office\\6.0\\ofd\\RecentFiles\\Sequence'),
         ]
         if (!isNil(results) && !isEmpty(results)) {
             results.forEach(result => {
