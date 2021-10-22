@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<content>
+    <globals/>
+    <indexed>
+        <collection name="CodeContainers.Offline">
+            <value name="value">
+                [{"Key":"C:\\Users\\Administrator\\source\\repos\\Solution1\\Solution1.sln","Value":{"LocalProperties":{"FullPath":"C:\\Users\\Administrator\\source\\repos\\Solution1\\Solution1.sln","Type":0,"SourceControl":null},"Remote":null,"IsFavorite":false,"LastAccessed":"2021-10-22T07:13:50.3075201+00:00","IsLocal":true,"HasRemote":false,"IsSourceControlled":false}}]
+            </value>
+            <value name="machineLocal">True</value>
+        </collection>
+    </indexed>
+</content>

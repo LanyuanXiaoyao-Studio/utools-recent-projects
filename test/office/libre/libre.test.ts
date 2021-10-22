@@ -2,8 +2,6 @@ import {LibreOfficeApplicationImpl} from '../../../src/parser/office/libre'
 import {Context} from '../../../src/context'
 
 test('libraProjectItems', async () => {
-    document.body.innerHTML = '<div id="root"></div>'
-
     let app = new LibreOfficeApplicationImpl()
     app.config = `${__dirname}/registrymodifications.xcu`
 

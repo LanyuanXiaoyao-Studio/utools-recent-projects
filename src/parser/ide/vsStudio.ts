@@ -12,7 +12,6 @@ import {isEmpty, isNil, unique} from 'licia'
 import {parse} from 'path'
 import {existsOrNot, generateSearchKeyWithPinyin} from '../../utils'
 import {Context} from '../../context'
-import $ = require('licia/$')
 
 const VS_STUDIO: string = 'vs-studio'
 
@@ -39,9 +38,8 @@ export class VsStudioApplicationImpl extends ApplicationConfigImpl<VsStudioProje
         let buffer = await readFile(this.config)
         if (!isNil(buffer)) {
             let content = buffer.toString()
-            $('#root').append(`<div id=${this.id} style="display: none">${content}</div>`)
-
-            let source = $(`#${this.id} collection[name=CodeContainers\\.Offline] > value`).text()
+            let domParser = new DOMParser().parseFromString(content, 'application/xml')
+            let source = domParser.querySelector(`collection[name=CodeContainers\\.Offline] > value`)?.textContent ?? ''
             let projects = JSON.parse(source)
             if (!isNil(projects) && !isEmpty(projects)) {
                 projects.forEach(p => {
@@ -64,7 +62,6 @@ export class VsStudioApplicationImpl extends ApplicationConfigImpl<VsStudioProje
                     })
                 })
             }
-            $(`#${this.id}`).remove()
         }
         return items
     }
