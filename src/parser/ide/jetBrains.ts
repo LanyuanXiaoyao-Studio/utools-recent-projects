@@ -12,6 +12,7 @@ import {readFile} from 'fs/promises'
 import {isEmpty, isNil, unique} from 'licia'
 import {parse} from 'path'
 import {existsOrNot, generateSearchKeyWithPinyin} from '../../utils'
+import {Context} from '../../context'
 
 const JETBRAINS: string = 'jetbrains'
 
@@ -25,7 +26,7 @@ export class JetBrainsApplicationImpl extends ApplicationConfigAndExecutorImpl<J
         super(id, name, icon, JETBRAINS, platform, Group[GroupName.jetbrains], description, beta, configFilename)
     }
 
-    async generateProjectItems(): Promise<Array<JetBrainsProjectItemImpl>> {
+    async generateProjectItems(context: Context): Promise<Array<JetBrainsProjectItemImpl>> {
         let items: Array<JetBrainsProjectItemImpl> = []
         let buffer = await readFile(this.config)
         if (!isNil(buffer)) {

@@ -24,4 +24,12 @@ global.utools = {
             store[key] = undefined
         },
     },
+    getPath: name => {
+        switch (name) {
+            case 'home':
+                return ''
+            default:
+                return ''
+        }
+    },
 }
