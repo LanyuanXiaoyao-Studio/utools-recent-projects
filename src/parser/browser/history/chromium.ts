@@ -96,6 +96,7 @@ export const applications: Array<ApplicationImpl<ChromiumHistoryProjectItemImpl>
     new ChromiumHistoryApplicationImpl('maxthon', 'Maxthon (傲游)', CHROMIUM, [Platform.win32], () => getDescription('maxthon', handler), undefined, configName),
     new ChromiumHistoryApplicationImpl('opera', 'Opera', CHROMIUM, undefined, () => getDescription('opera', handler), undefined, configName),
     new ChromiumHistoryApplicationImpl('brave', 'Brave', CHROMIUM, undefined, () => getDescription('brave', handler), undefined, configName),
+    new ChromiumHistoryApplicationImpl('vivaldi', 'Vivaldi', CHROMIUM, undefined, () => getDescription('vivaldi', handler), undefined, configName),
     new ChromiumHistoryApplicationImpl('cent', 'CentBrowser (百分)', CHROMIUM, [Platform.win32], () => getDescription('cent', handler), undefined, configName),
     new ChromiumHistoryApplicationImpl('yandex', 'Yandex', CHROMIUM, undefined, () => getDescription('yandex', handler), undefined, configName),
     new ChromiumHistoryApplicationImpl('liebao', '猎豹浏览器', CHROMIUM, [Platform.win32], () => getDescription('liebao', handler), undefined, configName),

@@ -84,6 +84,7 @@ export const applications: Array<ApplicationImpl<ChromiumBookmarkProjectItemImpl
     new ChromiumBookmarkApplicationImpl('maxthon', 'Maxthon (傲游)', CHROMIUM, [Platform.win32], () => getDescription('maxthon', handler), undefined, configName),
     new ChromiumBookmarkApplicationImpl('opera', 'Opera', CHROMIUM, undefined, () => getDescription('opera', handler), undefined, configName),
     new ChromiumBookmarkApplicationImpl('brave', 'Brave', CHROMIUM, undefined, () => getDescription('brave', handler), undefined, configName),
+    new ChromiumBookmarkApplicationImpl('vivaldi', 'Vivaldi', CHROMIUM, undefined, () => getDescription('vivaldi', handler), undefined, configName),
     new ChromiumBookmarkApplicationImpl('cent', 'CentBrowser (百分)', CHROMIUM, [Platform.win32], () => getDescription('cent', handler), undefined, configName),
     new ChromiumBookmarkApplicationImpl('yandex', 'Yandex', CHROMIUM, undefined, () => getDescription('yandex', handler), undefined, configName),
     new ChromiumBookmarkApplicationImpl('liebao', '猎豹浏览器', CHROMIUM, [Platform.win32], () => getDescription('liebao', handler), undefined, configName),

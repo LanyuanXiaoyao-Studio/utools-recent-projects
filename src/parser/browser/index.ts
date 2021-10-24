@@ -96,6 +96,7 @@ export type BrowserId =
     | 'maxthon'
     | 'opera'
     | 'brave'
+    | 'vivaldi'
     | 'cent'
     | 'yandex'
     | 'liebao'
@@ -138,6 +139,11 @@ const pathDescriptionMap: { [key: string]: StringByOS } = {
         win32: 'C:\\Users\\Administrator\\AppData\\Local\\BraveSoftware\\Brave-Browser\\User Data\\Default',
         darwin: '/Users/xxx/Library/Application Support/BraveSoftware/Brave-Browser/Default',
         linux: '/home/xxx/.config/BraveSoftware/Brave-Browser/Default',
+    },
+    'vivaldi': {
+        win32: 'C:\\Users\\Administrator\\AppData\\Local\\Vivaldi\\User Data\\Default',
+        darwin: '/Users/xxx/Library/Application Support/Vivaldi/Default',
+        linux: '/home/xxx/.config/Vivaldi/Default',
     },
     'cent': {
         win32: 'C:\\Users\\Administrator\\AppData\\Local\\CentBrowser\\User Data\\Default',
