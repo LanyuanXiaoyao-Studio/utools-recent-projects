@@ -9,7 +9,7 @@ import {
 } from '../../../types'
 import {BrowserId, getPathDescription, SqliteBrowserApplicationImpl} from '../index'
 import {execFileSync} from 'child_process'
-import {isEmpty, unique} from 'licia'
+import {isEmpty, unique, Url} from 'licia'
 import {generateSearchKeyWithPinyin, removeAllQueryFromUrl} from '../../../utils'
 import {Context} from '../../../context'
 
@@ -39,12 +39,17 @@ export class FirefoxHistoryApplicationImpl extends SqliteBrowserApplicationImpl<
                 if (isEmpty(description)) {
                     description = url
                 }
+                let searchKey = [...generateSearchKeyWithPinyin(title), title, description]
+                try {
+                    searchKey.push(Url.parse(url).hostname)
+                } catch (ignore) {
+                }
                 items.push({
                     id: '',
                     title: title,
                     description: description,
                     icon: this.ifGetFavicon(removeAllQueryFromUrl(url), context),
-                    searchKey: unique([...generateSearchKeyWithPinyin(title), title, description, url]),
+                    searchKey: unique(searchKey),
                     exists: true,
                     command: new ElectronExecutor(url),
                     datetime: i['timestamp'] ?? 0,

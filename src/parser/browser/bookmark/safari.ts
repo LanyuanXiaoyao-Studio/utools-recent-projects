@@ -57,12 +57,17 @@ export class SafariBookmarkApplicationImpl extends BrowserApplicationImpl<Safari
             array.forEach(i => {
                 let title = `${isNil(i?.['Parents']) || isEmpty(i?.['Parents']) ? '' : `[${i['Parents'].map(p => findTitle(p)).join('/')}] `}${findTitle(i) ?? ''}`
                 let url = i?.['URLString']
+                let searchKey = [...generateSearchKeyWithPinyin(title), title]
+                try {
+                    searchKey.push(Url.parse(url).hostname)
+                } catch (ignore) {
+                }
                 items.push({
                     id: '',
                     title: title,
                     description: url,
                     icon: this.ifGetFavicon(url, context),
-                    searchKey: unique([...generateSearchKeyWithPinyin(title), title, Url.parse(url).hostname]),
+                    searchKey: unique(searchKey),
                     exists: true,
                     command: new ElectronExecutor(url),
                 })

@@ -39,12 +39,17 @@ export class ChromiumBookmarkApplicationImpl extends BrowserApplicationImpl<Chro
             let title = `${isEmpty(site?.['parents'] ?? []) ? '' : `[${site['parents'].map(i => i.name).join('/')}]`} ${site?.['name'] ?? ''}`
             let url = site?.['url'] ?? ''
             let time = parseTimeFrom1604(parseInt((site?.['date_added'] ?? '0')))
+            let searchKey = [...generateSearchKeyWithPinyin(title), title]
+            try {
+                searchKey.push(Url.parse(url).hostname)
+            } catch (ignore) {
+            }
             items.push({
                 id: '',
                 title: title,
                 description: url,
                 icon: this.ifGetFavicon(url, context),
-                searchKey: unique([...generateSearchKeyWithPinyin(title), title, Url.parse(url).hostname]),
+                searchKey: unique(searchKey),
                 exists: true,
                 command: new ElectronExecutor(url),
                 datetime: time,

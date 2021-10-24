@@ -55,12 +55,17 @@ export class FirefoxBookmarkApplicationImpl extends SqliteBrowserApplicationImpl
                     let title = `${isEmpty(i?.['parents'] ?? '') ? '' : `[${i['parents']}]`} ${i?.['title'] ?? ''}`
                     let url = i?.['url'] ?? ''
                     let time = Math.round(parseInt((i?.['date_added'] ?? '0')) / 1000)
+                    let searchKey = [...generateSearchKeyWithPinyin(title), title]
+                    try {
+                        searchKey.push(Url.parse(url).hostname)
+                    } catch (ignore) {
+                    }
                     items.push({
                         id: '',
                         title: title,
                         description: url,
                         icon: this.ifGetFavicon(url, context),
-                        searchKey: unique([...generateSearchKeyWithPinyin(title), title, Url.parse(url).hostname]),
+                        searchKey: unique(searchKey),
                         exists: true,
                         command: new ElectronExecutor(url),
                         datetime: time,
