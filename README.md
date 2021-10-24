@@ -29,6 +29,7 @@
 |      Microsoft Edge      |    ✔     |    ✔    |    ✔    |   ✔   |   ✔   |
 |          Opera           |    ✔     |    ✔    |    ✔    |   ✔   |   ✔   |
 |          Brave           |    ✔     |    ✔    |    ✔    |   ✔   |   ✔   |
+|          Vivaldi         |    ✔     |    ✔    |    ✔    |   ✔   |   ✔   |
 |          Yandex          |    ✔     |    ✔    |    ✔    |   ✔   |   ✔   |
 |        QQ Browser        |    ✔     |    ✔    |    ✔    |       |       |
 |         Maxthon          |    ✔     |    ✔    |    ✔    |       |       |
