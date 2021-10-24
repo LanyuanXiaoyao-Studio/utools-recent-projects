@@ -43,7 +43,7 @@
 |        JetBrains         |          |    ✔    |    ✔    |   ✔   |   ✔   |
 |      Android Studio      |          |    ✔    |    ✔    |   ✔   |   ✔   |
 |    Visual Studio 2019    |          |    ✔    |    ✔    |       |       |
-| WPS Office International |          |    ✔    |         |   ✔   |   ✔   |
+| WPS Office International |          |    ✔    |    ✔    |   ✔   |   ✔   |
 |       Office 2019        |          |    ✔    |    ✔    |   ✔   |       |
 |       LibreOffice        |          |    ✔    |    ✔    |   ✔   |   ✔   |
 
