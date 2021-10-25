@@ -1,6 +1,6 @@
 import {existsSync, readdirSync, statSync} from 'fs'
 import {Platform} from './types'
-import {isEmpty, isFn, isNil, isUrl, unique, Url} from 'licia'
+import {isEmpty, isFn, isNil, isUrl, Lru, unique, Url} from 'licia'
 import {Context} from './context'
 import {i18n, sentenceKey} from './i18n'
 import {levenshtein} from 'string-comparison'
@@ -212,6 +212,7 @@ export const score: (a: string, b: string) => number = (a, b) => levenshtein.sim
 
 // 正则表达式匹配至少一个中文
 const chineseRegex = /[\u4e00-\u9fa5]+/g
+const pinyinCache = new Lru(1000)
 
 export const generateSearchKeyWithPinyin2: (text: string) => Array<string> = text => {
     if (isNil(text) || isEmpty(text)) return []
@@ -219,8 +220,16 @@ export const generateSearchKeyWithPinyin2: (text: string) => Array<string> = tex
     let matches = text.match(chineseRegex) ?? [],
         results: Array<string> = []
     unique(matches).forEach(word => {
-        results.push(pinyinPro(word, { toneType: 'none', type: 'array' }).join(''))
-        results.push(pinyinPro(word, { pattern: 'first', toneType: 'none', type: 'array' }).join(''))
+        if (pinyinCache.has(word)) {
+            results.push(...pinyinCache.get(word))
+        } else {
+            let array = [
+                pinyinPro(word, { toneType: 'none', type: 'array' }).join(''),
+                pinyinPro(word, { pattern: 'first', toneType: 'none', type: 'array' }).join(''),
+            ]
+            results.push(...array)
+            pinyinCache.set(word, array)
+        }
     })
     return results
 }
