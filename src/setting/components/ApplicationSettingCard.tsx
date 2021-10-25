@@ -3,6 +3,66 @@ import {Context} from '../../context'
 import {i18n, sentenceKey} from '../../i18n'
 import Nano = require('nano-jsx')
 
+class CloudSyncChip extends Component {
+    override render() {
+        return (
+            <Fragment>
+                <span
+                    class="chip-wrapper tooltip tooltip-right"
+                    data-tooltip="同账号的设备同步生效"
+                >
+                    <span class="chip c-hand cloud">全局</span>
+                </span>
+            </Fragment>
+        )
+    }
+}
+
+class NativeChip extends Component {
+    override render() {
+        return (
+            <Fragment>
+                <span
+                    class="chip-wrapper tooltip tooltip-right"
+                    data-tooltip="仅当前设备生效"
+                >
+                    <span class="chip c-hand native">本地</span>
+                </span>
+            </Fragment>
+        )
+    }
+}
+
+class RebootNeededChip extends Component {
+    override render() {
+        return (
+            <Fragment>
+                <span
+                    class="chip-wrapper tooltip tooltip-right"
+                    data-tooltip="完全关闭插件页面并重新打开"
+                >
+                    <span class="chip c-hand need-reboot">{i18n.t(sentenceKey.needReboot)}</span>
+                </span>
+            </Fragment>
+        )
+    }
+}
+
+class TestChip extends Component {
+    override render() {
+        return (
+            <Fragment>
+                <span
+                    class="chip-wrapper tooltip tooltip-right"
+                    data-tooltip={'功能仅供预览\n后期可能会移除'}
+                >
+                    <span class="chip c-hand test">{i18n.t(sentenceKey.beta)}</span>
+                </span>
+            </Fragment>
+        )
+    }
+}
+
 export interface ApplicationSettingCardProps {
     context: Context
 }
@@ -49,13 +109,14 @@ export class ApplicationSettingCard extends Component<ApplicationSettingCardProp
                         <form class="form-horizontal">
                             <div class="form-group">
                                 <div class="col-10 col-mr-auto">
-                                    <div
-                                        class="form-label badge"
-                                        data-badge={i18n.t(sentenceKey.needReboot)}
-                                    >
+                                    <div class="form-label">
                                         {i18n.t(sentenceKey.languageSetting)}
                                     </div>
                                     <div class="form-description">{i18n.t(sentenceKey.languageSettingDesc)}</div>
+                                    <div class="form-tags">
+                                        <CloudSyncChip/>
+                                        <RebootNeededChip/>
+                                    </div>
                                 </div>
                                 <div class="col-2 flex-column-center">
                                     <select
@@ -89,12 +150,7 @@ export class ApplicationSettingCard extends Component<ApplicationSettingCardProp
                                     <div class="form-label">{i18n.t(sentenceKey.notifyFileOpen)}</div>
                                     <div class="form-description">{i18n.t(sentenceKey.notifyFileOpenDesc)}</div>
                                     <div class="form-tags">
-                                        <span
-                                            class="chip-wrapper tooltip tooltip-bottom"
-                                            data-tooltip="同账号的设备同步生效"
-                                        >
-                                            <span class="chip bg-success">全局</span>
-                                        </span>
+                                        <CloudSyncChip/>
                                     </div>
                                 </div>
                                 <div class="col-1 flex-column-center">
@@ -122,15 +178,8 @@ export class ApplicationSettingCard extends Component<ApplicationSettingCardProp
                                     </div>
                                     <div class="form-description">{i18n.t(sentenceKey.inputPathDirectlyDesc)}</div>
                                     <div class="form-tags">
-                                        <span
-                                            class="chip-wrapper tooltip tooltip-bottom"
-                                            data-tooltip="仅当前设备生效"
-                                        >
-                                            <span class="chip bg-warning">本地</span>
-                                        </span>
-                                        <span class="chip-wrapper">
-                                            <span class="chip bg-primary">{i18n.t(sentenceKey.needReboot)}</span>
-                                        </span>
+                                        <NativeChip/>
+                                        <RebootNeededChip/>
                                     </div>
                                 </div>
                                 <div class="col-1 flex-column-center">
@@ -156,13 +205,14 @@ export class ApplicationSettingCard extends Component<ApplicationSettingCardProp
                             />
                             <div class="form-group">
                                 <div class="col-10 col-mr-auto">
-                                    <div
-                                        class="form-label badge badge-unready"
-                                        data-badge={i18n.t(sentenceKey.beta)}
-                                    >
+                                    <div class="form-label">
                                         {i18n.t(sentenceKey.fuzzyMatch)}
                                     </div>
                                     <div class="form-description">{i18n.t(sentenceKey.fuzzyMatchDesc)}</div>
+                                    <div class="form-tags">
+                                        <CloudSyncChip/>
+                                        <TestChip/>
+                                    </div>
                                 </div>
                                 <div class="col-1 flex-column-center">
                                     <label class="form-switch">
@@ -189,6 +239,9 @@ export class ApplicationSettingCard extends Component<ApplicationSettingCardProp
                                 <div class="col-10 col-mr-auto">
                                     <div class="form-label">{i18n.t(sentenceKey.filterNonExistsFiles)}</div>
                                     <div class="form-description">{i18n.t(sentenceKey.filterNonExistsFilesDesc)}</div>
+                                    <div class="form-tags">
+                                        <CloudSyncChip/>
+                                    </div>
                                 </div>
                                 <div class="col-1 flex-column-center">
                                     <label class="form-switch">
@@ -212,6 +265,9 @@ export class ApplicationSettingCard extends Component<ApplicationSettingCardProp
                                 <div class="col-10 col-mr-auto">
                                     <div class="form-label">{i18n.t(sentenceKey.getFileIcon)}</div>
                                     <div class="form-description">{i18n.t(sentenceKey.getFileIconDesc)}</div>
+                                    <div class="form-tags">
+                                        <CloudSyncChip/>
+                                    </div>
                                 </div>
                                 <div class="col-1 flex-column-center">
                                     <label class="form-switch">
@@ -238,6 +294,9 @@ export class ApplicationSettingCard extends Component<ApplicationSettingCardProp
                                 <div class="col-10 col-mr-auto">
                                     <div class="form-label">{i18n.t(sentenceKey.getFavicon)}</div>
                                     <div class="form-description">{i18n.t(sentenceKey.getFaviconDesc)}</div>
+                                    <div class="form-tags">
+                                        <CloudSyncChip/>
+                                    </div>
                                 </div>
                                 <div class="col-1 flex-column-center">
                                     <label class="form-switch">
