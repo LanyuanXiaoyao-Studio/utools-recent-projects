@@ -47,9 +47,7 @@ export class Announcement extends Component<AnnouncementProps, AnnouncementState
                                 class="content"
                                 style={{ fontSize: '0.75rem' }}
                             >
-                                <p>你似乎是第一次在本机使用此插件，如需获得较好的体验，请在右上角插件选项中将插件设置为
-                                    <b>「隐藏插件后完全退出」</b>
-                                    ，否则可能会出现一些意外错误。 如果你没有了解过 JetBrains 等软件的配置文件内容，建议先看一下这篇
+                                <p>你似乎是第一次在本机使用此插件，如果你没有了解过 JetBrains 等软件的配置文件内容，建议先看一下这篇
                                     <a
                                         href="#"
                                         onclick={() => this.help()}
