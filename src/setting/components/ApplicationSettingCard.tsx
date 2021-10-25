@@ -86,75 +86,6 @@ export class ApplicationSettingCard extends Component<ApplicationSettingCardProp
                             <div class="divider"/>
                             <div class="form-group">
                                 <div class="col-10 col-mr-auto">
-                                    <div class="form-label">{i18n.t(sentenceKey.filterNonExistsFiles)}</div>
-                                    <div class="form-description">{i18n.t(sentenceKey.filterNonExistsFilesDesc)}</div>
-                                </div>
-                                <div class="col-1 flex-column-center">
-                                    <label class="form-switch">
-                                        {this.localContext.enableFilterNonExistsFiles
-                                            ? <input
-                                                type="checkbox"
-                                                checked
-                                                onchange={() => this.switch(Context.enableFilterNonExistsFilesId, false)}
-                                            />
-                                            :
-                                            <input
-                                                type="checkbox"
-                                                onchange={() => this.switch(Context.enableFilterNonExistsFilesId, true)}
-                                            />}
-                                        <i class="form-icon"/>
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="divider"/>
-                            <div class="form-group">
-                                <div class="col-10 col-mr-auto">
-                                    <div class="form-label">{i18n.t(sentenceKey.getFavicon)}</div>
-                                    <div class="form-description">{i18n.t(sentenceKey.getFaviconDesc)}</div>
-                                </div>
-                                <div class="col-1 flex-column-center">
-                                    <label class="form-switch">
-                                        {this.localContext.enableGetFaviconFromNet
-                                            ? <input
-                                                type="checkbox"
-                                                checked
-                                                onchange={() => this.switch(Context.enableGetFaviconFromNetId, false)}
-                                            />
-                                            :
-                                            <input
-                                                type="checkbox"
-                                                onchange={() => this.switch(Context.enableGetFaviconFromNetId, true)}
-                                            />}
-                                        <i class="form-icon"/>
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="divider"/>
-                            <div class="form-group">
-                                <div class="col-10 col-mr-auto">
-                                    <div class="form-label">{i18n.t(sentenceKey.getFileIcon)}</div>
-                                    <div class="form-description">{i18n.t(sentenceKey.getFileIconDesc)}</div>
-                                </div>
-                                <div class="col-1 flex-column-center">
-                                    <label class="form-switch">
-                                        {this.localContext.enableGetFileIcon
-                                            ? <input
-                                                type="checkbox"
-                                                checked
-                                                onchange={() => this.switch(Context.enableGetFileIconId, false)}
-                                            />
-                                            :
-                                            <input
-                                                type="checkbox"
-                                                onchange={() => this.switch(Context.enableGetFileIconId, true)}
-                                            />}
-                                        <i class="form-icon"/>
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="divider"/>
-                            <div class="form-group">
-                                <div class="col-10 col-mr-auto">
                                     <div class="form-label">{i18n.t(sentenceKey.notifyFileOpen)}</div>
                                     <div class="form-description">{i18n.t(sentenceKey.notifyFileOpenDesc)}</div>
                                 </div>
@@ -203,7 +134,7 @@ export class ApplicationSettingCard extends Component<ApplicationSettingCardProp
                                     </label>
                                 </div>
                             </div>
-                            <div class="divider"/>
+                            <div class="divider text-center" data-content="搜索"/>
                             <div class="form-group">
                                 <div class="col-10 col-mr-auto">
                                     <div
@@ -226,6 +157,75 @@ export class ApplicationSettingCard extends Component<ApplicationSettingCardProp
                                             <input
                                                 type="checkbox"
                                                 onchange={() => this.switch(Context.enableFuzzyMatchId, true)}
+                                            />}
+                                        <i class="form-icon"/>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="divider text-center" data-content="文件"/>
+                            <div class="form-group">
+                                <div class="col-10 col-mr-auto">
+                                    <div class="form-label">{i18n.t(sentenceKey.filterNonExistsFiles)}</div>
+                                    <div class="form-description">{i18n.t(sentenceKey.filterNonExistsFilesDesc)}</div>
+                                </div>
+                                <div class="col-1 flex-column-center">
+                                    <label class="form-switch">
+                                        {this.localContext.enableFilterNonExistsFiles
+                                            ? <input
+                                                type="checkbox"
+                                                checked
+                                                onchange={() => this.switch(Context.enableFilterNonExistsFilesId, false)}
+                                            />
+                                            :
+                                            <input
+                                                type="checkbox"
+                                                onchange={() => this.switch(Context.enableFilterNonExistsFilesId, true)}
+                                            />}
+                                        <i class="form-icon"/>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="divider"/>
+                            <div class="form-group">
+                                <div class="col-10 col-mr-auto">
+                                    <div class="form-label">{i18n.t(sentenceKey.getFileIcon)}</div>
+                                    <div class="form-description">{i18n.t(sentenceKey.getFileIconDesc)}</div>
+                                </div>
+                                <div class="col-1 flex-column-center">
+                                    <label class="form-switch">
+                                        {this.localContext.enableGetFileIcon
+                                            ? <input
+                                                type="checkbox"
+                                                checked
+                                                onchange={() => this.switch(Context.enableGetFileIconId, false)}
+                                            />
+                                            :
+                                            <input
+                                                type="checkbox"
+                                                onchange={() => this.switch(Context.enableGetFileIconId, true)}
+                                            />}
+                                        <i class="form-icon"/>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="divider text-center" data-content="浏览器"/>
+                            <div class="form-group">
+                                <div class="col-10 col-mr-auto">
+                                    <div class="form-label">{i18n.t(sentenceKey.getFavicon)}</div>
+                                    <div class="form-description">{i18n.t(sentenceKey.getFaviconDesc)}</div>
+                                </div>
+                                <div class="col-1 flex-column-center">
+                                    <label class="form-switch">
+                                        {this.localContext.enableGetFaviconFromNet
+                                            ? <input
+                                                type="checkbox"
+                                                checked
+                                                onchange={() => this.switch(Context.enableGetFaviconFromNetId, false)}
+                                            />
+                                            :
+                                            <input
+                                                type="checkbox"
+                                                onchange={() => this.switch(Context.enableGetFaviconFromNetId, true)}
                                             />}
                                         <i class="form-icon"/>
                                     </label>
