@@ -26,7 +26,7 @@ export class EnUs implements Sentence {
     readonly fuzzyMatch: string = 'Fuzzy Match'
     readonly fuzzyMatchDesc: string = 'You don\'t need to enter the full name, it can match the desired results quickly even if you enter only a few letters. However, few letters will bring too many results, and the desired results may not be ranked in the first place. It is recommended to use exact matching.'
     readonly getFavicon: string = 'Get favicon for website'
-    readonly getFaviconDesc: string = 'Enable this option, the plugin would use the 「api.clowntool.cn」 to get the website icon and show it in the result instead of the browser icon, but the API may slow; Plugin need to send the URL to this API, the privacy problem is also best considering within'
+    readonly getFaviconDesc: string = 'Enable this option, the plugin would use the 「f1.allesedv.com」 to get the website icon and show it in the result instead of the browser icon, but the API may slow; Plugin need to send the URL to this API, the privacy problem is also best considering within'
     readonly getFileIcon: string = 'Get file icon from system'
     readonly getFileIconDesc: string = 'Enable this option, Plugin would get the file icon from system and display it in the result, but this will affect some performance, which is not recommended on low-performance machines.'
     readonly getProjectsError: string = 'Error for getting projects, check settings please'

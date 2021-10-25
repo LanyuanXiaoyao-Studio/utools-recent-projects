@@ -26,7 +26,7 @@ export class ZhCn implements Sentence {
     readonly fuzzyMatch: string = '模糊搜索'
     readonly fuzzyMatchDesc: string = '在搜索的时候不需要输入完整名称，即使只输入几个字母，也有可能快速匹配到需要的结果（拼音和英文都可以）。但过短的搜索词也会导致匹配结果过多，想要的结果无法排在第一位，目前建议使用完全匹配（完全匹配同样支持拼音）'
     readonly getFavicon: string = '获取 favicon'
-    readonly getFaviconDesc: string = '启动该选项可以使用互联网提供的「api.clowntool.cn」来获取网站图标显示在结果里代替浏览器图标，但该 API 较慢; 另由于需要将网址传到该 API，隐私问题也最好考虑在内'
+    readonly getFaviconDesc: string = '启动该选项可以使用互联网提供的「f1.allesedv.com」来获取网站图标显示在结果里代替浏览器图标，但该 API 较慢; 另由于需要将网址传到该 API，隐私问题也最好考虑在内'
     readonly getFileIcon: string = '获取文件图标'
     readonly getFileIconDesc: string = '启动该选项可以在文件型历史记录的结果里显示系统文件图标作为 Icon，但这会影响一些性能，在低性能的机器上不建议开启'
     readonly getProjectsError: string = '获取项目记录错误，请检查配置'
