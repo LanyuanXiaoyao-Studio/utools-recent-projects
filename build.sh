@@ -31,7 +31,9 @@ packageJson='{
                 }
               }'
 echo $packageJson > package.json
-yarn install
+# 优先使用离线安装, 加快调试速度
+yarn install --offline
+# yarn install
 
 cd "${temp}/node_modules/licia"
 rm -rf *.ts *.md

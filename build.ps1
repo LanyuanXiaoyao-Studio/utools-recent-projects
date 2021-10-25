@@ -31,7 +31,9 @@ $packageJson=@"
 }
 "@
 Write-Output $packageJson | Out-File package.json -Encoding utf8
-yarn install
+# 优先使用离线安装, 加快调试速度
+yarn install --offline
+# yarn install
 
 Set-Location "$temp\node_modules\licia"
 Remove-Item -Force *.ts,*.md
