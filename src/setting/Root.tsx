@@ -62,7 +62,7 @@ class Root extends Component<RootProps, RootState> {
                                 {/*右侧配置信息*/}
                                 {/*用户和系统信息*/}
                                 <InformationCard platform={this.state.platform}/>
-                                <ApplicationSettingCard/>
+                                <ApplicationSettingCard context={this.props.context}/>
                                 {/*具体应用配置信息*/}
                                 {this.state.applications
                                     .sort((a1, a2) => compareChar(a1.group, a2.group))
