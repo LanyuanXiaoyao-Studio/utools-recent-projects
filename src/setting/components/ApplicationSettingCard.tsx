@@ -17,13 +17,13 @@ export class ApplicationSettingCard extends Component<ApplicationSettingCardProp
     }
 
     switch(id: string, value: boolean) {
-        Context.update(id, value)
+        Context.updateNative(id, value)
         this.context = Context.get()
         this.update()
     }
 
     select(id: string, element: HTMLSelectElement) {
-        Context.update(id, element[element.selectedIndex]['value'])
+        Context.updateNative(id, element[element.selectedIndex]['value'])
         this.context = Context.get()
         this.update()
     }
