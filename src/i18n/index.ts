@@ -6,7 +6,10 @@ export const sentenceKey = {
     auto: 'auto',
     beta: 'beta',
     betaDesc: 'betaDesc',
+    browser: 'browser',
     browserPathDescPrefix: 'browserPathDescPrefix',
+    cloud: 'cloud',
+    cloudDesc: 'cloudDesc',
     configFileAt: 'configFileAt',
     configPrefix: 'configPrefix',
     configSuffix: 'configSuffix',
@@ -20,6 +23,7 @@ export const sentenceKey = {
     executorFileAt: 'executorFileAt',
     executorPrefix: 'executorPrefix',
     executorSuffix: 'executorSuffix',
+    file: 'file',
     fileOpening: 'fileOpening',
     filePathNonExistsTips: 'filePathNonExistsTips',
     fileSelectorPlaceholder: 'fileSelectorPlaceholder',
@@ -37,9 +41,12 @@ export const sentenceKey = {
     inputPathDirectlyDesc: 'inputPathDirectlyDesc',
     languageSetting: 'languageSetting',
     languageSettingDesc: 'languageSettingDesc',
+    local: 'local',
+    localDesc: 'localDesc',
     nativeId: 'nativeId',
     nativeIdDesc: 'nativeIdDesc',
     needReboot: 'needReboot',
+    needRebootDesc: 'needRebootDesc',
     nonExistsFileOrDeleted: 'nonExistsFileOrDeleted',
     nonExistsPathOrCancel: 'nonExistsPathOrCancel',
     notifyFileOpen: 'notifyFileOpen',
@@ -51,17 +58,19 @@ export const sentenceKey = {
     ready: 'ready',
     requestMoreApplication: 'requestMoreApplication',
     safariBookmarkDesc: 'safariBookmarkDesc',
+    search: 'search',
+    settingBetaDesc: 'settingBetaDesc',
     settingDocument: 'settingDocument',
     sourceCodeRepository: 'sourceCodeRepository',
     sqlite3: 'sqlite3',
     sqlite3Desc: 'sqlite3Desc',
     systemInformation: 'systemInformation',
     systemVersion: 'systemVersion',
+    unSupportTipsDesc: 'unSupportTipsDesc',
+    unSupportTipsTitle: 'unSupportTipsTitle',
     unknownError: 'unknownError',
     unknownInputError: 'unknownInputError',
     unready: 'unready',
-    unSupportTipsDesc: 'unSupportTipsDesc',
-    unSupportTipsTitle: 'unSupportTipsTitle',
     utoolsVersion: 'utoolsVersion',
 }
 
@@ -69,7 +78,10 @@ export interface Sentence {
     readonly auto: string
     readonly beta: string
     readonly betaDesc: string
+    readonly browser: string
     readonly browserPathDescPrefix: string
+    readonly cloud: string
+    readonly cloudDesc: string
     readonly configFileAt: string
     readonly configPrefix: string
     readonly configSuffix: string
@@ -83,6 +95,7 @@ export interface Sentence {
     readonly executorFileAt: string
     readonly executorPrefix: string
     readonly executorSuffix: string
+    readonly file: string
     readonly fileOpening: string
     readonly filePathNonExistsTips: string
     readonly fileSelectorPlaceholder: string
@@ -100,9 +113,12 @@ export interface Sentence {
     readonly inputPathDirectlyDesc: string
     readonly languageSetting: string
     readonly languageSettingDesc: string
+    readonly local: string
+    readonly localDesc: string
     readonly nativeId: string
     readonly nativeIdDesc: string
     readonly needReboot: string
+    readonly needRebootDesc: string
     readonly nonExistsFileOrDeleted: string
     readonly nonExistsPathOrCancel: string
     readonly notifyFileOpen: string
@@ -114,17 +130,19 @@ export interface Sentence {
     readonly ready: string
     readonly requestMoreApplication: string
     readonly safariBookmarkDesc: string
+    readonly search: string
+    readonly settingBetaDesc: string
     readonly settingDocument: string
     readonly sourceCodeRepository: string
     readonly sqlite3: string
     readonly sqlite3Desc: string
     readonly systemInformation: string
     readonly systemVersion: string
+    readonly unSupportTipsDesc: string
+    readonly unSupportTipsTitle: string
     readonly unknownError: string
     readonly unknownInputError: string
     readonly unready: string
-    readonly unSupportTipsDesc: string
-    readonly unSupportTipsTitle: string
     readonly utoolsVersion: string
 }
 

@@ -9,9 +9,9 @@ class CloudSyncChip extends Component {
             <Fragment>
                 <span
                     class="chip-wrapper tooltip tooltip-right"
-                    data-tooltip="同账号的设备同步生效"
+                    data-tooltip={i18n.t(sentenceKey.cloudDesc)}
                 >
-                    <span class="chip c-hand cloud">全局</span>
+                    <span class="chip c-hand cloud">{i18n.t(sentenceKey.cloud)}</span>
                 </span>
             </Fragment>
         )
@@ -24,9 +24,9 @@ class NativeChip extends Component {
             <Fragment>
                 <span
                     class="chip-wrapper tooltip tooltip-right"
-                    data-tooltip="仅当前设备生效"
+                    data-tooltip={i18n.t(sentenceKey.localDesc)}
                 >
-                    <span class="chip c-hand native">本地</span>
+                    <span class="chip c-hand native">{i18n.t(sentenceKey.local)}</span>
                 </span>
             </Fragment>
         )
@@ -39,7 +39,7 @@ class RebootNeededChip extends Component {
             <Fragment>
                 <span
                     class="chip-wrapper tooltip tooltip-right"
-                    data-tooltip="完全关闭插件页面并重新打开"
+                    data-tooltip={i18n.t(sentenceKey.needRebootDesc)}
                 >
                     <span class="chip c-hand need-reboot">{i18n.t(sentenceKey.needReboot)}</span>
                 </span>
@@ -54,7 +54,7 @@ class TestChip extends Component {
             <Fragment>
                 <span
                     class="chip-wrapper tooltip tooltip-right"
-                    data-tooltip={'功能仅供预览\n后期可能会移除'}
+                    data-tooltip={i18n.t(sentenceKey.settingBetaDesc)}
                 >
                     <span class="chip c-hand test">{i18n.t(sentenceKey.beta)}</span>
                 </span>
@@ -213,7 +213,7 @@ export class ApplicationSettingCard extends Component<ApplicationSettingCardProp
                             </div>
                             <div
                                 class="divider text-center"
-                                data-content="搜索"
+                                data-content={i18n.t(sentenceKey.search)}
                             />
                             <div class="form-group">
                                 <div class="col-10 col-mr-auto">
@@ -245,7 +245,7 @@ export class ApplicationSettingCard extends Component<ApplicationSettingCardProp
                             </div>
                             <div
                                 class="divider text-center"
-                                data-content="文件"
+                                data-content={i18n.t(sentenceKey.file)}
                             />
                             <div class="form-group">
                                 <div class="col-10 col-mr-auto">
@@ -300,7 +300,7 @@ export class ApplicationSettingCard extends Component<ApplicationSettingCardProp
                             </div>
                             <div
                                 class="divider text-center"
-                                data-content="浏览器"
+                                data-content={i18n.t(sentenceKey.browser)}
                             />
                             <div class="form-group">
                                 <div class="col-10 col-mr-auto">
