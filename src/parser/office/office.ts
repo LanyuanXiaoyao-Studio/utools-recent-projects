@@ -11,7 +11,7 @@ import {
 import {isEmpty, isNil, unique, Url} from 'licia'
 import {join, parse} from 'path'
 import {execSync} from 'child_process'
-import {existsOrNot, generateSearchKeyWithPinyin, generateStringByOS} from '../../utils'
+import {existsOrNot, generateSearchKeyWithPinyin2, generateStringByOS} from '../../utils'
 import {lstatSync, readdirSync} from 'fs'
 import {Context} from '../../context'
 import plistParser = require('bplist-parser')
@@ -52,7 +52,7 @@ export class OfficeMacApplicationImpl extends ApplicationConfigImpl<OfficeProjec
                         title: parser.name,
                         description: description,
                         icon: icon,
-                        searchKey: unique([...generateSearchKeyWithPinyin(parser.name), parser.name, url.pathname]),
+                        searchKey: unique([...generateSearchKeyWithPinyin2(parser.name), parser.name, url.pathname]),
                         exists: exists,
                         command: new ShellExecutor(`open ${url}`),
                         datetime: date,
@@ -108,7 +108,7 @@ export class OfficeWinApplicationImpl extends ApplicationImpl<OfficeProjectItemI
                 title: parser.name,
                 description: description,
                 icon: icon,
-                searchKey: unique([...generateSearchKeyWithPinyin(parser.name), parser.name, path]),
+                searchKey: unique([...generateSearchKeyWithPinyin2(parser.name), parser.name, path]),
                 exists: exists,
                 command: new ShellExecutor(`powershell.exe -command "Invoke-Item '${path}'"`),
                 datetime: 0,

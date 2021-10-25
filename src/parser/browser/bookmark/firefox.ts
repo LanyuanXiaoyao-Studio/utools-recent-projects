@@ -11,7 +11,7 @@ import {BrowserId, SqliteBrowserApplicationImpl} from '../index'
 import {execFileSync} from 'child_process'
 import {contain, isEmpty, isNil, reverse, unique, Url} from 'licia'
 import {Context} from '../../../context'
-import {generateSearchKeyWithPinyin, generateStringByOS} from '../../../utils'
+import {generateSearchKeyWithPinyin2, generateStringByOS} from '../../../utils'
 import {i18n, sentenceKey} from '../../../i18n'
 
 const FIREFOX: string = 'firefox'
@@ -55,7 +55,7 @@ export class FirefoxBookmarkApplicationImpl extends SqliteBrowserApplicationImpl
                     let title = `${isEmpty(i?.['parents'] ?? '') ? '' : `[${i['parents']}]`} ${i?.['title'] ?? ''}`
                     let url = i?.['url'] ?? ''
                     let time = Math.round(parseInt((i?.['date_added'] ?? '0')) / 1000)
-                    let searchKey = [...generateSearchKeyWithPinyin(title), title]
+                    let searchKey = [...generateSearchKeyWithPinyin2(title), title]
                     try {
                         searchKey.push(Url.parse(url).hostname)
                     } catch (ignore) {

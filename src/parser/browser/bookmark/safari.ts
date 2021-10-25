@@ -12,7 +12,7 @@ import {BrowserApplicationImpl} from '../index'
 import {Context} from '../../../context'
 import {parseFile} from 'bplist-parser'
 import {isEmpty, isNil, unique, Url} from 'licia'
-import {generateParents, generateSearchKeyWithPinyin} from '../../../utils'
+import {generateParents, generateSearchKeyWithPinyin2} from '../../../utils'
 import {existsSync} from 'fs'
 import {i18n, sentenceKey} from '../../../i18n'
 
@@ -57,7 +57,7 @@ export class SafariBookmarkApplicationImpl extends BrowserApplicationImpl<Safari
             array.forEach(i => {
                 let title = `${isNil(i?.['Parents']) || isEmpty(i?.['Parents']) ? '' : `[${i['Parents'].map(p => findTitle(p)).join('/')}] `}${findTitle(i) ?? ''}`
                 let url = i?.['URLString']
-                let searchKey = [...generateSearchKeyWithPinyin(title), title]
+                let searchKey = [...generateSearchKeyWithPinyin2(title), title]
                 try {
                     searchKey.push(Url.parse(url).hostname)
                 } catch (ignore) {

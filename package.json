@@ -1,6 +1,6 @@
 {
   "name": "utools-bookmark-and-history",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "author": "lanyuanxiaoyao",
   "license": "MIT",
   "scripts": {
@@ -29,7 +29,7 @@
     "licia": "^1.30.0",
     "nano-jsx": "^0.0.20",
     "nanobar": "^0.4.2",
-    "pinyinlite": "^1.2.1",
+    "pinyin-pro": "^3.3.1",
     "string-comparison": "^1.0.9",
     "winreg": "^1.2.4"
   }

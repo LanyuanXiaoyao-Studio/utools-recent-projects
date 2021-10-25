@@ -25,7 +25,7 @@ packageJson='{
                   "licia"            : "^1.30.0",
                   "nano-jsx"         : "^0.0.20",
                   "nanobar"          : "^0.4.2",
-                  "pinyinlite"       : "^1.2.1",
+                  "pinyin-pro"       : "^3.3.1",
                   "string-comparison": "^1.0.9",
                   "winreg"           : "^1.2.4"
                 }
@@ -59,8 +59,8 @@ cd "${temp}/node_modules/nanobar"
 rm -rf brand demos *.md .npmignore .eslintrc bower.json LICENSE nanobar.min.js
 cd $temp
 
-rm -rf "${temp}/node_modules/pinyinlite"
-cp -r "${current_path}/libs/pinyinlite" "${temp}/node_modules"
+rm -rf "${temp}/node_modules/pinyin-pro"
+cp -r "${current_path}/libs/pinyin-pro" "${temp}/node_modules"
 cd $temp
 
 cd "${temp}/node_modules/string-comparison"

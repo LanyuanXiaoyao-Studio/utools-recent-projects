@@ -10,7 +10,7 @@ import {
 import {BrowserId, getDescription, SqliteBrowserApplicationImpl} from '../index'
 import {execFileSync} from 'child_process'
 import {isEmpty, unique, Url} from 'licia'
-import {generateSearchKeyWithPinyin, removeAllQueryFromUrl} from '../../../utils'
+import {generateSearchKeyWithPinyin2, removeAllQueryFromUrl} from '../../../utils'
 import {Context} from '../../../context'
 import {i18n, sentenceKey} from '../../../i18n'
 
@@ -64,7 +64,7 @@ export class ChromiumHistoryApplicationImpl extends SqliteBrowserApplicationImpl
             array.forEach(i => {
                 let title: string = i['title'] ?? ''
                 let url: string = i['url'] ?? ''
-                let searchKey = [...generateSearchKeyWithPinyin(title), title]
+                let searchKey = [...generateSearchKeyWithPinyin2(title), title]
                 try {
                     searchKey.push(Url.parse(url).hostname)
                 } catch (ignore) {

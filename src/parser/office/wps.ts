@@ -10,12 +10,12 @@ import {
 } from '../../types'
 import {isEmpty, isNil, unique} from 'licia'
 import {parse} from 'path'
-import {existsOrNot, generateSearchKeyWithPinyin, generateStringByOS, listRegistry} from '../../utils'
+import {existsOrNot, generateSearchKeyWithPinyin2, generateStringByOS, listRegistry} from '../../utils'
 import {Context} from '../../context'
 import {readFile} from 'fs/promises'
 import {i18n, sentenceKey} from '../../i18n'
-import plistParser = require('bplist-parser')
 import WinReg from 'winreg'
+import plistParser = require('bplist-parser')
 
 const WPS_WIN_INTERNATION: string = 'wps-win-internation'
 const WPS_MAC_INTERNATION: string = 'wps-mac-internation'
@@ -60,7 +60,7 @@ export class WpsWinInternationalApplicationImpl extends ApplicationImpl<WpsWinIn
                     title: parser.name,
                     description: description,
                     icon: icon,
-                    searchKey: unique([...generateSearchKeyWithPinyin(parser.name), parser.name, path]),
+                    searchKey: unique([...generateSearchKeyWithPinyin2(parser.name), parser.name, path]),
                     exists: exists,
                     command: new ShellExecutor(`powershell.exe -command "Invoke-Item '${path}'"`),
                     datetime: datetime,
@@ -116,7 +116,7 @@ export class WpsMacInternationalApplicationImpl extends ApplicationConfigImpl<Wp
                         title: parser.name,
                         description: description,
                         icon: icon,
-                        searchKey: unique([...generateSearchKeyWithPinyin(parser.name), parser.name, path]),
+                        searchKey: unique([...generateSearchKeyWithPinyin2(parser.name), parser.name, path]),
                         exists: exists,
                         command: new ShellExecutor(`open "${path}"`),
                         datetime: 0,
@@ -174,7 +174,7 @@ export class WpsLinuxInternationalApplicationImpl extends ApplicationConfigAndEx
                     title: parser.name,
                     description: description,
                     icon: icon,
-                    searchKey: unique([...generateSearchKeyWithPinyin(parser.name), parser.name, path]),
+                    searchKey: unique([...generateSearchKeyWithPinyin2(parser.name), parser.name, path]),
                     exists: exists,
                     command: new ShellExecutor(`${this.executor} "${path}"`),
                     datetime: 0,

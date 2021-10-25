@@ -10,7 +10,7 @@ import {
 import {Context} from '../../context'
 import {readFileSync, statSync} from 'fs'
 import {endWith, isEmpty, isNil, unique} from 'licia'
-import {existsOrNot, generateSearchKeyWithPinyin, generateStringByOS, walker} from '../../utils'
+import {existsOrNot, generateSearchKeyWithPinyin2, generateStringByOS, walker} from '../../utils'
 import {parse, resolve} from 'path'
 import {i18n, sentenceKey} from '../../i18n'
 
@@ -72,7 +72,7 @@ export class ObsidianApplicationImpl extends ApplicationConfigImpl<ObsidianProje
                             title: parseObj.name,
                             description: description,
                             icon: icon,
-                            searchKey: unique([...generateSearchKeyWithPinyin(parseObj.name), parseObj.name, obj.path]),
+                            searchKey: unique([...generateSearchKeyWithPinyin2(parseObj.name), parseObj.name, obj.path]),
                             exists: exists,
                             command: new UtoolsExecutor(`obsidian://open?vault=${obj.id}&file=${parseObj.name}`),
                             datetime: stat.atimeMs,

@@ -12,7 +12,7 @@ import {
 import {readFile} from 'fs/promises'
 import {isEmpty, isNil, startWith, unique, Url} from 'licia'
 import {parse} from 'path'
-import {existsOrNot, generateSearchKeyWithPinyin, generateStringByOS} from '../../utils'
+import {existsOrNot, generateSearchKeyWithPinyin2, generateStringByOS} from '../../utils'
 import {Context} from '../../context'
 import {i18n, sentenceKey} from '../../i18n'
 
@@ -98,7 +98,7 @@ export class VscodeApplicationImpl extends ApplicationConfigAndExecutorImpl<Vsco
                         title: parser.name,
                         description: description,
                         icon: icon,
-                        searchKey: unique([...generateSearchKeyWithPinyin(path), path]),
+                        searchKey: unique([...generateSearchKeyWithPinyin2(path), path]),
                         exists: exists,
                         command: new ShellExecutor(`"${this.executor}" ${args} "${path}"`),
                     })

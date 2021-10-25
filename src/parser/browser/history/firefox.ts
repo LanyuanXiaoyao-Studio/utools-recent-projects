@@ -10,7 +10,7 @@ import {
 import {BrowserId, getPathDescription, SqliteBrowserApplicationImpl} from '../index'
 import {execFileSync} from 'child_process'
 import {isEmpty, unique, Url} from 'licia'
-import {generateSearchKeyWithPinyin, removeAllQueryFromUrl} from '../../../utils'
+import {generateSearchKeyWithPinyin2, removeAllQueryFromUrl} from '../../../utils'
 import {Context} from '../../../context'
 
 const FIREFOX: string = 'firefox'
@@ -39,7 +39,7 @@ export class FirefoxHistoryApplicationImpl extends SqliteBrowserApplicationImpl<
                 if (isEmpty(description)) {
                     description = url
                 }
-                let searchKey = [...generateSearchKeyWithPinyin(title), title, description]
+                let searchKey = [...generateSearchKeyWithPinyin2(title), title, description]
                 try {
                     searchKey.push(Url.parse(url).hostname)
                 } catch (ignore) {

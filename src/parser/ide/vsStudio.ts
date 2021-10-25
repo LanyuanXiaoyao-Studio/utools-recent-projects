@@ -10,7 +10,7 @@ import {
 import {readFile} from 'fs/promises'
 import {isEmpty, isNil, unique} from 'licia'
 import {parse} from 'path'
-import {existsOrNot, generateSearchKeyWithPinyin} from '../../utils'
+import {existsOrNot, generateSearchKeyWithPinyin2} from '../../utils'
 import {Context} from '../../context'
 
 const VS_STUDIO: string = 'vs-studio'
@@ -55,7 +55,7 @@ export class VsStudioApplicationImpl extends ApplicationConfigImpl<VsStudioProje
                         title: parseObj.name,
                         description: description,
                         icon: icon,
-                        searchKey: unique([...generateSearchKeyWithPinyin(parseObj.name), parseObj.name, path]),
+                        searchKey: unique([...generateSearchKeyWithPinyin2(parseObj.name), parseObj.name, path]),
                         exists: exists,
                         command: new ElectronExecutor(path),
                         datetime: parseInt(`${datetime}`),

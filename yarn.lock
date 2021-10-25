@@ -3029,10 +3029,10 @@ pify@^3.0.0:
   resolved "https://registry.npm.taobao.org/pify/download/pify-3.0.0.tgz#e5a4acd2c101fdf3d9a4d07f0dbc4db49dd28176"
   integrity sha1-5aSs0sEB/fPZpNB/DbxNtJ3SgXY=
 
-pinyinlite@^1.2.1:
-  version "1.2.1"
-  resolved "https://registry.nlark.com/pinyinlite/download/pinyinlite-1.2.1.tgz#48b30f68a4f1daf193756d9b6ea66acb233fa4fb"
-  integrity sha1-SLMPaKTx2vGTdW2bbqZqyyM/pPs=
+pinyin-pro@^3.3.1:
+  version "3.3.1"
+  resolved "https://registry.nlark.com/pinyin-pro/download/pinyin-pro-3.3.1.tgz#c8582b258e398e68b5275c984b94f5c154e075dd"
+  integrity sha1-yFgrJY45jmi1J1yYS5T1wVTgdd0=
 
 pirates@^4.0.1:
   version "4.0.1"
