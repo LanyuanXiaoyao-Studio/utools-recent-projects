@@ -78,12 +78,24 @@ export class ApplicationSettingCard extends Component<ApplicationSettingCardProp
     }
 
     switch(id: string, value: boolean) {
+        Context.update(id, value)
+        this.localContext = Context.get()
+        this.update()
+    }
+
+    switchNative(id: string, value: boolean) {
         Context.updateNative(id, value)
         this.localContext = Context.get()
         this.update()
     }
 
     select(id: string, element: HTMLSelectElement) {
+        Context.update(id, element[element.selectedIndex]['value'])
+        this.localContext = Context.get()
+        this.update()
+    }
+
+    selectNative(id: string, element: HTMLSelectElement) {
         Context.updateNative(id, element[element.selectedIndex]['value'])
         this.localContext = Context.get()
         this.update()
@@ -188,12 +200,12 @@ export class ApplicationSettingCard extends Component<ApplicationSettingCardProp
                                             ? <input
                                                 type="checkbox"
                                                 checked
-                                                onchange={() => this.switch(Context.enableEditPathInputDirectlyId, false)}
+                                                onchange={() => this.switchNative(Context.enableEditPathInputDirectlyId, false)}
                                             />
                                             :
                                             <input
                                                 type="checkbox"
-                                                onchange={() => this.switch(Context.enableEditPathInputDirectlyId, true)}
+                                                onchange={() => this.switchNative(Context.enableEditPathInputDirectlyId, true)}
                                             />}
                                         <i class="form-icon"/>
                                     </label>
