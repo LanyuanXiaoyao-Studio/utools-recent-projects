@@ -88,6 +88,14 @@ export class ApplicationSettingCard extends Component<ApplicationSettingCardProp
                                 <div class="col-10 col-mr-auto">
                                     <div class="form-label">{i18n.t(sentenceKey.notifyFileOpen)}</div>
                                     <div class="form-description">{i18n.t(sentenceKey.notifyFileOpenDesc)}</div>
+                                    <div class="form-tags">
+                                        <span
+                                            class="chip-wrapper tooltip tooltip-bottom"
+                                            data-tooltip="同账号的设备同步生效"
+                                        >
+                                            <span class="chip bg-success">全局</span>
+                                        </span>
+                                    </div>
                                 </div>
                                 <div class="col-1 flex-column-center">
                                     <label class="form-switch">
@@ -109,13 +117,21 @@ export class ApplicationSettingCard extends Component<ApplicationSettingCardProp
                             <div class="divider"/>
                             <div class="form-group">
                                 <div class="col-10 col-mr-auto">
-                                    <div
-                                        class="form-label badge"
-                                        data-badge={i18n.t(sentenceKey.needReboot)}
-                                    >
+                                    <div class="form-label">
                                         {i18n.t(sentenceKey.inputPathDirectly)}
                                     </div>
                                     <div class="form-description">{i18n.t(sentenceKey.inputPathDirectlyDesc)}</div>
+                                    <div class="form-tags">
+                                        <span
+                                            class="chip-wrapper tooltip tooltip-bottom"
+                                            data-tooltip="仅当前设备生效"
+                                        >
+                                            <span class="chip bg-warning">本地</span>
+                                        </span>
+                                        <span class="chip-wrapper">
+                                            <span class="chip bg-primary">{i18n.t(sentenceKey.needReboot)}</span>
+                                        </span>
+                                    </div>
                                 </div>
                                 <div class="col-1 flex-column-center">
                                     <label class="form-switch">
@@ -134,7 +150,10 @@ export class ApplicationSettingCard extends Component<ApplicationSettingCardProp
                                     </label>
                                 </div>
                             </div>
-                            <div class="divider text-center" data-content="搜索"/>
+                            <div
+                                class="divider text-center"
+                                data-content="搜索"
+                            />
                             <div class="form-group">
                                 <div class="col-10 col-mr-auto">
                                     <div
@@ -162,7 +181,10 @@ export class ApplicationSettingCard extends Component<ApplicationSettingCardProp
                                     </label>
                                 </div>
                             </div>
-                            <div class="divider text-center" data-content="文件"/>
+                            <div
+                                class="divider text-center"
+                                data-content="文件"
+                            />
                             <div class="form-group">
                                 <div class="col-10 col-mr-auto">
                                     <div class="form-label">{i18n.t(sentenceKey.filterNonExistsFiles)}</div>
@@ -208,7 +230,10 @@ export class ApplicationSettingCard extends Component<ApplicationSettingCardProp
                                     </label>
                                 </div>
                             </div>
-                            <div class="divider text-center" data-content="浏览器"/>
+                            <div
+                                class="divider text-center"
+                                data-content="浏览器"
+                            />
                             <div class="form-group">
                                 <div class="col-10 col-mr-auto">
                                     <div class="form-label">{i18n.t(sentenceKey.getFavicon)}</div>
