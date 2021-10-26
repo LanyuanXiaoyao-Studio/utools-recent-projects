@@ -46,7 +46,8 @@ find lib -name '*.map' | xargs rm -rf
 cd $temp
 
 cd "${temp}/node_modules/big-integer"
-rm -rf *.md *.ts tsconfig*.json LICENSE bower.json *.min.js
+rm -rf *.md *.ts tsconfig*.json LICENSE bower.json BigInteger.js
+mv BigInteger.min.js BigInteger.js
 cd $temp
 
 cd "${temp}/node_modules/bplist-parser"
@@ -58,11 +59,12 @@ rm -rf test *.md .npmignore jsdoc.conf.json
 cd $temp
 
 cd "${temp}/node_modules/nanobar"
-rm -rf brand demos *.md .npmignore .eslintrc bower.json LICENSE nanobar.min.js
+rm -rf brand demos *.md .npmignore .eslintrc bower.json LICENSE nanobar.js
+mv nanobar.min.js nanobar.js
 cd $temp
 
-rm -rf "${temp}/node_modules/pinyin-pro"
-cp -r "${current_path}/libs/pinyin-pro" "${temp}/node_modules"
+cd "${temp}/node_modules/pinyin-pro"
+rm -rf data handle-data lib test types .eslintrc .travis.yml *.md LICENSE tsconfig.json
 cd $temp
 
 cd "${temp}/node_modules/string-comparison"

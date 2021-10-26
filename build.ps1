@@ -46,7 +46,8 @@ Get-ChildItem * -Include *.map -Recurse | Remove-Item
 Set-Location $temp
 
 Set-Location "$temp\node_modules\big-integer"
-Remove-Item -Force -Recurse *.md,*.ts,tsconfig*.json,LICENSE,bower.json,*.min.js
+Remove-Item -Force -Recurse *.md,*.ts,tsconfig*.json,LICENSE,bower.json,BigInteger.js
+Rename-Item BigInteger.min.js -NewName BigInteger.js
 Set-Location $temp
 
 Set-Location "$temp\node_modules\bplist-parser"
@@ -58,11 +59,12 @@ Remove-Item -Force -Recurse test,*.md,.npmignore,jsdoc.conf.json
 Set-Location $temp
 
 Set-Location "$temp\node_modules\nanobar"
-Remove-Item -Force -Recurse brand,demos,*.md,.npmignore,.eslintrc,bower.json,LICENSE,nanobar.min.js
+Remove-Item -Force -Recurse brand,demos,*.md,.npmignore,.eslintrc,bower.json,LICENSE,nanobar.js
+Rename-Item nanobar.min.js -NewName nanobar.js
 Set-Location $temp
 
-Remove-Item -Force -Recurse "${temp}\node_modules\pinyin-pro"
-Copy-Item -Recurse "${current_path}\libs/pinyin-pro" "${temp}\node_modules"
+Set-Location "$temp\node_modules\pinyin-pro"
+Remove-Item -Force -Recurse data,handle-data,lib,test,types,.eslintrc,.travis.yml,*.md,LICENSE,tsconfig.json
 Set-Location $temp
 
 Set-Location "$temp\node_modules\string-comparison"
