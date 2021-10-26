@@ -47,7 +47,7 @@ const unSupportTips: () => ProjectItemImpl = () => {
 let nanoBar
 
 export class AllProjectArgs extends ProjectArgsImpl {
-    placeholder = '通过项目名快速查找项目'
+    placeholder = '快速搜索结果，支持全拼和拼音首字母'
 
     override enter(action: Action, callback: Callback<ProjectItemImpl>): void {
         super.enter(action, callback)
