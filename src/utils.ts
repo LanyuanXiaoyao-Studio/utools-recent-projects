@@ -212,7 +212,7 @@ export const score: (a: string, b: string) => number = (a, b) => levenshtein.sim
 
 // 正则表达式匹配至少一个中文
 const chineseRegex = /[\u4e00-\u9fa5]+/g
-const pinyinCache = new Lru(1000)
+const pinyinCache = new Lru(5000)
 
 export const generateSearchKeyWithPinyin2: (text: string) => Array<string> = text => {
     if (isNil(text) || isEmpty(text)) return []
