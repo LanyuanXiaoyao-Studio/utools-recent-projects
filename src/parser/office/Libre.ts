@@ -6,13 +6,14 @@ import {
     GroupName,
     Platform,
     ShellExecutor,
-} from '../../types'
+} from '../../Types'
 import {readFile} from 'fs/promises'
 import {isEmpty, isNil, now, unique, Url} from 'licia'
-import {Context} from '../../context'
-import {existsOrNot, generateSearchKeyWithPinyin2, generateStringByOS} from '../../utils'
+import {Context} from '../../Context'
+import {existsOrNot, generateStringByOS} from '../../Utils'
 import {parse} from 'path'
 import {i18n, sentenceKey} from '../../i18n'
+import {generatePinyinIndex} from '../../utils/index-generator/PinyinIndex'
 
 const LIBRE: string = 'libre'
 
@@ -73,7 +74,7 @@ export class LibreOfficeApplicationImpl extends ApplicationConfigAndExecutorImpl
                     title: name,
                     description: description,
                     icon: icon,
-                    searchKey: unique([...generateSearchKeyWithPinyin2(name), name, realPath]),
+                    searchKey: unique([...generatePinyinIndex(context, name), name, realPath]),
                     exists: exists,
                     command: new ShellExecutor(`"${this.executor}" "${path}"`),
                     datetime: date,

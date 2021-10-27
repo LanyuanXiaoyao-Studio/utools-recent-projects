@@ -6,12 +6,13 @@ import {
     Group,
     GroupName,
     Platform,
-} from '../../../types'
+} from '../../../Types'
 import {BrowserId, getPathDescription, SqliteBrowserApplicationImpl} from '../index'
 import {execFileSync} from 'child_process'
 import {isEmpty, unique, Url} from 'licia'
-import {generateSearchKeyWithPinyin2, removeAllQueryFromUrl} from '../../../utils'
-import {Context} from '../../../context'
+import {removeAllQueryFromUrl} from '../../../Utils'
+import {Context} from '../../../Context'
+import {generatePinyinIndex} from '../../../utils/index-generator/PinyinIndex'
 
 const FIREFOX: string = 'firefox'
 
@@ -39,7 +40,7 @@ export class FirefoxHistoryApplicationImpl extends SqliteBrowserApplicationImpl<
                 if (isEmpty(description)) {
                     description = url
                 }
-                let searchKey = [...generateSearchKeyWithPinyin2(title), title, description]
+                let searchKey = [...generatePinyinIndex(context, title), title, description]
                 try {
                     searchKey.push(Url.parse(url).hostname)
                 } catch (ignore) {

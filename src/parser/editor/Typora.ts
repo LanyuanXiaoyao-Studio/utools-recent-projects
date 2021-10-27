@@ -6,12 +6,13 @@ import {
     GroupName,
     NohupShellExecutor,
     Platform,
-} from '../../types'
-import {Context} from '../../context'
+} from '../../Types'
+import {Context} from '../../Context'
 import {readFileSync} from 'fs'
 import {isEmpty, strToBytes, unique} from 'licia'
-import {existsOrNot, generateSearchKeyWithPinyin2, generateStringByOS} from '../../utils'
+import {existsOrNot, generateStringByOS} from '../../Utils'
 import {i18n, sentenceKey} from '../../i18n'
+import {generatePinyinIndex} from '../../utils/index-generator/PinyinIndex'
 
 const TYPORA: string = 'typora'
 
@@ -66,7 +67,7 @@ export class TyporaApplicationImpl extends ApplicationConfigAndExecutorImpl<Typo
                         title: i?.['name'] ?? '',
                         description: description,
                         icon: icon,
-                        searchKey: unique([...generateSearchKeyWithPinyin2(path), path]),
+                        searchKey: unique([...generatePinyinIndex(context, path), path]),
                         exists: exists,
                         command: new NohupShellExecutor(this.executor, path),
                         datetime: i?.['date'] ?? 0,

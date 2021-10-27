@@ -1,5 +1,5 @@
-import {VscodeApplicationImpl} from '../../../src/parser/editor/vscode'
-import {Context} from '../../../src/context'
+import {VscodeApplicationImpl} from '../../../src/parser/editor/Vscode'
+import {Context} from '../../../src/Context'
 
 test('vscodeProjectItems', async () => {
     let app = new VscodeApplicationImpl()

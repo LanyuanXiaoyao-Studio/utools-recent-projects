@@ -1,5 +1,5 @@
-import {Context} from '../../../src/context'
-import {JetBrainsApplicationImpl} from '../../../src/parser/ide/jetBrains'
+import {Context} from '../../../src/Context'
+import {JetBrainsApplicationImpl} from '../../../src/parser/ide/JetBrains'
 
 test('jetBrainsProjectItems', async () => {
     let app = new JetBrainsApplicationImpl('test', 'Test', '')

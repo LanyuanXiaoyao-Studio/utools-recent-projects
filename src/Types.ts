@@ -1,9 +1,9 @@
 import {contain, isEmpty, isNil} from 'licia'
 import {exec} from 'child_process'
 import {shell} from 'electron'
-import {initLanguage, platformFromUtools} from './utils'
+import {initLanguage, platformFromUtools} from './Utils'
 import {existsSync} from 'fs'
-import {Context} from './context'
+import {Context} from './Context'
 import {i18n, sentenceKey} from './i18n'
 
 /**

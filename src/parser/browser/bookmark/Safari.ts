@@ -7,14 +7,15 @@ import {
     Platform,
     ProjectItemImpl,
     SettingItem,
-} from '../../../types'
+} from '../../../Types'
 import {BrowserApplicationImpl} from '../index'
-import {Context} from '../../../context'
+import {Context} from '../../../Context'
 import {parseFile} from 'bplist-parser'
 import {isEmpty, isNil, unique, Url} from 'licia'
-import {generateParents, generateSearchKeyWithPinyin2} from '../../../utils'
+import {generateParents} from '../../../Utils'
 import {existsSync} from 'fs'
 import {i18n, sentenceKey} from '../../../i18n'
+import {generatePinyinIndex} from '../../../utils/index-generator/PinyinIndex'
 
 const SAFARI: string = 'safari'
 
@@ -57,7 +58,7 @@ export class SafariBookmarkApplicationImpl extends BrowserApplicationImpl<Safari
             array.forEach(i => {
                 let title = `${isNil(i?.['Parents']) || isEmpty(i?.['Parents']) ? '' : `[${i['Parents'].map(p => findTitle(p)).join('/')}] `}${findTitle(i) ?? ''}`
                 let url = i?.['URLString']
-                let searchKey = [...generateSearchKeyWithPinyin2(title), title]
+                let searchKey = [...generatePinyinIndex(context, title), title]
                 try {
                     searchKey.push(Url.parse(url).hostname)
                 } catch (ignore) {

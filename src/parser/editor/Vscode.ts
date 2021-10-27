@@ -8,13 +8,14 @@ import {
     SettingItem,
     ShellExecutor,
     SwitchSettingItem,
-} from '../../types'
+} from '../../Types'
 import {readFile} from 'fs/promises'
 import {isEmpty, isNil, startWith, unique, Url} from 'licia'
 import {parse} from 'path'
-import {existsOrNot, generateSearchKeyWithPinyin2, generateStringByOS} from '../../utils'
-import {Context} from '../../context'
+import {existsOrNot, generateStringByOS} from '../../Utils'
+import {Context} from '../../Context'
 import {i18n, sentenceKey} from '../../i18n'
+import {generatePinyinIndex} from '../../utils/index-generator/PinyinIndex'
 
 const VSCODE: string = 'vscode'
 
@@ -26,7 +27,7 @@ export class VscodeApplicationImpl extends ApplicationConfigAndExecutorImpl<Vsco
 
     constructor() {
         super(
-            'vscode',
+            VSCODE,
             'Visual Studio Code',
             'icon/ms-visual-studio-code.png',
             VSCODE,
@@ -98,7 +99,7 @@ export class VscodeApplicationImpl extends ApplicationConfigAndExecutorImpl<Vsco
                         title: parser.name,
                         description: description,
                         icon: icon,
-                        searchKey: unique([...generateSearchKeyWithPinyin2(path), path]),
+                        searchKey: unique([...generatePinyinIndex(context, path), path]),
                         exists: exists,
                         command: new ShellExecutor(`"${this.executor}" ${args} "${path}"`),
                     })

@@ -7,13 +7,14 @@ import {
     GroupName,
     Platform,
     ShellExecutor,
-} from '../../types'
+} from '../../Types'
 import {isEmpty, isNil, unique, Url} from 'licia'
 import {join, parse} from 'path'
 import {execSync} from 'child_process'
-import {existsOrNot, generateSearchKeyWithPinyin2, generateStringByOS} from '../../utils'
+import {existsOrNot, generateStringByOS} from '../../Utils'
 import {lstatSync, readdirSync} from 'fs'
-import {Context} from '../../context'
+import {Context} from '../../Context'
+import {generatePinyinIndex} from '../../utils/index-generator/PinyinIndex'
 import plistParser = require('bplist-parser')
 
 const OFFICE_MAC: string = 'office-mac'
@@ -52,7 +53,7 @@ export class OfficeMacApplicationImpl extends ApplicationConfigImpl<OfficeProjec
                         title: parser.name,
                         description: description,
                         icon: icon,
-                        searchKey: unique([...generateSearchKeyWithPinyin2(parser.name), parser.name, url.pathname]),
+                        searchKey: unique([...generatePinyinIndex(context, parser.name), parser.name, url.pathname]),
                         exists: exists,
                         command: new ShellExecutor(`open ${url}`),
                         datetime: date,
@@ -68,7 +69,7 @@ export class OfficeWinApplicationImpl extends ApplicationImpl<OfficeProjectItemI
 
     constructor() {
         super(
-            `office-win`,
+            OFFICE_WIN,
             'Office 2019',
             'icon/office.png',
             OFFICE_WIN,
@@ -79,7 +80,7 @@ export class OfficeWinApplicationImpl extends ApplicationImpl<OfficeProjectItemI
         )
     }
 
-    async generateProjectItems(): Promise<Array<OfficeProjectItemImpl>> {
+    async generateProjectItems(context: Context): Promise<Array<OfficeProjectItemImpl>> {
         let items: Array<OfficeProjectItemImpl> = []
         let command = readdirSync(this.recentPath)
             .map(p => join(this.recentPath, p))
@@ -108,7 +109,7 @@ export class OfficeWinApplicationImpl extends ApplicationImpl<OfficeProjectItemI
                 title: parser.name,
                 description: description,
                 icon: icon,
-                searchKey: unique([...generateSearchKeyWithPinyin2(parser.name), parser.name, path]),
+                searchKey: unique([...generatePinyinIndex(context, parser.name), parser.name, path]),
                 exists: exists,
                 command: new ShellExecutor(`powershell.exe -command "Invoke-Item '${path}'"`),
                 datetime: 0,

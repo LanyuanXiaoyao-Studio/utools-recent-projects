@@ -1,6 +1,6 @@
-import {Action, Callback, DatetimeProjectItemImpl, NoExecutor, ProjectArgsImpl, ProjectItemImpl} from './types'
+import {Action, Callback, DatetimeProjectItemImpl, NoExecutor, ProjectArgsImpl, ProjectItemImpl} from './Types'
 import {isEmpty, isNil, max} from 'licia'
-import {SettingUIFeature} from './setting/setting'
+import {SettingUIFeature} from './setting/Setting'
 import {
     browserBookmarkApplications,
     browserHistoryApplications,
@@ -14,9 +14,9 @@ import {
     vsStudioApplications,
     wpsApplications,
     xcodeApplications,
-} from './applications'
+} from './Applications'
 import {i18n, sentenceKey} from './i18n'
-import {score} from './utils'
+import {score} from './Utils'
 import $ = require('licia/$')
 import NanoBar = require('nanobar')
 

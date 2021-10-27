@@ -1,5 +1,5 @@
-import {EnUs} from './en-us'
-import {ZhCn} from './zh-cn'
+import {EnUs} from './EnUs'
+import {ZhCn} from './ZhCn'
 import {I18n} from 'licia'
 
 export const sentenceKey = {

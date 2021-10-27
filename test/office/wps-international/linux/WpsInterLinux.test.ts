@@ -1,5 +1,5 @@
-import {WpsLinuxInternationalApplicationImpl} from '../../../../src/parser/office/wps'
-import {Context} from '../../../../src/context'
+import {WpsLinuxInternationalApplicationImpl} from '../../../../src/parser/office/Wps'
+import {Context} from '../../../../src/Context'
 
 test('wpsLinuxProjectItems', async () => {
     let app = new WpsLinuxInternationalApplicationImpl()

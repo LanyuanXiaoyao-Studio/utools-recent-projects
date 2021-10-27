@@ -1,5 +1,5 @@
-import {LibreOfficeApplicationImpl} from '../../../src/parser/office/libre'
-import {Context} from '../../../src/context'
+import {LibreOfficeApplicationImpl} from '../../../src/parser/office/Libre'
+import {Context} from '../../../src/Context'
 
 test('libraProjectItems', async () => {
     let app = new LibreOfficeApplicationImpl()

@@ -6,13 +6,14 @@ import {
     GroupName,
     Platform,
     UtoolsExecutor,
-} from '../../types'
-import {Context} from '../../context'
+} from '../../Types'
+import {Context} from '../../Context'
 import {readFileSync, statSync} from 'fs'
 import {endWith, isEmpty, isNil, unique} from 'licia'
-import {existsOrNot, generateSearchKeyWithPinyin2, generateStringByOS, walker} from '../../utils'
+import {existsOrNot, generateStringByOS, walker} from '../../Utils'
 import {parse, resolve} from 'path'
 import {i18n, sentenceKey} from '../../i18n'
+import {generatePinyinIndex} from '../../utils/index-generator/PinyinIndex'
 
 const OBSIDIAN: string = 'obsidian'
 
@@ -72,7 +73,7 @@ export class ObsidianApplicationImpl extends ApplicationConfigImpl<ObsidianProje
                             title: parseObj.name,
                             description: description,
                             icon: icon,
-                            searchKey: unique([...generateSearchKeyWithPinyin2(parseObj.name), parseObj.name, obj.path]),
+                            searchKey: unique([...generatePinyinIndex(context, parseObj.name), parseObj.name, obj.path]),
                             exists: exists,
                             command: new UtoolsExecutor(`obsidian://open?vault=${obj.id}&file=${parseObj.name}`),
                             datetime: stat.atimeMs,

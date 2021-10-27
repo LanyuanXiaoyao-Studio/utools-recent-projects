@@ -1,7 +1,7 @@
-import {Action, Args, Callback, Feature} from '../types'
+import {Action, Args, Callback, Feature} from '../Types'
 import {ApplicationUI} from './Root'
-import {initLanguage, platformFromUtools} from '../utils'
-import {Context} from '../context'
+import {initLanguage} from '../Utils'
+import {Context} from '../Context'
 
 export class SettingUIArgsImpl implements Args<any> {
     enter(action: Action, callback: Callback<any>): void {

@@ -6,25 +6,26 @@ import {
     Group,
     GroupName,
     Platform,
-} from '../../types'
+} from '../../Types'
 import {readFile} from 'fs/promises'
 import {isEmpty, isNil, unique} from 'licia'
 import {parse} from 'path'
-import {existsOrNot, generateSearchKeyWithPinyin2} from '../../utils'
-import {Context} from '../../context'
+import {existsOrNot} from '../../Utils'
+import {Context} from '../../Context'
+import {generatePinyinIndex} from '../../utils/index-generator/PinyinIndex'
 
 const VS_STUDIO: string = 'vs-studio'
 
 export class VsStudioProjectItemImpl extends DatetimeProjectItemImpl {}
 
 export class VsStudioApplicationImpl extends ApplicationConfigImpl<VsStudioProjectItemImpl> {
-    constructor(id: string, name: string, icon: string, platform: Array<Platform> = [Platform.win32]) {
+    constructor() {
         super(
-            id,
-            name,
-            icon,
             VS_STUDIO,
-            platform,
+            'Visual Studio',
+            'icon/ms-visual-studio.png',
+            VS_STUDIO,
+            [Platform.win32],
             Group[GroupName.vsStudio],
             `历史项目将使用默认关联的应用打开, 想要实现直接通过 Visual Studio 打开, 需要自行设置 sln 文件与 Visual Studio 默认关联
 本功能依据官网最新的 Visual Studio 2019 开发`,
@@ -55,7 +56,7 @@ export class VsStudioApplicationImpl extends ApplicationConfigImpl<VsStudioProje
                         title: parseObj.name,
                         description: description,
                         icon: icon,
-                        searchKey: unique([...generateSearchKeyWithPinyin2(parseObj.name), parseObj.name, path]),
+                        searchKey: unique([...generatePinyinIndex(context, parseObj.name), parseObj.name, path]),
                         exists: exists,
                         command: new ElectronExecutor(path),
                         datetime: parseInt(`${datetime}`),
@@ -68,5 +69,5 @@ export class VsStudioApplicationImpl extends ApplicationConfigImpl<VsStudioProje
 }
 
 export const applications: Array<Application<VsStudioProjectItemImpl>> = [
-    new VsStudioApplicationImpl('vs-studio', 'Visual Studio', 'icon/ms-visual-studio.png'),
+    new VsStudioApplicationImpl(),
 ]

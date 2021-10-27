@@ -8,14 +8,15 @@ import {
     InputSettingItem,
     Platform,
     SettingItem,
-} from '../../../types'
+} from '../../../Types'
 import {SqliteBrowserApplicationImpl} from '../index'
 import {execFileSync} from 'child_process'
 import {isEmpty, unique, Url} from 'licia'
-import {generateSearchKeyWithPinyin2, removeAllQueryFromUrl} from '../../../utils'
-import {Context} from '../../../context'
+import {removeAllQueryFromUrl} from '../../../Utils'
+import {Context} from '../../../Context'
 import {existsSync} from 'fs'
 import {i18n, sentenceKey} from '../../../i18n'
+import {generatePinyinIndex} from '../../../utils/index-generator/PinyinIndex'
 
 const SAFARI: string = 'safari'
 
@@ -53,7 +54,7 @@ export class SafariHistoryApplicationImpl extends SqliteBrowserApplicationImpl<S
             array.forEach(i => {
                 let title: string = i['title'] ?? ''
                 let url: string = i['url'] ?? ''
-                let searchKey = [...generateSearchKeyWithPinyin2(title), title]
+                let searchKey = [...generatePinyinIndex(context, title), title]
                 try {
                     searchKey.push(Url.parse(url).hostname)
                 } catch (ignore) {

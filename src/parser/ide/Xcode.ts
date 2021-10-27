@@ -1,10 +1,11 @@
-import {ApplicationImpl, Group, GroupName, Platform, ProjectItemImpl, ShellExecutor} from '../../types'
+import {ApplicationImpl, Group, GroupName, Platform, ProjectItemImpl, ShellExecutor} from '../../Types'
 import {execSync} from 'child_process'
 import {isEmpty, isNil, unique} from 'licia'
 import {parse} from 'path'
 import {statSync} from 'fs'
-import {existsOrNot, generateSearchKeyWithPinyin2} from '../../utils'
-import {Context} from '../../context'
+import {existsOrNot} from '../../Utils'
+import {Context} from '../../Context'
+import {generatePinyinIndex} from '../../utils/index-generator/PinyinIndex'
 
 const XCODE: string = 'xcode'
 
@@ -34,7 +35,7 @@ export class XcodeProjectItemImpl extends ProjectItemImpl {}
 export class XcodeApplicationImpl extends ApplicationImpl<XcodeProjectItemImpl> {
     constructor() {
         super(
-            'xcode',
+            XCODE,
             'Xcode',
             'icon/xcode.png',
             XCODE,
@@ -66,7 +67,7 @@ export class XcodeApplicationImpl extends ApplicationImpl<XcodeProjectItemImpl> 
                     title: parseObj.name,
                     description: description,
                     icon: icon,
-                    searchKey: unique([...generateSearchKeyWithPinyin2(parseObj.name), parseObj.name, path]),
+                    searchKey: unique([...generatePinyinIndex(context, parseObj.name), parseObj.name, path]),
                     exists: exists,
                     command: new ShellExecutor(`open ${path}`),
                 })

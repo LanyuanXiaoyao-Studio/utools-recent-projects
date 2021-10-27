@@ -27,5 +27,5 @@ ${iconBase64s.map(o => `    'icon/${o.name}': '${o.value}',`)
              .join('\n')}
 }
 `
-let iconTsFilePath = path.join('src', 'icon.ts')
+let iconTsFilePath = path.join('src', 'Icon.ts')
 fs.writeFileSync(iconTsFilePath, iconTsFileText)

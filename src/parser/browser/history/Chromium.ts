@@ -6,13 +6,14 @@ import {
     Group,
     GroupName,
     Platform,
-} from '../../../types'
+} from '../../../Types'
 import {BrowserId, getDescription, SqliteBrowserApplicationImpl} from '../index'
 import {execFileSync} from 'child_process'
 import {isEmpty, unique, Url} from 'licia'
-import {generateSearchKeyWithPinyin2, removeAllQueryFromUrl} from '../../../utils'
-import {Context} from '../../../context'
+import {removeAllQueryFromUrl} from '../../../Utils'
+import {Context} from '../../../Context'
 import {i18n, sentenceKey} from '../../../i18n'
+import {generatePinyinIndex} from '../../../utils/index-generator/PinyinIndex'
 
 const CHROMIUM: string = 'chromium'
 
@@ -64,7 +65,7 @@ export class ChromiumHistoryApplicationImpl extends SqliteBrowserApplicationImpl
             array.forEach(i => {
                 let title: string = i['title'] ?? ''
                 let url: string = i['url'] ?? ''
-                let searchKey = [...generateSearchKeyWithPinyin2(title), title]
+                let searchKey = [...generatePinyinIndex(context, title), title]
                 try {
                     searchKey.push(Url.parse(url).hostname)
                 } catch (ignore) {

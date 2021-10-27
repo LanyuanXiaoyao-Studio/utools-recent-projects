@@ -1,10 +1,10 @@
 import {Component, Fragment} from 'nano-jsx'
-import {Application, ApplicationConfigState, ProjectItemImpl} from '../../types'
+import {Application, ApplicationConfigState, ProjectItemImpl} from '../../Types'
 import {isNil} from 'licia'
-import {settingStore} from '../store'
-import {compareChar} from '../../utils'
+import {settingStore} from '../Store'
+import {compareChar} from '../../Utils'
 import {i18n, sentenceKey} from '../../i18n'
-import {iconMap} from '../../icon'
+import {iconMap} from '../../Icon'
 import Nano = require('nano-jsx')
 
 export interface BadgeInfo {

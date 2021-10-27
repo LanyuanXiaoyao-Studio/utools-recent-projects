@@ -7,12 +7,13 @@ import {
     GroupName,
     NohupShellExecutor,
     Platform,
-} from '../../types'
+} from '../../Types'
 import {readFile} from 'fs/promises'
 import {isEmpty, isNil, unique} from 'licia'
 import {parse} from 'path'
-import {existsOrNot, generateSearchKeyWithPinyin2} from '../../utils'
-import {Context} from '../../context'
+import {existsOrNot} from '../../Utils'
+import {Context} from '../../Context'
+import {generatePinyinIndex} from '../../utils/index-generator/PinyinIndex'
 
 const JETBRAINS: string = 'jetbrains'
 
@@ -47,7 +48,7 @@ export class JetBrainsApplicationImpl extends ApplicationConfigAndExecutorImpl<J
                         title: parseObj.name,
                         description: description,
                         icon: icon,
-                        searchKey: unique([...generateSearchKeyWithPinyin2(parseObj.name), parseObj.name, path]),
+                        searchKey: unique([...generatePinyinIndex(context, parseObj.name), parseObj.name, path]),
                         exists: exists,
                         command: new NohupShellExecutor(this.executor, path),
                         datetime: parseInt(`${datetime}`),

@@ -1,5 +1,5 @@
 import {Component, Fragment, Img} from 'nano-jsx'
-import {Platform} from '../../types'
+import {Platform} from '../../Types'
 import {i18n, sentenceKey} from '../../i18n'
 import Nano = require('nano-jsx')
 

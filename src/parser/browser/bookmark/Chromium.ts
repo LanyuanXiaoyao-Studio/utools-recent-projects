@@ -9,13 +9,14 @@ import {
     InputSettingItem,
     Platform,
     SettingItem,
-} from '../../../types'
+} from '../../../Types'
 import {BrowserApplicationImpl, BrowserId, getDescription} from '../index'
-import {Context} from '../../../context'
+import {Context} from '../../../Context'
 import {readFile} from 'fs/promises'
 import {isEmpty, unique, Url} from 'licia'
-import {generateParents, generateSearchKeyWithPinyin2, parseTimeFrom1604} from '../../../utils'
+import {generateParents, parseTimeFrom1604} from '../../../Utils'
 import {i18n, sentenceKey} from '../../../i18n'
+import {generatePinyinIndex} from '../../../utils/index-generator/PinyinIndex'
 
 const CHROMIUM: string = 'chromium'
 
@@ -39,7 +40,7 @@ export class ChromiumBookmarkApplicationImpl extends BrowserApplicationImpl<Chro
             let title = `${isEmpty(site?.['parents'] ?? []) ? '' : `[${site['parents'].map(i => i.name).join('/')}]`} ${site?.['name'] ?? ''}`
             let url = site?.['url'] ?? ''
             let time = parseTimeFrom1604(parseInt((site?.['date_added'] ?? '0')))
-            let searchKey = [...generateSearchKeyWithPinyin2(title), title]
+            let searchKey = [...generatePinyinIndex(context, title), title]
             try {
                 searchKey.push(Url.parse(url).hostname)
             } catch (ignore) {

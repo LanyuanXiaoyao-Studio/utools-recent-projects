@@ -1,9 +1,9 @@
-import {Application, DescriptionGetter, ProjectItemImpl, SettingType} from '../../types'
+import {Application, DescriptionGetter, ProjectItemImpl, SettingType} from '../../Types'
 import {Component, Fragment, Img} from 'nano-jsx'
 import {isEmpty, isFn, isNil} from 'licia'
-import {iconMap} from '../../icon'
-import {settingStore} from '../store'
-import {Context} from '../../context'
+import {iconMap} from '../../Icon'
+import {settingStore} from '../Store'
+import {Context} from '../../Context'
 import {i18n, sentenceKey} from '../../i18n'
 import Nano = require('nano-jsx')
 import fs = require('fs')

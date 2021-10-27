@@ -7,14 +7,15 @@ import {
     GroupName,
     Platform,
     ShellExecutor,
-} from '../../types'
+} from '../../Types'
 import {isEmpty, isNil, unique} from 'licia'
 import {parse} from 'path'
-import {existsOrNot, generateSearchKeyWithPinyin2, generateStringByOS, listRegistry} from '../../utils'
-import {Context} from '../../context'
+import {existsOrNot, generateStringByOS, listRegistry} from '../../Utils'
+import {Context} from '../../Context'
 import {readFile} from 'fs/promises'
 import {i18n, sentenceKey} from '../../i18n'
 import WinReg from 'winreg'
+import {generatePinyinIndex} from '../../utils/index-generator/PinyinIndex'
 import plistParser = require('bplist-parser')
 
 const WPS_WIN_INTERNATION: string = 'wps-win-internation'
@@ -60,7 +61,7 @@ export class WpsWinInternationalApplicationImpl extends ApplicationImpl<WpsWinIn
                     title: parser.name,
                     description: description,
                     icon: icon,
-                    searchKey: unique([...generateSearchKeyWithPinyin2(parser.name), parser.name, path]),
+                    searchKey: unique([...generatePinyinIndex(context, parser.name), parser.name, path]),
                     exists: exists,
                     command: new ShellExecutor(`powershell.exe -command "Invoke-Item '${path}'"`),
                     datetime: datetime,
@@ -116,7 +117,7 @@ export class WpsMacInternationalApplicationImpl extends ApplicationConfigImpl<Wp
                         title: parser.name,
                         description: description,
                         icon: icon,
-                        searchKey: unique([...generateSearchKeyWithPinyin2(parser.name), parser.name, path]),
+                        searchKey: unique([...generatePinyinIndex(context, parser.name), parser.name, path]),
                         exists: exists,
                         command: new ShellExecutor(`open "${path}"`),
                         datetime: 0,
@@ -174,7 +175,7 @@ export class WpsLinuxInternationalApplicationImpl extends ApplicationConfigAndEx
                     title: parser.name,
                     description: description,
                     icon: icon,
-                    searchKey: unique([...generateSearchKeyWithPinyin2(parser.name), parser.name, path]),
+                    searchKey: unique([...generatePinyinIndex(context, parser.name), parser.name, path]),
                     exists: exists,
                     command: new ShellExecutor(`${this.executor} "${path}"`),
                     datetime: 0,

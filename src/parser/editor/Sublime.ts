@@ -8,13 +8,14 @@ import {
     SettingItem,
     ShellExecutor,
     SwitchSettingItem,
-} from '../../types'
+} from '../../Types'
 import {readFile} from 'fs/promises'
 import {isNil, unique} from 'licia'
 import {parse} from 'path'
-import {existsOrNot, generateSearchKeyWithPinyin2, generateStringByOS} from '../../utils'
-import {Context} from '../../context'
+import {existsOrNot, generateStringByOS} from '../../Utils'
+import {Context} from '../../Context'
 import {i18n, sentenceKey} from '../../i18n'
+import {generatePinyinIndex} from '../../utils/index-generator/PinyinIndex'
 
 const SUBLIME: string = 'sublime'
 
@@ -25,7 +26,7 @@ export class SublimeApplicationImpl extends ApplicationConfigAndExecutorImpl<Sub
 
     constructor() {
         super(
-            'sublime',
+            SUBLIME,
             'Sublime Text',
             'icon/sublime.png',
             SUBLIME,
@@ -87,7 +88,7 @@ export class SublimeApplicationImpl extends ApplicationConfigAndExecutorImpl<Sub
                     title: `${parser.name}${parser.ext}`,
                     description: description,
                     icon: icon,
-                    searchKey: unique([...generateSearchKeyWithPinyin2(path), path]),
+                    searchKey: unique([...generatePinyinIndex(context, path), path]),
                     exists: exists,
                     command: new ShellExecutor(`"${this.executor}" ${args} "${this.parsePath(path)}"`),
                 })
