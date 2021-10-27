@@ -167,17 +167,11 @@ export class ApplicationSettingCard extends Component<ApplicationSettingCardProp
                                 </div>
                                 <div class="col-1 flex-column-center">
                                     <label class="form-switch">
-                                        {this.localContext.enableOpenNotification
-                                            ? <input
-                                                type="checkbox"
-                                                checked
-                                                onchange={() => this.switch(Context.enableOpenNotificationId, false)}
-                                            />
-                                            :
-                                            <input
-                                                type="checkbox"
-                                                onchange={() => this.switch(Context.enableOpenNotificationId, true)}
-                                            />}
+                                        <input
+                                            type="checkbox"
+                                            {...(this.localContext.enableOpenNotification ? { checked: true } : {})}
+                                            onchange={() => this.switch(Context.enableOpenNotificationId, !this.localContext.enableOpenNotification)}
+                                        />
                                         <i class="form-icon"/>
                                     </label>
                                 </div>
@@ -196,17 +190,11 @@ export class ApplicationSettingCard extends Component<ApplicationSettingCardProp
                                 </div>
                                 <div class="col-1 flex-column-center">
                                     <label class="form-switch">
-                                        {this.localContext.enableEditPathInputDirectly
-                                            ? <input
-                                                type="checkbox"
-                                                checked
-                                                onchange={() => this.switchNative(Context.enableEditPathInputDirectlyId, false)}
-                                            />
-                                            :
-                                            <input
-                                                type="checkbox"
-                                                onchange={() => this.switchNative(Context.enableEditPathInputDirectlyId, true)}
-                                            />}
+                                        <input
+                                            type="checkbox"
+                                            {...(this.localContext.enableEditPathInputDirectly ? { checked: true } : {})}
+                                            onchange={() => this.switch(Context.enableEditPathInputDirectlyId, !this.localContext.enableEditPathInputDirectly)}
+                                        />
                                         <i class="form-icon"/>
                                     </label>
                                 </div>
@@ -228,17 +216,11 @@ export class ApplicationSettingCard extends Component<ApplicationSettingCardProp
                                 </div>
                                 <div class="col-1 flex-column-center">
                                     <label class="form-switch">
-                                        {this.localContext.enableFuzzyMatch
-                                            ? <input
-                                                type="checkbox"
-                                                checked
-                                                onchange={() => this.switch(Context.enableFuzzyMatchId, false)}
-                                            />
-                                            :
-                                            <input
-                                                type="checkbox"
-                                                onchange={() => this.switch(Context.enableFuzzyMatchId, true)}
-                                            />}
+                                        <input
+                                            type="checkbox"
+                                            {...(this.localContext.enableFuzzyMatch ? { checked: true } : {})}
+                                            onchange={() => this.switch(Context.enableFuzzyMatchId, !this.localContext.enableFuzzyMatch)}
+                                        />
                                         <i class="form-icon"/>
                                     </label>
                                 </div>
@@ -257,17 +239,11 @@ export class ApplicationSettingCard extends Component<ApplicationSettingCardProp
                                 </div>
                                 <div class="col-1 flex-column-center">
                                     <label class="form-switch">
-                                        {this.localContext.enableFilterNonExistsFiles
-                                            ? <input
-                                                type="checkbox"
-                                                checked
-                                                onchange={() => this.switch(Context.enableFilterNonExistsFilesId, false)}
-                                            />
-                                            :
-                                            <input
-                                                type="checkbox"
-                                                onchange={() => this.switch(Context.enableFilterNonExistsFilesId, true)}
-                                            />}
+                                        <input
+                                            type="checkbox"
+                                            {...(this.localContext.enableFilterNonExistsFiles ? { checked: true } : {})}
+                                            onchange={() => this.switch(Context.enableFilterNonExistsFilesId, !this.localContext.enableFilterNonExistsFiles)}
+                                        />
                                         <i class="form-icon"/>
                                     </label>
                                 </div>
@@ -283,17 +259,11 @@ export class ApplicationSettingCard extends Component<ApplicationSettingCardProp
                                 </div>
                                 <div class="col-1 flex-column-center">
                                     <label class="form-switch">
-                                        {this.localContext.enableGetFileIcon
-                                            ? <input
-                                                type="checkbox"
-                                                checked
-                                                onchange={() => this.switch(Context.enableGetFileIconId, false)}
-                                            />
-                                            :
-                                            <input
-                                                type="checkbox"
-                                                onchange={() => this.switch(Context.enableGetFileIconId, true)}
-                                            />}
+                                        <input
+                                            type="checkbox"
+                                            {...(this.localContext.enableGetFileIcon ? { checked: true } : {})}
+                                            onchange={() => this.switch(Context.enableGetFileIconId, !this.localContext.enableGetFileIcon)}
+                                        />
                                         <i class="form-icon"/>
                                     </label>
                                 </div>
@@ -312,17 +282,11 @@ export class ApplicationSettingCard extends Component<ApplicationSettingCardProp
                                 </div>
                                 <div class="col-1 flex-column-center">
                                     <label class="form-switch">
-                                        {this.localContext.enableGetFaviconFromNet
-                                            ? <input
-                                                type="checkbox"
-                                                checked
-                                                onchange={() => this.switch(Context.enableGetFaviconFromNetId, false)}
-                                            />
-                                            :
-                                            <input
-                                                type="checkbox"
-                                                onchange={() => this.switch(Context.enableGetFaviconFromNetId, true)}
-                                            />}
+                                        <input
+                                            type="checkbox"
+                                            {...(this.localContext.enableGetFaviconFromNet ? { checked: true } : {})}
+                                            onchange={() => this.switch(Context.enableGetFaviconFromNetId, !this.localContext.enableGetFaviconFromNet)}
+                                        />
                                         <i class="form-icon"/>
                                     </label>
                                 </div>

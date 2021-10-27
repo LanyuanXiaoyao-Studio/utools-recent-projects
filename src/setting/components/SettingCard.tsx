@@ -205,16 +205,11 @@ export class SettingCard extends Component<SettingCardProps, SettingCardState> {
                                             </div>
                                             <div class="col-1 flex-column-center">
                                                 <label class="form-switch float-right">
-                                                    {item.value
-                                                        ? <input
-                                                            type="checkbox"
-                                                            checked
-                                                            onchange={() => this.switch(item.id, false)}
-                                                        />
-                                                        : <input
-                                                            type="checkbox"
-                                                            onchange={() => this.switch(item.id, true)}
-                                                        />}
+                                                    <input
+                                                        type="checkbox"
+                                                        {...(item.value ? { checked: true } : {})}
+                                                        onchange={() => this.switch(item.id, !item.value)}
+                                                    />
                                                     <i class="form-icon"/>
                                                 </label>
                                             </div>
