@@ -245,6 +245,7 @@
       "cmds"   : [
         "Browser History",
         "浏览器历史记录",
+        "History",
         {
           "type" : "window",
           "label": "打开其他浏览器历史记录",
@@ -285,6 +286,7 @@
       "cmds"   : [
         "Browser Bookmark",
         "浏览器书签",
+        "Bookmark",
         {
           "type" : "window",
           "label": "打开其他浏览器书签",
