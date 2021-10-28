@@ -1,4 +1,4 @@
-import {Component, Fragment} from 'nano-jsx'
+import {Component, Fragment, Visible} from 'nano-jsx'
 import {CustomCss, SpectreCss, SpectreIconCss} from './css'
 import {applications} from '../Applications'
 import {Application, Platform, ProjectItemImpl} from '../Types'
@@ -66,10 +66,12 @@ class Root extends Component<RootProps, RootState> {
                                 {/*具体应用配置信息*/}
                                 {this.state.applications
                                     .sort((a1, a2) => compareChar(a1.group, a2.group))
-                                    .map(app => <SettingCard
-                                        context={this.props.context}
-                                        application={app}
-                                    />)}
+                                    .map(app => <Visible>{
+                                        <SettingCard
+                                            context={this.props.context}
+                                            application={app}
+                                        />
+                                    }</Visible>)}
                                 <div class="gap"/>
                                 <div class="gap"/>
                             </div>
