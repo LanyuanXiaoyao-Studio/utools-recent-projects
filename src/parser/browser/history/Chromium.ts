@@ -9,11 +9,12 @@ import {
 } from '../../../Types'
 import {BrowserId, getDescription, SqliteBrowserApplicationImpl} from '../index'
 import {execFileSync} from 'child_process'
-import {isEmpty, unique, Url} from 'licia'
+import {isEmpty, unique} from 'licia'
 import {removeAllQueryFromUrl} from '../../../Utils'
 import {Context} from '../../../Context'
 import {i18n, sentenceKey} from '../../../i18n'
 import {generatePinyinIndex} from '../../../utils/index-generator/PinyinIndex'
+import {generateHostIndex} from '../../../utils/index-generator/HostIndex'
 
 const CHROMIUM: string = 'chromium'
 
@@ -65,18 +66,17 @@ export class ChromiumHistoryApplicationImpl extends SqliteBrowserApplicationImpl
             array.forEach(i => {
                 let title: string = i['title'] ?? ''
                 let url: string = i['url'] ?? ''
-                let searchKey = [...generatePinyinIndex(context, title), title]
-                try {
-                    searchKey.push(Url.parse(url).hostname)
-                } catch (ignore) {
-                }
                 items.push({
                     id: '',
                     title: title,
                     description: url,
                     // icon: iconMap[removeAllQueryFromUrl(url)],
                     icon: this.ifGetFavicon(removeAllQueryFromUrl(url), context),
-                    searchKey: unique(searchKey),
+                    searchKey: unique([
+                        ...generatePinyinIndex(context, title),
+                        ...generateHostIndex(context, url),
+                        title,
+                    ]),
                     exists: true,
                     command: new ElectronExecutor(url),
                     datetime: i['timestamp'] ?? 0,

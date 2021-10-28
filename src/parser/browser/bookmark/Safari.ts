@@ -11,11 +11,12 @@ import {
 import {BrowserApplicationImpl} from '../index'
 import {Context} from '../../../Context'
 import {parseFile} from 'bplist-parser'
-import {isEmpty, isNil, unique, Url} from 'licia'
+import {isEmpty, isNil, unique} from 'licia'
 import {generateParents} from '../../../Utils'
 import {existsSync} from 'fs'
 import {i18n, sentenceKey} from '../../../i18n'
 import {generatePinyinIndex} from '../../../utils/index-generator/PinyinIndex'
+import {generateHostIndex} from '../../../utils/index-generator/HostIndex'
 
 const SAFARI: string = 'safari'
 
@@ -58,17 +59,16 @@ export class SafariBookmarkApplicationImpl extends BrowserApplicationImpl<Safari
             array.forEach(i => {
                 let title = `${isNil(i?.['Parents']) || isEmpty(i?.['Parents']) ? '' : `[${i['Parents'].map(p => findTitle(p)).join('/')}] `}${findTitle(i) ?? ''}`
                 let url = i?.['URLString']
-                let searchKey = [...generatePinyinIndex(context, title), title]
-                try {
-                    searchKey.push(Url.parse(url).hostname)
-                } catch (ignore) {
-                }
                 items.push({
                     id: '',
                     title: title,
                     description: url,
                     icon: this.ifGetFavicon(url, context),
-                    searchKey: unique(searchKey),
+                    searchKey: unique([
+                        ...generatePinyinIndex(context, title),
+                        ...generateHostIndex(context, url),
+                        title,
+                    ]),
                     exists: true,
                     command: new ElectronExecutor(url),
                 })

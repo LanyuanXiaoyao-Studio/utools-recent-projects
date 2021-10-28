@@ -9,11 +9,12 @@ import {
 } from '../../../Types'
 import {BrowserId, SqliteBrowserApplicationImpl} from '../index'
 import {execFileSync} from 'child_process'
-import {contain, isEmpty, isNil, reverse, unique, Url} from 'licia'
+import {contain, isEmpty, isNil, reverse, unique} from 'licia'
 import {Context} from '../../../Context'
 import {generateStringByOS} from '../../../Utils'
 import {i18n, sentenceKey} from '../../../i18n'
 import {generatePinyinIndex} from '../../../utils/index-generator/PinyinIndex'
+import {generateHostIndex} from '../../../utils/index-generator/HostIndex'
 
 const FIREFOX: string = 'firefox'
 
@@ -56,17 +57,16 @@ export class FirefoxBookmarkApplicationImpl extends SqliteBrowserApplicationImpl
                     let title = `${isEmpty(i?.['parents'] ?? '') ? '' : `[${i['parents']}]`} ${i?.['title'] ?? ''}`
                     let url = i?.['url'] ?? ''
                     let time = Math.round(parseInt((i?.['date_added'] ?? '0')) / 1000)
-                    let searchKey = [...generatePinyinIndex(context, title), title]
-                    try {
-                        searchKey.push(Url.parse(url).hostname)
-                    } catch (ignore) {
-                    }
                     items.push({
                         id: '',
                         title: title,
                         description: url,
                         icon: this.ifGetFavicon(url, context),
-                        searchKey: unique(searchKey),
+                        searchKey: unique([
+                            ...generatePinyinIndex(context, title),
+                            ...generateHostIndex(context, url),
+                            title,
+                        ]),
                         exists: true,
                         command: new ElectronExecutor(url),
                         datetime: time,

@@ -17,6 +17,7 @@ import {isEmpty, unique, Url} from 'licia'
 import {generateParents, parseTimeFrom1604} from '../../../Utils'
 import {i18n, sentenceKey} from '../../../i18n'
 import {generatePinyinIndex} from '../../../utils/index-generator/PinyinIndex'
+import {generateHostIndex} from '../../../utils/index-generator/HostIndex'
 
 const CHROMIUM: string = 'chromium'
 
@@ -40,17 +41,16 @@ export class ChromiumBookmarkApplicationImpl extends BrowserApplicationImpl<Chro
             let title = `${isEmpty(site?.['parents'] ?? []) ? '' : `[${site['parents'].map(i => i.name).join('/')}]`} ${site?.['name'] ?? ''}`
             let url = site?.['url'] ?? ''
             let time = parseTimeFrom1604(parseInt((site?.['date_added'] ?? '0')))
-            let searchKey = [...generatePinyinIndex(context, title), title]
-            try {
-                searchKey.push(Url.parse(url).hostname)
-            } catch (ignore) {
-            }
             items.push({
                 id: '',
                 title: title,
                 description: url,
                 icon: this.ifGetFavicon(url, context),
-                searchKey: unique(searchKey),
+                searchKey: unique([
+                    ...generatePinyinIndex(context, title),
+                    ...generateHostIndex(context, url),
+                    title,
+                ]),
                 exists: true,
                 command: new ElectronExecutor(url),
                 datetime: time,
