@@ -5,7 +5,7 @@ import {Context} from '../Context'
 
 export class SettingUIArgsImpl implements Args<any> {
     enter(action: Action, callback: Callback<any>): void {
-        utools.setExpendHeight(520)
+        utools.setExpendHeight(544)
 
         let context = Context.get()
         // 语言设置
