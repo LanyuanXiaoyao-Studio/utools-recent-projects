@@ -36,6 +36,8 @@ export const sentenceKey = {
     getFileIcon: 'getFileIcon',
     getFileIconDesc: 'getFileIconDesc',
     getProjectsError: 'getProjectsError',
+    historyLimit: 'historyLimit',
+    historyLimitDesc: 'historyLimitDesc',
     inputDirectlyPlaceholder: 'inputDirectlyPlaceholder',
     inputPathDirectly: 'inputPathDirectly',
     inputPathDirectlyDesc: 'inputPathDirectlyDesc',
@@ -54,6 +56,8 @@ export const sentenceKey = {
     openInNew: 'openInNew',
     openInNewDesc: 'openInNewDesc',
     pathNotFound: 'pathNotFound',
+    pinyinIndex: 'pinyinIndex',
+    pinyinIndexDesc: 'pinyinIndexDesc',
     pluginSetting: 'pluginSetting',
     ready: 'ready',
     requestMoreApplication: 'requestMoreApplication',
@@ -66,14 +70,12 @@ export const sentenceKey = {
     sqlite3Desc: 'sqlite3Desc',
     systemInformation: 'systemInformation',
     systemVersion: 'systemVersion',
-    unSupportTipsDesc: 'unSupportTipsDesc',
-    unSupportTipsTitle: 'unSupportTipsTitle',
     unknownError: 'unknownError',
     unknownInputError: 'unknownInputError',
     unready: 'unready',
+    unSupportTipsDesc: 'unSupportTipsDesc',
+    unSupportTipsTitle: 'unSupportTipsTitle',
     utoolsVersion: 'utoolsVersion',
-    pinyinIndex: 'pinyinIndex',
-    pinyinIndexDesc: 'pinyinIndexDesc',
 }
 
 export interface Sentence {
@@ -110,6 +112,8 @@ export interface Sentence {
     readonly getFileIcon: string
     readonly getFileIconDesc: string
     readonly getProjectsError: string
+    readonly historyLimit: string
+    readonly historyLimitDesc: string
     readonly inputDirectlyPlaceholder: string
     readonly inputPathDirectly: string
     readonly inputPathDirectlyDesc: string
@@ -128,6 +132,8 @@ export interface Sentence {
     readonly openInNew: string
     readonly openInNewDesc: string
     readonly pathNotFound: string
+    readonly pinyinIndex: string
+    readonly pinyinIndexDesc: string
     readonly pluginSetting: string
     readonly ready: string
     readonly requestMoreApplication: string
@@ -140,14 +146,12 @@ export interface Sentence {
     readonly sqlite3Desc: string
     readonly systemInformation: string
     readonly systemVersion: string
-    readonly unSupportTipsDesc: string
-    readonly unSupportTipsTitle: string
     readonly unknownError: string
     readonly unknownInputError: string
     readonly unready: string
+    readonly unSupportTipsDesc: string
+    readonly unSupportTipsTitle: string
     readonly utoolsVersion: string
-    readonly pinyinIndex: string,
-    readonly pinyinIndexDesc: string,
 }
 
 let languageData = new I18n('zh-CN', {

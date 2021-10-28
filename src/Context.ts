@@ -7,6 +7,7 @@ export class Context {
     static enableEditPathInputDirectlyId: string = 'setting-edit-path-input-directly'
     static enableFuzzyMatchId: string = 'setting-fuzzy-match'
     static enablePinyinIndexId: string = 'setting-pinyin-index'
+    static browserHistoryLimitId: string = 'browser-history-limit'
 
     readonly languageSetting: string = 'auto'
     readonly enableFilterNonExistsFiles: boolean = false
@@ -16,6 +17,7 @@ export class Context {
     readonly enableEditPathInputDirectly: boolean = false
     readonly enableFuzzyMatch: boolean = false
     readonly enablePinyinIndex: boolean = true
+    readonly browserHistoryLimit: number = 100
 
     constructor(nativeId: string) {
         this.languageSetting = utools.dbStorage.getItem(Context.languageSettingId) ?? 'auto'
@@ -25,6 +27,8 @@ export class Context {
         this.enableOpenNotification = utools.dbStorage.getItem(Context.enableOpenNotificationId) ?? false
         this.enableFuzzyMatch = utools.dbStorage.getItem(Context.enableFuzzyMatchId) ?? false
         this.enablePinyinIndex = utools.dbStorage.getItem(Context.enablePinyinIndexId) ?? true
+        this.browserHistoryLimit = parseInt(utools.dbStorage.getItem(Context.browserHistoryLimitId) ?? '100')
+        console.log(utools.dbStorage.getItem(Context.browserHistoryLimitId), this.browserHistoryLimit)
 
         // 本地生效
         this.enableEditPathInputDirectly = utools.dbStorage.getItem(Context.joinId(nativeId, Context.enableEditPathInputDirectlyId)) ?? false
@@ -38,7 +42,7 @@ export class Context {
         return new Context(utools.getNativeId())
     }
 
-    static update(id: string, value: boolean): void {
+    static update(id: string, value: any): void {
         utools.dbStorage.setItem(id, value)
     }
 

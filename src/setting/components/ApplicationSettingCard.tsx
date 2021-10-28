@@ -135,24 +135,20 @@ export class ApplicationSettingCard extends Component<ApplicationSettingCardProp
                                         class="form-select select-sm"
                                         onchange={event => this.select(Context.languageSettingId, event.target)}
                                     >
-                                        {this.localContext.languageSetting === 'auto'
-                                            ? <option
-                                                value="auto"
-                                                selected
-                                            >{i18n.t(sentenceKey.auto)}</option>
-                                            : <option value="auto">{i18n.t(sentenceKey.auto)}</option>}
-                                        {this.localContext.languageSetting === 'zh-CN'
-                                            ? <option
-                                                value="zh-CN"
-                                                selected
-                                            >中文</option>
-                                            : <option value="zh-CN">中文</option>}
-                                        {this.localContext.languageSetting === 'en-US'
-                                            ? <option
-                                                value="en-US"
-                                                selected
-                                            >English</option>
-                                            : <option value="en-US">English</option>}
+                                        <option
+                                            value="auto"
+                                            {...(this.localContext.languageSetting === 'auto' ? { selected: true } : {})}
+                                        >{i18n.t(sentenceKey.auto)}</option>
+                                        <option
+                                            value="zh-CN"
+                                            {...(this.localContext.languageSetting === 'zh-CN' ? { selected: true } : {})}
+                                        >中文
+                                        </option>
+                                        <option
+                                            value="en-US"
+                                            {...(this.localContext.languageSetting === 'en-US' ? { selected: true } : {})}
+                                        >English
+                                        </option>
                                     </select>
                                 </div>
                             </div>
@@ -310,6 +306,45 @@ export class ApplicationSettingCard extends Component<ApplicationSettingCardProp
                                         />
                                         <i class="form-icon"/>
                                     </label>
+                                </div>
+                            </div>
+                            <div class="divider"/>
+                            <div class="form-group">
+                                <div class="col-10 col-mr-auto">
+                                    <div class="form-label">
+                                        {i18n.t(sentenceKey.historyLimit)}
+                                    </div>
+                                    <div class="form-description">{i18n.t(sentenceKey.historyLimitDesc)}</div>
+                                    <div class="form-tags">
+                                        <CloudSyncChip/>
+                                    </div>
+                                </div>
+                                <div class="col-2 flex-column-center">
+                                    <select
+                                        class="form-select select-sm"
+                                        onchange={event => this.select(Context.browserHistoryLimitId, event.target)}
+                                    >
+                                        <option
+                                            value="100"
+                                            {...(this.localContext.browserHistoryLimit === 100 ? { selected: true } : {})}
+                                        >100
+                                        </option>
+                                        <option
+                                            value="200"
+                                            {...(this.localContext.browserHistoryLimit === 200 ? { selected: true } : {})}
+                                        >200
+                                        </option>
+                                        <option
+                                            value="500"
+                                            {...(this.localContext.browserHistoryLimit === 500 ? { selected: true } : {})}
+                                        >500
+                                        </option>
+                                        <option
+                                            value="1000"
+                                            {...(this.localContext.browserHistoryLimit === 1000 ? { selected: true } : {})}
+                                        >1000
+                                        </option>
+                                    </select>
                                 </div>
                             </div>
                         </form>
