@@ -72,6 +72,8 @@ export const sentenceKey = {
     unknownInputError: 'unknownInputError',
     unready: 'unready',
     utoolsVersion: 'utoolsVersion',
+    pinyinIndex: 'pinyinIndex',
+    pinyinIndexDesc: 'pinyinIndexDesc',
 }
 
 export interface Sentence {
@@ -144,6 +146,8 @@ export interface Sentence {
     readonly unknownInputError: string
     readonly unready: string
     readonly utoolsVersion: string
+    readonly pinyinIndex: string,
+    readonly pinyinIndexDesc: string,
 }
 
 let languageData = new I18n('zh-CN', {

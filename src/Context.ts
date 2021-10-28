@@ -6,6 +6,7 @@ export class Context {
     static enableOpenNotificationId: string = 'setting-open-notification'
     static enableEditPathInputDirectlyId: string = 'setting-edit-path-input-directly'
     static enableFuzzyMatchId: string = 'setting-fuzzy-match'
+    static enablePinyinIndexId: string = 'setting-pinyin-index'
 
     readonly languageSetting: string = 'auto'
     readonly enableFilterNonExistsFiles: boolean = false
@@ -14,6 +15,7 @@ export class Context {
     readonly enableOpenNotification: boolean = false
     readonly enableEditPathInputDirectly: boolean = false
     readonly enableFuzzyMatch: boolean = false
+    readonly enablePinyinIndex: boolean = true
 
     constructor(nativeId: string) {
         this.languageSetting = utools.dbStorage.getItem(Context.languageSettingId) ?? 'auto'
@@ -22,6 +24,7 @@ export class Context {
         this.enableGetFileIcon = utools.dbStorage.getItem(Context.enableGetFileIconId) ?? false
         this.enableOpenNotification = utools.dbStorage.getItem(Context.enableOpenNotificationId) ?? false
         this.enableFuzzyMatch = utools.dbStorage.getItem(Context.enableFuzzyMatchId) ?? false
+        this.enablePinyinIndex = utools.dbStorage.getItem(Context.enablePinyinIndexId) ?? true
 
         // 本地生效
         this.enableEditPathInputDirectly = utools.dbStorage.getItem(Context.joinId(nativeId, Context.enableEditPathInputDirectlyId)) ?? false

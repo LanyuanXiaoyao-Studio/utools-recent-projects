@@ -70,4 +70,6 @@ export class EnUs implements Sentence {
     readonly unknownInputError: string = 'Unknown input error'
     readonly unready: string = 'Incomplete'
     readonly utoolsVersion: string = 'uTools Version'
+    readonly pinyinIndex: string = 'Pinyin & First Letter Index'
+    readonly pinyinIndexDesc: string = 'Enable this option, it will create the Pinyin and Pinyin first letter index for results, but decrease the performance'
 }

@@ -70,4 +70,6 @@ export class ZhCn implements Sentence {
     readonly unknownInputError: string = '出现未知的输入错误'
     readonly unready: string = '待完善'
     readonly utoolsVersion: string = 'uTools 版本'
+    readonly pinyinIndex: string = '使用拼音及拼音首字母搜索'
+    readonly pinyinIndexDesc: string = '启动该选项会使插件生成书签和历史记录名称的拼音和拼音首字母索引供搜索，但在结果多的时候会影响插件打开后的首次检索速度'
 }

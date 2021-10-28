@@ -80,5 +80,5 @@ const generateSearchKeyWithPinyin2: (text: string) => Array<string> = text => {
 }
 
 export const generatePinyinIndex: (context: Context, text: string) => Array<string> = (context, text) => {
-    return generateSearchKeyWithPinyin2(text)
+    return context.enablePinyinIndex ? generateSearchKeyWithPinyin2(text) : []
 }
