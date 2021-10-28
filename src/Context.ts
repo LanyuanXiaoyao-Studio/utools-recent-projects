@@ -28,8 +28,6 @@ export class Context {
         this.enableFuzzyMatch = utools.dbStorage.getItem(Context.enableFuzzyMatchId) ?? false
         this.enablePinyinIndex = utools.dbStorage.getItem(Context.enablePinyinIndexId) ?? true
         this.browserHistoryLimit = parseInt(utools.dbStorage.getItem(Context.browserHistoryLimitId) ?? '100')
-        console.log(utools.dbStorage.getItem(Context.browserHistoryLimitId), this.browserHistoryLimit)
-
         // 本地生效
         this.enableEditPathInputDirectly = utools.dbStorage.getItem(Context.joinId(nativeId, Context.enableEditPathInputDirectlyId)) ?? false
     }
