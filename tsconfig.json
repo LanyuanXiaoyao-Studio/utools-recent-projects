@@ -1,21 +1,22 @@
 {
   "compilerOptions": {
-    "noImplicitAny"     : false,
-    "strict"            : true,
-    "module"            : "CommonJS",
-    "target"            : "ESNext",
-    "noImplicitOverride": true,
-    "downlevelIteration": true,
-    "moduleResolution"  : "Node",
-    "esModuleInterop"   : true,
-    "removeComments"    : true,
-    "types"             : [
+    "noImplicitAny"                   : false,
+    "strict"                          : true,
+    "module"                          : "CommonJS",
+    "target"                          : "ESNext",
+    "noImplicitOverride"              : true,
+    "downlevelIteration"              : true,
+    "moduleResolution"                : "Node",
+    "esModuleInterop"                 : true,
+    "removeComments"                  : true,
+    "forceConsistentCasingInFileNames": true,
+    "types"                           : [
       "@types/node",
       "@types/jest",
       "utools-api-types"
     ],
-    "jsx"               : "react",
-    "jsxFactory"        : "Nano.h"
+    "jsx"                             : "react",
+    "jsxFactory"                      : "Nano.h"
   },
   "exclude"        : [
     "test"
