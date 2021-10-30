@@ -55,19 +55,19 @@ export class VscodeApplicationImpl extends ApplicationConfigAndExecutorImpl<Vsco
             let storage = JSON.parse(content)
             let entries = storage?.openedPathsList?.entries
             if (!isNil(entries)) {
+                let args = this.openInNew ? '-n' : ''
                 for (let element of entries) {
                     let folderUri = element['folderUri'],
                         fileUri = element['fileUri'],
                         label = element['label'],
                         workspace = element['workspace'],
-                        uri,
-                        args = this.openInNew ? '-n' : ''
+                        uri
                     if (!isEmpty(folderUri)) {
                         uri = folderUri
                     } else if (!isEmpty(fileUri)) {
                         uri = fileUri
                     } else if (!isNil(workspace)) {
-                        let configPath = workspace['configPath']
+                        let configPath = workspace['configPath'] ?? ''
                         if (!isEmpty(configPath)) {
                             uri = configPath
                         } else {
