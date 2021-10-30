@@ -203,7 +203,7 @@ export interface Args<I extends Item> {
 }
 
 export abstract class ArgsImpl<I extends Item> implements Args<I> {
-    context: Context | undefined
+    protected context: Context | undefined
 
     enter(action: Action, callback: Callback<I>): void {
         this.context = Context.get()
@@ -217,7 +217,7 @@ export abstract class ArgsImpl<I extends Item> implements Args<I> {
     /**
      * 应用配置
      */
-    applications: Array<Application<ProjectItemImpl>> = []
+    protected readonly applications: Array<Application<ProjectItemImpl>> = []
 
     /**
      * 传入应用配置
@@ -226,6 +226,13 @@ export abstract class ArgsImpl<I extends Item> implements Args<I> {
      */
     constructor(applications: Array<Application<ProjectItemImpl>>) {
         this.applications = applications
+    }
+
+    /**
+     * 获取应用配置
+     */
+    getApplications() {
+        return this.applications
     }
 
     /**
@@ -252,7 +259,7 @@ export abstract class ProjectArgsImpl extends ArgsImpl<ProjectItemImpl> {
     /**
      * 缓存查询到的历史记录, 方便搜索时过滤
      */
-    projectItemCache: Array<ProjectItemImpl> = []
+    protected projectItemCache: Array<ProjectItemImpl> = []
 
     /**
      * 获取历史记录
@@ -290,8 +297,8 @@ export abstract class ProjectArgsImpl extends ArgsImpl<ProjectItemImpl> {
 /**
  * Feature 一个功能点
  */
-export interface Feature<I extends Item> {
-    args: Args<I>
+export interface Feature<A extends Args<any>> {
+    args: A
     mode: 'list' | 'none'
 }
 

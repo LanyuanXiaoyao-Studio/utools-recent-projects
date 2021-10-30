@@ -1,68 +1,57 @@
-import {Application, ProjectItemImpl} from './Types'
-import {applications as JetBrainsApplications} from './parser/ide/JetBrains'
-import {applications as VscodeApplications} from './parser/editor/Vscode'
-import {applications as TyporaApplications} from './parser/editor/Typora'
-import {applications as SublimeApplications} from './parser/editor/Sublime'
-import {applications as WpsApplications} from './parser/office/Wps'
-import {applications as VsStudioApplications} from './parser/ide/VsStudio'
-import {applications as XcodeApplications} from './parser/ide/Xcode'
-import {applications as OfficeApplications} from './parser/office/Office'
+import {Application, Feature, ProjectArgsImpl, ProjectItemImpl} from './Types'
+import {applications as jetBrainsApplications} from './parser/ide/JetBrains'
+import {applications as vscodeApplications} from './parser/editor/Vscode'
+import {applications as typoraApplications} from './parser/editor/Typora'
+import {applications as sublimeApplications} from './parser/editor/Sublime'
+import {applications as wpsApplications} from './parser/office/Wps'
+import {applications as vsStudioApplications} from './parser/ide/VsStudio'
+import {applications as xcodeApplications} from './parser/ide/Xcode'
+import {applications as officeApplications} from './parser/office/Office'
 import {applications as FirefoxHistoryApplications} from './parser/browser/history/Firefox'
-import {applications as ChromiumHistoryApplications} from './parser/browser/history/Chromium'
 import {applications as SafariHistoryApplications} from './parser/browser/history/Safari'
+import {applications as ChromiumHistoryApplications} from './parser/browser/history/Chromium'
 import {applications as FirefoxBookmarkApplications} from './parser/browser/bookmark/Firefox'
-import {applications as ChromiumBookmarkApplications} from './parser/browser/bookmark/Chromium'
 import {applications as SafariBookmarkApplications} from './parser/browser/bookmark/Safari'
-import {applications as LibreOfficeApplications} from './parser/office/Libre'
-import {applications as ObsidianApplications} from './parser/editor/Obsidian'
+import {applications as ChromiumBookmarkApplications} from './parser/browser/bookmark/Chromium'
+import {applications as libreOfficeApplications} from './parser/office/Libre'
+import {applications as obsidianApplications} from './parser/editor/Obsidian'
+import {AllProjectArgs, AllProjectSortByTimeArgs, AllProjectSortByTitleArgs} from './Entrance'
 
-export const applications: Array<Application<ProjectItemImpl>> = [
-    ...JetBrainsApplications,
-    ...VscodeApplications,
-    ...TyporaApplications,
-    ...SublimeApplications,
-    ...WpsApplications,
-    ...VsStudioApplications,
-    ...XcodeApplications,
-    ...OfficeApplications,
-    ...FirefoxHistoryApplications,
-    ...SafariHistoryApplications,
-    ...ChromiumHistoryApplications,
-    ...FirefoxBookmarkApplications,
-    ...SafariBookmarkApplications,
-    ...ChromiumBookmarkApplications,
-    ...LibreOfficeApplications,
-    ...ObsidianApplications,
-]
+export class ProjectFeature implements Feature<ProjectArgsImpl> {
+    args: ProjectArgsImpl
+    mode: 'list' | 'none'
 
-export const jetBrainsApplications: Array<Application<ProjectItemImpl>> = [...JetBrainsApplications]
+    constructor(args: ProjectArgsImpl) {
+        this.args = args
+        this.mode = 'list'
+    }
+}
 
-export const vscodeApplications: Array<Application<ProjectItemImpl>> = [...VscodeApplications]
+export const argsMapping: { [keys: string]: ProjectFeature } = {
+    'jetbrains-project': new ProjectFeature(new AllProjectSortByTimeArgs(jetBrainsApplications)),
+    'vscode-project': new ProjectFeature(new AllProjectArgs(vscodeApplications)),
+    'typora-project': new ProjectFeature(new AllProjectSortByTimeArgs(typoraApplications)),
+    'sublime-project': new ProjectFeature(new AllProjectArgs(sublimeApplications)),
+    'wps-project': new ProjectFeature(new AllProjectArgs(wpsApplications)),
+    'vs-studio-project': new ProjectFeature(new AllProjectArgs(vsStudioApplications)),
+    'xcode-project': new ProjectFeature(new AllProjectArgs(xcodeApplications)),
+    'office-project': new ProjectFeature(new AllProjectSortByTimeArgs(officeApplications)),
+    'browser-history-project': new ProjectFeature(new AllProjectSortByTimeArgs([
+        ...FirefoxHistoryApplications,
+        ...SafariHistoryApplications,
+        ...ChromiumHistoryApplications,
+    ])),
+    'browser-bookmark-project': new ProjectFeature(new AllProjectSortByTitleArgs([
+        ...FirefoxBookmarkApplications,
+        ...SafariBookmarkApplications,
+        ...ChromiumBookmarkApplications,
+    ])),
+    'libre-project': new ProjectFeature(new AllProjectSortByTimeArgs(libreOfficeApplications)),
+    'obsidian-project': new ProjectFeature(new AllProjectSortByTimeArgs(obsidianApplications)),
+}
 
-export const typoraApplications: Array<Application<ProjectItemImpl>> = [...TyporaApplications]
-
-export const obsidianApplications: Array<Application<ProjectItemImpl>> = [...ObsidianApplications]
-
-export const sublimeApplications: Array<Application<ProjectItemImpl>> = [...SublimeApplications]
-
-export const wpsApplications: Array<Application<ProjectItemImpl>> = [...WpsApplications]
-
-export const vsStudioApplications: Array<Application<ProjectItemImpl>> = [...VsStudioApplications]
-
-export const xcodeApplications: Array<Application<ProjectItemImpl>> = [...XcodeApplications]
-
-export const officeApplications: Array<Application<ProjectItemImpl>> = [...OfficeApplications]
-
-export const libreOfficeApplications: Array<Application<ProjectItemImpl>> = [...LibreOfficeApplications]
-
-export const browserHistoryApplications: Array<Application<ProjectItemImpl>> = [
-    ...FirefoxHistoryApplications,
-    ...SafariHistoryApplications,
-    ...ChromiumHistoryApplications,
-]
-
-export const browserBookmarkApplications: Array<Application<ProjectItemImpl>> = [
-    ...FirefoxBookmarkApplications,
-    ...SafariBookmarkApplications,
-    ...ChromiumBookmarkApplications,
-]
+export const applications: Array<Application<ProjectItemImpl>> = []
+let keys = Object.keys(argsMapping), length = keys.length
+for (let i = 0; i < length; i++) {
+    applications.push(...(argsMapping[keys[i]].args.getApplications()))
+}

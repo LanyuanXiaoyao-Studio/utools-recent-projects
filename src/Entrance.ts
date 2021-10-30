@@ -1,22 +1,9 @@
 import {Action, Callback, DatetimeProjectItemImpl, NoExecutor, ProjectArgsImpl, ProjectItemImpl} from './Types'
 import {isEmpty, isNil, max} from 'licia'
 import {SettingUIFeature} from './setting/Setting'
-import {
-    browserBookmarkApplications,
-    browserHistoryApplications,
-    jetBrainsApplications,
-    libreOfficeApplications,
-    obsidianApplications,
-    officeApplications,
-    sublimeApplications,
-    typoraApplications,
-    vscodeApplications,
-    vsStudioApplications,
-    wpsApplications,
-    xcodeApplications,
-} from './Applications'
 import {i18n, sentenceKey} from './i18n'
 import {score} from './Utils'
+import {argsMapping} from './Applications'
 import $ = require('licia/$')
 import NanoBar = require('nanobar')
 
@@ -145,56 +132,4 @@ export class AllProjectSortByTitleArgs extends AllProjectArgs {
             else return 0
         } else return 0
     }
-}
-
-export const build: any = {
-    'setting': new SettingUIFeature(),
-    'jetbrains-project': {
-        args: new AllProjectSortByTimeArgs(jetBrainsApplications),
-        mode: 'list',
-    },
-    'vscode-project': {
-        args: new AllProjectArgs(vscodeApplications),
-        mode: 'list',
-    },
-    'typora-project': {
-        args: new AllProjectSortByTimeArgs(typoraApplications),
-        mode: 'list',
-    },
-    'sublime-project': {
-        args: new AllProjectArgs(sublimeApplications),
-        mode: 'list',
-    },
-    'wps-project': {
-        args: new AllProjectArgs(wpsApplications),
-        mode: 'list',
-    },
-    'vs-studio-project': {
-        args: new AllProjectArgs(vsStudioApplications),
-        mode: 'list',
-    },
-    'xcode-project': {
-        args: new AllProjectArgs(xcodeApplications),
-        mode: 'list',
-    },
-    'office-project': {
-        args: new AllProjectSortByTimeArgs(officeApplications),
-        mode: 'list',
-    },
-    'browser-history-project': {
-        args: new AllProjectSortByTimeArgs(browserHistoryApplications),
-        mode: 'list',
-    },
-    'browser-bookmark-project': {
-        args: new AllProjectSortByTitleArgs(browserBookmarkApplications),
-        mode: 'list',
-    },
-    'libre-project': {
-        args: new AllProjectSortByTimeArgs(libreOfficeApplications),
-        mode: 'list',
-    },
-    'obsidian-project': {
-        args: new AllProjectSortByTimeArgs(obsidianApplications),
-        mode: 'list',
-    },
 }

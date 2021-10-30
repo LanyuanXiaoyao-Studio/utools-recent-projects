@@ -1,6 +1,5 @@
 import {Component, Fragment} from 'nano-jsx'
 import {CustomCss, SpectreCss, SpectreIconCss} from './css'
-import {applications} from '../Applications'
 import {Application, Platform, ProjectItemImpl} from '../Types'
 import {SettingCard} from './components/SettingCard'
 import {Catalogue} from './components/Catalogue'
@@ -10,6 +9,7 @@ import {InformationCard} from './components/InformationCard'
 import {compareChar, platformFromUtools} from '../Utils'
 import {ApplicationSettingCard} from './components/ApplicationSettingCard'
 import {Context} from '../Context'
+import {applications} from '../Applications'
 import Nano = require('nano-jsx')
 
 interface RootProps {

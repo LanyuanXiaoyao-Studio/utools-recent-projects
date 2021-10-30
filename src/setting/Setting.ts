@@ -16,8 +16,8 @@ export class SettingUIArgsImpl implements Args<any> {
     }
 }
 
-export class SettingUIFeature implements Feature<any> {
-    args: Args<any>
+export class SettingUIFeature implements Feature<SettingUIArgsImpl> {
+    args: SettingUIArgsImpl
     mode: 'list' | 'none'
 
     constructor() {
