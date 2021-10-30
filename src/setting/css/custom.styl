@@ -184,11 +184,16 @@ html
               .chip-wrapper + .chip-wrapper
                 margin-left 5px
 
+$dark-background-color = #2f3031
+
 .container.dark
-  background-color #2f3031
+  background-color $dark-background-color
 
   .card
-    background-color #2f3031
+    background-color $dark-background-color
+
+  .divider[data-content]::after
+    background-color $dark-background-color
 
   .nav .nav-item a,
   .form-legend .title,
@@ -225,4 +230,4 @@ html
       color #dedede
 
     .modal-container
-      background #2f3031
+      background $dark-background-color
