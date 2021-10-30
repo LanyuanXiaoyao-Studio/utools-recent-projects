@@ -5,11 +5,14 @@ dist='dist'
 rm -rf $dist
 mkdir $dist
 
+# 生成 icon 到 public 文件夹中
 node build-icon.js
-node build-css.js
 
 cp -r public/* $dist
 tsc --outDir $dist
+
+# 生成 stylus -> css 的文件到 dist 文件夹中
+node build-css.js
 
 current_path=`pwd`
 echo $current_path
