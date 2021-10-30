@@ -22,10 +22,13 @@ if (!fs.existsSync(iconTarget)) {
 iconBase64s.forEach(o => {
   fs.writeFileSync(path.join(iconTarget, o.name), o.buffer)
 })
-let iconTsFileText = `export const iconMap: { [key: string]: string } = {
+let iconTsFileText = `"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.iconMap = void 0;
+exports.iconMap = {
 ${iconBase64s.map(o => `    'icon/${o.name}': '${o.value}',`)
              .join('\n')}
 }
 `
-let iconTsFilePath = path.join('src', 'Icon.ts')
+let iconTsFilePath = path.join('dist', 'Icon.js')
 fs.writeFileSync(iconTsFilePath, iconTsFileText)

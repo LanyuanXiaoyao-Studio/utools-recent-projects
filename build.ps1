@@ -3,11 +3,12 @@ $dist="dist"
 Remove-Item -Force -Recurse $dist
 mkdir $dist
 
-# 生成 icon 到 public 文件夹中
+tsc --outDir $dist
+
+# 生成 icon
 node .\build-icon.js
 
 Copy-Item -Recurse -Path .\public\* $dist
-tsc --outDir $dist
 
 # 生成 stylus -> css 的文件到 dist 文件夹中
 node .\build-css.js
