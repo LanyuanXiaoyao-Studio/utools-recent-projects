@@ -339,6 +339,24 @@
           }
         }
       ]
+    },
+    {
+      "code"    : "geany-project",
+      "explain" : "快速打开我的 geany 项目",
+      "icon"    : "icon/geany.png",
+      "cmds"    : [
+        "Geany Projects",
+        "我的 Geany 项目",
+        {
+          "type" : "window",
+          "label": "打开其他 Geany 项目",
+          "match": {
+            "app": [
+              "geany"
+            ]
+          }
+        }
+      ]
     }
   ]
 }

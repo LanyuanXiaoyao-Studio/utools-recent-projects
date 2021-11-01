@@ -15,6 +15,7 @@ import {applications as SafariBookmarkApplications} from './parser/browser/bookm
 import {applications as ChromiumBookmarkApplications} from './parser/browser/bookmark/Chromium'
 import {applications as libreOfficeApplications} from './parser/office/Libre'
 import {applications as obsidianApplications} from './parser/editor/Obsidian'
+import {applications as geanyApplications} from './parser/editor/Geany'
 import {AllProjectArgs, AllProjectSortByTimeArgs, AllProjectSortByTitleArgs} from './Entrance'
 
 export class ProjectFeature implements Feature<ProjectArgsImpl> {
@@ -48,6 +49,7 @@ export const argsMapping: { [keys: string]: ProjectFeature } = {
     ])),
     'libre-project': new ProjectFeature(new AllProjectSortByTimeArgs(libreOfficeApplications)),
     'obsidian-project': new ProjectFeature(new AllProjectSortByTimeArgs(obsidianApplications)),
+    'geany-project': new ProjectFeature(new AllProjectArgs(geanyApplications)),
 }
 
 export const applications: Array<Application<ProjectItemImpl>> = []
