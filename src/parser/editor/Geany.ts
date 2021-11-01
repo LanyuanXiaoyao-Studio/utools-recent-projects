@@ -7,9 +7,12 @@ import {
     ApplicationImpl,
     Group,
     GroupName,
+    NohupShellExecutor,
     Platform,
     ProjectItemImpl,
+    SettingItem,
     ShellExecutor,
+    SwitchSettingItem,
 } from '../../Types'
 import {i18n, sentenceKey} from '../../i18n'
 import {existsOrNot, generateStringByOS} from '../../Utils'
@@ -25,17 +28,24 @@ const GEANY: string = 'geany'
 export class GeanyProjectItemImpl extends ProjectItemImpl {}
 
 export class GeanyApplicationImpl extends ApplicationConfigAndExecutorImpl<GeanyProjectItemImpl> {
+    openInNew: boolean = false
+    private isMacOs: boolean = utools.isMacOs()
+
     constructor() {
         super(
             GEANY,
             'geany',
             'icon/geany.png',
             GEANY,
-            [Platform.linux],
+            [Platform.win32, Platform.darwin, Platform.linux],
             Group[GroupName.editor],
             () => `${i18n.t(sentenceKey.configFileAt)} ${generateStringByOS({
+                win32: 'C:\\Users\\Administrator\\AppData\\Roaming\\geany\\geany.conf',
+                darwin: '/Users/xxx/.config/geany/geany.conf',
                 linux: '/home/xxx/.config/geany/geany.conf',
             })}, ${i18n.t(sentenceKey.executorFileAt)} ${generateStringByOS({
+                win32: 'C:\\Program Files\\Geany\\bin\\geany.exe',
+                darwin: '/Applications/Geany.app/Contents/MacOS/geany',
                 linux: '/usr/bin/geany',
             })}`,
             false,
@@ -68,20 +78,44 @@ export class GeanyApplicationImpl extends ApplicationConfigAndExecutorImpl<Geany
                         description: path,
                         icon: context.enableGetFileIcon ? utools.getFileIcon(path) : this.icon,
                     })
+                    let args = this.openInNew ? '-i' : ''
+                    let command = this.isMacOs
+                        ? new NohupShellExecutor(this.executor, path, args)
+                        : new ShellExecutor(`${this.executor} "${path}" "${args}"`)
                     items.push({
                         id: '',
                         title: parser.name,
                         description: description,
                         icon: icon,
-                        searchKey: unique([...generatePinyinIndex(context, parser.name), parser.name]),
+                        searchKey: unique([...generatePinyinIndex(context, parser.name), parser.name, path]),
                         exists: exists,
-                        command: new ShellExecutor(`${this.executor} "${path}"`),
+                        command: command,
                     })
                 })
                 readObj.close()
             })
             readObj.on('close', () => resolve(items))
         })
+    }
+
+    openInNewId(nativeId: string) {
+        return `${nativeId}/${this.id}-open-in-new`
+    }
+
+    override update(nativeId: string) {
+        super.update(nativeId)
+        this.openInNew = utools.dbStorage.getItem(this.openInNewId(nativeId)) ?? false
+    }
+
+    override generateSettingItems(context: Context, nativeId: string): Array<SettingItem> {
+        let superSettings = super.generateSettingItems(context, nativeId)
+        superSettings.splice(1, 0, new SwitchSettingItem(
+            this.openInNewId(nativeId),
+            i18n.t(sentenceKey.openInNew),
+            this.openInNew,
+            i18n.t(sentenceKey.openInNewDesc),
+        ))
+        return superSettings
     }
 }
 
