@@ -26,6 +26,7 @@
   - Typora
   - Sublime Text
   - Obsidian
+  - Geany
 - IDE
   - JetBrains 全家桶
   - Android Studio
