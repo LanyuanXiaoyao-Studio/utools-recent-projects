@@ -34,7 +34,7 @@ export class GeanyApplicationImpl extends ApplicationConfigAndExecutorImpl<Geany
     constructor() {
         super(
             GEANY,
-            'geany',
+            'Geany',
             'icon/geany.png',
             GEANY,
             [Platform.win32, Platform.darwin, Platform.linux],
