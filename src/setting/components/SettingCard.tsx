@@ -1,12 +1,11 @@
 import {Application, DescriptionGetter, ProjectItemImpl, SettingType} from '../../Types'
-import {Component, Fragment, Img} from 'nano-jsx'
+import Nano, {Component, Fragment, Img} from 'nano-jsx'
 import {isEmpty, isFn, isNil} from 'licia'
 import {iconMap} from '../../Icon'
 import {settingStore} from '../Store'
 import {Context} from '../../Context'
 import {i18n, sentenceKey} from '../../i18n'
-import Nano = require('nano-jsx')
-import fs = require('fs')
+import fs from 'fs'
 
 export interface SettingCardProps {
     context: Context

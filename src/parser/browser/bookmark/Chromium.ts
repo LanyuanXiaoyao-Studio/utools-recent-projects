@@ -13,7 +13,7 @@ import {
 import {BrowserApplicationImpl, BrowserId, getDescription} from '../index'
 import {Context} from '../../../Context'
 import {readFile} from 'fs/promises'
-import {isEmpty, unique, Url} from 'licia'
+import {isEmpty, unique} from 'licia'
 import {generateParents, parseTimeFrom1604} from '../../../Utils'
 import {i18n, sentenceKey} from '../../../i18n'
 import {generatePinyinIndex} from '../../../utils/index-generator/PinyinIndex'

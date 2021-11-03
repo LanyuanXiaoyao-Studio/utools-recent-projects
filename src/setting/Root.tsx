@@ -1,4 +1,4 @@
-import {Component, Fragment} from 'nano-jsx'
+import Nano, {Component, Fragment} from 'nano-jsx'
 import {CustomCss, SpectreCss, SpectreIconCss} from './css'
 import {Application, Platform, ProjectItemImpl} from '../Types'
 import {SettingCard} from './components/SettingCard'
@@ -10,7 +10,6 @@ import {compareChar, platformFromUtools} from '../Utils'
 import {ApplicationSettingCard} from './components/ApplicationSettingCard'
 import {Context} from '../Context'
 import {applications} from '../Applications'
-import Nano = require('nano-jsx')
 
 interface RootProps {
     context: Context

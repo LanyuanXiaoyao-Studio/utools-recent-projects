@@ -1,7 +1,6 @@
-import {Component, Fragment, Img} from 'nano-jsx'
+import Nano, {Component, Fragment, Img} from 'nano-jsx'
 import {Platform} from '../../Types'
 import {i18n, sentenceKey} from '../../i18n'
-import Nano = require('nano-jsx')
 
 const platformName: (Platform) => string = platform => {
     if (platform == Platform.win32) {

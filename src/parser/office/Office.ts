@@ -15,7 +15,7 @@ import {existsOrNot, generateStringByOS} from '../../Utils'
 import {lstatSync, readdirSync} from 'fs'
 import {Context} from '../../Context'
 import {generatePinyinIndex} from '../../utils/index-generator/PinyinIndex'
-import plistParser = require('bplist-parser')
+import plistParser from 'bplist-parser'
 
 const OFFICE_MAC: string = 'office-mac'
 const OFFICE_WIN: string = 'office-win'

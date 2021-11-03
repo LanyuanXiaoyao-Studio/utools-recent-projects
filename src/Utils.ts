@@ -6,7 +6,7 @@ import {i18n, sentenceKey} from './i18n'
 import {levenshtein} from 'string-comparison'
 import {join} from 'path'
 import WinReg from 'winreg'
-import $ = require('licia/$')
+import S from 'licia/$'
 
 /**
  * 字符比较, 用于在 array.sort() 使用
@@ -133,12 +133,12 @@ isDev = isDevelopment()
 
 export const changeDark: () => void = () => {
     if (utools.isDarkColors()) {
-        if (!$('body').hasClass('dark')) {
-            $('body').addClass('dark')
+        if (!S('body').hasClass('dark')) {
+            S('body').addClass('dark')
         }
     } else {
-        if ($('body').hasClass('dark')) {
-            $('body').rmClass('dark')
+        if (S('body').hasClass('dark')) {
+            S('body').rmClass('dark')
         }
     }
 }

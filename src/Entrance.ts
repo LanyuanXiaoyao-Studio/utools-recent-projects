@@ -1,11 +1,9 @@
 import {Action, Callback, DatetimeProjectItemImpl, NoExecutor, ProjectArgsImpl, ProjectItemImpl} from './Types'
 import {isEmpty, isNil, max} from 'licia'
-import {SettingUIFeature} from './setting/Setting'
 import {i18n, sentenceKey} from './i18n'
 import {score} from './Utils'
-import {argsMapping} from './Applications'
-import $ = require('licia/$')
-import NanoBar = require('nanobar')
+import S from 'licia/$'
+import NanoBar from 'nanobar'
 
 const emptyTips: () => ProjectItemImpl = () => {
     return {
@@ -40,12 +38,12 @@ export class AllProjectArgs extends ProjectArgsImpl {
         super.enter(action, callback)
         if (isNil(nanoBar)) {
             nanoBar = new NanoBar()
-            $('.nanobar').css('height', '2px')
-            $('.nanobar .bar').css('background', '#0b2d64')
-            $('.nanobar .bar').css('box-shadow', '0 0 10px #767676')
+            S('.nanobar').css('height', '2px')
+            S('.nanobar .bar').css('background', '#0b2d64')
+            S('.nanobar .bar').css('box-shadow', '0 0 10px #767676')
         }
-        $('.container').css('display', 'none')
-        $('style.custom').each((index, element) => element.remove())
+        S('.container').css('display', 'none')
+        S('style.custom').each((index, element) => element.remove())
         this.clearCache()
         nanoBar.go(40)
         this.getProjectItems(utools.getNativeId())
@@ -58,8 +56,8 @@ export class AllProjectArgs extends ProjectArgsImpl {
                 }
             })
             .catch(error => {
-                $('.nanobar .bar').css('background', '#ff2929')
-                $('.nanobar .bar').css('box-shadow', '0 0 10px #ff2929')
+                S('.nanobar .bar').css('background', '#ff2929')
+                S('.nanobar .bar').css('box-shadow', '0 0 10px #ff2929')
                 nanoBar.go(100)
 
                 console.log(error)

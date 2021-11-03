@@ -1,6 +1,5 @@
-import {Component, Fragment} from 'nano-jsx'
+import Nano, {Component, Fragment} from 'nano-jsx'
 import {isNil} from 'licia'
-import Nano = require('nano-jsx')
 
 export interface AnnouncementProps {}
 

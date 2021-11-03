@@ -16,7 +16,7 @@ import {readFile} from 'fs/promises'
 import {i18n, sentenceKey} from '../../i18n'
 import WinReg from 'winreg'
 import {generatePinyinIndex} from '../../utils/index-generator/PinyinIndex'
-import plistParser = require('bplist-parser')
+import plistParser from 'bplist-parser'
 
 const WPS_WIN_INTERNATION: string = 'wps-win-internation'
 const WPS_MAC_INTERNATION: string = 'wps-mac-internation'
