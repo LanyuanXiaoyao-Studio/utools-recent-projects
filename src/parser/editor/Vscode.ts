@@ -59,7 +59,6 @@ export class VscodeApplicationImpl extends ApplicationConfigAndExecutorImpl<Vsco
                 for (let element of entries) {
                     let folderUri = element['folderUri'],
                         fileUri = element['fileUri'],
-                        label = element['label'],
                         workspace = element['workspace'],
                         uri
                     if (!isEmpty(folderUri)) {
@@ -88,10 +87,14 @@ export class VscodeApplicationImpl extends ApplicationConfigAndExecutorImpl<Vsco
                         icon: context.enableGetFileIcon ? utools.getFileIcon(path) : this.icon,
                     })
 
+                    let commandText = `"${this.executor}" ${args} "${path}"`
+
                     // 对 remote folder 进行处理
                     if (startWith(uri, 'vscode-remote')) {
+                        let label = element['label'] ?? uriParsed
                         exists = true
                         description = label
+                        commandText = `"${this.executor}" --folder-uri "${uriParsed}"`
                     }
 
                     items.push({
@@ -101,7 +104,7 @@ export class VscodeApplicationImpl extends ApplicationConfigAndExecutorImpl<Vsco
                         icon: icon,
                         searchKey: unique([...generatePinyinIndex(context, path), path]),
                         exists: exists,
-                        command: new ShellExecutor(`"${this.executor}" ${args} "${path}"`),
+                        command: new ShellExecutor(commandText),
                     })
                 }
             }
