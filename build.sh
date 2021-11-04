@@ -26,7 +26,7 @@ packageJson='{
                 "license"        : "MIT",
                 "dependencies"   : {
                   "bplist-parser"    : "^0.3.0",
-                  "licia"            : "^1.30.0",
+                  "licia"            : "^1.31.1",
                   "nano-jsx"         : "^0.0.20",
                   "nanobar"          : "^0.4.2",
                   "pinyin-pro"       : "^3.3.1",
