@@ -58,6 +58,7 @@ export const sentenceKey = {
     pathNotFound: 'pathNotFound',
     pinyinIndex: 'pinyinIndex',
     pinyinIndexDesc: 'pinyinIndexDesc',
+    placeholder: 'placeholder',
     pluginSetting: 'pluginSetting',
     ready: 'ready',
     requestMoreApplication: 'requestMoreApplication',
@@ -134,6 +135,7 @@ export interface Sentence {
     readonly pathNotFound: string
     readonly pinyinIndex: string
     readonly pinyinIndexDesc: string
+    readonly placeholder: string
     readonly pluginSetting: string
     readonly ready: string
     readonly requestMoreApplication: string

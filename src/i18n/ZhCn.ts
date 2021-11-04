@@ -56,6 +56,7 @@ export class ZhCn implements Sentence {
     readonly pathNotFound: string = '文件不存在'
     readonly pinyinIndex: string = '使用拼音及拼音首字母搜索'
     readonly pinyinIndexDesc: string = '启动该选项会使插件生成书签和历史记录名称的拼音和拼音首字母索引供搜索，但在结果多的时候会影响插件打开后的首次检索速度'
+    readonly placeholder: string = '快速搜索结果，支持全拼和拼音首字母'
     readonly pluginSetting: string = '插件配置'
     readonly ready: string = '已配置'
     readonly requestMoreApplication: string = '适配更多软件'

@@ -56,6 +56,7 @@ export class EnUs implements Sentence {
     readonly pathNotFound: string = 'Path not found'
     readonly pinyinIndex: string = 'Pinyin & First Letter Index'
     readonly pinyinIndexDesc: string = 'Enable this option, it will create the Pinyin and Pinyin first letter index for results, but decrease the performance'
+    readonly placeholder: string = 'Search, support pinyin and first letter.'
     readonly pluginSetting: string = 'Setting'
     readonly ready: string = 'Complete'
     readonly requestMoreApplication: string = 'Apply More Adaption'

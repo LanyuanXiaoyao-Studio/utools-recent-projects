@@ -32,7 +32,7 @@ const unSupportTips: () => ProjectItemImpl = () => {
 let nanoBar
 
 export class AllProjectArgs extends ProjectArgsImpl {
-    placeholder = '快速搜索结果，支持全拼和拼音首字母'
+    placeholder = i18n.t(sentenceKey.placeholder)
 
     override enter(action: Action, callback: Callback<ProjectItemImpl>): void {
         super.enter(action, callback)
@@ -63,7 +63,7 @@ export class AllProjectArgs extends ProjectArgsImpl {
                 console.log(error)
                 utools.showNotification(error.message)
                 utools.copyText(error.message)
-                utools.showNotification('错误信息已复制到剪贴板')
+                utools.showNotification(i18n.t(sentenceKey.errorInfoToClipboard))
             })
     }
 
@@ -104,11 +104,11 @@ export class AllProjectArgs extends ProjectArgsImpl {
             return
         }
         if (!item.exists) {
-            utools.showNotification('文件不存在')
+            utools.showNotification(i18n.t(sentenceKey.filePathNonExistsTips))
             return
         }
         if (this.context?.enableOpenNotification ?? false) {
-            utools.showNotification(`正在打开项目: ${item.title}`)
+            utools.showNotification(`${i18n.t(sentenceKey.fileOpening)}: ${item.title}`)
         }
         item.command.execute()
     }

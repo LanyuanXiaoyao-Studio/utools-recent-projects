@@ -3,7 +3,7 @@
   "author"       : "lanyuanxiaoyao",
   "homepage"     : "http://lanyuanxiaoyao.com",
   "description"  : "快速查找打开书签和历史记录，支持 vscode，sublime，jetbrains（Android Studio，GoLand，IDEA，PyCharm，Webstorm等系列），WPS，Office（Word，Excel，Powerpoint），LibreOffice，Xcode，Chrome，Firefox，Safari，Edge，Opera，Brave，Yandex等主流浏览器",
-  "version"      : "2.2.3",
+  "version"      : "2.3.0",
   "logo"         : "fox.png",
   "preload"      : "preload.js",
   "pluginSetting": {
