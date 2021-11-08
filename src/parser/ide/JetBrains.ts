@@ -1,6 +1,6 @@
 import {
     Application,
-    ApplicationConfigAndExecutorImpl,
+    ApplicationCacheConfigAndExecutorImpl,
     DatetimeProjectItemImpl,
     DescriptionGetter,
     Group,
@@ -9,11 +9,12 @@ import {
     Platform,
 } from '../../Types'
 import {readFile} from 'fs/promises'
-import {isEmpty, isNil, unique} from 'licia'
+import {isEmpty, isEqual, isNil, unique} from 'licia'
 import {parse} from 'path'
 import {existsOrNot} from '../../Utils'
 import {Context} from '../../Context'
 import {generatePinyinIndex} from '../../utils/index-generator/PinyinIndex'
+import {signCalculate} from '../../utils/files/SignCalculate'
 
 const JETBRAINS: string = 'jetbrains'
 
@@ -22,12 +23,12 @@ export class JetBrainsProjectItemImpl extends DatetimeProjectItemImpl {}
 /**
  * JetBrains 系列应用实现
  */
-export class JetBrainsApplicationImpl extends ApplicationConfigAndExecutorImpl<JetBrainsProjectItemImpl> {
+export class JetBrainsApplicationImpl extends ApplicationCacheConfigAndExecutorImpl<JetBrainsProjectItemImpl> {
     constructor(id: string, name: string, icon: string, platform: Array<Platform> = [Platform.win32, Platform.darwin, Platform.linux], description: string | DescriptionGetter = '', beta: boolean = false, configFilename: string = 'recentProject.xml') {
         super(id, name, icon, JETBRAINS, platform, Group[GroupName.jetbrains], description, beta, configFilename)
     }
 
-    async generateProjectItems(context: Context): Promise<Array<JetBrainsProjectItemImpl>> {
+    async generateCacheProjectItems(context: Context): Promise<Array<JetBrainsProjectItemImpl>> {
         let items: Array<JetBrainsProjectItemImpl> = []
         let buffer = await readFile(this.config)
         if (!isNil(buffer)) {

@@ -1,10 +1,11 @@
-import {contain, isEmpty, isNil} from 'licia'
+import {contain, isEmpty, isEqual, isNil} from 'licia'
 import {exec} from 'child_process'
 import {shell} from 'electron'
 import {initLanguage, platformFromUtools} from './Utils'
 import {existsSync} from 'fs'
 import {Context} from './Context'
 import {i18n, sentenceKey} from './i18n'
+import {signCalculate} from './utils/files/SignCalculate'
 
 /**
  * 命令执行器
@@ -482,6 +483,15 @@ export abstract class ApplicationImpl<P extends ProjectItemImpl> implements Appl
     }
 }
 
+export interface ApplicationCache<P extends ProjectItemImpl> {
+    cache: Array<P>
+    sign: string
+
+    isNew(): boolean
+
+    generateCacheProjectItems(context: Context): Promise<Array<P>>
+}
+
 export abstract class ApplicationConfigImpl<P extends ProjectItemImpl> extends ApplicationImpl<P> {
     readonly configFilename: string
     config: string = ''
@@ -526,6 +536,32 @@ export abstract class ApplicationConfigImpl<P extends ProjectItemImpl> extends A
     }
 }
 
+export abstract class ApplicationCacheConfigImpl<P extends ProjectItemImpl> extends ApplicationConfigImpl<P> implements ApplicationCache<P> {
+    cache: Array<P> = []
+    sign: string = ''
+
+    abstract generateCacheProjectItems(context: Context): Promise<Array<P>>
+
+    isNew(): boolean {
+        let sign = signCalculate(this.config)
+        if (isEmpty(this.sign)) {
+            this.sign = sign
+            return true
+        } else {
+            let result = isEqual(this.sign, sign)
+            this.sign = sign
+            return result
+        }
+    }
+
+    override async generateProjectItems(context: Context): Promise<Array<P>> {
+        if (this.isNew()) {
+            this.cache = await this.generateCacheProjectItems(context)
+        }
+        return this.cache
+    }
+}
+
 export abstract class ApplicationConfigAndExecutorImpl<P extends ProjectItemImpl> extends ApplicationConfigImpl<P> {
     executor: string = ''
 
@@ -563,5 +599,31 @@ export abstract class ApplicationConfigAndExecutorImpl<P extends ProjectItemImpl
         } else {
             return ApplicationConfigState.done
         }
+    }
+}
+
+export abstract class ApplicationCacheConfigAndExecutorImpl<P extends ProjectItemImpl> extends ApplicationConfigAndExecutorImpl<P> implements ApplicationCache<P> {
+    cache: Array<P> = []
+    sign: string = ''
+
+    abstract generateCacheProjectItems(context: Context): Promise<Array<P>>
+
+    isNew(): boolean {
+        let sign = signCalculate(this.config)
+        if (isEmpty(this.sign)) {
+            this.sign = sign
+            return true
+        } else {
+            let result = isEqual(this.sign, sign)
+            this.sign = sign
+            return result
+        }
+    }
+
+    override async generateProjectItems(context: Context): Promise<Array<P>> {
+        if (this.isNew()) {
+            this.cache = await this.generateCacheProjectItems(context)
+        }
+        return this.cache
     }
 }
