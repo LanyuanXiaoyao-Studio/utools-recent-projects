@@ -550,7 +550,7 @@ export abstract class ApplicationCacheConfigImpl<P extends ProjectItemImpl> exte
         } else {
             let result = isEqual(this.sign, sign)
             this.sign = sign
-            return result
+            return !result
         }
     }
 
@@ -616,7 +616,7 @@ export abstract class ApplicationCacheConfigAndExecutorImpl<P extends ProjectIte
         } else {
             let result = isEqual(this.sign, sign)
             this.sign = sign
-            return result
+            return !result
         }
     }
 
