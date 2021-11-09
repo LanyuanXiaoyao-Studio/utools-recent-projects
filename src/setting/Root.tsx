@@ -48,7 +48,7 @@ class Root extends Component<RootProps, RootState> {
                     {/*保留 uTools 模板插件原本的 js 文件*/}
                     <script src="index.js"/>
                 </head>
-                <body style={{ padding: '5px' }}>
+                <body>
                     {/*保留 uTools 模板插件原本的布局*/}
                     <div id="root"/>
                     <div class={utools.isDarkColors() ? 'container dark' : 'container'}>

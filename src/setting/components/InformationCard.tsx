@@ -44,6 +44,7 @@ export class InformationCard extends Component<InformationCardProps, Information
                     id="information-card"
                     class="gap"
                 />
+                <div class="gap"/>
                 <div class="form-item information-card card">
                     <div class="card-header">
                         <Img
