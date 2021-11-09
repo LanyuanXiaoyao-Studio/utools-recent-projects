@@ -1,5 +1,5 @@
 import {
-    ApplicationConfigAndExecutorImpl,
+    ApplicationCacheConfigAndExecutorImpl,
     ApplicationImpl,
     Group,
     GroupName,
@@ -21,7 +21,7 @@ const VSCODE: string = 'vscode'
 
 export class VscodeProjectItemImpl extends ProjectItemImpl {}
 
-export class VscodeApplicationImpl extends ApplicationConfigAndExecutorImpl<VscodeProjectItemImpl> {
+export class VscodeApplicationImpl extends ApplicationCacheConfigAndExecutorImpl<VscodeProjectItemImpl> {
     openInNew: boolean = false
     private isWindows: boolean = utools.isWindows()
 
@@ -47,7 +47,7 @@ export class VscodeApplicationImpl extends ApplicationConfigAndExecutorImpl<Vsco
         )
     }
 
-    async generateProjectItems(context: Context): Promise<Array<VscodeProjectItemImpl>> {
+    async generateCacheProjectItems(context: Context): Promise<Array<VscodeProjectItemImpl>> {
         let items: Array<VscodeProjectItemImpl> = []
         let buffer = await readFile(this.config)
         if (!isNil(buffer)) {

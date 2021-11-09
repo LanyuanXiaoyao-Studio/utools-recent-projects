@@ -1,11 +1,20 @@
-import {ApplicationImpl, Group, GroupName, Platform, ProjectItemImpl, ShellExecutor} from '../../Types'
+import {
+    ApplicationCacheImpl,
+    ApplicationImpl,
+    Group,
+    GroupName,
+    Platform,
+    ProjectItemImpl,
+    ShellExecutor,
+} from '../../Types'
 import {execSync} from 'child_process'
-import {isEmpty, isNil, unique} from 'licia'
+import {isEmpty, isEqual, isNil, unique} from 'licia'
 import {parse} from 'path'
 import {statSync} from 'fs'
 import {existsOrNot} from '../../Utils'
 import {Context} from '../../Context'
 import {generatePinyinIndex} from '../../utils/index-generator/PinyinIndex'
+import {signCalculate} from '../../utils/files/SignCalculate'
 
 const XCODE: string = 'xcode'
 
@@ -32,7 +41,9 @@ end try"
 
 export class XcodeProjectItemImpl extends ProjectItemImpl {}
 
-export class XcodeApplicationImpl extends ApplicationImpl<XcodeProjectItemImpl> {
+export class XcodeApplicationImpl extends ApplicationCacheImpl<XcodeProjectItemImpl> {
+    private readonly configPath: string
+
     constructor() {
         super(
             XCODE,
@@ -44,16 +55,15 @@ export class XcodeApplicationImpl extends ApplicationImpl<XcodeProjectItemImpl> 
             'Xcode 配置文件位置固定在 /Users/xxx/Library/Application Support/com.apple.sharedfilelist/com.apple.LSSharedFileList.ApplicationRecentDocuments/com.apple.dt.xcode.sfl2, 应该无需额外配置, 如果你的配置文件存在不在默认路径的情况, 请向我反馈',
             true,
         )
+        this.configPath = `${utools.getPath('home')}/Library/Application Support/com.apple.sharedfilelist/com.apple.LSSharedFileList.ApplicationRecentDocuments/com.apple.dt.xcode.sfl2`
     }
 
-    async generateProjectItems(context: Context): Promise<Array<XcodeProjectItemImpl>> {
+    async generateCacheProjectItems(context: Context): Promise<Array<XcodeProjectItemImpl>> {
         let items: Array<XcodeProjectItemImpl> = []
-        let userPath = utools.getPath('home')
-        let configPath = `${userPath}/Library/Application Support/com.apple.sharedfilelist/com.apple.LSSharedFileList.ApplicationRecentDocuments/com.apple.dt.xcode.sfl2`
-        if (isNil(statSync(configPath))) {
-            throw new Error(`无法找到配置文件 ${configPath}`)
+        if (isNil(statSync(this.configPath))) {
+            throw new Error(`无法找到配置文件 ${this.configPath}`)
         }
-        let result = execSync(generateScript(configPath), { encoding: 'utf-8' })
+        let result = execSync(generateScript(this.configPath), { encoding: 'utf-8' })
         if (!isNil(result) && !isEmpty(result)) {
             let paths = result.split(',').map(p => p.trim())
             paths.forEach(path => {
@@ -74,6 +84,12 @@ export class XcodeApplicationImpl extends ApplicationImpl<XcodeProjectItemImpl> 
             })
         }
         return items
+    }
+
+    isNew(): boolean {
+        let last = this.sign
+        this.sign = signCalculate(this.configPath)
+        return isEmpty(last) ? true : !isEqual(this.sign, last)
     }
 }
 

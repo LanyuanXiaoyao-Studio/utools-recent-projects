@@ -1,5 +1,5 @@
 import {
-    ApplicationConfigAndExecutorImpl,
+    ApplicationCacheConfigAndExecutorImpl,
     ApplicationImpl,
     Group,
     GroupName,
@@ -21,7 +21,7 @@ const SUBLIME: string = 'sublime'
 
 export class SublimeProjectItemImpl extends ProjectItemImpl {}
 
-export class SublimeApplicationImpl extends ApplicationConfigAndExecutorImpl<SublimeProjectItemImpl> {
+export class SublimeApplicationImpl extends ApplicationCacheConfigAndExecutorImpl<SublimeProjectItemImpl> {
     openInNew: boolean = false
 
     constructor() {
@@ -50,7 +50,7 @@ export class SublimeApplicationImpl extends ApplicationConfigAndExecutorImpl<Sub
         return utools.isWindows() ? source.replace(/^\/(\w+)(?=\/)/g, '$1:') : source
     }
 
-    async generateProjectItems(context: Context): Promise<Array<SublimeProjectItemImpl>> {
+    async generateCacheProjectItems(context: Context): Promise<Array<SublimeProjectItemImpl>> {
         let items: Array<SublimeProjectItemImpl> = []
         let buffer = await readFile(this.config)
         if (!isNil(buffer)) {

@@ -1,5 +1,5 @@
 import {
-    ApplicationConfigAndExecutorImpl,
+    ApplicationCacheConfigAndExecutorImpl,
     ApplicationImpl,
     DatetimeProjectItemImpl,
     Group,
@@ -18,7 +18,7 @@ const TYPORA: string = 'typora'
 
 export class TyporaProjectItemImpl extends DatetimeProjectItemImpl {}
 
-export class TyporaApplicationImpl extends ApplicationConfigAndExecutorImpl<TyporaProjectItemImpl> {
+export class TyporaApplicationImpl extends ApplicationCacheConfigAndExecutorImpl<TyporaProjectItemImpl> {
     constructor() {
         super(
             TYPORA,
@@ -39,7 +39,7 @@ export class TyporaApplicationImpl extends ApplicationConfigAndExecutorImpl<Typo
         )
     }
 
-    async generateProjectItems(context: Context): Promise<Array<TyporaProjectItemImpl>> {
+    async generateCacheProjectItems(context: Context): Promise<Array<TyporaProjectItemImpl>> {
         let items: Array<TyporaProjectItemImpl> = []
         let data = readFileSync(this.config, { encoding: 'utf8' })
         if (!isEmpty(data)) {

@@ -3,7 +3,7 @@
  * 感谢 https://gitee.com/squallliu 的贡献
  */
 import {
-    ApplicationConfigAndExecutorImpl,
+    ApplicationCacheConfigAndExecutorImpl,
     ApplicationImpl,
     Group,
     GroupName,
@@ -27,7 +27,7 @@ const GEANY: string = 'geany'
 
 export class GeanyProjectItemImpl extends ProjectItemImpl {}
 
-export class GeanyApplicationImpl extends ApplicationConfigAndExecutorImpl<GeanyProjectItemImpl> {
+export class GeanyApplicationImpl extends ApplicationCacheConfigAndExecutorImpl<GeanyProjectItemImpl> {
     openInNew: boolean = false
     private isMacOs: boolean = utools.isMacOs()
 
@@ -53,7 +53,7 @@ export class GeanyApplicationImpl extends ApplicationConfigAndExecutorImpl<Geany
         )
     }
 
-    async generateProjectItems(context: Context): Promise<Array<GeanyProjectItemImpl>> {
+    async generateCacheProjectItems(context: Context): Promise<Array<GeanyProjectItemImpl>> {
         return new Promise(resolve => {
             const items: Array<GeanyProjectItemImpl> = []
             const readObj = createInterface({ input: createReadStream(this.config) })

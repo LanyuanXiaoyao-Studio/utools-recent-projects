@@ -1,5 +1,5 @@
 import {
-    ApplicationConfigAndExecutorImpl,
+    ApplicationCacheConfigAndExecutorImpl,
     ApplicationImpl,
     DatetimeProjectItemImpl,
     Group,
@@ -19,7 +19,7 @@ const LIBRE: string = 'libre'
 
 export class LibreOfficeProjectItemImpl extends DatetimeProjectItemImpl {}
 
-export class LibreOfficeApplicationImpl extends ApplicationConfigAndExecutorImpl<LibreOfficeProjectItemImpl> {
+export class LibreOfficeApplicationImpl extends ApplicationCacheConfigAndExecutorImpl<LibreOfficeProjectItemImpl> {
     private isWindows: boolean = utools.isWindows()
 
     constructor() {
@@ -44,7 +44,7 @@ export class LibreOfficeApplicationImpl extends ApplicationConfigAndExecutorImpl
         )
     }
 
-    async generateProjectItems(context: Context): Promise<Array<LibreOfficeProjectItemImpl>> {
+    async generateCacheProjectItems(context: Context): Promise<Array<LibreOfficeProjectItemImpl>> {
         let items: Array<LibreOfficeProjectItemImpl> = []
         let buffer = await readFile(this.config)
         if (!isNil(buffer)) {

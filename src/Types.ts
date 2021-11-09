@@ -492,6 +492,22 @@ export interface ApplicationCache<P extends ProjectItemImpl> {
     generateCacheProjectItems(context: Context): Promise<Array<P>>
 }
 
+export abstract class ApplicationCacheImpl<P extends ProjectItemImpl> extends ApplicationImpl<P> implements ApplicationCache<P> {
+    cache: Array<P> = []
+    sign: string = ''
+
+    abstract generateCacheProjectItems(context: Context): Promise<Array<P>>
+
+    abstract isNew(): boolean
+
+    override async generateProjectItems(context: Context): Promise<Array<P>> {
+        if (this.isNew()) {
+            this.cache = await this.generateCacheProjectItems(context)
+        }
+        return this.cache
+    }
+}
+
 export abstract class ApplicationConfigImpl<P extends ProjectItemImpl> extends ApplicationImpl<P> {
     readonly configFilename: string
     config: string = ''
@@ -543,15 +559,9 @@ export abstract class ApplicationCacheConfigImpl<P extends ProjectItemImpl> exte
     abstract generateCacheProjectItems(context: Context): Promise<Array<P>>
 
     isNew(): boolean {
-        let sign = signCalculate(this.config)
-        if (isEmpty(this.sign)) {
-            this.sign = sign
-            return true
-        } else {
-            let result = isEqual(this.sign, sign)
-            this.sign = sign
-            return !result
-        }
+        let last = this.sign
+        this.sign = signCalculate(this.config)
+        return isEmpty(last) ? true : !isEqual(this.sign, last)
     }
 
     override async generateProjectItems(context: Context): Promise<Array<P>> {
@@ -609,15 +619,9 @@ export abstract class ApplicationCacheConfigAndExecutorImpl<P extends ProjectIte
     abstract generateCacheProjectItems(context: Context): Promise<Array<P>>
 
     isNew(): boolean {
-        let sign = signCalculate(this.config)
-        if (isEmpty(this.sign)) {
-            this.sign = sign
-            return true
-        } else {
-            let result = isEqual(this.sign, sign)
-            this.sign = sign
-            return !result
-        }
+        let last = this.sign
+        this.sign = signCalculate(this.config)
+        return isEmpty(last) ? true : !isEqual(this.sign, last)
     }
 
     override async generateProjectItems(context: Context): Promise<Array<P>> {

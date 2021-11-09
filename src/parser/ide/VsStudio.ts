@@ -1,6 +1,6 @@
 import {
     Application,
-    ApplicationConfigImpl,
+    ApplicationCacheConfigImpl,
     DatetimeProjectItemImpl,
     ElectronExecutor,
     Group,
@@ -18,7 +18,7 @@ const VS_STUDIO: string = 'vs-studio'
 
 export class VsStudioProjectItemImpl extends DatetimeProjectItemImpl {}
 
-export class VsStudioApplicationImpl extends ApplicationConfigImpl<VsStudioProjectItemImpl> {
+export class VsStudioApplicationImpl extends ApplicationCacheConfigImpl<VsStudioProjectItemImpl> {
     constructor() {
         super(
             VS_STUDIO,
@@ -34,7 +34,7 @@ export class VsStudioApplicationImpl extends ApplicationConfigImpl<VsStudioProje
         )
     }
 
-    async generateProjectItems(context: Context): Promise<Array<VsStudioProjectItemImpl>> {
+    async generateCacheProjectItems(context: Context): Promise<Array<VsStudioProjectItemImpl>> {
         let items: Array<VsStudioProjectItemImpl> = []
         let buffer = await readFile(this.config)
         if (!isNil(buffer)) {

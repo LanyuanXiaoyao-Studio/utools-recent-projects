@@ -1,4 +1,5 @@
 import {
+    ApplicationCacheConfigImpl,
     ApplicationConfigImpl,
     ApplicationImpl,
     DatetimeProjectItemImpl,
@@ -22,12 +23,12 @@ const OFFICE_WIN: string = 'office-win'
 
 export class OfficeProjectItemImpl extends DatetimeProjectItemImpl {}
 
-export class OfficeMacApplicationImpl extends ApplicationConfigImpl<OfficeProjectItemImpl> {
+export class OfficeMacApplicationImpl extends ApplicationCacheConfigImpl<OfficeProjectItemImpl> {
     constructor(id: string, name: string, icon: string, configFilename: string, description: string | DescriptionGetter = '') {
         super(`office-mac-${id}`, name, icon, OFFICE_MAC, [Platform.darwin], Group[GroupName.office], description, false, configFilename)
     }
 
-    async generateProjectItems(context: Context): Promise<Array<OfficeProjectItemImpl>> {
+    async generateCacheProjectItems(context: Context): Promise<Array<OfficeProjectItemImpl>> {
         let items: Array<OfficeProjectItemImpl> = []
         let data = await plistParser.parseFile(this.config)
         if (!isNil(data) && !isEmpty(data)) {
