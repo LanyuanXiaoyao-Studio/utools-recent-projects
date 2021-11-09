@@ -25,7 +25,7 @@ export class FirefoxBookmarkApplicationImpl extends SqliteBrowserApplicationImpl
         super(`${id}-bookmark`, `${name}`, `icon/browser-${id}.png`, type, platforms, Group[GroupName.browserBookmark], description, beta, configName)
     }
 
-    async generateProjectItems(context: Context): Promise<Array<FirefoxBookmarkProjectItemImpl>> {
+    async generateCacheProjectItems(context: Context): Promise<Array<FirefoxBookmarkProjectItemImpl>> {
         let items: Array<FirefoxBookmarkProjectItemImpl> = []
         // language=SQLite
         let sql = 'select b.id as id, b.type as type, b.parent as parent, b.title as title, p.url as url, b.dateAdded as date_added\nfrom moz_bookmarks b\n         left join moz_places p on b.fk = p.id\norder by b.dateAdded desc'

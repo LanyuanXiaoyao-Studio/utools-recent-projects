@@ -24,7 +24,7 @@ export class FirefoxHistoryApplicationImpl extends SqliteBrowserApplicationImpl<
         super(`${id}-history`, `${name}`, `icon/browser-${id}.png`, type, platforms, Group[GroupName.browserHistory], description, beta, configName)
     }
 
-    async generateProjectItems(context: Context): Promise<Array<FirefoxHistoryProjectItemImpl>> {
+    async generateCacheProjectItems(context: Context): Promise<Array<FirefoxHistoryProjectItemImpl>> {
         let items: Array<FirefoxHistoryProjectItemImpl> = []
         // language=SQLite
         let sql = 'select p.url                                                                                         as url,\n       p.title                                                                                       as title,\n       p.description                                                                                 as description,\n       cast(strftime(\'%s\', datetime((h.visit_date / 1000000), \'unixepoch\', \'localtime\')) as numeric) as timestamp\nfrom moz_historyvisits h,\n     moz_places p\nwhere h.place_id = p.id\n  and p.hidden = 0\n  and h.visit_date is not null\norder by h.visit_date desc\nlimit ' + context.browserHistoryLimit

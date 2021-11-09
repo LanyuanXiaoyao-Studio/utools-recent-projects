@@ -1,4 +1,10 @@
-import {ApplicationConfigAndExecutorImpl, InputSettingItem, Platform, ProjectItemImpl, SettingItem} from '../../Types'
+import {
+    ApplicationCacheConfigAndExecutorImpl,
+    InputSettingItem,
+    Platform,
+    ProjectItemImpl,
+    SettingItem,
+} from '../../Types'
 import {generateStringByOS, platformFromUtools, StringByOS} from '../../Utils'
 import {isEmpty, isNil, randomId} from 'licia'
 import {Context} from '../../Context'
@@ -6,7 +12,7 @@ import {copyFile, rm} from 'fs/promises'
 import {join} from 'path'
 import {i18n, sentenceKey} from '../../i18n'
 
-export abstract class BrowserApplicationImpl<P extends ProjectItemImpl> extends ApplicationConfigAndExecutorImpl<P> {
+export abstract class BrowserApplicationImpl<P extends ProjectItemImpl> extends ApplicationCacheConfigAndExecutorImpl<P> {
     protected ifGetFavicon: (url: string, context: Context) => string = (url, context) => {
         // return context.enableGetFaviconFromNet ? `https://api.clowntool.cn/getico/?url=${url}` : this.icon
         return context.enableGetFaviconFromNet ? `https://f1.allesedv.com/${url}` : this.icon

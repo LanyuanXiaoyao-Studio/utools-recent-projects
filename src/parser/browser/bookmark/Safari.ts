@@ -37,7 +37,7 @@ export class SafariBookmarkApplicationImpl extends BrowserApplicationImpl<Safari
         )
     }
 
-    async generateProjectItems(context: Context): Promise<Array<SafariBookmarkProjectItemImpl>> {
+    async generateCacheProjectItems(context: Context): Promise<Array<SafariBookmarkProjectItemImpl>> {
         let items: Array<SafariBookmarkProjectItemImpl> = []
         let configPath = `${utools.getPath('home')}/Library/Safari/Bookmarks.plist`
         if (!existsSync(configPath)) {

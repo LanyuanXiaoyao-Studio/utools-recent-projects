@@ -28,7 +28,7 @@ export class ChromiumBookmarkApplicationImpl extends BrowserApplicationImpl<Chro
         super(`${id}-bookmark`, `${name}`, `icon/browser-${id}.png`, type, platforms, Group[GroupName.browserBookmark], description, beta, configName)
     }
 
-    async generateProjectItems(context: Context): Promise<Array<ChromiumBookmarkProjectItemImpl>> {
+    async generateCacheProjectItems(context: Context): Promise<Array<ChromiumBookmarkProjectItemImpl>> {
         let items: Array<ChromiumBookmarkProjectItemImpl> = []
         let jsonText = await readFile(this.config, { encoding: 'utf-8' })
         let json = JSON.parse(jsonText)

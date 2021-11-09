@@ -38,7 +38,7 @@ export class SafariHistoryApplicationImpl extends SqliteBrowserApplicationImpl<S
         )
     }
 
-    async generateProjectItems(context: Context): Promise<Array<SafariHistoryProjectItemImpl>> {
+    async generateCacheProjectItems(context: Context): Promise<Array<SafariHistoryProjectItemImpl>> {
         let items: Array<SafariHistoryProjectItemImpl> = []
         let configPath = `${utools.getPath('home')}/Library/Safari/History.db`
         if (!existsSync(configPath)) {
