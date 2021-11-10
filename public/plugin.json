@@ -3,7 +3,7 @@
   "author"       : "lanyuanxiaoyao",
   "homepage"     : "http://lanyuanxiaoyao.com",
   "description"  : "快速查找打开书签和历史记录，支持 vscode，sublime，jetbrains（Android Studio，GoLand，IDEA，PyCharm，Webstorm等系列），WPS，Office（Word，Excel，Powerpoint），LibreOffice，Xcode，Chrome，Firefox，Safari，Edge，Opera，Brave，Yandex等主流浏览器",
-  "version"      : "2.3.1",
+  "version"      : "2.4.1",
   "logo"         : "fox.png",
   "preload"      : "preload.js",
   "pluginSetting": {
@@ -357,6 +357,28 @@
               "geany.exe"
             ]
           }
+        }
+      ]
+    },
+    {
+      "code"   : "default-folder-x-project",
+      "explain": "快速打开最近文件或文件夹",
+      "icon"   : "icon/default-folder-x.png",
+      "cmds"   : [
+        "Recent Files & Folders",
+        "最近文件或文件夹",
+        {
+          "type" : "window",
+          "label": "打开最近文件或文件夹",
+          "match": {
+            "app": [
+              "Finder.app"
+            ]
+          }
+        },
+        {
+          "type" : "over",
+          "label": "打开最近文件或文件夹"
         }
       ]
     }

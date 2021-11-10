@@ -384,6 +384,7 @@ export enum GroupName {
     vsStudio,
     xcode,
     office,
+    system,
 }
 
 export const Group: { [keys in GroupName]: string } = {
@@ -396,6 +397,7 @@ export const Group: { [keys in GroupName]: string } = {
     [GroupName.vsStudio]: 'Visual Studio',
     [GroupName.xcode]: 'Xcode',
     [GroupName.office]: 'Office',
+    [GroupName.system]: 'System',
 }
 
 export type DescriptionGetter = (context?: Context) => string | undefined
@@ -485,7 +487,6 @@ export abstract class ApplicationImpl<P extends ProjectItemImpl> implements Appl
 
 export interface ApplicationCache<P extends ProjectItemImpl> {
     cache: Array<P>
-    sign: string
 
     isNew(): boolean
 
@@ -494,7 +495,6 @@ export interface ApplicationCache<P extends ProjectItemImpl> {
 
 export abstract class ApplicationCacheImpl<P extends ProjectItemImpl> extends ApplicationImpl<P> implements ApplicationCache<P> {
     cache: Array<P> = []
-    sign: string = ''
 
     abstract generateCacheProjectItems(context: Context): Promise<Array<P>>
 

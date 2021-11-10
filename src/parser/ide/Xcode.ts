@@ -44,6 +44,8 @@ export class XcodeProjectItemImpl extends ProjectItemImpl {}
 export class XcodeApplicationImpl extends ApplicationCacheImpl<XcodeProjectItemImpl> {
     private readonly configPath: string
 
+    private sign: string = ''
+
     constructor() {
         super(
             XCODE,

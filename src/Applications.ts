@@ -16,6 +16,7 @@ import {applications as ChromiumBookmarkApplications} from './parser/browser/boo
 import {applications as libreOfficeApplications} from './parser/office/Libre'
 import {applications as obsidianApplications} from './parser/editor/Obsidian'
 import {applications as geanyApplications} from './parser/editor/Geany'
+import {applications as defaultFolderXApplications} from './parser/system/DefaultFolderX'
 import {AllProjectArgs, AllProjectSortByTimeArgs, AllProjectSortByTitleArgs} from './Entrance'
 
 export class ProjectFeature implements Feature<ProjectArgsImpl> {
@@ -50,6 +51,7 @@ export const argsMapping: { [keys: string]: ProjectFeature } = {
     'libre-project': new ProjectFeature(new AllProjectSortByTimeArgs(libreOfficeApplications)),
     'obsidian-project': new ProjectFeature(new AllProjectSortByTimeArgs(obsidianApplications)),
     'geany-project': new ProjectFeature(new AllProjectArgs(geanyApplications)),
+    'default-folder-x-project': new ProjectFeature(new AllProjectSortByTimeArgs(defaultFolderXApplications)),
 }
 
 export const applications: Array<Application<ProjectItemImpl>> = []
