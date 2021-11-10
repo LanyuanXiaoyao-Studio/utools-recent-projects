@@ -36,7 +36,7 @@ export class DefaultFolderXApplicationImpl extends ApplicationCacheImpl<DefaultF
             DEFAULT_FOLDER_X,
             [Platform.darwin],
             Group[GroupName.system],
-            '',
+            '配置文件通常放在 /Users/xxx/Library/Application Support/com.stclairsoft.DefaultFolderX5/default',
             true,
         )
     }
@@ -89,7 +89,7 @@ export class DefaultFolderXApplicationImpl extends ApplicationCacheImpl<DefaultF
                                 path,
                             ],
                             exists: exists,
-                            command: new ShellExecutor(''),
+                            command: new ShellExecutor(`open ${path}`),
                             datetime: datetime,
                         })
                     })
