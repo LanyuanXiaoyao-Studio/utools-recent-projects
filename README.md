@@ -48,6 +48,7 @@
 | WPS Office International |          |    ✔    |    ✔    |   ✔   |   ✔   |
 |       Office 2019        |          |    ✔    |    ✔    |   ✔   |       |
 |       LibreOffice        |          |    ✔    |    ✔    |   ✔   |   ✔   |
+|     Default Folder X     |          |    ✔    |    ✔    |   ✔   |   ✔   |
 
 # 源码地址
 

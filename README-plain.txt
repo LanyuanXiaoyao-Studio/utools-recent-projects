@@ -37,6 +37,8 @@
   - Office 2019 (Windows)
   - Office 2019 (macOS)
   - LibreOffice
+- System
+  - Default Folder X
 
 源码地址
 Github https://github.com/LanyuanXiaoyao-Studio/utools-recent-projects
