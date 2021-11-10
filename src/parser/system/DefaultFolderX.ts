@@ -89,7 +89,7 @@ export class DefaultFolderXApplicationImpl extends ApplicationCacheImpl<DefaultF
                                 path,
                             ],
                             exists: exists,
-                            command: new ShellExecutor(`open ${path}`),
+                            command: new ShellExecutor(`open '${path}'`),
                             datetime: datetime,
                         })
                     })
