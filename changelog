@@ -1,3 +1,7 @@
+2.4.3
+1. 修复 Windows Office 默认只使用 Administrator 作为配置目录的问题
+2. 增加 System User 的显示, 优化配置提示内容
+
 2.4.1
 1. 增加 Default Folder X 适配
 2. 优化配置文件读取, 优先检测配置文件大小和修改时间, 加速读取速度
