@@ -9,12 +9,11 @@ import {
     Platform,
 } from '../../Types'
 import {readFile} from 'fs/promises'
-import {isEmpty, isEqual, isNil, unique} from 'licia'
+import {isEmpty, isNil, unique} from 'licia'
 import {parse} from 'path'
 import {existsOrNot} from '../../Utils'
 import {Context} from '../../Context'
 import {generatePinyinIndex} from '../../utils/index-generator/PinyinIndex'
-import {signCalculate} from '../../utils/files/SignCalculate'
 
 const JETBRAINS: string = 'jetbrains'
 

@@ -15,7 +15,7 @@ import {
     SwitchSettingItem,
 } from '../../Types'
 import {i18n, sentenceKey} from '../../i18n'
-import {existsOrNot, generateStringByOS} from '../../Utils'
+import {existsOrNot, generateStringByOS, systemUser} from '../../Utils'
 import {Context} from '../../Context'
 import {createInterface} from 'readline'
 import {createReadStream} from 'fs'
@@ -40,9 +40,9 @@ export class GeanyApplicationImpl extends ApplicationCacheConfigAndExecutorImpl<
             [Platform.win32, Platform.darwin, Platform.linux],
             Group[GroupName.editor],
             () => `${i18n.t(sentenceKey.configFileAt)} ${generateStringByOS({
-                win32: 'C:\\Users\\Administrator\\AppData\\Roaming\\geany\\geany.conf',
-                darwin: '/Users/xxx/.config/geany/geany.conf',
-                linux: '/home/xxx/.config/geany/geany.conf',
+                win32: `C:\\Users\\${systemUser()}\\AppData\\Roaming\\geany\\geany.conf`,
+                darwin: `/Users/${systemUser()}/.config/geany/geany.conf`,
+                linux: `/home/${systemUser()}/.config/geany/geany.conf`,
             })}, ${i18n.t(sentenceKey.executorFileAt)} ${generateStringByOS({
                 win32: 'C:\\Program Files\\Geany\\bin\\geany.exe',
                 darwin: '/Applications/Geany.app/Contents/MacOS/geany',

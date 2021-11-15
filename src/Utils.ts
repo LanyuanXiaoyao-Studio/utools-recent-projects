@@ -4,7 +4,7 @@ import {isEmpty, isFn, isNil, isUrl, Url} from 'licia'
 import {Context} from './Context'
 import {i18n, sentenceKey} from './i18n'
 import {levenshtein} from 'string-comparison'
-import {join} from 'path'
+import {join, parse} from 'path'
 import WinReg from 'winreg'
 import S from 'licia/$'
 
@@ -45,6 +45,17 @@ export const platformFromUtools: () => Platform = () => {
     else if (utools.isMacOs()) return Platform.darwin
     else if (utools.isLinux()) return Platform.linux
     else return Platform.unknown
+}
+
+let currentSystemUserName = ''
+
+export const systemUser: () => string = () => {
+    if (isEmpty(currentSystemUserName)) {
+        let userHome = utools.getPath('home')
+        let parser = parse(userHome)
+        currentSystemUserName = parser.name
+    }
+    return currentSystemUserName
 }
 
 export const removeAllQueryFromUrl: (url: string) => string = url => {

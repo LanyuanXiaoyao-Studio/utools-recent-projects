@@ -11,7 +11,7 @@ import {BrowserId, SqliteBrowserApplicationImpl} from '../index'
 import {execFileSync} from 'child_process'
 import {contain, isEmpty, isNil, reverse, unique} from 'licia'
 import {Context} from '../../../Context'
-import {generateStringByOS} from '../../../Utils'
+import {generateStringByOS, systemUser} from '../../../Utils'
 import {i18n, sentenceKey} from '../../../i18n'
 import {generatePinyinIndex} from '../../../utils/index-generator/PinyinIndex'
 import {generateHostIndex} from '../../../utils/index-generator/HostIndex'
@@ -80,8 +80,8 @@ export class FirefoxBookmarkApplicationImpl extends SqliteBrowserApplicationImpl
 export const applications: Array<ApplicationImpl<FirefoxBookmarkProjectItemImpl>> = [
     new FirefoxBookmarkApplicationImpl('firefox', 'Firefox', FIREFOX, undefined, () => generateStringByOS({
         handler: text => `places.sqlite ${i18n.t(sentenceKey.browserPathDescPrefix)} ${text}`,
-        win32: 'C:\\Users\\Administrator\\AppData\\Roaming\\Mozilla\\Firefox\\Profiles\\xxx.default-release',
-        darwin: '/Users/xxx/Library/Application Support/Firefox/Profiles/xxx.default-release-xxx',
-        linux: '/home/xxx/.mozilla/firefox/xxx.default-release',
+        win32: `C:\\Users\\${systemUser()}\\AppData\\Roaming\\Mozilla\\Firefox\\Profiles\\xxx.default-release`,
+        darwin: `/Users/${systemUser()}/Library/Application Support/Firefox/Profiles/xxx.default-release-xxx`,
+        linux: `/home/${systemUser()}/.mozilla/firefox/xxx.default-release`,
     }), undefined, 'places.sqlite'),
 ]

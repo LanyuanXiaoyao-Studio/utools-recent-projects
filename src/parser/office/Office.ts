@@ -1,6 +1,5 @@
 import {
     ApplicationCacheConfigImpl,
-    ApplicationConfigImpl,
     ApplicationImpl,
     DatetimeProjectItemImpl,
     DescriptionGetter,
@@ -12,7 +11,7 @@ import {
 import {isEmpty, isNil, unique, Url} from 'licia'
 import {join, parse} from 'path'
 import {execSync} from 'child_process'
-import {existsOrNot, generateStringByOS} from '../../Utils'
+import {existsOrNot, generateStringByOS, systemUser} from '../../Utils'
 import {lstatSync, readdirSync} from 'fs'
 import {Context} from '../../Context'
 import {generatePinyinIndex} from '../../utils/index-generator/PinyinIndex'
@@ -66,7 +65,7 @@ export class OfficeMacApplicationImpl extends ApplicationCacheConfigImpl<OfficeP
 }
 
 export class OfficeWinApplicationImpl extends ApplicationImpl<OfficeProjectItemImpl> {
-    private recentPath: string = `C:\\Users\\${utools.getUser()}\\AppData\\Roaming\\Microsoft\\Office\\Recent`
+    private readonly recentPath: string
 
     constructor() {
         super(
@@ -76,9 +75,10 @@ export class OfficeWinApplicationImpl extends ApplicationImpl<OfficeProjectItemI
             OFFICE_WIN,
             [Platform.win32],
             Group[GroupName.office],
-            'Office 2019 通过解析 C:\\Users\\xxx\\AppData\\Roaming\\Microsoft\\Office\\Recent 下的文件记录来得到历史打开文件列表, 这种方式依赖于默认的 Office 行为, 目前仅支持有限的 Office 文档格式',
+            () => `Office 2019 通过解析 C:\\Users\\${systemUser()}\\AppData\\Roaming\\Microsoft\\Office\\Recent 下的文件记录来得到历史打开文件列表, 这种方式依赖于默认的 Office 行为, 目前仅支持有限的 Office 文档格式`,
             false,
         )
+        this.recentPath = `C:\\Users\\${systemUser()}\\AppData\\Roaming\\Microsoft\\Office\\Recent`
     }
 
     async generateProjectItems(context: Context): Promise<Array<OfficeProjectItemImpl>> {
@@ -133,8 +133,8 @@ const description: (path: string) => string = path => generateStringByOS({
     darwin: path,
 })
 export const applications: Array<ApplicationImpl<OfficeProjectItemImpl>> = [
-    new OfficeMacApplicationImpl('word', 'Word 2019', 'icon/office-word.png', 'com.microsoft.Word.securebookmarks.plist', description('/Users/xxx/Library/Containers/Microsoft Word/Data/Library/Preferences/com.microsoft.Word.securebookmarks.plist')),
-    new OfficeMacApplicationImpl('excel', 'Excel 2019', 'icon/office-excel.png', 'com.microsoft.Excel.securebookmarks.plist', description('/Users/xxx/Library/Containers/Microsoft Excel/Data/Library/Preferences/com.microsoft.Excel.securebookmarks.plist')),
-    new OfficeMacApplicationImpl('powerpoint', 'PowerPoint 2019', 'icon/office-powerpoint.png', 'com.microsoft.Powerpoint.securebookmarks.plist', description('/Users/xxx/Library/Containers/Microsoft Powerpoint/Data/Library/Preferences/com.microsoft.Powerpoint.securebookmarks.plist')),
+    new OfficeMacApplicationImpl('word', 'Word 2019', 'icon/office-word.png', 'com.microsoft.Word.securebookmarks.plist', description(`/Users/${systemUser()}/Library/Containers/Microsoft Word/Data/Library/Preferences/com.microsoft.Word.securebookmarks.plist`)),
+    new OfficeMacApplicationImpl('excel', 'Excel 2019', 'icon/office-excel.png', 'com.microsoft.Excel.securebookmarks.plist', description(`/Users/${systemUser()}/Library/Containers/Microsoft Excel/Data/Library/Preferences/com.microsoft.Excel.securebookmarks.plist`)),
+    new OfficeMacApplicationImpl('powerpoint', 'PowerPoint 2019', 'icon/office-powerpoint.png', 'com.microsoft.Powerpoint.securebookmarks.plist', description(`/Users/${systemUser()}/Library/Containers/Microsoft Powerpoint/Data/Library/Preferences/com.microsoft.Powerpoint.securebookmarks.plist`)),
     new OfficeWinApplicationImpl(),
 ]

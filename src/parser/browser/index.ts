@@ -5,7 +5,7 @@ import {
     ProjectItemImpl,
     SettingItem,
 } from '../../Types'
-import {generateStringByOS, platformFromUtools, StringByOS} from '../../Utils'
+import {generateStringByOS, platformFromUtools, StringByOS, systemUser} from '../../Utils'
 import {isEmpty, isNil, randomId} from 'licia'
 import {Context} from '../../Context'
 import {copyFile, rm} from 'fs/promises'
@@ -109,65 +109,89 @@ export type BrowserId =
     | 'deepin'
 
 export const getPathDescription: (id: BrowserId, filename: string) => string | undefined = (id, filename) => {
-    return generatePathDescription(pathDescriptionMap[id], filename)
+    return generatePathDescription(pathDescriptionMap[id](), filename)
 }
 
 export const getDescription: (id: BrowserId, handler: (text: string) => string) => string | undefined = (id, handler) => {
     return generateStringByOS({
         handler: handler,
-        ...pathDescriptionMap[id],
+        ...(pathDescriptionMap[id]()),
     })
 }
 
-const pathDescriptionMap: { [key: string]: StringByOS } = {
-    'chrome': {
-        win32: 'C:\\Users\\Administrator\\AppData\\Local\\Google\\Chrome\\User Data\\Default',
-        darwin: '/Users/xxx/Library/Application Support/Google/Chrome/Default',
-        linux: '/home/xxx/.config/google-chrome/Default',
+const pathDescriptionMap: { [key: string]: () => StringByOS } = {
+    'chrome': () => {
+        return {
+            win32: `C:\\Users\\${systemUser()}\\AppData\\Local\\Google\\Chrome\\User Data\\Default`,
+            darwin: `/Users/${systemUser()}/Library/Application Support/Google/Chrome/Default`,
+            linux: `/home/${systemUser()}/.config/google-chrome/Default`,
+        }
     },
-    'edge': {
-        win32: 'C:\\Users\\Administrator\\AppData\\Local\\Microsoft\\Edge\\User Data\\Default',
-        darwin: '/Users/xxx/Library/Application Support/Microsoft Edge/Default',
-        linux: '/home/lanyuanxiaoyao/.config/microsoft-edge-beta/Default. Linux 为 beta 版本, 正式版需要去掉路径中的「beta」',
+    'edge': () => {
+        return {
+            win32: `C:\\Users\\${systemUser()}\\AppData\\Local\\Microsoft\\Edge\\User Data\\Default`,
+            darwin: `/Users/${systemUser()}/Library/Application Support/Microsoft Edge/Default`,
+            linux: `/home/${systemUser()}/.config/microsoft-edge-beta/Default. Linux 为 beta 版本, 正式版需要去掉路径中的「beta」`,
+        }
     },
-    'qq': {
-        win32: 'C:\\Users\\Administrator\\AppData\\Local\\Tencent\\QQBrowser\\User Data\\Default',
+    'qq': () => {
+        return {
+            win32: `C:\\Users\\${systemUser()}\\AppData\\Local\\Tencent\\QQBrowser\\User Data\\Default`,
+        }
     },
-    'maxthon': {
-        win32: 'C:\\Users\\Administrator\\AppData\\Local\\Maxthon\\Application\\User Data\\Default',
+    'maxthon': () => {
+        return {
+            win32: `C:\\Users\\${systemUser()}\\AppData\\Local\\Maxthon\\Application\\User Data\\Default`,
+        }
     },
-    'opera': {
-        win32: 'C:\\Users\\Administrator\\AppData\\Roaming\\Opera Software\\Opera Stable',
-        darwin: '/Users/xxx/Library/Application Support/com.operasoftware.Opera',
-        linux: '/home/xxx/.config/opera',
+    'opera': () => {
+        return {
+            win32: `C:\\Users\\${systemUser()}\\AppData\\Roaming\\Opera Software\\Opera Stable`,
+            darwin: `/Users/${systemUser()}/Library/Application Support/com.operasoftware.Opera`,
+            linux: `/home/${systemUser()}/.config/opera`,
+        }
     },
-    'brave': {
-        win32: 'C:\\Users\\Administrator\\AppData\\Local\\BraveSoftware\\Brave-Browser\\User Data\\Default',
-        darwin: '/Users/xxx/Library/Application Support/BraveSoftware/Brave-Browser/Default',
-        linux: '/home/xxx/.config/BraveSoftware/Brave-Browser/Default',
+    'brave': () => {
+        return {
+            win32: `C:\\Users\\${systemUser()}\\AppData\\Local\\BraveSoftware\\Brave-Browser\\User Data\\Default`,
+            darwin: `/Users/${systemUser()}/Library/Application Support/BraveSoftware/Brave-Browser/Default`,
+            linux: `/home/${systemUser()}/.config/BraveSoftware/Brave-Browser/Default`,
+        }
     },
-    'vivaldi': {
-        win32: 'C:\\Users\\Administrator\\AppData\\Local\\Vivaldi\\User Data\\Default',
-        darwin: '/Users/xxx/Library/Application Support/Vivaldi/Default',
-        linux: '/home/xxx/.config/Vivaldi/Default',
+    'vivaldi': () => {
+        return {
+            win32: `C:\\Users\\${systemUser()}\\AppData\\Local\\Vivaldi\\User Data\\Default`,
+            darwin: `/Users/${systemUser()}/Library/Application Support/Vivaldi/Default`,
+            linux: `/home/${systemUser()}/.config/Vivaldi/Default`,
+        }
     },
-    'cent': {
-        win32: 'C:\\Users\\Administrator\\AppData\\Local\\CentBrowser\\User Data\\Default',
+    'cent': () => {
+        return {
+            win32: `C:\\Users\\${systemUser()}\\AppData\\Local\\CentBrowser\\User Data\\Default`,
+        }
     },
-    'yandex': {
-        win32: 'C:\\Users\\Administrator\\AppData\\Local\\Yandex\\YandexBrowser\\User Data\\Default',
-        darwin: '/Users/xxx/Library/Application Support/Yandex/YandexBrowser/Default',
-        linux: '/home/xxx/.config/yandex-browser-beta/Default. Linux 为 beta 版本, 正式版需要去掉路径中的「beta」',
+    'yandex': () => {
+        return {
+            win32: `C:\\Users\\${systemUser()}\\AppData\\Local\\Yandex\\YandexBrowser\\User Data\\Default`,
+            darwin: `/Users/${systemUser()}/Library/Application Support/Yandex/YandexBrowser/Default`,
+            linux: `/home/${systemUser()}/.config/yandex-browser-beta/Default. Linux 为 beta 版本, 正式版需要去掉路径中的「beta」`,
+        }
     },
-    'liebao': {
-        win32: 'C:\\Users\\Administrator\\AppData\\Local\\liebao\\User Data\\Default',
+    'liebao': () => {
+        return {
+            win32: `C:\\Users\\${systemUser()}\\AppData\\Local\\liebao\\User Data\\Default`,
+        }
     },
-    'firefox': {
-        win32: 'C:\\Users\\Administrator\\AppData\\Roaming\\Mozilla\\Firefox\\Profiles\\xxx.default-release',
-        darwin: '/Users/xxx/Library/Application Support/Firefox/Profiles/xxx.default-release-xxx',
-        linux: '/home/xxx/.mozilla/firefox/xxx.default-release',
+    'firefox': () => {
+        return {
+            win32: `C:\\Users\\${systemUser()}\\AppData\\Roaming\\Mozilla\\Firefox\\Profiles\\xxx.default-release`,
+            darwin: `/Users/${systemUser()}/Library/Application Support/Firefox/Profiles/xxx.default-release-xxx`,
+            linux: `/home/${systemUser()}/.mozilla/firefox/xxx.default-release`,
+        }
     },
-    'deepin': {
-        linux: '/home/xxx/.config/browser/Default',
+    'deepin': () => {
+        return {
+            linux: `/home/${systemUser()}/.config/browser/Default`,
+        }
     },
 }

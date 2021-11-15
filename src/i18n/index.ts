@@ -70,6 +70,7 @@ export const sentenceKey = {
     sqlite3: 'sqlite3',
     sqlite3Desc: 'sqlite3Desc',
     systemInformation: 'systemInformation',
+    systemUser: 'systemUser',
     systemVersion: 'systemVersion',
     unknownError: 'unknownError',
     unknownInputError: 'unknownInputError',
@@ -147,6 +148,7 @@ export interface Sentence {
     readonly sqlite3: string
     readonly sqlite3Desc: string
     readonly systemInformation: string
+    readonly systemUser: string
     readonly systemVersion: string
     readonly unknownError: string
     readonly unknownInputError: string

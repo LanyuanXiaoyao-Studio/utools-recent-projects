@@ -11,7 +11,7 @@ import {execSync} from 'child_process'
 import {isEmpty, isEqual, isNil, unique} from 'licia'
 import {parse} from 'path'
 import {statSync} from 'fs'
-import {existsOrNot} from '../../Utils'
+import {existsOrNot, systemUser} from '../../Utils'
 import {Context} from '../../Context'
 import {generatePinyinIndex} from '../../utils/index-generator/PinyinIndex'
 import {signCalculate} from '../../utils/files/SignCalculate'
@@ -54,7 +54,7 @@ export class XcodeApplicationImpl extends ApplicationCacheImpl<XcodeProjectItemI
             XCODE,
             [Platform.darwin],
             Group[GroupName.xcode],
-            'Xcode 配置文件位置固定在 /Users/xxx/Library/Application Support/com.apple.sharedfilelist/com.apple.LSSharedFileList.ApplicationRecentDocuments/com.apple.dt.xcode.sfl2, 应该无需额外配置, 如果你的配置文件存在不在默认路径的情况, 请向我反馈',
+            () => `Xcode 配置文件位置固定在 /Users/${systemUser()}/Library/Application Support/com.apple.sharedfilelist/com.apple.LSSharedFileList.ApplicationRecentDocuments/com.apple.dt.xcode.sfl2, 应该无需额外配置, 如果你的配置文件存在不在默认路径的情况, 请向我反馈`,
             true,
         )
         this.configPath = `${utools.getPath('home')}/Library/Application Support/com.apple.sharedfilelist/com.apple.LSSharedFileList.ApplicationRecentDocuments/com.apple.dt.xcode.sfl2`

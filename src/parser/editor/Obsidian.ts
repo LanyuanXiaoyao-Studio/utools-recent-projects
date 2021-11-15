@@ -10,7 +10,7 @@ import {
 import {Context} from '../../Context'
 import {readFileSync, statSync} from 'fs'
 import {endWith, isEmpty, isNil, unique} from 'licia'
-import {existsOrNot, generateStringByOS, walker} from '../../Utils'
+import {existsOrNot, generateStringByOS, systemUser, walker} from '../../Utils'
 import {parse, resolve} from 'path'
 import {i18n, sentenceKey} from '../../i18n'
 import {generatePinyinIndex} from '../../utils/index-generator/PinyinIndex'
@@ -29,9 +29,9 @@ export class ObsidianApplicationImpl extends ApplicationConfigImpl<ObsidianProje
             [Platform.win32, Platform.darwin, Platform.linux],
             Group[GroupName.editor],
             () => `${i18n.t(sentenceKey.configFileAt)} ${generateStringByOS({
-                win32: 'C:\\Users\\Administrator\\AppData\\Roaming\\obsidian\\obsidian.json',
-                darwin: '/Users/xxx/Library/Application Support/obsidian/obsidian.json',
-                linux: '/home/xxx/.config/obsidian/obsidian.json',
+                win32: `C:\\Users\\${systemUser()}\\AppData\\Roaming\\obsidian\\obsidian.json`,
+                darwin: `/Users/${systemUser()}/Library/Application Support/obsidian/obsidian.json`,
+                linux: `/home/${systemUser()}/.config/obsidian/obsidian.json`,
             })}`,
             true,
             'obsidian.json',

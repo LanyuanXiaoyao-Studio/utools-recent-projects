@@ -10,7 +10,7 @@ import {
 } from '../../Types'
 import {isEmpty, isNil, unique} from 'licia'
 import {parse} from 'path'
-import {existsOrNot, generateStringByOS, listRegistry} from '../../Utils'
+import {existsOrNot, generateStringByOS, listRegistry, systemUser} from '../../Utils'
 import {Context} from '../../Context'
 import {readFile} from 'fs/promises'
 import {i18n, sentenceKey} from '../../i18n'
@@ -33,7 +33,7 @@ export class WpsWinInternationalApplicationImpl extends ApplicationImpl<WpsWinIn
             WPS_WIN_INTERNATION,
             [Platform.win32],
             Group[GroupName.office],
-            '数据通过读取注册表 HKEY_CURRENT_USER\\SOFTWARE\\kingsoft\\Office\\6.0\\xxx\\RecentFiles\\Sequence 获得, 仅读取, 不会修改注册表信息',
+            () => `数据通过读取注册表 HKEY_CURRENT_USER\\SOFTWARE\\kingsoft\\Office\\6.0\\${systemUser()}\\RecentFiles\\Sequence 获得, 仅读取, 不会修改注册表信息`,
             true,
         )
     }
@@ -86,7 +86,7 @@ export class WpsMacInternationalApplicationImpl extends ApplicationConfigImpl<Wp
             `刚关闭的文档没有出现在历史记录里是因为配置文件还没有更新, 但 wps 更新配置文件的时机不明, 通常是等一会儿.
 ` + generateStringByOS({
                 handler: text => `配置文件通常放在 ${text}`,
-                darwin: '/Users/xxx/Library/Containers/com.kingsoft.wpsoffice.mac.global/Data/Library/Preferences/com.kingsoft.plist',
+                darwin: `/Users/${systemUser()}/Library/Containers/com.kingsoft.wpsoffice.mac.global/Data/Library/Preferences/com.kingsoft.plist`,
             }),
             false,
             'com.kingsoft.plist',
@@ -140,7 +140,7 @@ export class WpsLinuxInternationalApplicationImpl extends ApplicationConfigAndEx
             [Platform.linux],
             Group[GroupName.office],
             () => `${i18n.t(sentenceKey.configFileAt)} ${generateStringByOS({
-                linux: '/home/xxx/.config/Kingsoft/Office.conf',
+                linux: `/home/${systemUser()}/.config/Kingsoft/Office.conf`,
             })}, ${i18n.t(sentenceKey.executorFileAt)} ${generateStringByOS({
                 linux: '/usr/bin/wps',
             })}, 也可以直接填入 xdg-open 命令使用`,

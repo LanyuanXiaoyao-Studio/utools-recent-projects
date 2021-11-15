@@ -10,7 +10,7 @@ import {
 import {readFile} from 'fs/promises'
 import {isEmpty, isNil, now, unique, Url} from 'licia'
 import {Context} from '../../Context'
-import {existsOrNot, generateStringByOS} from '../../Utils'
+import {existsOrNot, generateStringByOS, systemUser} from '../../Utils'
 import {parse} from 'path'
 import {i18n, sentenceKey} from '../../i18n'
 import {generatePinyinIndex} from '../../utils/index-generator/PinyinIndex'
@@ -31,13 +31,13 @@ export class LibreOfficeApplicationImpl extends ApplicationCacheConfigAndExecuto
             [Platform.win32, Platform.darwin, Platform.linux],
             Group[GroupName.office],
             () => `${i18n.t(sentenceKey.configFileAt)} ${generateStringByOS({
-                win32: 'C:\\Users\\Administrator\\AppData\\Roaming\\LibreOffice\\4\\user\\registrymodifications.xcu',
-                darwin: '/Users/xxx/Library/Application Support/LibreOffice/4/user/registrymodifications.xcu',
-                linux: '/home/xxx/.config/LibreOffice/registrymodifications.xcu',
+                win32: `C:\\Users\\${systemUser()}\\AppData\\Roaming\\LibreOffice\\4\\user\\registrymodifications.xcu`,
+                darwin: `/Users/${systemUser()}/Library/Application Support/LibreOffice/4/user/registrymodifications.xcu`,
+                linux: `/home/${systemUser()}/.config/LibreOffice/registrymodifications.xcu`,
             })}, ${i18n.t(sentenceKey.executorFileAt)} ${generateStringByOS({
-                win32: 'C:\\Program Files\\LibreOffice\\program\\soffice.exe',
-                darwin: '/Applications/LibreOffice.app/Contents/MacOS/soffice',
-                linux: '/usr/bin/soffice',
+                win32: `C:\\Program Files\\LibreOffice\\program\\soffice.exe`,
+                darwin: `/Applications/LibreOffice.app/Contents/MacOS/soffice`,
+                linux: `/usr/bin/soffice`,
             })}`,
             true,
             'registrymodifications.xcu',

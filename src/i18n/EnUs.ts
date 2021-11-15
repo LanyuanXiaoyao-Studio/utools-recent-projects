@@ -68,6 +68,7 @@ export class EnUs implements Sentence {
     readonly sqlite3: string = 'Configure Sqlite3 executable file path'
     readonly sqlite3Desc: string = 'Read the data needs Sqlite3 cli, you can go to「https://www.sqlite.org/download.html」and download the cli'
     readonly systemInformation: string = 'System Information'
+    readonly systemUser: string = 'System User'
     readonly systemVersion: string = 'System Version'
     readonly unknownError: string = 'Unknown error, feedback please'
     readonly unknownInputError: string = 'Unknown input error'

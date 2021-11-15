@@ -15,7 +15,7 @@ import {i18n, sentenceKey} from '../../i18n'
 import {every, has, isEmpty, isEqual, isNil, some, Url} from 'licia'
 import {readFile} from 'fs/promises'
 import {generatePinyinIndex} from '../../utils/index-generator/PinyinIndex'
-import {existsOrNot} from '../../Utils'
+import {existsOrNot, systemUser} from '../../Utils'
 import {signCalculate} from '../../utils/files/SignCalculate'
 
 const DEFAULT_FOLDER_X: string = 'default-folder-x'
@@ -36,7 +36,7 @@ export class DefaultFolderXApplicationImpl extends ApplicationCacheImpl<DefaultF
             DEFAULT_FOLDER_X,
             [Platform.darwin],
             Group[GroupName.system],
-            '配置文件通常放在 /Users/xxx/Library/Application Support/com.stclairsoft.DefaultFolderX5/default',
+            () => `配置文件通常放在 /Users/${systemUser()}/Library/Application Support/com.stclairsoft.DefaultFolderX5/default`,
             true,
         )
     }

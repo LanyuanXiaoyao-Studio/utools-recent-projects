@@ -10,7 +10,7 @@ import {
 import {Context} from '../../Context'
 import {readFileSync} from 'fs'
 import {isEmpty, strToBytes, unique} from 'licia'
-import {existsOrNot, generateStringByOS} from '../../Utils'
+import {existsOrNot, generateStringByOS, systemUser} from '../../Utils'
 import {i18n, sentenceKey} from '../../i18n'
 import {generatePinyinIndex} from '../../utils/index-generator/PinyinIndex'
 
@@ -28,8 +28,8 @@ export class TyporaApplicationImpl extends ApplicationCacheConfigAndExecutorImpl
             [Platform.win32, Platform.linux],
             Group[GroupName.editor],
             () => `${i18n.t(sentenceKey.configFileAt)} ${generateStringByOS({
-                win32: 'C:\\Users\\Administrator\\AppData\\Roaming\\Typora\\history.data',
-                linux: '/home/xxx/.config/Typora/history.data',
+                win32: `C:\\Users\\${systemUser()}\\AppData\\Roaming\\Typora\\history.data`,
+                linux: `/home/${systemUser()}/.config/Typora/history.data`,
             })}, ${i18n.t(sentenceKey.executorFileAt)} ${generateStringByOS({
                 win32: 'C:\\Program Files\\Typora\\Typora.exe',
                 linux: '(不同发行版安装路径差异较大, 自行使用 which 命令找到 typora 命令所在路径作为可执行文件路径)',

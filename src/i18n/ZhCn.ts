@@ -68,6 +68,7 @@ export class ZhCn implements Sentence {
     readonly sqlite3: string = '设置 Sqlite3 可执行程序路径'
     readonly sqlite3Desc: string = '读取数据需要使用 Sqlite3 命令行程序，可以自行前往「https://www.sqlite.org/download.html」下载对应平台的可执行文件'
     readonly systemInformation: string = '系统信息'
+    readonly systemUser: string = 'System 用户'
     readonly systemVersion: string = 'System 版本'
     readonly unknownError: string = '未知错误，请向作者反馈'
     readonly unknownInputError: string = '出现未知的输入错误'

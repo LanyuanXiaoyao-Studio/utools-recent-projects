@@ -12,7 +12,7 @@ import {
 import {readFile} from 'fs/promises'
 import {isNil, unique} from 'licia'
 import {parse} from 'path'
-import {existsOrNot, generateStringByOS} from '../../Utils'
+import {existsOrNot, generateStringByOS, systemUser} from '../../Utils'
 import {Context} from '../../Context'
 import {i18n, sentenceKey} from '../../i18n'
 import {generatePinyinIndex} from '../../utils/index-generator/PinyinIndex'
@@ -33,13 +33,13 @@ export class SublimeApplicationImpl extends ApplicationCacheConfigAndExecutorImp
             [Platform.win32, Platform.darwin, Platform.linux],
             Group[GroupName.editor],
             () => `${i18n.t(sentenceKey.configFileAt)} ${generateStringByOS({
-                win32: 'C:\\Users\\Administrator\\AppData\\Roaming\\Sublime Text 3\\Local\\Session.sublime_session',
-                darwin: '/Users/xxx/Library/Application Support/Sublime Text/Local/Session.sublime_session',
-                linux: '/home/xxx/.config/sublime-text/Local/Session.sublime_session',
+                win32: `C:\\Users\\${systemUser()}\\AppData\\Roaming\\Sublime Text 3\\Local\\Session.sublime_session`,
+                darwin: `/Users/${systemUser()}/Library/Application Support/Sublime Text/Local/Session.sublime_session`,
+                linux: `/home/${systemUser()}/.config/sublime-text/Local/Session.sublime_session`,
             })}, ${i18n.t(sentenceKey.executorFileAt)} ${generateStringByOS({
-                win32: 'C:\\Program Files\\Sublime Text\\subl.exe',
-                darwin: '/Users/xxx/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl',
-                linux: '(不同发行版安装路径差异较大, 自行使用 which 命令找到 subl 命令所在路径作为可执行文件路径)',
+                win32: `C:\\Program Files\\Sublime Text\\subl.exe`,
+                darwin: `/Users/${systemUser()}/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl`,
+                linux: `(不同发行版安装路径差异较大, 自行使用 which 命令找到 subl 命令所在路径作为可执行文件路径)`,
             })} (注意 Sublime Text 单独提供了命令行程序, 不是程序本体)`,
             undefined,
             'Session.sublime_session',
