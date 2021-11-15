@@ -102,7 +102,7 @@ export class InformationCard extends Component<InformationCardProps, Information
                                         class="form-label label-sm"
                                         for="system-user"
                                     >
-                                        System 用户
+                                        {i18n.t(sentenceKey.systemUser)}
                                     </label>
                                 </div>
                                 <div class="col-9 col-sm-12">
