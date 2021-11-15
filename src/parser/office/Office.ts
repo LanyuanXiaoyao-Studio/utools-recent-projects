@@ -66,7 +66,7 @@ export class OfficeMacApplicationImpl extends ApplicationCacheConfigImpl<OfficeP
 }
 
 export class OfficeWinApplicationImpl extends ApplicationImpl<OfficeProjectItemImpl> {
-    private recentPath: string = 'C:\\Users\\Administrator\\AppData\\Roaming\\Microsoft\\Office\\Recent'
+    private recentPath: string = `C:\\Users\\${utools.getUser()}\\AppData\\Roaming\\Microsoft\\Office\\Recent`
 
     constructor() {
         super(
@@ -76,7 +76,7 @@ export class OfficeWinApplicationImpl extends ApplicationImpl<OfficeProjectItemI
             OFFICE_WIN,
             [Platform.win32],
             Group[GroupName.office],
-            'Office 2019 通过解析 C:\\Users\\Administrator\\AppData\\Roaming\\Microsoft\\Office\\Recent 下的文件记录来得到历史打开文件列表, 这种方式依赖于默认的 Office 行为, 目前仅支持有限的 Office 文档格式',
+            'Office 2019 通过解析 C:\\Users\\xxx\\AppData\\Roaming\\Microsoft\\Office\\Recent 下的文件记录来得到历史打开文件列表, 这种方式依赖于默认的 Office 行为, 目前仅支持有限的 Office 文档格式',
             false,
         )
     }
