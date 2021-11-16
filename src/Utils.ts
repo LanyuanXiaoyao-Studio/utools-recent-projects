@@ -1,4 +1,4 @@
-import {existsSync, readdirSync, statSync} from 'fs'
+import {existsSync, readdirSync, Stats, statSync} from 'fs'
 import {Platform} from './Types'
 import {isEmpty, isFn, isNil, isUrl, Url} from 'licia'
 import {Context} from './Context'
@@ -167,7 +167,7 @@ export const initLanguage: (context?: Context) => void = context => {
 
 export const score: (a: string, b: string) => number = (a, b) => levenshtein.similarity(a, b)
 
-export const walker: (path: string, filter?: (fullPath: string) => boolean) => Array<string> = (path, filter) => {
+export const walker: (path: string, filter?: (fullPath: string, stat?: Stats) => boolean) => Array<string> = (path, filter) => {
     if (!existsSync(path) || !statSync(path).isDirectory()) {
         return []
     }
@@ -178,16 +178,13 @@ export const walker: (path: string, filter?: (fullPath: string) => boolean) => A
         .forEach(p => {
             try {
                 let stat = statSync(p)
+                if (isNil(filter) || !filter!(p, stat)) {
+                    return
+                }
                 if (stat.isDirectory()) {
                     folders.push(p)
                 } else if (stat.isFile()) {
-                    if (isNil(filter)) {
-                        files.push(p)
-                    } else {
-                        if (filter!(p)) {
-                            files.push(p)
-                        }
-                    }
+                    files.push(p)
                 } else {
                     return
                 }

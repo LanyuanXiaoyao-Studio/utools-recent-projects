@@ -50,7 +50,12 @@ export class ObsidianApplicationImpl extends ApplicationConfigImpl<ObsidianProje
                         let d = vaults[key]
                         let p = d['path']
                         if (!isNil(p) && !isEmpty(p)) {
-                            return walker(resolve(p), i => endWith(i, 'md'))
+                            return walker(resolve(p), (fullPath, stat) => {
+                                if ((stat?.isDirectory() ?? false)) {
+                                    return !endWith(fullPath, '.obsidian')
+                                }
+                                return endWith(fullPath, 'md')
+                            })
                                 .map(filename => {
                                     return {
                                         id: key,
