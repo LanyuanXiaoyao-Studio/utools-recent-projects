@@ -1,5 +1,6 @@
 2.4.4
-修复 Obsidian 没有忽略 .obsidian 导致出现无用的配置文件在结果中的问题
+1. 修复 Obsidian 没有忽略 .obsidian 导致出现无用的配置文件在结果中的问题
+2. 修复 Default Folder X 没有屏蔽其他平台 Feature 的问题
 
 2.4.3
 1. 修复 Windows Office 默认只使用 Administrator 作为配置目录的问题
