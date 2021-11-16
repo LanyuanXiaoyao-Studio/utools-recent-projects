@@ -361,10 +361,13 @@
       ]
     },
     {
-      "code"   : "default-folder-x-project",
-      "explain": "快速打开最近文件或文件夹",
-      "icon"   : "icon/default-folder-x.png",
-      "cmds"   : [
+      "code"    : "default-folder-x-project",
+      "explain" : "快速打开最近文件或文件夹",
+      "icon"    : "icon/default-folder-x.png",
+      "platform": [
+        "darwin"
+      ],
+      "cmds"    : [
         "Recent Files & Folders",
         "最近文件或文件夹",
         {
