@@ -1,3 +1,6 @@
+2.4.5
+修复 Windows wps 中文乱码的问题
+
 2.4.4
 1. 修复 Obsidian 没有忽略 .obsidian 导致出现无用的配置文件在结果中的问题
 2. 修复 Default Folder X 没有屏蔽其他平台 Feature 的问题
