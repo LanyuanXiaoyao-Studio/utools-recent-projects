@@ -33,7 +33,7 @@ export class WpsWinInternationalApplicationImpl extends ApplicationImpl<WpsWinIn
             WPS_WIN_INTERNATION,
             [Platform.win32],
             Group[GroupName.office],
-            () => `数据通过读取注册表 HKEY_CURRENT_USER\\SOFTWARE\\kingsoft\\Office\\6.0\\${systemUser()}\\RecentFiles\\Sequence 获得, 仅读取, 不会修改注册表信息`,
+            () => `数据通过读取注册表 HKEY_CURRENT_USER\\SOFTWARE\\kingsoft\\Office\\6.0\\xxx\\RecentFiles\\Sequence 获得, 仅读取, 不会修改注册表信息`,
             true,
         )
     }
