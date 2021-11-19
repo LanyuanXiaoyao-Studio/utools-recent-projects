@@ -17,6 +17,7 @@ import {i18n, sentenceKey} from '../../i18n'
 import WinReg from 'winreg'
 import {generatePinyinIndex} from '../../utils/index-generator/PinyinIndex'
 import plistParser from 'bplist-parser'
+import {execSync} from 'child_process'
 
 const WPS_WIN_INTERNATION: string = 'wps-win-internation'
 const WPS_MAC_INTERNATION: string = 'wps-mac-internation'
@@ -40,6 +41,7 @@ export class WpsWinInternationalApplicationImpl extends ApplicationImpl<WpsWinIn
 
     async generateProjectItems(context: Context): Promise<Array<WpsWinInternationalProjectItemImpl>> {
         let items: Array<WpsWinInternationalProjectItemImpl> = []
+        execSync(`powershell.exe -command \"chcp 65001\"`)
         let results = [
             ...await listRegistry(WinReg.HKCU, '\\SOFTWARE\\kingsoft\\Office\\6.0\\wps\\RecentFiles\\Sequence'),
             ...await listRegistry(WinReg.HKCU, '\\SOFTWARE\\kingsoft\\Office\\6.0\\pdf\\RecentFiles\\Sequence'),
