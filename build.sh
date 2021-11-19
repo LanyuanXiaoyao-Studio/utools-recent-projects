@@ -60,6 +60,7 @@ cd $temp
 
 cd "${temp}/node_modules/winreg"
 rm -rf test *.md .npmignore jsdoc.conf.json
+cp -r ${current_path}/lib/winreg/lib/registry.js lib
 cd $temp
 
 cd "${temp}/node_modules/nanobar"

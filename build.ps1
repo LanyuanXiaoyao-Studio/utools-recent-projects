@@ -60,6 +60,7 @@ Set-Location $temp
 
 Set-Location "$temp\node_modules\winreg"
 Remove-Item -Force -Recurse test,*.md,.npmignore,jsdoc.conf.json
+Copy-Item "$current_path\lib\winreg\lib\registry.js" lib
 Set-Location $temp
 
 Set-Location "$temp\node_modules\nanobar"

@@ -41,7 +41,6 @@ export class WpsWinInternationalApplicationImpl extends ApplicationImpl<WpsWinIn
 
     async generateProjectItems(context: Context): Promise<Array<WpsWinInternationalProjectItemImpl>> {
         let items: Array<WpsWinInternationalProjectItemImpl> = []
-        execSync(`powershell.exe -command \"chcp 65001\"`)
         let results = [
             ...await listRegistry(WinReg.HKCU, '\\SOFTWARE\\kingsoft\\Office\\6.0\\wps\\RecentFiles\\Sequence'),
             ...await listRegistry(WinReg.HKCU, '\\SOFTWARE\\kingsoft\\Office\\6.0\\pdf\\RecentFiles\\Sequence'),
