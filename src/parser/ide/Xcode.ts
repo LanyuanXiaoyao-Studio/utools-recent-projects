@@ -18,25 +18,27 @@ import {signCalculate} from '../../utils/files/SignCalculate'
 
 const XCODE: string = 'xcode'
 
-const generateScript: (string) => string = configPath => `osascript -e "use framework \\"Foundation\\"
-use scripting additions
-property |⌘| : a reference to current application
-set documentPaths to {}
-try
-  set recentDocumentsPath to \\"${configPath}\\"
-  set plistData to |⌘|'s NSData's dataWithContentsOfFile:recentDocumentsPath
-  set recentDocuments to |⌘|'s NSKeyedUnarchiver's unarchiveObjectWithData:plistData
-  repeat with doc in (recentDocuments's objectForKey:\\"items\\")
-    set documentBookmark to (doc's objectForKey:\\"Bookmark\\")
-    set {documentURL, resolveError} to (|⌘|'s NSURL's URLByResolvingBookmarkData:documentBookmark options:0 relativeToURL:(missing value) bookmarkDataIsStale:(missing value) |error|:(reference))
-    if resolveError is missing value then
-      set end of documentPaths to documentURL's |path|() as string
-    end if
-  end repeat
-  documentPaths as list
-on error
-  {}
-end try"
+const generateScript: (string) => string = configPath => `osascript -l JavaScript -e "ObjC.import('Foundation')
+let paths = []
+try {
+    let data = \\$.NSData.dataWithContentsOfFile('${configPath}')
+    let document = \\$.NSKeyedUnarchiver.unarchiveObjectWithData(data)
+    let items = document.objectForKey('items')
+    let length = items.count
+    let keys = \\$([\\$.NSURLPathKey])
+    for (let i = 0; i < length; i++) {
+        try {
+            let item = items.objectAtIndex(i)
+            let source = item.objectForKey('Bookmark')
+            let dict = \\$.NSURL.resourceValuesForKeysFromBookmarkData(keys, source)
+            let path = dict.objectForKey('_NSURLPathKey')
+            paths.push(ObjC.unwrap(path))
+        } catch (e) {
+            continue
+        }
+    }
+} catch (e) {}
+paths"
 `
 
 export class XcodeProjectItemImpl extends ProjectItemImpl {}
