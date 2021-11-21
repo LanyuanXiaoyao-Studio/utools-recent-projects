@@ -44,7 +44,15 @@ export class Context {
         utools.dbStorage.setItem(id, value)
     }
 
-    static updateNative(id: string, value: boolean): void {
+    static updateNative(id: string, value: any): void {
         utools.dbStorage.setItem(Context.joinId(utools.getNativeId(), id), value)
+    }
+
+    static remove(id: string): void {
+        utools.dbStorage.removeItem(id)
+    }
+
+    static removeNative(id: string) {
+        utools.dbStorage.removeItem(Context.joinId(utools.getNativeId(), id))
     }
 }
