@@ -10,6 +10,7 @@ import {compareChar, isDevelopment, platformFromUtools} from '../Utils'
 import {ApplicationSettingCard} from './components/application-settings/ApplicationSettingCard'
 import {Context} from '../Context'
 import {applications} from '../Applications'
+import {i18n, sentenceKey} from '../i18n'
 
 interface RootProps {
     context: Context
@@ -60,7 +61,9 @@ class Root extends Component<RootProps, RootState> {
                             <div class="column col-9">
                                 {isDevelopment()
                                     ? <Fragment>
-                                        <div class="text-error text-center"><b>当前处于开发模式</b></div>
+                                        <div class="text-error text-center">
+                                            <b>{i18n.t(sentenceKey.devTip)}</b>
+                                        </div>
                                     </Fragment>
                                     : <Fragment/>}
                                 {/*右侧配置信息*/}
