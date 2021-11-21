@@ -11,6 +11,7 @@ export class EnUs implements Sentence {
     readonly configFileAt: string = 'Config file usually at'
     readonly configPrefix: string = 'Configure'
     readonly configSuffix: string = 'file path'
+    readonly devTip: string = 'In development mode now'
     readonly emptyTipsDesc: string = 'If you are not configure this program, please configure it in the setting page. Click this to setting page'
     readonly emptyTipsTitle: string = 'Found nothing'
     readonly enableDesc: string = 'Closing this option will be as if this application is not configured'

@@ -13,6 +13,7 @@ export const sentenceKey = {
     configFileAt: 'configFileAt',
     configPrefix: 'configPrefix',
     configSuffix: 'configSuffix',
+    devTip: 'devTip',
     emptyTipsDesc: 'emptyTipsDesc',
     emptyTipsTitle: 'emptyTipsTitle',
     enableDesc: 'enableDesc',
@@ -91,6 +92,7 @@ export interface Sentence {
     readonly configFileAt: string
     readonly configPrefix: string
     readonly configSuffix: string
+    readonly devTip: string
     readonly emptyTipsDesc: string
     readonly emptyTipsTitle: string
     readonly enableDesc: string

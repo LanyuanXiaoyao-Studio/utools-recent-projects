@@ -6,8 +6,8 @@ import {Catalogue} from './components/Catalogue'
 import {Announcement} from './components/Announcement'
 import {contain} from 'licia'
 import {InformationCard} from './components/InformationCard'
-import {compareChar, platformFromUtools} from '../Utils'
-import {ApplicationSettingCard} from './components/ApplicationSettingCard'
+import {compareChar, isDevelopment, platformFromUtools} from '../Utils'
+import {ApplicationSettingCard} from './components/application-settings/ApplicationSettingCard'
 import {Context} from '../Context'
 import {applications} from '../Applications'
 
@@ -58,6 +58,11 @@ class Root extends Component<RootProps, RootState> {
                                 <Catalogue applications={this.state.applications}/>
                             </div>
                             <div class="column col-9">
+                                {isDevelopment()
+                                    ? <Fragment>
+                                        <div class="text-error text-center"><b>当前处于开发模式</b></div>
+                                    </Fragment>
+                                    : <Fragment/>}
                                 {/*右侧配置信息*/}
                                 {/*用户和系统信息*/}
                                 <InformationCard platform={this.state.platform}/>

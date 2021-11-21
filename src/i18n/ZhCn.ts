@@ -11,6 +11,7 @@ export class ZhCn implements Sentence {
     readonly configFileAt: string = '配置文件通常放在'
     readonly configPrefix: string = '设置'
     readonly configSuffix: string = '文件路径'
+    readonly devTip: string = '当前处于开发模式'
     readonly emptyTipsDesc: string = '如果你还没有设置该软件的相关配置，请先在 Setting 关键字中设置相关配置内容，点击可跳转设置界面'
     readonly emptyTipsTitle: string = '似乎什么都找不到'
     readonly enableDesc: string = '关闭这个选项将如同没有配置这个应用适配一样'

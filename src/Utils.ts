@@ -135,8 +135,14 @@ export const generateStringByOS: (data: StringByOS) => string = data => {
 
 let isDev: boolean
 export const isDevelopment: () => boolean = () => {
-    if (isNil(isDev)) {
-        isDev = !/[a-zA-Z0-9\-]+\.asar/.test(__dirname)
+    if (isNil(utools.isDev) || !isFn(utools.isDev)) {
+        if (isNil(isDev)) {
+            isDev = !/[a-zA-Z0-9\-]+\.asar/.test(__dirname)
+        }
+    } else {
+        if (isNil(isDev)) {
+            isDev = utools.isDev()
+        }
     }
     return isDev
 }

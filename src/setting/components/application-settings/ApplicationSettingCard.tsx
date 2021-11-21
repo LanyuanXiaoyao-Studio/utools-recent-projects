@@ -1,6 +1,6 @@
 import Nano, {Component, Fragment, Img} from 'nano-jsx'
-import {Context} from '../../Context'
-import {i18n, sentenceKey} from '../../i18n'
+import {Context} from '../../../Context'
+import {i18n, sentenceKey} from '../../../i18n'
 
 class CloudSyncChip extends Component {
     override render() {
