@@ -31,7 +31,7 @@ export class ApplicationSettingCard extends Component<ApplicationSettingCardProp
                 <div class="form-item application-setting-card card">
                     <div class="card-header">
                         <Img
-                            class="icon"
+                            class="card-icon"
                             src={this.icon}
                         />
                         <span class="title">{i18n.t(sentenceKey.pluginSetting)}</span>
