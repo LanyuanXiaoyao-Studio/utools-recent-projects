@@ -15,6 +15,7 @@ export class CloudSyncChip extends Component {
         )
     }
 }
+
 export class NativeChip extends Component {
     override render() {
         return (

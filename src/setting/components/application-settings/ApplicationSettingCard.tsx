@@ -1,7 +1,15 @@
 import Nano, {Component, Fragment, Img} from 'nano-jsx'
 import {Context} from '../../../Context'
 import {i18n, sentenceKey} from '../../../i18n'
-import {CloudSyncChip, NativeChip, RebootNeededChip, TestChip} from './Chips'
+import {Language} from './setting-items/Language'
+import {NotifyFileOpen} from './setting-items/NotifyFileOpen'
+import {InputPathDirctly} from './setting-items/InputPathDirctly'
+import {PinyinIndex} from './setting-items/PinyinIndex'
+import {FuzzyMatch} from './setting-items/FuzzyMatch'
+import {FilterNonExistsFiles} from './setting-items/FilterNonExistsFiles'
+import {GetFileIcon} from './setting-items/GetFileIcon'
+import {GetFavicon} from './setting-items/GetFavicon'
+import {HistoryLimit} from './setting-items/HistoryLimit'
 
 export interface ApplicationSettingCardProps {
     context: Context
@@ -59,234 +67,31 @@ export class ApplicationSettingCard extends Component<ApplicationSettingCardProp
                     </div>
                     <div class="card-body">
                         <form class="form-horizontal">
-                            <div class="form-group">
-                                <div class="col-10 col-mr-auto">
-                                    <div class="form-label">
-                                        {i18n.t(sentenceKey.languageSetting)}
-                                    </div>
-                                    <div class="form-description">{i18n.t(sentenceKey.languageSettingDesc)}</div>
-                                    <div class="form-tags">
-                                        <CloudSyncChip/>
-                                        <RebootNeededChip/>
-                                    </div>
-                                </div>
-                                <div class="col-2 flex-column-center">
-                                    <select
-                                        class="form-select select-sm"
-                                        onchange={event => this.select(Context.languageSettingId, event.target)}
-                                    >
-                                        <option
-                                            value="auto"
-                                            {...(this.localContext.languageSetting === 'auto' ? { selected: true } : {})}
-                                        >{i18n.t(sentenceKey.auto)}</option>
-                                        <option
-                                            value="zh-CN"
-                                            {...(this.localContext.languageSetting === 'zh-CN' ? { selected: true } : {})}
-                                        >中文
-                                        </option>
-                                        <option
-                                            value="en-US"
-                                            {...(this.localContext.languageSetting === 'en-US' ? { selected: true } : {})}
-                                        >English
-                                        </option>
-                                    </select>
-                                </div>
-                            </div>
+                            <Language context={this.props.context}/>
                             <div class="divider"/>
-                            <div class="form-group">
-                                <div class="col-10 col-mr-auto">
-                                    <div class="form-label">{i18n.t(sentenceKey.notifyFileOpen)}</div>
-                                    <div class="form-description">{i18n.t(sentenceKey.notifyFileOpenDesc)}</div>
-                                    <div class="form-tags">
-                                        <CloudSyncChip/>
-                                    </div>
-                                </div>
-                                <div class="col-1 flex-column-center">
-                                    <label class="form-switch">
-                                        <input
-                                            type="checkbox"
-                                            {...(this.localContext.enableOpenNotification ? { checked: true } : {})}
-                                            onchange={() => this.switch(Context.enableOpenNotificationId, !this.localContext.enableOpenNotification)}
-                                        />
-                                        <i class="form-icon"/>
-                                    </label>
-                                </div>
-                            </div>
+                            <NotifyFileOpen context={this.props.context}/>
                             <div class="divider"/>
-                            <div class="form-group">
-                                <div class="col-10 col-mr-auto">
-                                    <div class="form-label">
-                                        {i18n.t(sentenceKey.inputPathDirectly)}
-                                    </div>
-                                    <div class="form-description">{i18n.t(sentenceKey.inputPathDirectlyDesc)}</div>
-                                    <div class="form-tags">
-                                        <NativeChip/>
-                                        <RebootNeededChip/>
-                                    </div>
-                                </div>
-                                <div class="col-1 flex-column-center">
-                                    <label class="form-switch">
-                                        <input
-                                            type="checkbox"
-                                            {...(this.localContext.enableEditPathInputDirectly ? { checked: true } : {})}
-                                            onchange={() => this.switchNative(Context.enableEditPathInputDirectlyId, !this.localContext.enableEditPathInputDirectly)}
-                                        />
-                                        <i class="form-icon"/>
-                                    </label>
-                                </div>
-                            </div>
+                            <InputPathDirctly context={this.props.context}/>
                             <div
                                 class="divider text-center"
                                 data-content={i18n.t(sentenceKey.search)}
                             />
-                            <div class="form-group">
-                                <div class="col-10 col-mr-auto">
-                                    <div class="form-label">
-                                        {i18n.t(sentenceKey.pinyinIndex)}
-                                    </div>
-                                    <div class="form-description">{i18n.t(sentenceKey.pinyinIndexDesc)}</div>
-                                    <div class="form-tags">
-                                        <CloudSyncChip/>
-                                    </div>
-                                </div>
-                                <div class="col-1 flex-column-center">
-                                    <label class="form-switch">
-                                        <input
-                                            type="checkbox"
-                                            {...(this.localContext.enablePinyinIndex ? { checked: true } : {})}
-                                            onchange={() => this.switch(Context.enablePinyinIndexId, !this.localContext.enablePinyinIndex)}
-                                        />
-                                        <i class="form-icon"/>
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-10 col-mr-auto">
-                                    <div class="form-label">
-                                        {i18n.t(sentenceKey.fuzzyMatch)}
-                                    </div>
-                                    <div class="form-description">{i18n.t(sentenceKey.fuzzyMatchDesc)}</div>
-                                    <div class="form-tags">
-                                        <CloudSyncChip/>
-                                        <TestChip/>
-                                    </div>
-                                </div>
-                                <div class="col-1 flex-column-center">
-                                    <label class="form-switch">
-                                        <input
-                                            type="checkbox"
-                                            {...(this.localContext.enableFuzzyMatch ? { checked: true } : {})}
-                                            onchange={() => this.switch(Context.enableFuzzyMatchId, !this.localContext.enableFuzzyMatch)}
-                                        />
-                                        <i class="form-icon"/>
-                                    </label>
-                                </div>
-                            </div>
+                            <PinyinIndex context={this.props.context}/>
+                            <FuzzyMatch context={this.props.context}/>
                             <div
                                 class="divider text-center"
                                 data-content={i18n.t(sentenceKey.file)}
                             />
-                            <div class="form-group">
-                                <div class="col-10 col-mr-auto">
-                                    <div class="form-label">{i18n.t(sentenceKey.filterNonExistsFiles)}</div>
-                                    <div class="form-description">{i18n.t(sentenceKey.filterNonExistsFilesDesc)}</div>
-                                    <div class="form-tags">
-                                        <CloudSyncChip/>
-                                    </div>
-                                </div>
-                                <div class="col-1 flex-column-center">
-                                    <label class="form-switch">
-                                        <input
-                                            type="checkbox"
-                                            {...(this.localContext.enableFilterNonExistsFiles ? { checked: true } : {})}
-                                            onchange={() => this.switch(Context.enableFilterNonExistsFilesId, !this.localContext.enableFilterNonExistsFiles)}
-                                        />
-                                        <i class="form-icon"/>
-                                    </label>
-                                </div>
-                            </div>
+                            <FilterNonExistsFiles context={this.props.context}/>
                             <div class="divider"/>
-                            <div class="form-group">
-                                <div class="col-10 col-mr-auto">
-                                    <div class="form-label">{i18n.t(sentenceKey.getFileIcon)}</div>
-                                    <div class="form-description">{i18n.t(sentenceKey.getFileIconDesc)}</div>
-                                    <div class="form-tags">
-                                        <CloudSyncChip/>
-                                    </div>
-                                </div>
-                                <div class="col-1 flex-column-center">
-                                    <label class="form-switch">
-                                        <input
-                                            type="checkbox"
-                                            {...(this.localContext.enableGetFileIcon ? { checked: true } : {})}
-                                            onchange={() => this.switch(Context.enableGetFileIconId, !this.localContext.enableGetFileIcon)}
-                                        />
-                                        <i class="form-icon"/>
-                                    </label>
-                                </div>
-                            </div>
+                            <GetFileIcon context={this.props.context}/>
                             <div
                                 class="divider text-center"
                                 data-content={i18n.t(sentenceKey.browser)}
                             />
-                            <div class="form-group">
-                                <div class="col-10 col-mr-auto">
-                                    <div class="form-label">{i18n.t(sentenceKey.getFavicon)}</div>
-                                    <div class="form-description">{i18n.t(sentenceKey.getFaviconDesc)}</div>
-                                    <div class="form-tags">
-                                        <CloudSyncChip/>
-                                    </div>
-                                </div>
-                                <div class="col-1 flex-column-center">
-                                    <label class="form-switch">
-                                        <input
-                                            type="checkbox"
-                                            {...(this.localContext.enableGetFaviconFromNet ? { checked: true } : {})}
-                                            onchange={() => this.switch(Context.enableGetFaviconFromNetId, !this.localContext.enableGetFaviconFromNet)}
-                                        />
-                                        <i class="form-icon"/>
-                                    </label>
-                                </div>
-                            </div>
+                            <GetFavicon context={this.props.context}/>
                             <div class="divider"/>
-                            <div class="form-group">
-                                <div class="col-10 col-mr-auto">
-                                    <div class="form-label">
-                                        {i18n.t(sentenceKey.historyLimit)}
-                                    </div>
-                                    <div class="form-description">{i18n.t(sentenceKey.historyLimitDesc)}</div>
-                                    <div class="form-tags">
-                                        <CloudSyncChip/>
-                                    </div>
-                                </div>
-                                <div class="col-2 flex-column-center">
-                                    <select
-                                        class="form-select select-sm"
-                                        onchange={event => this.select(Context.browserHistoryLimitId, event.target)}
-                                    >
-                                        <option
-                                            value="100"
-                                            {...(this.localContext.browserHistoryLimit === 100 ? { selected: true } : {})}
-                                        >100
-                                        </option>
-                                        <option
-                                            value="200"
-                                            {...(this.localContext.browserHistoryLimit === 200 ? { selected: true } : {})}
-                                        >200
-                                        </option>
-                                        <option
-                                            value="500"
-                                            {...(this.localContext.browserHistoryLimit === 500 ? { selected: true } : {})}
-                                        >500
-                                        </option>
-                                        <option
-                                            value="1000"
-                                            {...(this.localContext.browserHistoryLimit === 1000 ? { selected: true } : {})}
-                                        >1000
-                                        </option>
-                                    </select>
-                                </div>
-                            </div>
+                            <HistoryLimit context={this.props.context}/>
                         </form>
                     </div>
                 </div>
