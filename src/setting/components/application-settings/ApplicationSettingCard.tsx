@@ -129,7 +129,7 @@ export class ApplicationSettingCard extends Component<ApplicationSettingCardProp
                                         <input
                                             type="checkbox"
                                             {...(this.localContext.enableEditPathInputDirectly ? { checked: true } : {})}
-                                            onchange={() => this.switch(Context.enableEditPathInputDirectlyId, !this.localContext.enableEditPathInputDirectly)}
+                                            onchange={() => this.switchNative(Context.enableEditPathInputDirectlyId, !this.localContext.enableEditPathInputDirectly)}
                                         />
                                         <i class="form-icon"/>
                                     </label>
