@@ -17,8 +17,8 @@ export class ChromiumHistoryProjectItemImpl extends DatetimeProjectItemImpl {}
 export class ChromiumHistoryApplicationImpl extends SqliteBrowserApplicationImpl<ChromiumHistoryProjectItemImpl> {
     private readonly browserId: BrowserId
 
-    constructor(id: BrowserId, name: string, type: string, platforms: Array<Platform> = [Platform.win32, Platform.darwin, Platform.linux], beta: boolean = false, configName: string = '') {
-        super(`${id}-history`, `${name}`, `icon/browser-${id}.png`, type, platforms, Group[GroupName.browserHistory], () => handler(this.defaultConfigPath()), beta, configName)
+    constructor(id: BrowserId, name: string, type: string, platforms: Array<Platform> = [Platform.win32, Platform.darwin, Platform.linux], description: boolean = true, beta: boolean = false, configName: string = '') {
+        super(`${id}-history`, `${name}`, `icon/browser-${id}.png`, type, platforms, Group[GroupName.browserHistory], description ? () => handler(this.defaultConfigPath()) : undefined, beta, configName)
         this.browserId = id
     }
 
@@ -89,16 +89,16 @@ export class ChromiumHistoryApplicationImpl extends SqliteBrowserApplicationImpl
 }
 
 export const applications: Array<ApplicationImpl<ChromiumHistoryProjectItemImpl>> = [
-    new ChromiumHistoryApplicationImpl('chromium', 'Chromium', CHROMIUM, undefined, undefined, configName),
-    new ChromiumHistoryApplicationImpl('chrome', 'Google Chrome', CHROMIUM, undefined, undefined, configName),
-    new ChromiumHistoryApplicationImpl('edge', 'Microsoft Edge', CHROMIUM, undefined, undefined, configName),
-    new ChromiumHistoryApplicationImpl('qq', 'QQ Browser', CHROMIUM, [Platform.win32], undefined, configName),
-    new ChromiumHistoryApplicationImpl('maxthon', 'Maxthon (傲游)', CHROMIUM, [Platform.win32], undefined, configName),
-    new ChromiumHistoryApplicationImpl('opera', 'Opera', CHROMIUM, undefined, undefined, configName),
-    new ChromiumHistoryApplicationImpl('brave', 'Brave', CHROMIUM, undefined, undefined, configName),
-    new ChromiumHistoryApplicationImpl('vivaldi', 'Vivaldi', CHROMIUM, undefined, undefined, configName),
-    new ChromiumHistoryApplicationImpl('cent', 'CentBrowser (百分)', CHROMIUM, [Platform.win32], undefined, configName),
-    new ChromiumHistoryApplicationImpl('yandex', 'Yandex', CHROMIUM, undefined, undefined, configName),
-    new ChromiumHistoryApplicationImpl('liebao', '猎豹浏览器', CHROMIUM, [Platform.win32], undefined, configName),
-    new ChromiumHistoryApplicationImpl('deepin', '深度浏览器', CHROMIUM, [Platform.linux], undefined, configName),
+    new ChromiumHistoryApplicationImpl('chromium', 'Chromium', CHROMIUM, undefined, false, undefined, configName),
+    new ChromiumHistoryApplicationImpl('chrome', 'Google Chrome', CHROMIUM, undefined, false, undefined, configName),
+    new ChromiumHistoryApplicationImpl('edge', 'Microsoft Edge', CHROMIUM, undefined, false, undefined, configName),
+    new ChromiumHistoryApplicationImpl('qq', 'QQ Browser', CHROMIUM, [Platform.win32], false, undefined, configName),
+    new ChromiumHistoryApplicationImpl('maxthon', 'Maxthon (傲游)', CHROMIUM, [Platform.win32], false, undefined, configName),
+    new ChromiumHistoryApplicationImpl('opera', 'Opera', CHROMIUM, undefined, false, undefined, configName),
+    new ChromiumHistoryApplicationImpl('brave', 'Brave', CHROMIUM, undefined, false, undefined, configName),
+    new ChromiumHistoryApplicationImpl('vivaldi', 'Vivaldi', CHROMIUM, undefined, false, undefined, configName),
+    new ChromiumHistoryApplicationImpl('cent', 'CentBrowser (百分)', CHROMIUM, [Platform.win32], false, undefined, configName),
+    new ChromiumHistoryApplicationImpl('yandex', 'Yandex', CHROMIUM, undefined, false, undefined, configName),
+    new ChromiumHistoryApplicationImpl('liebao', '猎豹浏览器', CHROMIUM, [Platform.win32], false, undefined, configName),
+    new ChromiumHistoryApplicationImpl('deepin', '深度浏览器', CHROMIUM, [Platform.linux], false, undefined, configName),
 ]
