@@ -28,14 +28,18 @@ export class ObsidianApplicationImpl extends ApplicationConfigImpl<ObsidianProje
             OBSIDIAN,
             [Platform.win32, Platform.darwin, Platform.linux],
             Group[GroupName.editor],
-            () => `${i18n.t(sentenceKey.configFileAt)} ${generateStringByOS({
-                win32: `C:\\Users\\${systemUser()}\\AppData\\Roaming\\obsidian\\obsidian.json`,
-                darwin: `/Users/${systemUser()}/Library/Application Support/obsidian/obsidian.json`,
-                linux: `/home/${systemUser()}/.config/obsidian/obsidian.json`,
-            })}`,
+            () => `${i18n.t(sentenceKey.configFileAt)} ${this.defaultConfigPath()}`,
             true,
             'obsidian.json',
         )
+    }
+
+    override defaultConfigPath(): string {
+        return generateStringByOS({
+            win32: `C:\\Users\\${systemUser()}\\AppData\\Roaming\\obsidian\\obsidian.json`,
+            darwin: `/Users/${systemUser()}/Library/Application Support/obsidian/obsidian.json`,
+            linux: `/home/${systemUser()}/.config/obsidian/obsidian.json`,
+        })
     }
 
     async generateProjectItems(context: Context): Promise<Array<ObsidianProjectItemImpl>> {

@@ -27,16 +27,24 @@ export class TyporaApplicationImpl extends ApplicationCacheConfigAndExecutorImpl
             TYPORA,
             [Platform.win32, Platform.linux],
             Group[GroupName.editor],
-            () => `${i18n.t(sentenceKey.configFileAt)} ${generateStringByOS({
-                win32: `C:\\Users\\${systemUser()}\\AppData\\Roaming\\Typora\\history.data`,
-                linux: `/home/${systemUser()}/.config/Typora/history.data`,
-            })}, ${i18n.t(sentenceKey.executorFileAt)} ${generateStringByOS({
-                win32: 'C:\\Program Files\\Typora\\Typora.exe',
-                linux: '(不同发行版安装路径差异较大, 自行使用 which 命令找到 typora 命令所在路径作为可执行文件路径)',
-            })}`,
+            () => `${i18n.t(sentenceKey.configFileAt)} ${this.defaultConfigPath()}, ${i18n.t(sentenceKey.executorFileAt)} ${this.defaultExecutorPath()}`,
             undefined,
             'history.data',
         )
+    }
+
+    override defaultConfigPath(): string {
+        return generateStringByOS({
+            win32: `C:\\Users\\${systemUser()}\\AppData\\Roaming\\Typora\\history.data`,
+            linux: `/home/${systemUser()}/.config/Typora/history.data`,
+        })
+    }
+
+    override defaultExecutorPath(): string {
+        return generateStringByOS({
+            win32: 'C:\\Program Files\\Typora\\Typora.exe',
+            linux: '(不同发行版安装路径差异较大, 自行使用 which 命令找到 typora 命令所在路径作为可执行文件路径)',
+        })
     }
 
     async generateCacheProjectItems(context: Context): Promise<Array<TyporaProjectItemImpl>> {

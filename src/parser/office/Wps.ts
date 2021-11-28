@@ -10,14 +10,13 @@ import {
 } from '../../Types'
 import {isEmpty, isNil, unique} from 'licia'
 import {parse} from 'path'
-import {existsOrNot, generateStringByOS, listRegistry, systemUser} from '../../Utils'
+import {existsOrNot, listRegistry, systemUser} from '../../Utils'
 import {Context} from '../../Context'
 import {readFile} from 'fs/promises'
 import {i18n, sentenceKey} from '../../i18n'
 import WinReg from 'winreg'
 import {generatePinyinIndex} from '../../utils/index-generator/PinyinIndex'
 import plistParser from 'bplist-parser'
-import {execSync} from 'child_process'
 
 const WPS_WIN_INTERNATION: string = 'wps-win-internation'
 const WPS_MAC_INTERNATION: string = 'wps-mac-internation'
@@ -84,14 +83,15 @@ export class WpsMacInternationalApplicationImpl extends ApplicationConfigImpl<Wp
             WPS_MAC_INTERNATION,
             [Platform.darwin],
             Group[GroupName.office],
-            `刚关闭的文档没有出现在历史记录里是因为配置文件还没有更新, 但 wps 更新配置文件的时机不明, 通常是等一会儿.
-` + generateStringByOS({
-                handler: text => `配置文件通常放在 ${text}`,
-                darwin: `/Users/${systemUser()}/Library/Containers/com.kingsoft.wpsoffice.mac.global/Data/Library/Preferences/com.kingsoft.plist`,
-            }),
+            () => `刚关闭的文档没有出现在历史记录里是因为配置文件还没有更新, 但 wps 更新配置文件的时机不明, 通常是等一会儿.
+配置文件通常放在 ${this.defaultConfigPath()}`,
             false,
             'com.kingsoft.plist',
         )
+    }
+
+    override defaultConfigPath(): string {
+        return `/Users/${systemUser()}/Library/Containers/com.kingsoft.wpsoffice.mac.global/Data/Library/Preferences/com.kingsoft.plist`
     }
 
     async generateProjectItems(context: Context): Promise<Array<WpsMacInternationalProjectItemImpl>> {
@@ -140,14 +140,18 @@ export class WpsLinuxInternationalApplicationImpl extends ApplicationConfigAndEx
             WPS_LINUX_INTERNATION,
             [Platform.linux],
             Group[GroupName.office],
-            () => `${i18n.t(sentenceKey.configFileAt)} ${generateStringByOS({
-                linux: `/home/${systemUser()}/.config/Kingsoft/Office.conf`,
-            })}, ${i18n.t(sentenceKey.executorFileAt)} ${generateStringByOS({
-                linux: '/usr/bin/wps',
-            })}, 也可以直接填入 xdg-open 命令使用`,
+            () => `${i18n.t(sentenceKey.configFileAt)} ${this.defaultConfigPath()}, ${i18n.t(sentenceKey.executorFileAt)} ${this.defaultExecutorPath()}, 也可以直接填入 xdg-open 命令使用`,
             false,
             'Office.conf',
         )
+    }
+
+    override defaultConfigPath(): string {
+        return `/home/${systemUser()}/.config/Kingsoft/Office.conf`
+    }
+
+    override defaultExecutorPath(): string {
+        return `/usr/bin/wps`
     }
 
     async generateProjectItems(context: Context): Promise<Array<WpsLinuxInternationalProjectItemImpl>> {

@@ -1,13 +1,5 @@
-import {
-    ApplicationImpl,
-    DatetimeProjectItemImpl,
-    DescriptionGetter,
-    ElectronExecutor,
-    Group,
-    GroupName,
-    Platform,
-} from '../../../Types'
-import {BrowserId, getDescription, SqliteBrowserApplicationImpl} from '../index'
+import {ApplicationImpl, DatetimeProjectItemImpl, ElectronExecutor, Group, GroupName, Platform} from '../../../Types'
+import {BrowserId, getDefaultConfigPath, SqliteBrowserApplicationImpl} from '../index'
 import {execFileSync} from 'child_process'
 import {isEmpty, unique} from 'licia'
 import {removeAllQueryFromUrl} from '../../../Utils'
@@ -17,12 +9,21 @@ import {generatePinyinIndex} from '../../../utils/index-generator/PinyinIndex'
 import {generateHostIndex} from '../../../utils/index-generator/HostIndex'
 
 const CHROMIUM: string = 'chromium'
+const configName = 'History'
+const handler = text => `${configName} ${i18n.t(sentenceKey.browserPathDescPrefix)} ${text}`
 
 export class ChromiumHistoryProjectItemImpl extends DatetimeProjectItemImpl {}
 
 export class ChromiumHistoryApplicationImpl extends SqliteBrowserApplicationImpl<ChromiumHistoryProjectItemImpl> {
-    constructor(id: BrowserId, name: string, type: string, platforms: Array<Platform> = [Platform.win32, Platform.darwin, Platform.linux], description?: string | DescriptionGetter, beta: boolean = false, configName: string = '') {
-        super(`${id}-history`, `${name}`, `icon/browser-${id}.png`, type, platforms, Group[GroupName.browserHistory], description, beta, configName)
+    private readonly browserId: BrowserId
+
+    constructor(id: BrowserId, name: string, type: string, platforms: Array<Platform> = [Platform.win32, Platform.darwin, Platform.linux], beta: boolean = false, configName: string = '') {
+        super(`${id}-history`, `${name}`, `icon/browser-${id}.png`, type, platforms, Group[GroupName.browserHistory], () => handler(this.defaultConfigPath()), beta, configName)
+        this.browserId = id
+    }
+
+    override defaultConfigPath(): string {
+        return `${getDefaultConfigPath(this.browserId)}${configName}`
     }
 
     async generateCacheProjectItems(context: Context): Promise<Array<ChromiumHistoryProjectItemImpl>> {
@@ -87,19 +88,17 @@ export class ChromiumHistoryApplicationImpl extends SqliteBrowserApplicationImpl
     }
 }
 
-const configName = 'History'
-const handler = text => `${configName} ${i18n.t(sentenceKey.browserPathDescPrefix)} ${text}/${configName}`
 export const applications: Array<ApplicationImpl<ChromiumHistoryProjectItemImpl>> = [
-    new ChromiumHistoryApplicationImpl('chromium', 'Chromium', CHROMIUM, undefined, undefined, undefined, configName),
-    new ChromiumHistoryApplicationImpl('chrome', 'Google Chrome', CHROMIUM, undefined, () => getDescription('chrome', handler), undefined, configName),
-    new ChromiumHistoryApplicationImpl('edge', 'Microsoft Edge', CHROMIUM, undefined, () => getDescription('edge', handler), undefined, configName),
-    new ChromiumHistoryApplicationImpl('qq', 'QQ Browser', CHROMIUM, [Platform.win32], () => getDescription('qq', handler), undefined, configName),
-    new ChromiumHistoryApplicationImpl('maxthon', 'Maxthon (傲游)', CHROMIUM, [Platform.win32], () => getDescription('maxthon', handler), undefined, configName),
-    new ChromiumHistoryApplicationImpl('opera', 'Opera', CHROMIUM, undefined, () => getDescription('opera', handler), undefined, configName),
-    new ChromiumHistoryApplicationImpl('brave', 'Brave', CHROMIUM, undefined, () => getDescription('brave', handler), undefined, configName),
-    new ChromiumHistoryApplicationImpl('vivaldi', 'Vivaldi', CHROMIUM, undefined, () => getDescription('vivaldi', handler), undefined, configName),
-    new ChromiumHistoryApplicationImpl('cent', 'CentBrowser (百分)', CHROMIUM, [Platform.win32], () => getDescription('cent', handler), undefined, configName),
-    new ChromiumHistoryApplicationImpl('yandex', 'Yandex', CHROMIUM, undefined, () => getDescription('yandex', handler), undefined, configName),
-    new ChromiumHistoryApplicationImpl('liebao', '猎豹浏览器', CHROMIUM, [Platform.win32], () => getDescription('liebao', handler), undefined, configName),
-    new ChromiumHistoryApplicationImpl('deepin', '深度浏览器', CHROMIUM, [Platform.linux], () => getDescription('deepin', handler), undefined, configName),
+    new ChromiumHistoryApplicationImpl('chromium', 'Chromium', CHROMIUM, undefined, undefined, configName),
+    new ChromiumHistoryApplicationImpl('chrome', 'Google Chrome', CHROMIUM, undefined, undefined, configName),
+    new ChromiumHistoryApplicationImpl('edge', 'Microsoft Edge', CHROMIUM, undefined, undefined, configName),
+    new ChromiumHistoryApplicationImpl('qq', 'QQ Browser', CHROMIUM, [Platform.win32], undefined, configName),
+    new ChromiumHistoryApplicationImpl('maxthon', 'Maxthon (傲游)', CHROMIUM, [Platform.win32], undefined, configName),
+    new ChromiumHistoryApplicationImpl('opera', 'Opera', CHROMIUM, undefined, undefined, configName),
+    new ChromiumHistoryApplicationImpl('brave', 'Brave', CHROMIUM, undefined, undefined, configName),
+    new ChromiumHistoryApplicationImpl('vivaldi', 'Vivaldi', CHROMIUM, undefined, undefined, configName),
+    new ChromiumHistoryApplicationImpl('cent', 'CentBrowser (百分)', CHROMIUM, [Platform.win32], undefined, configName),
+    new ChromiumHistoryApplicationImpl('yandex', 'Yandex', CHROMIUM, undefined, undefined, configName),
+    new ChromiumHistoryApplicationImpl('liebao', '猎豹浏览器', CHROMIUM, [Platform.win32], undefined, configName),
+    new ChromiumHistoryApplicationImpl('deepin', '深度浏览器', CHROMIUM, [Platform.linux], undefined, configName),
 ]

@@ -12,7 +12,7 @@ import {BrowserApplicationImpl} from '../index'
 import {Context} from '../../../Context'
 import {parseFile} from 'bplist-parser'
 import {isEmpty, isNil, unique} from 'licia'
-import {generateParents} from '../../../Utils'
+import {generateParents, systemHome} from '../../../Utils'
 import {existsSync} from 'fs'
 import {i18n, sentenceKey} from '../../../i18n'
 import {generatePinyinIndex} from '../../../utils/index-generator/PinyinIndex'
@@ -37,9 +37,13 @@ export class SafariBookmarkApplicationImpl extends BrowserApplicationImpl<Safari
         )
     }
 
+    override defaultConfigPath(): string {
+        return `${systemHome()}/Library/Safari/Bookmarks.plist`
+    }
+
     async generateCacheProjectItems(context: Context): Promise<Array<SafariBookmarkProjectItemImpl>> {
         let items: Array<SafariBookmarkProjectItemImpl> = []
-        let configPath = `${utools.getPath('home')}/Library/Safari/Bookmarks.plist`
+        let configPath = this.defaultConfigPath()
         if (!existsSync(configPath)) {
             return []
         }

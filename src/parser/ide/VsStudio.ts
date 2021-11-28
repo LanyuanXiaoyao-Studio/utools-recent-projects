@@ -34,6 +34,10 @@ export class VsStudioApplicationImpl extends ApplicationCacheConfigImpl<VsStudio
         )
     }
 
+    override defaultConfigPath(): string {
+        return '';
+    }
+
     async generateCacheProjectItems(context: Context): Promise<Array<VsStudioProjectItemImpl>> {
         let items: Array<VsStudioProjectItemImpl> = []
         let buffer = await readFile(this.config)

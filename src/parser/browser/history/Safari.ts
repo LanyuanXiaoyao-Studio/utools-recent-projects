@@ -12,7 +12,7 @@ import {
 import {SqliteBrowserApplicationImpl} from '../index'
 import {execFileSync} from 'child_process'
 import {isEmpty, unique} from 'licia'
-import {removeAllQueryFromUrl} from '../../../Utils'
+import {removeAllQueryFromUrl, systemHome} from '../../../Utils'
 import {Context} from '../../../Context'
 import {existsSync} from 'fs'
 import {i18n, sentenceKey} from '../../../i18n'
@@ -36,6 +36,10 @@ export class SafariHistoryApplicationImpl extends SqliteBrowserApplicationImpl<S
             false,
             'History.db',
         )
+    }
+
+    override defaultConfigPath(): string {
+        return `${systemHome()}/Library/Safari/History.db`
     }
 
     async generateCacheProjectItems(context: Context): Promise<Array<SafariHistoryProjectItemImpl>> {

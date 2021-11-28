@@ -11,7 +11,7 @@ import {
 import {isEmpty, isNil, unique, Url} from 'licia'
 import {join, parse} from 'path'
 import {execSync} from 'child_process'
-import {existsOrNot, generateStringByOS, systemUser} from '../../Utils'
+import {existsOrNot, systemUser} from '../../Utils'
 import {lstatSync, readdirSync} from 'fs'
 import {Context} from '../../Context'
 import {generatePinyinIndex} from '../../utils/index-generator/PinyinIndex'
@@ -23,8 +23,25 @@ const OFFICE_WIN: string = 'office-win'
 export class OfficeProjectItemImpl extends DatetimeProjectItemImpl {}
 
 export class OfficeMacApplicationImpl extends ApplicationCacheConfigImpl<OfficeProjectItemImpl> {
-    constructor(id: string, name: string, icon: string, configFilename: string, description: string | DescriptionGetter = '') {
-        super(`office-mac-${id}`, name, icon, OFFICE_MAC, [Platform.darwin], Group[GroupName.office], description, false, configFilename)
+    private readonly defaultConfig
+
+    constructor(id: string, name: string, icon: string, configFilename: string, defaultConfig: string | DescriptionGetter = '') {
+        super(
+            `office-mac-${id}`,
+            name,
+            icon,
+            OFFICE_MAC,
+            [Platform.darwin],
+            Group[GroupName.office],
+            () => `配置文件通常放在 ${defaultConfig}`,
+            false,
+            configFilename,
+        )
+        this.defaultConfig = defaultConfig
+    }
+
+    override defaultConfigPath(): string {
+        return this.defaultConfig
     }
 
     async generateCacheProjectItems(context: Context): Promise<Array<OfficeProjectItemImpl>> {
@@ -128,13 +145,9 @@ export class OfficeWinApplicationImpl extends ApplicationImpl<OfficeProjectItemI
     private generateCommand: (string) => string = link => `(New-Object -COM WScript.Shell).CreateShortcut('${link}').TargetPath;`
 }
 
-const description: (path: string) => string = path => generateStringByOS({
-    handler: text => `配置文件通常放在 ${text}`,
-    darwin: path,
-})
 export const applications: Array<ApplicationImpl<OfficeProjectItemImpl>> = [
-    new OfficeMacApplicationImpl('word', 'Word 2019', 'icon/office-word.png', 'com.microsoft.Word.securebookmarks.plist', description(`/Users/${systemUser()}/Library/Containers/Microsoft Word/Data/Library/Preferences/com.microsoft.Word.securebookmarks.plist`)),
-    new OfficeMacApplicationImpl('excel', 'Excel 2019', 'icon/office-excel.png', 'com.microsoft.Excel.securebookmarks.plist', description(`/Users/${systemUser()}/Library/Containers/Microsoft Excel/Data/Library/Preferences/com.microsoft.Excel.securebookmarks.plist`)),
-    new OfficeMacApplicationImpl('powerpoint', 'PowerPoint 2019', 'icon/office-powerpoint.png', 'com.microsoft.Powerpoint.securebookmarks.plist', description(`/Users/${systemUser()}/Library/Containers/Microsoft Powerpoint/Data/Library/Preferences/com.microsoft.Powerpoint.securebookmarks.plist`)),
+    new OfficeMacApplicationImpl('word', 'Word 2019', 'icon/office-word.png', 'com.microsoft.Word.securebookmarks.plist', `/Users/${systemUser()}/Library/Containers/Microsoft Word/Data/Library/Preferences/com.microsoft.Word.securebookmarks.plist`),
+    new OfficeMacApplicationImpl('excel', 'Excel 2019', 'icon/office-excel.png', 'com.microsoft.Excel.securebookmarks.plist', `/Users/${systemUser()}/Library/Containers/Microsoft Excel/Data/Library/Preferences/com.microsoft.Excel.securebookmarks.plist`),
+    new OfficeMacApplicationImpl('powerpoint', 'PowerPoint 2019', 'icon/office-powerpoint.png', 'com.microsoft.Powerpoint.securebookmarks.plist', `/Users/${systemUser()}/Library/Containers/Microsoft Powerpoint/Data/Library/Preferences/com.microsoft.Powerpoint.securebookmarks.plist`),
     new OfficeWinApplicationImpl(),
 ]

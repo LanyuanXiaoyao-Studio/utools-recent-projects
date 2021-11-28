@@ -33,18 +33,26 @@ export class VscodeApplicationImpl extends ApplicationCacheConfigAndExecutorImpl
             VSCODE,
             [Platform.win32, Platform.darwin, Platform.linux],
             Group[GroupName.editor],
-            () => `${i18n.t(sentenceKey.configFileAt)} ${generateStringByOS({
-                win32: `C:\\Users\\${systemUser()}\\AppData\\Roaming\\Code\\storage.json`,
-                darwin: `/Users/${systemUser()}/Library/Application Support/Code/storage.json`,
-                linux: `/home/${systemUser()}/.config/Code/storage.json`,
-            })}, ${i18n.t(sentenceKey.executorFileAt)} ${generateStringByOS({
-                win32: `C:\\Users\\${systemUser()}\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe`,
-                darwin: '/Applications/Visual Studio Code.app/Contents/Resources/app/bin/code',
-                linux: '(不同发行版安装路径差异较大, 自行使用 which 命令找到 code 命令所在路径作为可执行文件路径)',
-            })}`,
+            () => `${i18n.t(sentenceKey.configFileAt)} ${this.defaultConfigPath()}, ${i18n.t(sentenceKey.executorFileAt)} ${this.defaultExecutorPath()}`,
             undefined,
             'storage.json',
         )
+    }
+
+    override defaultConfigPath(): string {
+        return generateStringByOS({
+            win32: `C:\\Users\\${systemUser()}\\AppData\\Roaming\\Code\\storage.json`,
+            darwin: `/Users/${systemUser()}/Library/Application Support/Code/storage.json`,
+            linux: `/home/${systemUser()}/.config/Code/storage.json`,
+        })
+    }
+
+    override defaultExecutorPath(): string {
+        return generateStringByOS({
+            win32: `C:\\Users\\${systemUser()}\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe`,
+            darwin: '/Applications/Visual Studio Code.app/Contents/Resources/app/bin/code',
+            linux: '(不同发行版安装路径差异较大, 自行使用 which 命令找到 code 命令所在路径作为可执行文件路径)',
+        })
     }
 
     async generateCacheProjectItems(context: Context): Promise<Array<VscodeProjectItemImpl>> {

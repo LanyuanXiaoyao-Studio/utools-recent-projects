@@ -550,6 +550,8 @@ export abstract class ApplicationConfigImpl<P extends ProjectItemImpl> extends A
             return ApplicationConfigState.done
         }
     }
+
+    abstract defaultConfigPath(): string
 }
 
 export abstract class ApplicationCacheConfigImpl<P extends ProjectItemImpl> extends ApplicationConfigImpl<P> implements ApplicationCache<P> {
@@ -610,6 +612,8 @@ export abstract class ApplicationConfigAndExecutorImpl<P extends ProjectItemImpl
             return ApplicationConfigState.done
         }
     }
+
+    abstract defaultExecutorPath(): string
 }
 
 export abstract class ApplicationCacheConfigAndExecutorImpl<P extends ProjectItemImpl> extends ApplicationConfigAndExecutorImpl<P> implements ApplicationCache<P> {

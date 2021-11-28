@@ -47,12 +47,21 @@ export const platformFromUtools: () => Platform = () => {
     else return Platform.unknown
 }
 
+let currentSystemHome = ''
+
+export const systemHome: () => string = () => {
+    if (isEmpty(currentSystemHome)) {
+        currentSystemHome = utools.getPath('home')
+    }
+    return currentSystemHome
+}
+
 let currentSystemUserName = ''
 
 export const systemUser: () => string = () => {
     if (isEmpty(currentSystemUserName)) {
-        let userHome = utools.getPath('home')
-        let parser = parse(userHome)
+        let home = systemHome()
+        let parser = parse(home)
         currentSystemUserName = parser.name
     }
     return currentSystemUserName

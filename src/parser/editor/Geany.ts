@@ -39,18 +39,26 @@ export class GeanyApplicationImpl extends ApplicationCacheConfigAndExecutorImpl<
             GEANY,
             [Platform.win32, Platform.darwin, Platform.linux],
             Group[GroupName.editor],
-            () => `${i18n.t(sentenceKey.configFileAt)} ${generateStringByOS({
-                win32: `C:\\Users\\${systemUser()}\\AppData\\Roaming\\geany\\geany.conf`,
-                darwin: `/Users/${systemUser()}/.config/geany/geany.conf`,
-                linux: `/home/${systemUser()}/.config/geany/geany.conf`,
-            })}, ${i18n.t(sentenceKey.executorFileAt)} ${generateStringByOS({
-                win32: 'C:\\Program Files\\Geany\\bin\\geany.exe',
-                darwin: '/Applications/Geany.app/Contents/MacOS/geany',
-                linux: '/usr/bin/geany',
-            })}`,
+            () => `${i18n.t(sentenceKey.configFileAt)} ${this.defaultConfigPath()}, ${i18n.t(sentenceKey.executorFileAt)} ${this.defaultExecutorPath()}`,
             false,
             'geany.conf',
         )
+    }
+
+    override defaultConfigPath(): string {
+        return generateStringByOS({
+            win32: `C:\\Users\\${systemUser()}\\AppData\\Roaming\\geany\\geany.conf`,
+            darwin: `/Users/${systemUser()}/.config/geany/geany.conf`,
+            linux: `/home/${systemUser()}/.config/geany/geany.conf`,
+        })
+    }
+
+    override defaultExecutorPath(): string {
+        return generateStringByOS({
+            win32: 'C:\\Program Files\\Geany\\bin\\geany.exe',
+            darwin: '/Applications/Geany.app/Contents/MacOS/geany',
+            linux: '/usr/bin/geany',
+        })
     }
 
     async generateCacheProjectItems(context: Context): Promise<Array<GeanyProjectItemImpl>> {

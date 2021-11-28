@@ -30,18 +30,26 @@ export class LibreOfficeApplicationImpl extends ApplicationCacheConfigAndExecuto
             LIBRE,
             [Platform.win32, Platform.darwin, Platform.linux],
             Group[GroupName.office],
-            () => `${i18n.t(sentenceKey.configFileAt)} ${generateStringByOS({
-                win32: `C:\\Users\\${systemUser()}\\AppData\\Roaming\\LibreOffice\\4\\user\\registrymodifications.xcu`,
-                darwin: `/Users/${systemUser()}/Library/Application Support/LibreOffice/4/user/registrymodifications.xcu`,
-                linux: `/home/${systemUser()}/.config/LibreOffice/registrymodifications.xcu`,
-            })}, ${i18n.t(sentenceKey.executorFileAt)} ${generateStringByOS({
-                win32: `C:\\Program Files\\LibreOffice\\program\\soffice.exe`,
-                darwin: `/Applications/LibreOffice.app/Contents/MacOS/soffice`,
-                linux: `/usr/bin/soffice`,
-            })}`,
+            () => `${i18n.t(sentenceKey.configFileAt)} ${this.defaultConfigPath()}, ${i18n.t(sentenceKey.executorFileAt)} ${this.defaultExecutorPath()}`,
             true,
             'registrymodifications.xcu',
         )
+    }
+
+    override defaultConfigPath(): string {
+        return generateStringByOS({
+            win32: `C:\\Users\\${systemUser()}\\AppData\\Roaming\\LibreOffice\\4\\user\\registrymodifications.xcu`,
+            darwin: `/Users/${systemUser()}/Library/Application Support/LibreOffice/4/user/registrymodifications.xcu`,
+            linux: `/home/${systemUser()}/.config/LibreOffice/registrymodifications.xcu`,
+        })
+    }
+
+    override defaultExecutorPath(): string {
+        return generateStringByOS({
+            win32: `C:\\Program Files\\LibreOffice\\program\\soffice.exe`,
+            darwin: `/Applications/LibreOffice.app/Contents/MacOS/soffice`,
+            linux: `/usr/bin/soffice`,
+        })
     }
 
     async generateCacheProjectItems(context: Context): Promise<Array<LibreOfficeProjectItemImpl>> {

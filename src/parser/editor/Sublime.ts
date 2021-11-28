@@ -32,18 +32,26 @@ export class SublimeApplicationImpl extends ApplicationCacheConfigAndExecutorImp
             SUBLIME,
             [Platform.win32, Platform.darwin, Platform.linux],
             Group[GroupName.editor],
-            () => `${i18n.t(sentenceKey.configFileAt)} ${generateStringByOS({
-                win32: `C:\\Users\\${systemUser()}\\AppData\\Roaming\\Sublime Text 3\\Local\\Session.sublime_session`,
-                darwin: `/Users/${systemUser()}/Library/Application Support/Sublime Text/Local/Session.sublime_session`,
-                linux: `/home/${systemUser()}/.config/sublime-text/Local/Session.sublime_session`,
-            })}, ${i18n.t(sentenceKey.executorFileAt)} ${generateStringByOS({
-                win32: `C:\\Program Files\\Sublime Text\\subl.exe`,
-                darwin: `/Users/${systemUser()}/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl`,
-                linux: `(不同发行版安装路径差异较大, 自行使用 which 命令找到 subl 命令所在路径作为可执行文件路径)`,
-            })} (注意 Sublime Text 单独提供了命令行程序, 不是程序本体)`,
+            () => `${i18n.t(sentenceKey.configFileAt)} ${this.defaultConfigPath()}, ${i18n.t(sentenceKey.executorFileAt)} ${this.defaultExecutorPath()} (注意 Sublime Text 单独提供了命令行程序, 不是程序本体)`,
             undefined,
             'Session.sublime_session',
         )
+    }
+
+    override defaultConfigPath(): string {
+        return generateStringByOS({
+            win32: `C:\\Users\\${systemUser()}\\AppData\\Roaming\\Sublime Text 3\\Local\\Session.sublime_session`,
+            darwin: `/Users/${systemUser()}/Library/Application Support/Sublime Text/Local/Session.sublime_session`,
+            linux: `/home/${systemUser()}/.config/sublime-text/Local/Session.sublime_session`,
+        })
+    }
+
+    override defaultExecutorPath(): string {
+        return generateStringByOS({
+            win32: `C:\\Program Files\\Sublime Text\\subl.exe`,
+            darwin: `/Users/${systemUser()}/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl`,
+            linux: `(不同发行版安装路径差异较大, 自行使用 which 命令找到 subl 命令所在路径作为可执行文件路径)`,
+        })
     }
 
     parsePath(source: string): string {

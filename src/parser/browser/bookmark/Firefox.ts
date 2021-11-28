@@ -1,28 +1,28 @@
-import {
-    ApplicationImpl,
-    DatetimeProjectItemImpl,
-    DescriptionGetter,
-    ElectronExecutor,
-    Group,
-    GroupName,
-    Platform,
-} from '../../../Types'
-import {BrowserId, SqliteBrowserApplicationImpl} from '../index'
+import {ApplicationImpl, DatetimeProjectItemImpl, ElectronExecutor, Group, GroupName, Platform} from '../../../Types'
+import {BrowserId, getDefaultConfigPath, SqliteBrowserApplicationImpl} from '../index'
 import {execFileSync} from 'child_process'
 import {contain, isEmpty, isNil, reverse, unique} from 'licia'
 import {Context} from '../../../Context'
-import {generateStringByOS, systemUser} from '../../../Utils'
-import {i18n, sentenceKey} from '../../../i18n'
 import {generatePinyinIndex} from '../../../utils/index-generator/PinyinIndex'
 import {generateHostIndex} from '../../../utils/index-generator/HostIndex'
+import {i18n, sentenceKey} from '../../../i18n'
 
 const FIREFOX: string = 'firefox'
 
 export class FirefoxBookmarkProjectItemImpl extends DatetimeProjectItemImpl {}
 
 export class FirefoxBookmarkApplicationImpl extends SqliteBrowserApplicationImpl<FirefoxBookmarkProjectItemImpl> {
-    constructor(id: BrowserId, name: string, type: string, platforms: Array<Platform> = [Platform.win32, Platform.darwin, Platform.linux], description?: string | DescriptionGetter, beta: boolean = false, configName: string = '') {
-        super(`${id}-bookmark`, `${name}`, `icon/browser-${id}.png`, type, platforms, Group[GroupName.browserBookmark], description, beta, configName)
+    private readonly browserId: BrowserId
+    private readonly configName: string
+
+    constructor(id: BrowserId, name: string, type: string, platforms: Array<Platform> = [Platform.win32, Platform.darwin, Platform.linux], beta: boolean = false, configName: string = '') {
+        super(`${id}-bookmark`, `${name}`, `icon/browser-${id}.png`, type, platforms, Group[GroupName.browserBookmark], () => `${configName} ${i18n.t(sentenceKey.browserPathDescPrefix)} ${this.defaultConfigPath()}`, beta, configName)
+        this.browserId = id
+        this.configName = configName
+    }
+
+    override defaultConfigPath(): string {
+        return `${getDefaultConfigPath(this.browserId)}${this.configName}`
     }
 
     async generateCacheProjectItems(context: Context): Promise<Array<FirefoxBookmarkProjectItemImpl>> {
@@ -78,10 +78,5 @@ export class FirefoxBookmarkApplicationImpl extends SqliteBrowserApplicationImpl
 }
 
 export const applications: Array<ApplicationImpl<FirefoxBookmarkProjectItemImpl>> = [
-    new FirefoxBookmarkApplicationImpl('firefox', 'Firefox', FIREFOX, undefined, () => generateStringByOS({
-        handler: text => `places.sqlite ${i18n.t(sentenceKey.browserPathDescPrefix)} ${text}`,
-        win32: `C:\\Users\\${systemUser()}\\AppData\\Roaming\\Mozilla\\Firefox\\Profiles\\xxx.default-release`,
-        darwin: `/Users/${systemUser()}/Library/Application Support/Firefox/Profiles/xxx.default-release-xxx`,
-        linux: `/home/${systemUser()}/.mozilla/firefox/xxx.default-release`,
-    }), undefined, 'places.sqlite'),
+    new FirefoxBookmarkApplicationImpl('firefox', 'Firefox', FIREFOX, undefined, undefined, 'places.sqlite'),
 ]

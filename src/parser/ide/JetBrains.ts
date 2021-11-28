@@ -27,6 +27,14 @@ export class JetBrainsApplicationImpl extends ApplicationCacheConfigAndExecutorI
         super(id, name, icon, JETBRAINS, platform, Group[GroupName.jetbrains], description, beta, configFilename)
     }
 
+    override defaultConfigPath(): string {
+        return '';
+    }
+
+    override defaultExecutorPath(): string {
+        return '';
+    }
+
     async generateCacheProjectItems(context: Context): Promise<Array<JetBrainsProjectItemImpl>> {
         let items: Array<JetBrainsProjectItemImpl> = []
         let buffer = await readFile(this.config)
