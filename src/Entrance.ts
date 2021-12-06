@@ -1,7 +1,6 @@
 import {Action, Callback, DatetimeProjectItemImpl, NoExecutor, ProjectArgsImpl, ProjectItemImpl} from './Types'
-import {isEmpty, isNil, max} from 'licia'
+import {isEmpty, isNil} from 'licia'
 import {i18n, sentenceKey} from './i18n'
-import {score} from './Utils'
 import S from 'licia/$'
 import NanoBar from 'nanobar'
 
@@ -75,26 +74,15 @@ export class AllProjectArgs extends ProjectArgsImpl {
                 callback(this.projectItemCache)
             }
         } else {
-            let text = searchText.toLocaleLowerCase()
-            if (this.context?.enableFuzzyMatch ?? false) {
-                callback(this.projectItemCache
-                    .map(item => {
-                        item.score = max(...item.searchKey.map(k => score(k, text)))
-                        return item
-                    })
-                    .filter(item => item.score !== 0)
-                    .sort((a, b) => b.score! - a.score!),
-                )
-            } else {
-                callback(this.projectItemCache.filter(item => {
-                    for (let key of item.searchKey) {
-                        if (key.toLowerCase().indexOf(text) > -1) {
-                            return true
-                        }
+            let text = searchText.toLocaleLowerCase().trim()
+            callback(this.projectItemCache.filter(item => {
+                for (let key of item.searchKey) {
+                    if (key.toLowerCase().indexOf(text) > -1) {
+                        return true
                     }
-                    return false
-                }))
-            }
+                }
+                return false
+            }))
         }
     }
 

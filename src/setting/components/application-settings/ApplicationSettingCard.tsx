@@ -5,7 +5,6 @@ import {Language} from './setting-items/Language'
 import {NotifyFileOpen} from './setting-items/NotifyFileOpen'
 import {InputPathDirctly} from './setting-items/InputPathDirctly'
 import {PinyinIndex} from './setting-items/PinyinIndex'
-import {FuzzyMatch} from './setting-items/FuzzyMatch'
 import {FilterNonExistsFiles} from './setting-items/FilterNonExistsFiles'
 import {GetFileIcon} from './setting-items/GetFileIcon'
 import {GetFavicon} from './setting-items/GetFavicon'
@@ -48,7 +47,6 @@ export class ApplicationSettingCard extends Component<ApplicationSettingCardProp
                                 data-content={i18n.t(sentenceKey.search)}
                             />
                             <PinyinIndex context={this.props.context}/>
-                            <FuzzyMatch context={this.props.context}/>
                             <div
                                 class="divider text-center"
                                 data-content={i18n.t(sentenceKey.file)}

@@ -30,8 +30,6 @@ export const sentenceKey = {
     fileSelectorPlaceholder: 'fileSelectorPlaceholder',
     filterNonExistsFiles: 'filterNonExistsFiles',
     filterNonExistsFilesDesc: 'filterNonExistsFilesDesc',
-    fuzzyMatch: 'fuzzyMatch',
-    fuzzyMatchDesc: 'fuzzyMatchDesc',
     getFavicon: 'getFavicon',
     getFaviconDesc: 'getFaviconDesc',
     getFileIcon: 'getFileIcon',
@@ -109,8 +107,6 @@ export interface Sentence {
     readonly fileSelectorPlaceholder: string
     readonly filterNonExistsFiles: string
     readonly filterNonExistsFilesDesc: string
-    readonly fuzzyMatch: string
-    readonly fuzzyMatchDesc: string
     readonly getFavicon: string
     readonly getFaviconDesc: string
     readonly getFileIcon: string

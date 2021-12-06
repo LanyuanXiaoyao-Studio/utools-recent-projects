@@ -28,8 +28,6 @@ export class ZhCn implements Sentence {
     readonly fileSelectorPlaceholder: string = '点击输入框选择路径'
     readonly filterNonExistsFiles: string = '过滤不存在的文件'
     readonly filterNonExistsFilesDesc: string = '插件会如实显示历史记录内容，如同软件本身一样，但如果你希望插件替你将不存在的文件过滤掉，那么可以考虑启用该选项'
-    readonly fuzzyMatch: string = '模糊搜索'
-    readonly fuzzyMatchDesc: string = '在搜索的时候不需要输入完整名称，即使只输入几个字母，也有可能快速匹配到需要的结果（拼音和英文都可以）。但过短的搜索词也会导致匹配结果过多，想要的结果无法排在第一位，目前建议使用完全匹配（完全匹配同样支持拼音）'
     readonly getFavicon: string = '获取 favicon'
     readonly getFaviconDesc: string = '启动该选项可以使用互联网提供的「f1.allesedv.com」来获取网站图标显示在结果里代替浏览器图标，但该 API 较慢; 另由于需要将网址传到该 API，隐私问题也最好考虑在内'
     readonly getFileIcon: string = '获取文件图标'

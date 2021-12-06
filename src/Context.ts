@@ -5,7 +5,6 @@ export class Context {
     static enableGetFileIconId: string = 'setting-get-file-icon'
     static enableOpenNotificationId: string = 'setting-open-notification'
     static enableEditPathInputDirectlyId: string = 'setting-edit-path-input-directly'
-    static enableFuzzyMatchId: string = 'setting-fuzzy-match'
     static enablePinyinIndexId: string = 'setting-pinyin-index'
     static browserHistoryLimitId: string = 'browser-history-limit'
 
@@ -15,7 +14,6 @@ export class Context {
     readonly enableGetFileIcon: boolean = false
     readonly enableOpenNotification: boolean = false
     readonly enableEditPathInputDirectly: boolean = false
-    readonly enableFuzzyMatch: boolean = false
     readonly enablePinyinIndex: boolean = true
     readonly browserHistoryLimit: number = 100
 
@@ -25,7 +23,6 @@ export class Context {
         this.enableGetFaviconFromNet = utools.dbStorage.getItem(Context.enableGetFaviconFromNetId) ?? false
         this.enableGetFileIcon = utools.dbStorage.getItem(Context.enableGetFileIconId) ?? false
         this.enableOpenNotification = utools.dbStorage.getItem(Context.enableOpenNotificationId) ?? false
-        this.enableFuzzyMatch = utools.dbStorage.getItem(Context.enableFuzzyMatchId) ?? false
         this.enablePinyinIndex = utools.dbStorage.getItem(Context.enablePinyinIndexId) ?? true
         this.browserHistoryLimit = parseInt(utools.dbStorage.getItem(Context.browserHistoryLimitId) ?? '100')
         // 本地生效

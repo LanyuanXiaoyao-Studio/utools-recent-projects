@@ -3,7 +3,6 @@ import {Platform} from './Types'
 import {isEmpty, isFn, isNil, isUrl, Url} from 'licia'
 import {Context} from './Context'
 import {i18n, sentenceKey} from './i18n'
-import {levenshtein} from 'string-comparison'
 import {join, parse} from 'path'
 import WinReg from 'winreg'
 import S from 'licia/$'
@@ -179,8 +178,6 @@ export const initLanguage: (context?: Context) => void = context => {
         i18n.locale(context.languageSetting)
     }
 }
-
-export const score: (a: string, b: string) => number = (a, b) => levenshtein.similarity(a, b)
 
 export const walker: (path: string, filter?: (fullPath: string, stat?: Stats) => boolean) => Array<string> = (path, filter) => {
     if (!existsSync(path) || !statSync(path).isDirectory()) {
