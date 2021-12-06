@@ -3,7 +3,7 @@ import {Context} from '../../../Context'
 import {i18n, sentenceKey} from '../../../i18n'
 import {Language} from './setting-items/Language'
 import {NotifyFileOpen} from './setting-items/NotifyFileOpen'
-import {InputPathDirctly} from './setting-items/InputPathDirctly'
+import {InputPathDirectly} from './setting-items/InputPathDirectly'
 import {PinyinIndex} from './setting-items/PinyinIndex'
 import {FilterNonExistsFiles} from './setting-items/FilterNonExistsFiles'
 import {GetFileIcon} from './setting-items/GetFileIcon'
@@ -41,7 +41,7 @@ export class ApplicationSettingCard extends Component<ApplicationSettingCardProp
                             <div class="divider"/>
                             <NotifyFileOpen context={this.props.context}/>
                             <div class="divider"/>
-                            <InputPathDirctly context={this.props.context}/>
+                            <InputPathDirectly context={this.props.context}/>
                             <div
                                 class="divider text-center"
                                 data-content={i18n.t(sentenceKey.search)}

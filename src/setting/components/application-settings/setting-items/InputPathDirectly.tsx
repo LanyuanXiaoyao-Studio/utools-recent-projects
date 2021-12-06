@@ -8,7 +8,7 @@ import {i18n, sentenceKey} from '../../../../i18n'
 import {NativeChip, RebootNeededChip} from '../Chips'
 import {Context} from '../../../../Context'
 
-export class InputPathDirctly extends ApplicationSettingItem<ApplicationSettingItemProps, ApplicationSettingItemState> {
+export class InputPathDirectly extends ApplicationSettingItem<ApplicationSettingItemProps, ApplicationSettingItemState> {
     override render() {
         return (<Fragment>
             <div class="form-group">
