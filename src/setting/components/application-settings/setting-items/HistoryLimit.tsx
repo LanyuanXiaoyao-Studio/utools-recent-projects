@@ -1,10 +1,14 @@
 import Nano, {Fragment} from 'nano-jsx'
-import {ApplicationSettingItem} from '../ApplicationSettingItem'
+import {
+    ApplicationSettingItem,
+    ApplicationSettingItemProps,
+    ApplicationSettingItemState,
+} from '../ApplicationSettingItem'
 import {i18n, sentenceKey} from '../../../../i18n'
 import {CloudSyncChip} from '../Chips'
 import {Context} from '../../../../Context'
 
-export class HistoryLimit extends ApplicationSettingItem {
+export class HistoryLimit extends ApplicationSettingItem<ApplicationSettingItemProps, ApplicationSettingItemState> {
     override render() {
         return (<Fragment>
             <div class="form-group">

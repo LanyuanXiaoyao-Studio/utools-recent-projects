@@ -7,7 +7,7 @@ export interface ApplicationSettingItemProps {
 
 export interface ApplicationSettingItemState {}
 
-export class ApplicationSettingItem extends Component<ApplicationSettingItemProps, ApplicationSettingItemState> {
+export class ApplicationSettingItem<props extends ApplicationSettingItemProps, state extends ApplicationSettingItemState> extends Component<props, state> {
     protected localContext: Context = this.props.context
 
     switch(id: string, value: boolean) {
