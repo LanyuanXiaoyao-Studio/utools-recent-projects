@@ -7,6 +7,7 @@ import {Context} from '../../../Context'
 import {i18n, sentenceKey} from '../../../i18n'
 import {generatePinyinIndex} from '../../../utils/index-generator/PinyinIndex'
 import {generateHostIndex} from '../../../utils/index-generator/HostIndex'
+import {parseSqliteDefaultResult} from '../../../utils/sqlite/ParseResult'
 
 const CHROMIUM: string = 'chromium'
 const configName = 'History'
@@ -63,7 +64,7 @@ export class ChromiumHistoryApplicationImpl extends SqliteBrowserApplicationImpl
         })*/
 
         if (!isEmpty(result)) {
-            let array = this.parseSqliteDefaultResult(result, ['n/id', 'url', 'title', 'n/timestamp'])
+            let array = parseSqliteDefaultResult(result, ['n/id', 'url', 'title', 'n/timestamp'])
             array.forEach(i => {
                 let title: string = i['title'] ?? ''
                 let url: string = i['url'] ?? ''

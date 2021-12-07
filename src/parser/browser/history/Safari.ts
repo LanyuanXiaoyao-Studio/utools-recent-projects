@@ -18,6 +18,7 @@ import {existsSync} from 'fs'
 import {i18n, sentenceKey} from '../../../i18n'
 import {generatePinyinIndex} from '../../../utils/index-generator/PinyinIndex'
 import {generateHostIndex} from '../../../utils/index-generator/HostIndex'
+import {parseSqliteDefaultResult} from '../../../utils/sqlite/ParseResult'
 
 const SAFARI: string = 'safari'
 
@@ -55,7 +56,7 @@ export class SafariHistoryApplicationImpl extends SqliteBrowserApplicationImpl<S
             result = execFileSync(this.executor, [path, sql, '-readonly'], { encoding: 'utf-8', maxBuffer: 20971520 })
         })
         if (!isEmpty(result)) {
-            let array = this.parseSqliteDefaultResult(result, ['url', 'title', 'n/timestamp'])
+            let array = parseSqliteDefaultResult(result, ['url', 'title', 'n/timestamp'])
             array.forEach(i => {
                 let title: string = i['title'] ?? ''
                 let url: string = i['url'] ?? ''

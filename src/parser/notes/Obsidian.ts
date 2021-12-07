@@ -27,7 +27,7 @@ export class ObsidianApplicationImpl extends ApplicationConfigImpl<ObsidianProje
             'icon/obsidian.png',
             OBSIDIAN,
             [Platform.win32, Platform.darwin, Platform.linux],
-            Group[GroupName.editor],
+            Group[GroupName.notes],
             () => `${i18n.t(sentenceKey.configFileAt)} ${this.defaultConfigPath()}`,
             true,
             'obsidian.json',

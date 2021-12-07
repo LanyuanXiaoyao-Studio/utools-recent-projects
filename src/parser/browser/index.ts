@@ -1,20 +1,20 @@
 import {ApplicationCacheConfigAndExecutorImpl, InputSettingItem, ProjectItemImpl, SettingItem} from '../../Types'
-import {generateStringByOS, StringByOS, systemHome, systemUser} from '../../Utils'
-import {isEmpty, isNil, randomId} from 'licia'
+import {generateStringByOS, StringByOS, systemHome} from '../../Utils'
+import {randomId} from 'licia'
 import {Context} from '../../Context'
 import {copyFile, rm} from 'fs/promises'
 import {join} from 'path'
 import {i18n, sentenceKey} from '../../i18n'
 
 export abstract class BrowserApplicationImpl<P extends ProjectItemImpl> extends ApplicationCacheConfigAndExecutorImpl<P> {
-    protected ifGetFavicon: (url: string, context: Context) => string = (url, context) => {
-        // return context.enableGetFaviconFromNet ? `https://api.clowntool.cn/getico/?url=${url}` : this.icon
-        return context.enableGetFaviconFromNet ? `https://f1.allesedv.com/${url}` : this.icon
-    }
-
     override defaultExecutorPath(): string {
         // 只是读取书签用不上这个配置
         return ''
+    }
+
+    protected ifGetFavicon: (url: string, context: Context) => string = (url, context) => {
+        // return context.enableGetFaviconFromNet ? `https://api.clowntool.cn/getico/?url=${url}` : this.icon
+        return context.enableGetFaviconFromNet ? `https://f1.allesedv.com/${url}` : this.icon
     }
 }
 
@@ -46,32 +46,6 @@ export abstract class SqliteBrowserApplicationImpl<P extends ProjectItemImpl> ex
         } finally {
             await rm(tmpDatabasePath, { force: true })
         }
-    }
-
-    protected parseSqliteDefaultResult(result: string, fieldNames: Array<string>): Array<any> {
-        if (isNil(result) || isEmpty(result) || isNil(fieldNames) || isEmpty(fieldNames)) {
-            return []
-        }
-        let length = fieldNames.length
-        let lines = result.trim().split(/\n/)
-        return lines.map(line => {
-            let fields = line.trim().split(/\|/)
-            let object = {}
-            for (let i = 0; i < length; i++) {
-                let fieldName = fieldNames[i]
-                let field = fields[i]
-                if (fieldName.startsWith('n/')) {
-                    fieldName = fieldName.substring(2)
-                    object[fieldName] = isEmpty(field) ? 0 : parseInt(field)
-                } else if (fieldName.startsWith('b/')) {
-                    fieldName = fieldName.substring(2)
-                    object[fieldName] = isEmpty(field) ? false : field === 'true'
-                } else {
-                    object[fieldName] = field
-                }
-            }
-            return object
-        })
     }
 }
 

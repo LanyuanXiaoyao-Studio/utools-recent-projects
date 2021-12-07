@@ -6,6 +6,7 @@ import {Context} from '../../../Context'
 import {generatePinyinIndex} from '../../../utils/index-generator/PinyinIndex'
 import {generateHostIndex} from '../../../utils/index-generator/HostIndex'
 import {i18n, sentenceKey} from '../../../i18n'
+import {parseSqliteDefaultResult} from '../../../utils/sqlite/ParseResult'
 
 const FIREFOX: string = 'firefox'
 
@@ -34,7 +35,7 @@ export class FirefoxBookmarkApplicationImpl extends SqliteBrowserApplicationImpl
             result = execFileSync(this.executor, [path, sql, '-readonly'], { encoding: 'utf-8', maxBuffer: 20971520 })
         })
         if (!isEmpty(result)) {
-            let array = this.parseSqliteDefaultResult(result, ['n/id', 'n/type', 'n/parent', 'title', 'url', 'n/date_added'])
+            let array = parseSqliteDefaultResult(result, ['n/id', 'n/type', 'n/parent', 'title', 'url', 'n/date_added'])
             let map = {}
             array.forEach(i => map[i.id] = i)
             array.forEach(i => i.parent = map[i.parent])
