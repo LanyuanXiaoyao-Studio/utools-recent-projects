@@ -40,6 +40,7 @@
 |    Visual Studio Code    |          |    ✔    |    ✔    |   ✔   |   ✔   |
 |          Typora          |          |    ✔    |    ✔    |       |   ✔   |
 |         Obsidian         |          |    ✔    |    ✔    |   ✔   |   ✔   |
+|         Evernote         |          |    ✔    |    ✔    |   ✔   |   ✔   |
 |       Sublime Text       |          |    ✔    |    ✔    |   ✔   |   ✔   |
 |          Geany           |          |    ✔    |    ✔    |   ✔   |   ✔   |
 |        JetBrains         |          |    ✔    |    ✔    |   ✔   |   ✔   |

@@ -25,8 +25,10 @@
   - Visual Studio Code
   - Typora
   - Sublime Text
-  - Obsidian
   - Geany
+- Notes
+  - Obsidian
+  - 印象笔记
 - IDE
   - JetBrains 全家桶
   - Android Studio
