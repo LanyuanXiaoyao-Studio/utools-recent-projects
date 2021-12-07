@@ -2,6 +2,7 @@ import {execFileSync} from 'child_process'
 import {isEmpty, isNil, unique} from 'licia'
 import {
     ApplicationCacheConfigAndExecutorImpl,
+    ApplicationConfigState,
     ApplicationImpl,
     DatetimeProjectItemImpl,
     Group,
@@ -113,6 +114,8 @@ export class EvernoteMacApplicationImpl extends ApplicationCacheConfigAndExecuto
 export class EvernoteWinProjectItemImpl extends DatetimeProjectItemImpl {}
 
 export class EvernoteWinApplicationImpl extends ApplicationCacheConfigAndExecutorImpl<EvernoteWinProjectItemImpl> {
+    private user: string = ''
+
     constructor() {
         super(
             EVERNOTE_WIN,
@@ -180,9 +183,33 @@ export class EvernoteWinApplicationImpl extends ApplicationCacheConfigAndExecuto
         return items
     }
 
+    private userId(nativeId: string) {
+        return `${nativeId}/${this.id}-user`
+    }
+
+    override update(nativeId: string) {
+        super.update(nativeId)
+        this.executor = utools.dbStorage.getItem(this.executorId(nativeId)) ?? ''
+    }
+
+    override isFinishConfig(): ApplicationConfigState {
+        let superState = super.isFinishConfig()
+        if (superState !== ApplicationConfigState.done) {
+            return superState
+        } else {
+            return !isEmpty(this.user) ? ApplicationConfigState.undone : ApplicationConfigState.done
+        }
+    }
+
     override generateSettingItems(context: Context, nativeId: string): Array<SettingItem> {
         return [
             this.enabledSettingItem(context, nativeId),
+            new InputSettingItem(
+                this.userId(nativeId),
+                '用户 ID',
+                this.user,
+                '用户 ID',
+            ),
             this.configSettingItem(context, nativeId),
             new InputSettingItem(
                 this.executorId(nativeId),
@@ -196,4 +223,5 @@ export class EvernoteWinApplicationImpl extends ApplicationCacheConfigAndExecuto
 
 export const applications: Array<ApplicationImpl<EvernoteMacProjectItemImpl>> = [
     new EvernoteMacApplicationImpl(),
+    new EvernoteWinApplicationImpl(),
 ]
