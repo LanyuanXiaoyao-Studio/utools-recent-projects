@@ -22,7 +22,7 @@
 > 表中的 JetBrains 即为 JetBrains 旗下的所有独立 IDE，如 IDEA、PyCharm 等，不再一一列举。
 
 |           名称           | Bookmark | History | Windows | macOS | Linux |
-| :----------------------: | :------: | :-----: | :-----: | :---: | :---: |
+| :----------------------: | :------: | :-----: |:-------:| :---: |:-----:|
 |         Firefox          |    ✔     |    ✔    |    ✔    |   ✔   |   ✔   |
 |         Chromium         |    ✔     |    ✔    |    ✔    |   ✔   |   ✔   |
 |      Google Chrome       |    ✔     |    ✔    |    ✔    |   ✔   |   ✔   |
@@ -40,7 +40,7 @@
 |    Visual Studio Code    |          |    ✔    |    ✔    |   ✔   |   ✔   |
 |          Typora          |          |    ✔    |    ✔    |       |   ✔   |
 |         Obsidian         |          |    ✔    |    ✔    |   ✔   |   ✔   |
-|         Evernote         |          |    ✔    |    ✔    |   ✔   |   ✔   |
+|         Evernote         |          |    ✔    |         |   ✔   |       |
 |       Sublime Text       |          |    ✔    |    ✔    |   ✔   |   ✔   |
 |          Geany           |          |    ✔    |    ✔    |   ✔   |   ✔   |
 |        JetBrains         |          |    ✔    |    ✔    |   ✔   |   ✔   |
