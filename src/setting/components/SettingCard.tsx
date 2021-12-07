@@ -64,6 +64,16 @@ export class SettingCard extends Component<SettingCardProps, SettingCardState> {
         }
     }
 
+    plain(event, id: string) {
+        let inputValue = event.target?.value
+        if (isNil(inputValue)) {
+            alert(i18n.t(sentenceKey.unknownInputError))
+        } else {
+            utools.dbStorage.setItem(id, inputValue)
+            this.updateApplicationUI()
+        }
+    }
+
     input(event, id: string) {
         let inputValue = event.target?.value
         if (isNil(inputValue)) {
@@ -144,6 +154,41 @@ export class SettingCard extends Component<SettingCardProps, SettingCardState> {
                             </blockquote>}
                         {this.props.application.generateSettingItems(this.props.context, utools.getNativeId()).map(item => {
                             switch (item.type) {
+                                case SettingType.plain:
+                                    return (
+                                        <div class="form-group">
+                                            <div class="form-label">{item.name}</div>
+                                            {isNil(item.description)
+                                                ? <Fragment/>
+                                                :
+                                                <div class="setting-item-description">
+                                                    {isFn(item.description)
+                                                        ? (item.description as DescriptionGetter)()
+                                                        : item.description}
+                                                </div>}
+                                            <div class="input-group">
+                                                <Fragment>
+                                                    <input
+                                                        type="text"
+                                                        class={`form-input input-sm`}
+                                                        value={item.value == null ? '' : item.value}
+                                                        placeholder={isNil(item.placeholder)
+                                                            ? ''
+                                                            : isFn(item.placeholder)
+                                                                ? (item.placeholder as DescriptionGetter)()
+                                                                : item.placeholder}
+                                                        onblur={event => this.plain(event, item.id)}
+                                                    />
+                                                </Fragment>
+                                                <button
+                                                    class="btn btn-error btn-sm input-group-btn"
+                                                    onclick={() => this.clear(item.id)}
+                                                >
+                                                    <i class="icon icon-cross"/>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    )
                                 case SettingType.path:
                                     return (
                                         <div class="form-group">

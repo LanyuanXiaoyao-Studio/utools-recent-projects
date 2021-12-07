@@ -118,6 +118,8 @@ export class UtoolsExecutor implements Executor {
         }
         try {
             utools.shellOpenExternal(this.command)
+            utools.hideMainWindow()
+            utools.outPlugin()
         } catch (error: any) {
             utools.showNotification(error?.message ?? i18n.t(sentenceKey.unknownError))
         }
@@ -318,6 +320,10 @@ export enum SettingType {
     /**
      * 输入文本类型的配置
      */
+    plain,
+    /**
+     * 输入路径类型的配置
+     */
     path,
     /**
      * 开关类型的配置
@@ -336,6 +342,7 @@ export interface SettingItem {
     readonly name: string
     readonly value: SettingValue
     readonly description?: string | DescriptionGetter
+    readonly placeholder?: string | DescriptionGetter
 }
 
 export abstract class SettingItemImpl implements SettingItem {
@@ -344,14 +351,28 @@ export abstract class SettingItemImpl implements SettingItem {
     readonly name: string
     readonly value: SettingValue
     readonly description?: string | DescriptionGetter
+    readonly placeholder?: string | DescriptionGetter
 
-
-    protected constructor(type: SettingType, id: string, name: string, value: SettingValue, description?: string | DescriptionGetter) {
+    protected constructor(
+        type: SettingType,
+        id: string,
+        name: string,
+        value: SettingValue,
+        description?: string | DescriptionGetter,
+        placeholder?: string | DescriptionGetter,
+    ) {
         this.type = type
         this.id = id
         this.name = name
         this.value = value
         this.description = description
+        this.placeholder = placeholder
+    }
+}
+
+export class PlainSettingItem extends SettingItemImpl {
+    constructor(id: string, name: string, value: string, description?: string | DescriptionGetter, placeholder?: string | DescriptionGetter) {
+        super(SettingType.plain, id, name, value, description, placeholder)
     }
 }
 

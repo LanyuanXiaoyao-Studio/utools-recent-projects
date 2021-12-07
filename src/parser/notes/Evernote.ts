@@ -1,5 +1,5 @@
 import {execFileSync} from 'child_process'
-import {isEmpty, isNil, unique} from 'licia'
+import {isEmpty, isNil, reverse, unique} from 'licia'
 import {
     ApplicationCacheConfigAndExecutorImpl,
     ApplicationConfigState,
@@ -8,6 +8,7 @@ import {
     Group,
     GroupName,
     InputSettingItem,
+    PlainSettingItem,
     Platform,
     SettingItem,
     UtoolsExecutor,
@@ -122,11 +123,11 @@ export class EvernoteWinApplicationImpl extends ApplicationCacheConfigAndExecuto
             '印象笔记',
             'icon/evernote.png',
             EVERNOTE_WIN,
-            [Platform.win32],
+            [Platform.darwin],
             Group[GroupName.notes],
             () => `${i18n.t(sentenceKey.configFileAt)} ${this.defaultConfigPath()} 其中 xxx 是用户标识`,
             true,
-            'LocalNoteStore.sqlite')
+            'xxx#app.yinxiang.com.exb')
     }
 
     override defaultConfigPath(): string {
@@ -138,12 +139,29 @@ export class EvernoteWinApplicationImpl extends ApplicationCacheConfigAndExecuto
         return ``
     }
 
+    private readonly regex = /[\da-f]{2}/ig
+
+    private doubleReverse(text: string): string {
+        return reverse(text.match(this.regex) ?? []).join('')
+    }
+
+    private convertGuid(guid: string): string {
+        if (isEmpty(guid)) return ''
+        let source = guid,
+            prefix = source.substring(0, 16),
+            suffix = source.substring(16, 32),
+            block1 = prefix.substring(0, 8),
+            block2 = prefix.substring(8, 12),
+            block3 = prefix.substring(12, 16),
+            block4 = suffix.substring(0, 4),
+            block5 = suffix.substring(4, 16)
+        return `${this.doubleReverse(block1)}-${this.doubleReverse(block2)}-${this.doubleReverse(block3)}-${block4}-${block5}`.toLowerCase()
+    }
+
     async generateCacheProjectItems(context: Context): Promise<Array<EvernoteWinProjectItemImpl>> {
         let items: Array<EvernoteWinProjectItemImpl> = []
-        // TODO How to get user id from evernote?
-        let userId = ''
         // language=SQLite
-        let sql = 'select hex(i.guid)    as guid,\n       n.title        as title,\n       n.date_updated as seq,\n       n.tags         as tag,\n       nb.name        as level_one,\n       nb.stack       as level_two,\n       u.uid          as uid\nfrom note_attr n,\n     notebook_attr nb,\n     items i\n         left join user_attr u\nwhere n.uid = i.uid\n  and n.notebook_uid is not null\n  and n.notebook_uid = nb.uid\n  and n.is_deleted is null\norder by n.date_updated desc'
+        let sql = 'select hex(i.guid)    as guid,\n       n.title        as title,\n       n.date_updated as seq,\n       n.tags         as tag,\n       nb.name        as level_one,\n       nb.stack       as level_two\nfrom note_attr n,\n     notebook_attr nb,\n     items i\nwhere n.uid = i.uid\n  and n.notebook_uid is not null\n  and n.notebook_uid = nb.uid\n  and n.is_deleted is null\norder by n.date_updated desc'
         let result = execFileSync(this.executor, [this.config, sql, '-readonly'], {
             encoding: 'utf-8',
             maxBuffer: 20971520,
@@ -152,7 +170,7 @@ export class EvernoteWinApplicationImpl extends ApplicationCacheConfigAndExecuto
             let array = parseSqliteDefaultResult(result, ['guid', 'title', 'n/seq', 'tag', 'level_one', 'level_two'])
             array.forEach(i => {
                 let title: string = i['title'] ?? '',
-                    id: string = i['id'] ?? '',
+                    id: string = this.convertGuid(i['guid'] ?? ''),
                     description: string = '',
                     tagText = i['tag'] ?? ''
 
@@ -175,7 +193,7 @@ export class EvernoteWinApplicationImpl extends ApplicationCacheConfigAndExecuto
                         description,
                     ]),
                     exists: true,
-                    command: new UtoolsExecutor(`evernote:///view/${userId}/s0/${id}/${id}/`),
+                    command: new UtoolsExecutor(`evernote:///view/${this.user}/s0/${id}/${id}/`),
                     datetime: i['seq'] ?? 0,
                 })
             })
@@ -189,22 +207,32 @@ export class EvernoteWinApplicationImpl extends ApplicationCacheConfigAndExecuto
 
     override update(nativeId: string) {
         super.update(nativeId)
-        this.executor = utools.dbStorage.getItem(this.executorId(nativeId)) ?? ''
+        this.user = utools.dbStorage.getItem(this.userId(nativeId)) ?? ''
     }
 
     override isFinishConfig(): ApplicationConfigState {
         let superState = super.isFinishConfig()
-        if (superState !== ApplicationConfigState.done) {
-            return superState
+        if (isEmpty(this.user)) {
+            if (superState === ApplicationConfigState.empty) {
+                return ApplicationConfigState.empty
+            } else if (superState === ApplicationConfigState.done) {
+                return ApplicationConfigState.undone
+            } else {
+                return superState
+            }
         } else {
-            return !isEmpty(this.user) ? ApplicationConfigState.undone : ApplicationConfigState.done
+            if (superState === ApplicationConfigState.empty) {
+                return ApplicationConfigState.undone
+            } else {
+                return superState
+            }
         }
     }
 
     override generateSettingItems(context: Context, nativeId: string): Array<SettingItem> {
         return [
             this.enabledSettingItem(context, nativeId),
-            new InputSettingItem(
+            new PlainSettingItem(
                 this.userId(nativeId),
                 '用户 ID',
                 this.user,
@@ -222,6 +250,6 @@ export class EvernoteWinApplicationImpl extends ApplicationCacheConfigAndExecuto
 }
 
 export const applications: Array<ApplicationImpl<EvernoteMacProjectItemImpl>> = [
-    new EvernoteMacApplicationImpl(),
+    // new EvernoteMacApplicationImpl(),
     new EvernoteWinApplicationImpl(),
 ]
