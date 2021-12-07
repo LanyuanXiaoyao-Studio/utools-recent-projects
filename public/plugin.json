@@ -384,6 +384,24 @@
           "label": "打开最近文件或文件夹"
         }
       ]
+    },
+    {
+      "code"   : "evernote-project",
+      "explain": "快速打开我的印象笔记",
+      "icon"   : "icon/evernote.png",
+      "cmds"   : [
+        "Evernote Projects",
+        "我的印象笔记",
+        {
+          "type" : "window",
+          "label": "打开其他印象笔记",
+          "match": {
+            "app": [
+              "com.yinxiang.Mac"
+            ]
+          }
+        }
+      ]
     }
   ]
 }
