@@ -1,31 +1,21 @@
-import Nano, { Fragment } from "nano-jsx";
-import { DescriptionGetter, PlainSettingItem } from "../../../../Types";
-import { AdapterSettingItem, AdapterSettingItemProps, AdapterSettingItemState } from "../AdapterSettingItem";
-import { isNil, isFn } from "licia";
-import { i18n, sentenceKey } from "../../../../i18n";
+import Nano, {Fragment} from 'nano-jsx'
+import {DescriptionGetter, PlainSettingItem} from '../../../../Types'
+import {AdapterSettingItem, AdapterSettingItemProps, AdapterSettingItemState} from '../AdapterSettingItem'
+import {isFn, isNil} from 'licia'
+import {i18n, sentenceKey} from '../../../../i18n'
 
 export interface PlainProps extends AdapterSettingItemProps {
     item: PlainSettingItem
 }
 
 export class Plain extends AdapterSettingItem<PlainProps, AdapterSettingItemState> {
-    private plain(event, id: string) {
-        let inputValue = event.target?.value
-        if (isNil(inputValue)) {
-            alert(i18n.t(sentenceKey.unknownInputError))
-        } else {
-            utools.dbStorage.setItem(id, inputValue)
-            this.props.update()
-        }
-    }
-
     override render() {
         return (
             <Fragment>
                 <div class="form-group">
                     <div class="form-label">{this.props.item.name}</div>
                     {isNil(this.props.item.description)
-                        ? <Fragment />
+                        ? <Fragment/>
                         :
                         <div class="setting-item-description">
                             {isFn(this.props.item.description)
@@ -50,11 +40,21 @@ export class Plain extends AdapterSettingItem<PlainProps, AdapterSettingItemStat
                             class="btn btn-error btn-sm input-group-btn"
                             onclick={() => this.clear(this.props.item.id)}
                         >
-                            <i class="icon icon-cross" />
+                            <i class="icon icon-cross"/>
                         </button>
                     </div>
                 </div>
             </Fragment>
         )
+    }
+
+    private plain(event, id: string) {
+        let inputValue = event.target?.value
+        if (isNil(inputValue)) {
+            alert(i18n.t(sentenceKey.unknownInputError))
+        } else {
+            utools.dbStorage.setItem(id, inputValue)
+            this.props.update()
+        }
     }
 }

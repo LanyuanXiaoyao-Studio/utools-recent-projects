@@ -1,4 +1,12 @@
-import {Application, DescriptionGetter, PlainSettingItem, ProjectItemImpl, SettingType} from '../../Types'
+import {
+    Application,
+    DescriptionGetter,
+    InputSettingItem,
+    PlainSettingItem,
+    ProjectItemImpl,
+    SettingType,
+    SwitchSettingItem,
+} from '../../Types'
 import Nano, {Component, Fragment, Img} from 'nano-jsx'
 import {isEmpty, isFn, isNil} from 'licia'
 import {iconMap} from '../../Icon'
@@ -6,7 +14,9 @@ import {settingStore} from '../Store'
 import {Context} from '../../Context'
 import {i18n, sentenceKey} from '../../i18n'
 import fs from 'fs'
-import { Plain } from './adapter-settings/setting-items/Plain'
+import {Plain} from './adapter-settings/setting-items/Plain'
+import {Switch} from './adapter-settings/setting-items/Switch'
+import {Input} from './adapter-settings/setting-items/Input'
 
 export interface SettingCardProps {
     context: Context
@@ -17,8 +27,6 @@ export interface SettingCardState {}
 
 export class SettingCard extends Component<SettingCardProps, SettingCardState> {
     store = settingStore.use()
-
-    pathExistsCache: { [key: string]: boolean } = {}
 
     constructor(props: SettingCardProps) {
         super(props)
@@ -38,83 +46,9 @@ export class SettingCard extends Component<SettingCardProps, SettingCardState> {
         this.store.setState({ catalogueUpdate: !this.store.state.catalogueUpdate })
     }
 
-    select(event, id: string, name: string) {
-        let result = utools.showOpenDialog({
-            title: name,
-            message: name,
-            properties: [
-                'openFile',
-                'treatPackageAsDirectory',
-                'showHiddenFiles',
-            ],
-        })
-        if (isNil(result) || isEmpty(result)) {
-            alert(i18n.t(sentenceKey.nonExistsPathOrCancel))
-        } else {
-            let path = result![0]
-            if (!isEmpty(path)) {
-                if (!fs.existsSync(path)) {
-                    alert(i18n.t(sentenceKey.nonExistsFileOrDeleted))
-                    event.target.value = ''
-                    return
-                }
-                this.pathExistsCache[path] = true
-                utools.dbStorage.setItem(id, path)
-                this.updateApplicationUI()
-            }
-        }
-    }
-
-    plain(event, id: string) {
-        let inputValue = event.target?.value
-        if (isNil(inputValue)) {
-            alert(i18n.t(sentenceKey.unknownInputError))
-        } else {
-            utools.dbStorage.setItem(id, inputValue)
-            this.updateApplicationUI()
-        }
-    }
-
-    input(event, id: string) {
-        let inputValue = event.target?.value
-        if (isNil(inputValue)) {
-            alert(i18n.t(sentenceKey.unknownInputError))
-        } else if (isEmpty(inputValue)) {
-            return
-        } else {
-            let path = inputValue
-            if (!fs.existsSync(path)) {
-                alert(i18n.t(sentenceKey.nonExistsFileOrDeleted))
-                event.target.value = ''
-                return
-            }
-            this.pathExistsCache[path] = true
-            utools.dbStorage.setItem(id, path)
-            this.updateApplicationUI()
-        }
-    }
-
-    switch(id: string, value: boolean) {
-        utools.dbStorage.setItem(id, value)
-        this.updateApplicationUI()
-    }
-
     clear(id: string) {
         utools.dbStorage.removeItem(id)
         this.updateApplicationUI()
-    }
-
-    pathExists(path: string): boolean {
-        if (isEmpty(path)) {
-            return true
-        }
-        let exists = this.pathExistsCache[path]
-        if (isNil(exists)) {
-            exists = fs.existsSync(path)
-            this.pathExistsCache[path] = exists
-            return exists
-        }
-        return exists
     }
 
     override render() {
@@ -156,77 +90,23 @@ export class SettingCard extends Component<SettingCardProps, SettingCardState> {
                         {this.props.application.generateSettingItems(this.props.context, utools.getNativeId()).map(item => {
                             switch (item.type) {
                                 case SettingType.plain:
-                                    return <Plain item={item as PlainSettingItem} update={() => this.updateApplicationUI()} />
+                                    return <Plain
+                                        item={item as PlainSettingItem}
+                                        context={this.props.context}
+                                        update={() => this.updateApplicationUI()}
+                                    />
                                 case SettingType.path:
-                                    return (
-                                        <div class="form-group">
-                                            <div class="form-label">{item.name}</div>
-                                            {isNil(item.description)
-                                                ? <Fragment/>
-                                                :
-                                                <div class="setting-item-description">
-                                                    {isFn(item.description)
-                                                        ? (item.description as DescriptionGetter)()
-                                                        : item.description}
-                                                </div>}
-                                            <div class="input-group">
-                                                {this.props.context.enableEditPathInputDirectly
-                                                    ? <Fragment>
-                                                        <input
-                                                            type="text"
-                                                            class={`form-input input-sm ${this.pathExists(item.value as string) ? '' : 'is-error'}`}
-                                                            value={item.value == null ? '' : item.value}
-                                                            placeholder={i18n.t(sentenceKey.inputDirectlyPlaceholder)}
-                                                            onblur={event => this.input(event, item.id)}
-                                                        />
-                                                    </Fragment>
-                                                    : <Fragment>
-                                                        <input
-                                                            type="text"
-                                                            class={`form-input input-sm ${this.pathExists(item.value as string) ? '' : 'is-error'}`}
-                                                            value={item.value == null ? '' : item.value}
-                                                            placeholder={i18n.t(sentenceKey.fileSelectorPlaceholder)}
-                                                            onclick={event => this.select(event, item.id, item.name)}
-                                                            readonly
-                                                        />
-                                                    </Fragment>}
-                                                <button
-                                                    class="btn btn-error btn-sm input-group-btn"
-                                                    onclick={() => this.clear(item.id)}
-                                                >
-                                                    <i class="icon icon-cross"/>
-                                                </button>
-                                            </div>
-                                            <div
-                                                class="form-input-hint-error"
-                                                style={`display: ${this.pathExists(item.value as string) ? 'none' : 'block'}`}
-                                            >
-                                                {i18n.t(sentenceKey.filePathNonExistsTips)}
-                                            </div>
-                                        </div>
-                                    )
+                                    return <Input
+                                        item={item as InputSettingItem}
+                                        context={this.props.context}
+                                        update={() => this.updateApplicationUI()}
+                                    />
                                 case SettingType.switch:
-                                    return (
-                                        <div class="form-group d-flex">
-                                            <div class="col-10 col-mr-auto">
-                                                <div class="form-label">{item.name}</div>
-                                                {isEmpty(item.description)
-                                                    ? <Fragment/>
-                                                    :
-                                                    <div class="setting-item-description">{item.description}</div>}
-                                            </div>
-                                            <div class="col-1 flex-column-center">
-                                                <label class="form-switch float-right">
-                                                    <input
-                                                        type="checkbox"
-                                                        {...(item.value ? { checked: true } : {})}
-                                                        onchange={() => this.switch(item.id, !item.value)}
-                                                    />
-                                                    <i class="form-icon"/>
-                                                </label>
-                                            </div>
-                                        </div>
-                                    )
+                                    return <Switch
+                                        item={item as SwitchSettingItem}
+                                        context={this.props.context}
+                                        update={() => this.updateApplicationUI()}
+                                    />
                             }
                         })}
                     </div>
