@@ -123,7 +123,7 @@ export class EvernoteWinApplicationImpl extends ApplicationCacheConfigAndExecuto
             '印象笔记',
             'icon/evernote.png',
             EVERNOTE_WIN,
-            [Platform.darwin],
+            [Platform.win32],
             Group[GroupName.notes],
             () => `${i18n.t(sentenceKey.configFileAt)} ${this.defaultConfigPath()} 其中 xxx 是用户标识`,
             true,
@@ -237,6 +237,7 @@ export class EvernoteWinApplicationImpl extends ApplicationCacheConfigAndExecuto
                 '用户 ID',
                 this.user,
                 '用户 ID',
+                '输入纯数字用户 ID'
             ),
             this.configSettingItem(context, nativeId),
             new InputSettingItem(
