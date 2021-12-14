@@ -135,7 +135,7 @@ export class DefaultFolderXApplicationImpl extends ApplicationCacheImpl<DefaultF
             this.recentFoldersConfigPath,
         ]
         // 如果全部配置项为空
-        if (every(list, path => isEmpty(path))) return ApplicationConfigState.empty
+        if (every(list, path => isEmpty(path))) return ApplicationConfigState.undone
         //  如果有一个配置项不为空且路径不存在
         else if (some(list, path => !isEmpty(path) && this.nonExistsPath(path))) return ApplicationConfigState.error
         else return ApplicationConfigState.done

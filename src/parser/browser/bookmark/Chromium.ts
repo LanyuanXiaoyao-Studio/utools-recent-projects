@@ -82,7 +82,7 @@ export class ChromiumBookmarkApplicationImpl extends BrowserApplicationImpl<Chro
         if (this.disEnable())
             return ApplicationConfigState.empty
         if (isEmpty(this.config)) {
-            return ApplicationConfigState.empty
+            return ApplicationConfigState.undone
         } else {
             return ApplicationConfigState.done
         }

@@ -574,7 +574,7 @@ export abstract class ApplicationConfigImpl<P extends ProjectItemImpl> extends A
         if (this.disEnable())
             return ApplicationConfigState.empty
         if (isEmpty(this.config)) {
-            return ApplicationConfigState.empty
+            return ApplicationConfigState.undone
         } else if (this.nonExistsPath(this.config)) {
             return ApplicationConfigState.error
         } else {
@@ -635,9 +635,7 @@ export abstract class ApplicationConfigAndExecutorImpl<P extends ProjectItemImpl
     override isFinishConfig(): ApplicationConfigState {
         if (this.disEnable())
             return ApplicationConfigState.empty
-        if (isEmpty(this.config) && isEmpty(this.executor)) {
-            return ApplicationConfigState.empty
-        } else if (isEmpty(this.config) || isEmpty(this.executor)) {
+        if (isEmpty(this.config) || isEmpty(this.executor)) {
             return ApplicationConfigState.undone
         } else if (this.nonExistsPath(this.config) || this.nonExistsPath(this.executor)) {
             return ApplicationConfigState.error
