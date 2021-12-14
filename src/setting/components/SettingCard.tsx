@@ -46,11 +46,6 @@ export class SettingCard extends Component<SettingCardProps, SettingCardState> {
         this.store.setState({ catalogueUpdate: !this.store.state.catalogueUpdate })
     }
 
-    clear(id: string) {
-        utools.dbStorage.removeItem(id)
-        this.updateApplicationUI()
-    }
-
     override render() {
         return (
             <Fragment>

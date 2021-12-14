@@ -4,14 +4,13 @@ import {AdapterSettingItem, AdapterSettingItemProps, AdapterSettingItemState} fr
 import {isEmpty, isFn, isNil} from 'licia'
 import {i18n, sentenceKey} from '../../../../i18n'
 import fs from 'fs'
+import {existsCacheSync} from '../../../../utils/files/SettingInputHelper'
 
 export interface InputProps extends AdapterSettingItemProps {
     item: InputSettingItem
 }
 
 export class Input extends AdapterSettingItem<InputProps, AdapterSettingItemState> {
-    private pathExistsCache: { [key: string]: boolean } = {}
-
     select(event, id: string, name: string) {
         let result = utools.showOpenDialog({
             title: name,
@@ -32,7 +31,6 @@ export class Input extends AdapterSettingItem<InputProps, AdapterSettingItemStat
                     event.target.value = ''
                     return
                 }
-                this.pathExistsCache[path] = true
                 utools.dbStorage.setItem(id, path)
                 this.props.update()
             }
@@ -52,23 +50,9 @@ export class Input extends AdapterSettingItem<InputProps, AdapterSettingItemStat
                 event.target.value = ''
                 return
             }
-            this.pathExistsCache[path] = true
             utools.dbStorage.setItem(id, path)
             this.props.update()
         }
-    }
-
-    pathExists(path: string): boolean {
-        if (isEmpty(path)) {
-            return true
-        }
-        let exists = this.pathExistsCache[path]
-        if (isNil(exists)) {
-            exists = fs.existsSync(path)
-            this.pathExistsCache[path] = exists
-            return exists
-        }
-        return exists
     }
 
     override render() {
@@ -89,7 +73,7 @@ export class Input extends AdapterSettingItem<InputProps, AdapterSettingItemStat
                             ? <Fragment>
                                 <input
                                     type="text"
-                                    class={`form-input input-sm ${this.pathExists(this.props.item.value as string) ? '' : 'is-error'}`}
+                                    class={`form-input input-sm ${existsCacheSync(this.props.item.value as string) ? '' : 'is-error'}`}
                                     value={this.props.item.value == null ? '' : this.props.item.value}
                                     placeholder={i18n.t(sentenceKey.inputDirectlyPlaceholder)}
                                     onBlur={event => this.input(event, this.props.item.id)}
@@ -98,7 +82,7 @@ export class Input extends AdapterSettingItem<InputProps, AdapterSettingItemStat
                             : <Fragment>
                                 <input
                                     type="text"
-                                    class={`form-input input-sm ${this.pathExists(this.props.item.value as string) ? '' : 'is-error'}`}
+                                    class={`form-input input-sm ${existsCacheSync(this.props.item.value as string) ? '' : 'is-error'}`}
                                     value={this.props.item.value == null ? '' : this.props.item.value}
                                     placeholder={i18n.t(sentenceKey.fileSelectorPlaceholder)}
                                     onClick={event => this.select(event, this.props.item.id, this.props.item.name)}
@@ -114,7 +98,7 @@ export class Input extends AdapterSettingItem<InputProps, AdapterSettingItemStat
                     </div>
                     <div
                         class="form-input-hint-error"
-                        style={`display: ${this.pathExists(this.props.item.value as string) ? 'none' : 'block'}`}
+                        style={`display: ${existsCacheSync(this.props.item.value as string) ? 'none' : 'block'}`}
                     >
                         {i18n.t(sentenceKey.filePathNonExistsTips)}
                     </div>
