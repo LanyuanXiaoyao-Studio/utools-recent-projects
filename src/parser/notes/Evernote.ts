@@ -72,11 +72,11 @@ export class EvernoteMacApplicationImpl extends ApplicationCacheConfigAndExecuto
                 }
                 if (!isEmpty(tagText)) {
                     let tags = tagText.split(',')
-                    description += ` [标签：${tags.join('，')}]`
+                    description += ` [${i18n.t(sentenceKey.tag)}：${tags.join('，')}]`
                 }
                 if (!isEmpty(smartTagText)) {
                     let tags = JSON.parse(smartTagText) as Array<string>
-                    description += ` [AI 标签：${tags.join('，')}]`
+                    description += ` [${i18n.t(sentenceKey.smartTag)}：${tags.join('，')}]`
                 }
                 items.push({
                     id: '',
@@ -179,7 +179,7 @@ export class EvernoteWinApplicationImpl extends ApplicationCacheConfigAndExecuto
                 }
                 if (!isEmpty(tagText)) {
                     let tags = tagText.split(',')
-                    description += ` [标签：${tags.join('，')}]`
+                    description += ` [${i18n.t(sentenceKey.tag)}：${tags.join('，')}]`
                 }
                 items.push({
                     id: '',
@@ -237,7 +237,7 @@ export class EvernoteWinApplicationImpl extends ApplicationCacheConfigAndExecuto
                 '用户 ID',
                 this.user,
                 '用户 ID',
-                '输入纯数字用户 ID'
+                '输入纯数字用户 ID',
             ),
             this.configSettingItem(context, nativeId),
             new InputSettingItem(
@@ -251,6 +251,6 @@ export class EvernoteWinApplicationImpl extends ApplicationCacheConfigAndExecuto
 }
 
 export const applications: Array<ApplicationImpl<EvernoteMacProjectItemImpl>> = [
-    // new EvernoteMacApplicationImpl(),
+    new EvernoteMacApplicationImpl(),
     new EvernoteWinApplicationImpl(),
 ]

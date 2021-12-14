@@ -65,12 +65,14 @@ export const sentenceKey = {
     search: 'search',
     settingBetaDesc: 'settingBetaDesc',
     settingDocument: 'settingDocument',
+    smartTag: 'smartTag',
     sourceCodeRepository: 'sourceCodeRepository',
     sqlite3: 'sqlite3',
     sqlite3Desc: 'sqlite3Desc',
     systemInformation: 'systemInformation',
     systemUser: 'systemUser',
     systemVersion: 'systemVersion',
+    tag: 'tag',
     unknownError: 'unknownError',
     unknownInputError: 'unknownInputError',
     unready: 'unready',
@@ -142,12 +144,14 @@ export interface Sentence {
     readonly search: string
     readonly settingBetaDesc: string
     readonly settingDocument: string
+    readonly smartTag: string
     readonly sourceCodeRepository: string
     readonly sqlite3: string
     readonly sqlite3Desc: string
     readonly systemInformation: string
     readonly systemUser: string
     readonly systemVersion: string
+    readonly tag: string
     readonly unknownError: string
     readonly unknownInputError: string
     readonly unready: string
