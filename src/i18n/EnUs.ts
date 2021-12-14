@@ -19,6 +19,8 @@ export class EnUs implements Sentence {
     readonly error: string = 'Error'
     readonly errorArgs: string = 'Arguments error, feedback please'
     readonly errorInfoToClipboard: string = 'Error message is copied to clipboard'
+    readonly evernoteUserId: string = 'User ID'
+    readonly evernoteUserIdDesc: string = 'About "How to find my evernote user id" is in 「http://xxxx」'
     readonly executorFileAt: string = 'Executor file usually at'
     readonly executorPrefix: string = 'Configure'
     readonly executorSuffix: string = 'executable file path'

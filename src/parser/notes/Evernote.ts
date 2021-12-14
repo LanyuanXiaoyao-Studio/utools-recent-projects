@@ -236,10 +236,9 @@ export class EvernoteWinApplicationImpl extends ApplicationCacheConfigAndExecuto
             this.enabledSettingItem(context, nativeId),
             new PlainSettingItem(
                 this.userId(nativeId),
-                '用户 ID',
+                i18n.t(sentenceKey.evernoteUserId),
                 this.user,
-                '用户 ID',
-                '输入纯数字用户 ID',
+                i18n.t(sentenceKey.evernoteUserIdDesc),
             ),
             this.configSettingItem(context, nativeId),
             new InputSettingItem(

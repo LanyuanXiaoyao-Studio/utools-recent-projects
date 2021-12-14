@@ -21,6 +21,9 @@ export const sentenceKey = {
     error: 'error',
     errorArgs: 'errorArgs',
     errorInfoToClipboard: 'errorInfoToClipboard',
+    evernoteUserId: 'evernoteUserId',
+    evernoteUserIdDesc: 'evernoteUserIdDesc',
+    evernoteUserIdPlaceholder: 'evernoteUserIdPlaceholder',
     executorFileAt: 'executorFileAt',
     executorPrefix: 'executorPrefix',
     executorSuffix: 'executorSuffix',
@@ -100,6 +103,8 @@ export interface Sentence {
     readonly error: string
     readonly errorArgs: string
     readonly errorInfoToClipboard: string
+    readonly evernoteUserId: string
+    readonly evernoteUserIdDesc: string
     readonly executorFileAt: string
     readonly executorPrefix: string
     readonly executorSuffix: string
