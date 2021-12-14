@@ -127,6 +127,8 @@ export class DefaultFolderXApplicationImpl extends ApplicationCacheImpl<DefaultF
     }
 
     override isFinishConfig(): ApplicationConfigState {
+        if (this.disEnable())
+            return ApplicationConfigState.empty
         let list = [
             this.recentFilesConfigPath,
             this.recentFinderFoldersConfigPath,

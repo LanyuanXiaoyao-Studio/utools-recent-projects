@@ -79,7 +79,13 @@ export class ChromiumBookmarkApplicationImpl extends BrowserApplicationImpl<Chro
     }
 
     override isFinishConfig(): ApplicationConfigState {
-        return isEmpty(this.config) ? ApplicationConfigState.empty : ApplicationConfigState.done
+        if (this.disEnable())
+            return ApplicationConfigState.empty
+        if (isEmpty(this.config)) {
+            return ApplicationConfigState.empty
+        } else {
+            return ApplicationConfigState.done
+        }
     }
 }
 

@@ -211,6 +211,8 @@ export class EvernoteWinApplicationImpl extends ApplicationCacheConfigAndExecuto
     }
 
     override isFinishConfig(): ApplicationConfigState {
+        if (this.disEnable())
+            return ApplicationConfigState.empty
         let superState = super.isFinishConfig()
         if (isEmpty(this.user)) {
             if (superState === ApplicationConfigState.empty) {

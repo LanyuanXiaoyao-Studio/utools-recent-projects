@@ -457,7 +457,7 @@ export abstract class ApplicationImpl<P extends ProjectItemImpl> implements Appl
     readonly group: string
     readonly description: string | DescriptionGetter
     readonly beta: boolean
-    enabled: boolean = true
+    enabled: boolean = false
 
     protected constructor(id: string, name: string, icon: string, type: string, platform: Array<Platform>, group: string = 'default', description: string | DescriptionGetter = '', beta: boolean = false) {
         this.id = id
@@ -470,8 +470,12 @@ export abstract class ApplicationImpl<P extends ProjectItemImpl> implements Appl
         this.beta = beta
     }
 
+    enable() { return this.enabled }
+
+    disEnable() { return !this.enable() }
+
     update(nativeId: string) {
-        this.enabled = utools.dbStorage.getItem(this.enabledId(nativeId)) ?? true
+        this.enabled = utools.dbStorage.getItem(this.enabledId(nativeId)) ?? false
     }
 
     enabledId(nativeId: string): string {
@@ -496,6 +500,8 @@ export abstract class ApplicationImpl<P extends ProjectItemImpl> implements Appl
     abstract generateProjectItems(context: Context): Promise<Array<P>>
 
     isFinishConfig(): ApplicationConfigState {
+        if (this.disEnable())
+            return ApplicationConfigState.empty
         return ApplicationConfigState.done
     }
 
@@ -565,6 +571,8 @@ export abstract class ApplicationConfigImpl<P extends ProjectItemImpl> extends A
     }
 
     override isFinishConfig(): ApplicationConfigState {
+        if (this.disEnable())
+            return ApplicationConfigState.empty
         if (isEmpty(this.config)) {
             return ApplicationConfigState.empty
         } else if (this.nonExistsPath(this.config)) {
@@ -625,6 +633,8 @@ export abstract class ApplicationConfigAndExecutorImpl<P extends ProjectItemImpl
     }
 
     override isFinishConfig(): ApplicationConfigState {
+        if (this.disEnable())
+            return ApplicationConfigState.empty
         if (isEmpty(this.config) && isEmpty(this.executor)) {
             return ApplicationConfigState.empty
         } else if (isEmpty(this.config) || isEmpty(this.executor)) {

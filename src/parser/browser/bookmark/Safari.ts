@@ -86,6 +86,8 @@ export class SafariBookmarkApplicationImpl extends BrowserApplicationImpl<Safari
     }
 
     override isFinishConfig(): ApplicationConfigState {
+        if (this.disEnable())
+            return ApplicationConfigState.empty
         return ApplicationConfigState.done
     }
 }
