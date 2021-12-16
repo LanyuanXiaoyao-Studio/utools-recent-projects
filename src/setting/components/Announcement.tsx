@@ -59,6 +59,7 @@ export class Announcement extends Component<AnnouncementProps, AnnouncementState
                                     <b>市场的评论区</b>
                                     向我反馈
                                 </p>
+                                <p>有些软件并没有提供稳定的获取历史数据的方式，随着软件的升级，原有的适配方式可能失效，这在情理之中，可以向我反馈失效的情况，我将及时修补，请关注每次插件更新的更新说明</p>
                                 <p>如果这个插件帮助到了你，希望能给个五星好评哦 :P</p>
                             </div>
                         </div>
