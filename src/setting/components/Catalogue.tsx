@@ -54,7 +54,7 @@ export class Catalogue extends Component<CatalogueProps, CatalogueState> {
     }
 
     survey() {
-        utools.shellOpenExternal('https://docs.qq.com/form/page/DZFhlZXRSendzc3dR')
+        utools.ubrowser.goto('https://wj.qq.com/s2/9430048/c591/').run({ width: 1200, height: 800 })
     }
 
     home() {
