@@ -20,7 +20,7 @@ export class ZhCn implements Sentence {
     readonly errorArgs: string = '参数错误，请向作者反馈'
     readonly errorInfoToClipboard: string = '错误信息已复制到剪贴板'
     readonly evernoteUserId: string = '用户 ID'
-    readonly evernoteUserIdDesc: string = '在「http://xxxx」查看如何获取印象笔记用户 ID'
+    readonly evernoteUserIdDesc: string = '在「https://yuanliao.info/d/3978-300/80」查看如何获取印象笔记用户 ID'
     readonly executorFileAt: string = '可执行文件通常放在'
     readonly executorPrefix: string = '设置'
     readonly executorSuffix: string = '可执行程序路径'
