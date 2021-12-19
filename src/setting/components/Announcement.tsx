@@ -32,11 +32,6 @@ export class Announcement extends Component<AnnouncementProps, AnnouncementState
         return (
             <Fragment>
                 <div class={'modal ' + (this.dialog ? 'active' : '')}>
-                    <a
-                        href="#close"
-                        class="modal-overlay"
-                        aria-label="Close"
-                    />
                     <div class="modal-container">
                         <div class="modal-header">
                             <div class="modal-title h5">温馨提示 请务必阅读</div>
