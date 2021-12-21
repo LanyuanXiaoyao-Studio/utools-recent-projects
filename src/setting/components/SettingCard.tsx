@@ -71,44 +71,50 @@ export class SettingCard extends Component<SettingCardProps, SettingCardState> {
                         </span>
                     </div>
                     <div class="form-group card-body">
-                        {isNil(this.props.application.description)
-                            ? <Fragment/>
-                            :
-                            <blockquote class="card-description">
-                                <cite>
-                                    {isFn(this.props.application.description)
-                                        ? (this.props.application.description as DescriptionGetter)()
-                                        : this.props.application.description}
-                                </cite>
-                            </blockquote>}
+                        {this.props.application.enabled
+                            ? isNil(this.props.application.description)
+                                ? <Fragment/>
+                                :
+                                <blockquote class="card-description">
+                                    <cite>
+                                        {isFn(this.props.application.description)
+                                            ? (this.props.application.description as DescriptionGetter)()
+                                            : this.props.application.description}
+                                    </cite>
+                                </blockquote>
+                            : <Fragment/>}
 
                         <EnableSwitch
                             application={this.props.application}
                             context={this.props.context}
                             update={() => this.updateApplicationUI()}
                         />
-                        {this.props.application.generateSettingItems(this.props.context, utools.getNativeId()).map(item => {
-                            switch (item.type) {
-                                case SettingType.plain:
-                                    return <Plain
-                                        item={item as PlainSettingItem}
-                                        context={this.props.context}
-                                        update={() => this.updateApplicationUI()}
-                                    />
-                                case SettingType.path:
-                                    return <Input
-                                        item={item as InputSettingItem}
-                                        context={this.props.context}
-                                        update={() => this.updateApplicationUI()}
-                                    />
-                                case SettingType.switch:
-                                    return <Switch
-                                        item={item as SwitchSettingItem}
-                                        context={this.props.context}
-                                        update={() => this.updateApplicationUI()}
-                                    />
-                            }
-                        })}
+
+                        {this.props.application.enabled
+                            ? this
+                                .props.application.generateSettingItems(this.props.context, utools.getNativeId()).map(item => {
+                                    switch (item.type) {
+                                        case SettingType.plain:
+                                            return <Plain
+                                                item={item as PlainSettingItem}
+                                                context={this.props.context}
+                                                update={() => this.updateApplicationUI()}
+                                            />
+                                        case SettingType.path:
+                                            return <Input
+                                                item={item as InputSettingItem}
+                                                context={this.props.context}
+                                                update={() => this.updateApplicationUI()}
+                                            />
+                                        case SettingType.switch:
+                                            return <Switch
+                                                item={item as SwitchSettingItem}
+                                                context={this.props.context}
+                                                update={() => this.updateApplicationUI()}
+                                            />
+                                    }
+                                })
+                            : <Fragment/>}
                     </div>
                 </div>
             </Fragment>
