@@ -1,6 +1,6 @@
 import Nano, {Component, Fragment} from 'nano-jsx'
 import {CustomCss, SpectreCss, SpectreIconCss} from './css'
-import {Application, Platform, ProjectItemImpl} from '../Types'
+import {ApplicationImpl, Platform, ProjectItemImpl} from '../Types'
 import {SettingCard} from './components/SettingCard'
 import {Catalogue} from './components/Catalogue'
 import {Announcement} from './components/Announcement'
@@ -17,7 +17,7 @@ interface RootProps {
 }
 
 interface RootState {
-    applications: Array<Application<ProjectItemImpl>>
+    applications: Array<ApplicationImpl<ProjectItemImpl>>
     platform: Platform
 }
 

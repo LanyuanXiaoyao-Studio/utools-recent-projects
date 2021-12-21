@@ -1,7 +1,8 @@
 import Nano, {Fragment} from 'nano-jsx'
-import {SwitchSettingItem} from '../../../../Types'
+import {ApplicationImpl, ProjectItemImpl, SwitchSettingItem} from '../../../../Types'
 import {AdapterSettingItem, AdapterSettingItemProps, AdapterSettingItemState} from '../AdapterSettingItem'
 import {isEmpty} from 'licia'
+import {i18n, sentenceKey} from '../../../../i18n'
 
 export interface SwitchProps extends AdapterSettingItemProps {
     item: SwitchSettingItem
@@ -37,5 +38,37 @@ export class Switch extends AdapterSettingItem<SwitchProps, AdapterSettingItemSt
     private switch(id: string, value: boolean) {
         utools.dbStorage.setItem(id, value)
         this.props.update()
+    }
+}
+
+export interface EnableSwitchProps extends AdapterSettingItemProps {
+    application: ApplicationImpl<ProjectItemImpl>
+}
+
+export class EnableSwitch extends AdapterSettingItem<EnableSwitchProps, AdapterSettingItemState> {
+    private readonly settingItem: SwitchSettingItem
+
+    constructor(props: EnableSwitchProps) {
+        super(props)
+
+        let nativeId = utools.getNativeId()
+        this.settingItem = new SwitchSettingItem(
+            props.application.enabledId(nativeId),
+            i18n.t(sentenceKey.enableLabel),
+            props.application.enabled,
+            i18n.t(sentenceKey.enableDesc),
+        )
+    }
+
+    override render() {
+        return (
+            <Fragment>
+                <Switch
+                    item={this.settingItem}
+                    context={this.props.context}
+                    update={() => this.props.update()}
+                />
+            </Fragment>
+        )
     }
 }

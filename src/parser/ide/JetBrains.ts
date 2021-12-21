@@ -1,6 +1,6 @@
 import {
     Application,
-    ApplicationCacheConfigAndExecutorImpl,
+    ApplicationCacheConfigAndExecutorImpl, ApplicationImpl,
     DatetimeProjectItemImpl,
     DescriptionGetter,
     Group,
@@ -68,7 +68,7 @@ export class JetBrainsApplicationImpl extends ApplicationCacheConfigAndExecutorI
     }
 }
 
-export const applications: Array<Application<JetBrainsProjectItemImpl>> = [
+export const applications: Array<ApplicationImpl<JetBrainsProjectItemImpl>> = [
     new JetBrainsApplicationImpl('android', 'Android Studio', 'icon/jetbrains-android.png'),
     new JetBrainsApplicationImpl('appcode', 'AppCode', 'icon/jetbrains-appcode.png', [Platform.darwin]),
     new JetBrainsApplicationImpl('clion', 'CLion', 'icon/jetbrains-clion.png'),

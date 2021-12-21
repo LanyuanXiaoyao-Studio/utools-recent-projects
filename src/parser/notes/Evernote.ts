@@ -100,7 +100,6 @@ export class EvernoteMacApplicationImpl extends ApplicationCacheConfigAndExecuto
 
     override generateSettingItems(context: Context, nativeId: string): Array<SettingItem> {
         return [
-            this.enabledSettingItem(context, nativeId),
             this.configSettingItem(context, nativeId),
             new InputSettingItem(
                 this.executorId(nativeId),
@@ -233,7 +232,6 @@ export class EvernoteWinApplicationImpl extends ApplicationCacheConfigAndExecuto
 
     override generateSettingItems(context: Context, nativeId: string): Array<SettingItem> {
         return [
-            this.enabledSettingItem(context, nativeId),
             new PlainSettingItem(
                 this.userId(nativeId),
                 i18n.t(sentenceKey.evernoteUserId),

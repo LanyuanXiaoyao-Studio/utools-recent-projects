@@ -26,7 +26,6 @@ export abstract class SqliteBrowserApplicationImpl<P extends ProjectItemImpl> ex
 
     override generateSettingItems(context: Context, nativeId: string): Array<SettingItem> {
         return [
-            this.enabledSettingItem(context, nativeId),
             this.configSettingItem(context, nativeId),
             new InputSettingItem(
                 this.executorId(nativeId),

@@ -69,7 +69,6 @@ export class ChromiumBookmarkApplicationImpl extends BrowserApplicationImpl<Chro
 
     override generateSettingItems(context: Context, nativeId: string): Array<SettingItem> {
         return [
-            this.enabledSettingItem(context, nativeId),
             new InputSettingItem(
                 this.configId(nativeId),
                 `${i18n.t(sentenceKey.configPrefix)} ${this.name} 「${this.configFilename}」${i18n.t(sentenceKey.configSuffix)}`,

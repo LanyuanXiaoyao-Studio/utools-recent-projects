@@ -1,5 +1,5 @@
 import {Context} from '../../../src/Context'
-import {ObsidianApplicationImpl} from '../../../src/parser/editor/Obsidian'
+import {ObsidianApplicationImpl} from '../../../src/parser/notes/Obsidian'
 
 test('obsidianProjectItems', async () => {
     let app = new ObsidianApplicationImpl()

@@ -1,5 +1,5 @@
 import {
-    Application,
+    ApplicationImpl,
     DescriptionGetter,
     InputSettingItem,
     PlainSettingItem,
@@ -8,19 +8,18 @@ import {
     SwitchSettingItem,
 } from '../../Types'
 import Nano, {Component, Fragment, Img} from 'nano-jsx'
-import {isEmpty, isFn, isNil} from 'licia'
+import {isFn, isNil} from 'licia'
 import {iconMap} from '../../Icon'
 import {settingStore} from '../Store'
 import {Context} from '../../Context'
 import {i18n, sentenceKey} from '../../i18n'
-import fs from 'fs'
 import {Plain} from './adapter-settings/setting-items/Plain'
-import {Switch} from './adapter-settings/setting-items/Switch'
+import {EnableSwitch, Switch} from './adapter-settings/setting-items/Switch'
 import {Input} from './adapter-settings/setting-items/Input'
 
 export interface SettingCardProps {
     context: Context
-    application: Application<ProjectItemImpl>
+    application: ApplicationImpl<ProjectItemImpl>
 }
 
 export interface SettingCardState {}
@@ -82,6 +81,12 @@ export class SettingCard extends Component<SettingCardProps, SettingCardState> {
                                         : this.props.application.description}
                                 </cite>
                             </blockquote>}
+
+                        <EnableSwitch
+                            application={this.props.application}
+                            context={this.props.context}
+                            update={() => this.updateApplicationUI()}
+                        />
                         {this.props.application.generateSettingItems(this.props.context, utools.getNativeId()).map(item => {
                             switch (item.type) {
                                 case SettingType.plain:

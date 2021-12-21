@@ -213,14 +213,14 @@ export abstract class ArgsImpl<I extends Item> implements Args<I> {
     /**
      * 应用配置
      */
-    protected readonly applications: Array<Application<ProjectItemImpl>> = []
+    protected readonly applications: Array<ApplicationImpl<ProjectItemImpl>> = []
 
     /**
      * 传入应用配置
      *
      * @param applications 应用配置, 可以多个聚合在一起
      */
-    constructor(applications: Array<Application<ProjectItemImpl>>) {
+    constructor(applications: Array<ApplicationImpl<ProjectItemImpl>>) {
         this.applications = applications
     }
 
@@ -482,19 +482,12 @@ export abstract class ApplicationImpl<P extends ProjectItemImpl> implements Appl
         return `${nativeId}/${this.id}-enabled`
     }
 
-    enabledSettingItem(context: Context, nativeId: string): SettingItem {
-        return new SwitchSettingItem(
-            this.enabledId(nativeId),
-            i18n.t(sentenceKey.enableLabel),
-            this.enabled,
-            i18n.t(sentenceKey.enableDesc),
-        )
-    }
-
+    // Enable Setting 作为顶层设置项固定显示在 SettingCard 里, 不在额外设置, 为了保留兼容性
+    // SettingCard 中还是会引用 ApplicationImpl 中设置的 EnableId 信息
+    // 此外 application 的 enable 也需要自身更新, 所以不适合提取赋值方法到其他地方
+    // 综上, 这个提取操作只能作为一个比较不美观的操作作为 Setting Item 的特例
     generateSettingItems(context: Context, nativeId: string): Array<SettingItem> {
-        return [
-            this.enabledSettingItem(context, nativeId),
-        ]
+        return []
     }
 
     abstract generateProjectItems(context: Context): Promise<Array<P>>

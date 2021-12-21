@@ -1,4 +1,4 @@
-import {Application, Feature, ProjectArgsImpl, ProjectItemImpl} from './Types'
+import {ApplicationImpl, Feature, ProjectArgsImpl, ProjectItemImpl} from './Types'
 import {applications as jetBrainsApplications} from './parser/ide/JetBrains'
 import {applications as vscodeApplications} from './parser/editor/Vscode'
 import {applications as typoraApplications} from './parser/editor/Typora'
@@ -56,7 +56,7 @@ export const argsMapping: { [keys: string]: ProjectFeature } = {
     'evernote-project': new ProjectFeature(new AllProjectSortByTimeArgs(evernoteApplication)),
 }
 
-export const applications: Array<Application<ProjectItemImpl>> = []
+export const applications: Array<ApplicationImpl<ProjectItemImpl>> = []
 let keys = Object.keys(argsMapping), length = keys.length
 for (let i = 0; i < length; i++) {
     applications.push(...(argsMapping[keys[i]].args.getApplications()))

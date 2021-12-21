@@ -81,7 +81,6 @@ export class SafariHistoryApplicationImpl extends SqliteBrowserApplicationImpl<S
 
     override generateSettingItems(context: Context, nativeId: string): Array<SettingItem> {
         return [
-            this.enabledSettingItem(context, nativeId),
             new InputSettingItem(
                 this.executorId(nativeId),
                 i18n.t(sentenceKey.sqlite3),

@@ -1,6 +1,6 @@
 import {
     Application,
-    ApplicationCacheConfigImpl,
+    ApplicationCacheConfigImpl, ApplicationImpl,
     DatetimeProjectItemImpl,
     ElectronExecutor,
     Group,
@@ -72,6 +72,6 @@ export class VsStudioApplicationImpl extends ApplicationCacheConfigImpl<VsStudio
     }
 }
 
-export const applications: Array<Application<VsStudioProjectItemImpl>> = [
+export const applications: Array<ApplicationImpl<VsStudioProjectItemImpl>> = [
     new VsStudioApplicationImpl(),
 ]
