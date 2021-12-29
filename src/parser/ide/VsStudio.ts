@@ -1,6 +1,6 @@
 import {
-    Application,
-    ApplicationCacheConfigImpl, ApplicationImpl,
+    ApplicationCacheConfigImpl,
+    ApplicationImpl,
     DatetimeProjectItemImpl,
     ElectronExecutor,
     Group,
@@ -35,7 +35,7 @@ export class VsStudioApplicationImpl extends ApplicationCacheConfigImpl<VsStudio
     }
 
     override defaultConfigPath(): string {
-        return '';
+        return ''
     }
 
     async generateCacheProjectItems(context: Context): Promise<Array<VsStudioProjectItemImpl>> {
@@ -43,8 +43,8 @@ export class VsStudioApplicationImpl extends ApplicationCacheConfigImpl<VsStudio
         let buffer = await readFile(this.config)
         if (!isNil(buffer)) {
             let content = buffer.toString()
-            let domParser = new DOMParser().parseFromString(content, 'application/xml')
-            let source = domParser.querySelector(`collection[name=CodeContainers\\.Offline] > value`)?.textContent ?? ''
+            let domParser = new DOMParser().parseFromString(content, 'text/html')
+            let source = domParser.querySelector(`collection[name=CodeContainers\\.Offline] > value[name=value]`)?.textContent ?? ''
             let projects = JSON.parse(source)
             if (!isNil(projects) && !isEmpty(projects)) {
                 projects.forEach(p => {
