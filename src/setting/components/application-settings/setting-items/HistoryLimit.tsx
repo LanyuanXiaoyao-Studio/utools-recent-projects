@@ -5,7 +5,7 @@ import {
     ApplicationSettingItemState,
 } from '../ApplicationSettingItem'
 import {i18n, sentenceKey} from '../../../../i18n'
-import {CloudSyncChip} from '../Chips'
+import {CloudSyncChip, EnhanceChip} from '../Chips'
 import {Context} from '../../../../Context'
 
 export class HistoryLimit extends ApplicationSettingItem<ApplicationSettingItemProps, ApplicationSettingItemState> {
@@ -19,6 +19,7 @@ export class HistoryLimit extends ApplicationSettingItem<ApplicationSettingItemP
                     <div class="form-description">{i18n.t(sentenceKey.historyLimitDesc)}</div>
                     <div class="form-tags">
                         <CloudSyncChip/>
+                        <EnhanceChip/>
                     </div>
                 </div>
                 <div class="col-2 flex-column-center">

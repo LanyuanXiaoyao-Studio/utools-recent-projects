@@ -7,6 +7,7 @@ export class Context {
     static enableEditPathInputDirectlyId: string = 'setting-edit-path-input-directly'
     static enablePinyinIndexId: string = 'setting-pinyin-index'
     static browserHistoryLimitId: string = 'browser-history-limit'
+    static enableEnhanceConfigId: string = 'setting-enhance-config'
 
     readonly languageSetting: string = 'auto'
     readonly enableFilterNonExistsFiles: boolean = false
@@ -16,6 +17,7 @@ export class Context {
     readonly enableEditPathInputDirectly: boolean = false
     readonly enablePinyinIndex: boolean = true
     readonly browserHistoryLimit: number = 100
+    readonly enableEnhanceConfig: boolean = false
 
     constructor(nativeId: string) {
         this.languageSetting = utools.dbStorage.getItem(Context.languageSettingId) ?? 'auto'
@@ -25,6 +27,7 @@ export class Context {
         this.enableOpenNotification = utools.dbStorage.getItem(Context.enableOpenNotificationId) ?? false
         this.enablePinyinIndex = utools.dbStorage.getItem(Context.enablePinyinIndexId) ?? true
         this.browserHistoryLimit = parseInt(utools.dbStorage.getItem(Context.browserHistoryLimitId) ?? '100')
+        this.enableEnhanceConfig = utools.dbStorage.getItem(Context.enableEnhanceConfigId) ?? false
         // 本地生效
         this.enableEditPathInputDirectly = utools.dbStorage.getItem(Context.joinId(nativeId, Context.enableEditPathInputDirectlyId)) ?? false
     }

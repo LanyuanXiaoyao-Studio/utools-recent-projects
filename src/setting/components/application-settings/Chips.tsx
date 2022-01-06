@@ -60,3 +60,18 @@ export class TestChip extends Component {
         )
     }
 }
+
+export class EnhanceChip extends Component {
+    override render() {
+        return (
+            <Fragment>
+                <span
+                    class="chip-wrapper tooltip tooltip-right"
+                    data-tooltip={i18n.t(sentenceKey.enhanceConfigChipDesc)}
+                >
+                    <span class="chip c-hand enhance-config">{i18n.t(sentenceKey.enhanceConfig)}</span>
+                </span>
+            </Fragment>
+        )
+    }
+}
