@@ -18,6 +18,9 @@ export const sentenceKey = {
     emptyTipsTitle: 'emptyTipsTitle',
     enableDesc: 'enableDesc',
     enableLabel: 'enableLabel',
+    enhanceConfig: 'enhanceConfig',
+    enhanceConfigChipDesc: 'enhanceConfigChipDesc',
+    enhanceConfigDesc: 'enhanceConfigDesc',
     error: 'error',
     errorArgs: 'errorArgs',
     errorInfoToClipboard: 'errorInfoToClipboard',
@@ -78,11 +81,11 @@ export const sentenceKey = {
     systemUser: 'systemUser',
     systemVersion: 'systemVersion',
     tag: 'tag',
+    unSupportTipsDesc: 'unSupportTipsDesc',
+    unSupportTipsTitle: 'unSupportTipsTitle',
     unknownError: 'unknownError',
     unknownInputError: 'unknownInputError',
     unready: 'unready',
-    unSupportTipsDesc: 'unSupportTipsDesc',
-    unSupportTipsTitle: 'unSupportTipsTitle',
     utoolsVersion: 'utoolsVersion',
 }
 
@@ -102,6 +105,9 @@ export interface Sentence {
     readonly emptyTipsTitle: string
     readonly enableDesc: string
     readonly enableLabel: string
+    readonly enhanceConfig: string
+    readonly enhanceConfigChipDesc: string
+    readonly enhanceConfigDesc: string
     readonly error: string
     readonly errorArgs: string
     readonly errorInfoToClipboard: string
@@ -161,11 +167,11 @@ export interface Sentence {
     readonly systemUser: string
     readonly systemVersion: string
     readonly tag: string
+    readonly unSupportTipsDesc: string
+    readonly unSupportTipsTitle: string
     readonly unknownError: string
     readonly unknownInputError: string
     readonly unready: string
-    readonly unSupportTipsDesc: string
-    readonly unSupportTipsTitle: string
     readonly utoolsVersion: string
 }
 

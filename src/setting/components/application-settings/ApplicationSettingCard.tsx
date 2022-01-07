@@ -10,6 +10,22 @@ import {GetFileIcon} from './setting-items/GetFileIcon'
 import {GetFavicon} from './setting-items/GetFavicon'
 import {HistoryLimit} from './setting-items/HistoryLimit'
 import {SqlitePath} from './setting-items/SqlitePath'
+import {EnhanceConfig} from './setting-items/EnhanceConfig'
+
+export interface EnhanceSettingItemProps {
+    slot: Component
+    context: Context
+}
+
+export interface EnhanceSettingItemState {}
+
+export class EnhanceSettingItem extends Component<EnhanceSettingItemProps, EnhanceSettingItemState> {
+    override render() {
+        return (this.props.context.enableEnhanceConfig
+            ? this.props.slot
+            : <Fragment/>)
+    }
+}
 
 export interface ApplicationSettingCardProps {
     context: Context
@@ -43,16 +59,23 @@ export class ApplicationSettingCard extends Component<ApplicationSettingCardProp
                             <NotifyFileOpen context={this.props.context}/>
                             <div class="divider"/>
                             <InputPathDirectly context={this.props.context}/>
+                            <div class="divider"/>
+                            <EnhanceConfig context={this.props.context}/>
                             <div
                                 class="divider text-center"
                                 data-content={i18n.t(sentenceKey.search)}
                             />
                             <PinyinIndex context={this.props.context}/>
-                            <div
-                                class="divider text-center"
-                                data-content={i18n.t(sentenceKey.file)}
+                            <EnhanceSettingItem
+                                slot={<Fragment>
+                                    <div
+                                        class="divider text-center"
+                                        data-content={i18n.t(sentenceKey.file)}
+                                    />
+                                    <FilterNonExistsFiles context={this.props.context}/>
+                                </Fragment>}
+                                context={this.props.context}
                             />
-                            <FilterNonExistsFiles context={this.props.context}/>
                             <div class="divider"/>
                             <GetFileIcon context={this.props.context}/>
                             <div
@@ -60,10 +83,15 @@ export class ApplicationSettingCard extends Component<ApplicationSettingCardProp
                                 data-content={i18n.t(sentenceKey.browser)}
                             />
                             <GetFavicon context={this.props.context}/>
-                            <div class="divider"/>
-                            <HistoryLimit context={this.props.context}/>
+                            <EnhanceSettingItem
+                                slot={<Fragment>
+                                    <div class="divider"/>
+                                    <HistoryLimit context={this.props.context}/>
+                                </Fragment>}
+                                context={this.props.context}
+                            />
                             <div
-                                class="divider text-center"
+                                className="divider text-center"
                                 data-content="其他"
                             />
                             <SqlitePath context={this.props.context}/>
