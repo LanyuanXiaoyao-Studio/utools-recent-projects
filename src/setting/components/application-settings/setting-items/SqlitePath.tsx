@@ -4,14 +4,25 @@ import {
     ApplicationSettingItemProps,
     ApplicationSettingItemState,
 } from '../ApplicationSettingItem'
-import {NativeChip, RebootNeededChip} from '../Chips'
+import {NativeChip} from '../Chips'
 import {existsCacheSync} from '../../../../utils/files/SettingInputHelper'
 import {i18n, sentenceKey} from '../../../../i18n'
 import {isEmpty, isNil} from 'licia'
 import fs from 'fs'
 import {Context} from '../../../../Context'
+import {settingStore} from '../../../Store'
 
 export class SqlitePath extends ApplicationSettingItem<ApplicationSettingItemProps, ApplicationSettingItemState> {
+    store = settingStore.use()
+
+    constructor(props: ApplicationSettingItemProps) {
+        super(props)
+    }
+
+    override didUnmount(): any {
+        this.store.cancel()
+    }
+
     private selectFile(event) {
         let result = utools.showOpenDialog({
             title: 'sqlite',
@@ -64,6 +75,11 @@ export class SqlitePath extends ApplicationSettingItem<ApplicationSettingItemPro
         this.update()
     }
 
+    override update() {
+        super.update()
+        this.store.setState({ catalogueUpdate: !this.store.state.catalogueUpdate })
+    }
+
     override render() {
         return (<Fragment>
             <div class="form-group">
@@ -114,7 +130,6 @@ export class SqlitePath extends ApplicationSettingItem<ApplicationSettingItemPro
                 </div>
                 <div class="form-tags">
                     <NativeChip/>
-                    <RebootNeededChip/>
                 </div>
             </div>
         </Fragment>)

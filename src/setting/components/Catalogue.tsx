@@ -5,6 +5,7 @@ import {settingStore} from '../Store'
 import {compareChar} from '../../Utils'
 import {i18n, sentenceKey} from '../../i18n'
 import {iconMap} from '../../Icon'
+import {Context} from '../../Context'
 
 export interface BadgeInfo {
     readonly show: boolean
@@ -13,6 +14,7 @@ export interface BadgeInfo {
 }
 
 export interface CatalogueProps {
+    context: Context
     applications: Array<Application<ProjectItemImpl>>
 }
 
@@ -22,6 +24,8 @@ export interface CatalogueState {
 
 export class Catalogue extends Component<CatalogueProps, CatalogueState> {
     store = settingStore.use()
+
+    private localContext: Context = this.props.context
 
     constructor(props: any) {
         super(props)
@@ -45,6 +49,11 @@ export class Catalogue extends Component<CatalogueProps, CatalogueState> {
         })
     }
 
+    override update() {
+        this.localContext = Context.get()
+        super.update()
+    }
+
     override didUnmount(): any {
         this.store.cancel()
     }
@@ -62,7 +71,7 @@ export class Catalogue extends Component<CatalogueProps, CatalogueState> {
     }
 
     badge(application: Application<ProjectItemImpl>): BadgeInfo {
-        switch (application.isFinishConfig()) {
+        switch (application.isFinishConfig(this.localContext)) {
             case ApplicationConfigState.empty:
                 return { show: false, class: '', text: '' }
             case ApplicationConfigState.undone:

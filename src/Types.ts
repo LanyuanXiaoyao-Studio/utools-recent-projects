@@ -274,7 +274,7 @@ export abstract class ProjectArgsImpl extends ArgsImpl<ProjectItemImpl> {
         let platform = platformFromUtools()
         let context = Context.get()
         for (let app of this.applications) {
-            let finish = app.isFinishConfig()
+            let finish = app.isFinishConfig(context)
             // 平台不适配的, 配置没有填完的, 都要被过滤掉
             if (app.enabled && contain(app.platform, platform) && finish === ApplicationConfigState.done) {
                 (await app.generateProjectItems(context))
@@ -441,7 +441,7 @@ export interface Application<P extends ProjectItemImpl> {
     update: (nativeId: string) => void
     generateSettingItems: (context: Context, nativeId: string) => Array<SettingItem>
     generateProjectItems: (context: Context) => Promise<Array<P>>
-    isFinishConfig: () => ApplicationConfigState
+    isFinishConfig: (context: Context) => ApplicationConfigState
 }
 
 /**
@@ -492,7 +492,7 @@ export abstract class ApplicationImpl<P extends ProjectItemImpl> implements Appl
 
     abstract generateProjectItems(context: Context): Promise<Array<P>>
 
-    isFinishConfig(): ApplicationConfigState {
+    isFinishConfig(context: Context): ApplicationConfigState {
         if (this.disEnable())
             return ApplicationConfigState.empty
         return ApplicationConfigState.done
@@ -563,7 +563,7 @@ export abstract class ApplicationConfigImpl<P extends ProjectItemImpl> extends A
         ]
     }
 
-    override isFinishConfig(): ApplicationConfigState {
+    override isFinishConfig(context: Context): ApplicationConfigState {
         if (this.disEnable())
             return ApplicationConfigState.empty
         if (isEmpty(this.config)) {
@@ -625,7 +625,7 @@ export abstract class ApplicationConfigAndExecutorImpl<P extends ProjectItemImpl
         ]
     }
 
-    override isFinishConfig(): ApplicationConfigState {
+    override isFinishConfig(context: Context): ApplicationConfigState {
         if (this.disEnable())
             return ApplicationConfigState.empty
         if (isEmpty(this.config) || isEmpty(this.executor)) {

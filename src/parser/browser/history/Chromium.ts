@@ -8,6 +8,7 @@ import {i18n, sentenceKey} from '../../../i18n'
 import {generatePinyinIndex} from '../../../utils/index-generator/PinyinIndex'
 import {generateHostIndex} from '../../../utils/index-generator/HostIndex'
 import {parseSqliteDefaultResult} from '../../../utils/sqlite/ParseResult'
+import {isEmptySqliteExecutor} from '../../../utils/sqlite/CheckSqliteExecutor'
 
 const CHROMIUM: string = 'chromium'
 const configName = 'History'
@@ -29,6 +30,7 @@ export class ChromiumHistoryApplicationImpl extends SqliteBrowserApplicationImpl
 
     async generateCacheProjectItems(context: Context): Promise<Array<ChromiumHistoryProjectItemImpl>> {
         let items: Array<ChromiumHistoryProjectItemImpl> = []
+        if (isEmptySqliteExecutor(context, this.executor)) return items
         // language=SQLite
         let sql = 'select v.id                                                                                                        as id,\n       u.url                                                                                                       as url,\n       u.title                                                                                                     as title,\n       cast(strftime(\'%s\', datetime((v.visit_time / 1000000) - 11644473600, \'unixepoch\',\n                                    \'localtime\')) as numeric)                                                      as timestamp\nfrom visits v\n         left join urls u on v.url = u.id\nwhere v.visit_time is not null\n  and v.url is not null\n  and v.visit_duration != 0\ngroup by u.last_visit_time\norder by timestamp desc\nlimit ' + context.browserHistoryLimit
         let result = ''

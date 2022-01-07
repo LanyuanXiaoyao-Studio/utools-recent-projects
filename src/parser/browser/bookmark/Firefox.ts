@@ -7,6 +7,7 @@ import {generatePinyinIndex} from '../../../utils/index-generator/PinyinIndex'
 import {generateHostIndex} from '../../../utils/index-generator/HostIndex'
 import {i18n, sentenceKey} from '../../../i18n'
 import {parseSqliteDefaultResult} from '../../../utils/sqlite/ParseResult'
+import {isEmptySqliteExecutor} from '../../../utils/sqlite/CheckSqliteExecutor'
 
 const FIREFOX: string = 'firefox'
 
@@ -28,6 +29,7 @@ export class FirefoxBookmarkApplicationImpl extends SqliteBrowserApplicationImpl
 
     async generateCacheProjectItems(context: Context): Promise<Array<FirefoxBookmarkProjectItemImpl>> {
         let items: Array<FirefoxBookmarkProjectItemImpl> = []
+        if (isEmptySqliteExecutor(context, this.executor)) return items
         // language=SQLite
         let sql = 'select b.id as id, b.type as type, b.parent as parent, b.title as title, p.url as url, b.dateAdded as date_added\nfrom moz_bookmarks b\n         left join moz_places p on b.fk = p.id\norder by b.dateAdded desc'
         let result = ''

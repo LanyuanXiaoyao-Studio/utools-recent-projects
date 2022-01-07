@@ -56,7 +56,10 @@ class Root extends Component<RootProps, RootState> {
                         <div class="columns">
                             <div class="column col-3">
                                 {/*左侧导航栏*/}
-                                <Catalogue applications={this.state.applications}/>
+                                <Catalogue
+                                    applications={this.state.applications}
+                                    context={this.props.context}
+                                />
                             </div>
                             <div class="column col-9">
                                 {isDevelopment()

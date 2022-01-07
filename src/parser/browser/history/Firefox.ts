@@ -8,6 +8,7 @@ import {generatePinyinIndex} from '../../../utils/index-generator/PinyinIndex'
 import {generateHostIndex} from '../../../utils/index-generator/HostIndex'
 import {i18n, sentenceKey} from '../../../i18n'
 import {parseSqliteDefaultResult} from '../../../utils/sqlite/ParseResult'
+import {isEmptySqliteExecutor} from '../../../utils/sqlite/CheckSqliteExecutor'
 
 const FIREFOX: string = 'firefox'
 
@@ -29,6 +30,7 @@ export class FirefoxHistoryApplicationImpl extends SqliteBrowserApplicationImpl<
 
     async generateCacheProjectItems(context: Context): Promise<Array<FirefoxHistoryProjectItemImpl>> {
         let items: Array<FirefoxHistoryProjectItemImpl> = []
+        if (isEmptySqliteExecutor(context, this.executor)) return items
         // language=SQLite
         let sql = 'select p.url                                                                                         as url,\n       p.title                                                                                       as title,\n       p.description                                                                                 as description,\n       cast(strftime(\'%s\', datetime((h.visit_date / 1000000), \'unixepoch\', \'localtime\')) as numeric) as timestamp\nfrom moz_historyvisits h,\n     moz_places p\nwhere h.place_id = p.id\n  and p.hidden = 0\n  and h.visit_date is not null\norder by h.visit_date desc\nlimit ' + context.browserHistoryLimit
         let result = ''

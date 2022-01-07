@@ -19,6 +19,7 @@ import {i18n, sentenceKey} from '../../../i18n'
 import {generatePinyinIndex} from '../../../utils/index-generator/PinyinIndex'
 import {generateHostIndex} from '../../../utils/index-generator/HostIndex'
 import {parseSqliteDefaultResult} from '../../../utils/sqlite/ParseResult'
+import {isEmptySqliteExecutor} from '../../../utils/sqlite/CheckSqliteExecutor'
 
 const SAFARI: string = 'safari'
 
@@ -45,6 +46,7 @@ export class SafariHistoryApplicationImpl extends SqliteBrowserApplicationImpl<S
 
     async generateCacheProjectItems(context: Context): Promise<Array<SafariHistoryProjectItemImpl>> {
         let items: Array<SafariHistoryProjectItemImpl> = []
+        if (isEmptySqliteExecutor(context, this.executor)) return items
         let configPath = `${utools.getPath('home')}/Library/Safari/History.db`
         if (!existsSync(configPath)) {
             return []
@@ -90,7 +92,7 @@ export class SafariHistoryApplicationImpl extends SqliteBrowserApplicationImpl<S
         ]
     }
 
-    override isFinishConfig(): ApplicationConfigState {
+    override isFinishConfig(context: Context): ApplicationConfigState {
         if (this.disEnable())
             return ApplicationConfigState.empty
         return this.executor ? ApplicationConfigState.done : ApplicationConfigState.undone

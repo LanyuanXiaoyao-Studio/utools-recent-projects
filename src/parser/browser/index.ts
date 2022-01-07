@@ -1,6 +1,12 @@
-import {ApplicationCacheConfigAndExecutorImpl, InputSettingItem, ProjectItemImpl, SettingItem} from '../../Types'
+import {
+    ApplicationCacheConfigAndExecutorImpl,
+    ApplicationConfigState,
+    InputSettingItem,
+    ProjectItemImpl,
+    SettingItem,
+} from '../../Types'
 import {generateStringByOS, StringByOS, systemHome} from '../../Utils'
-import {randomId} from 'licia'
+import {isEmpty, randomId} from 'licia'
 import {Context} from '../../Context'
 import {copyFile, rm} from 'fs/promises'
 import {join} from 'path'
@@ -44,6 +50,31 @@ export abstract class SqliteBrowserApplicationImpl<P extends ProjectItemImpl> ex
             handle(tmpDatabasePath)
         } finally {
             await rm(tmpDatabasePath, { force: true })
+        }
+    }
+
+
+    override isFinishConfig(context: Context): ApplicationConfigState {
+        if (this.disEnable())
+            return ApplicationConfigState.empty
+        if (isEmpty(this.config)) {
+            return ApplicationConfigState.undone
+        } else if (this.nonExistsPath(this.config)) {
+            return ApplicationConfigState.error
+        } else {
+            if (isEmpty(this.executor)) {
+                if (isEmpty(context.sqliteExecutorPath)) {
+                    return ApplicationConfigState.undone
+                } else if (this.nonExistsPath(context.sqliteExecutorPath)) {
+                    return ApplicationConfigState.error
+                } else {
+                    return ApplicationConfigState.done
+                }
+            } else if (this.nonExistsPath(this.executor)) {
+                return ApplicationConfigState.error
+            } else {
+                return ApplicationConfigState.done
+            }
         }
     }
 }
