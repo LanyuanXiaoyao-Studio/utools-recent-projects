@@ -95,7 +95,19 @@ export class SafariHistoryApplicationImpl extends SqliteBrowserApplicationImpl<S
     override isFinishConfig(context: Context): ApplicationConfigState {
         if (this.disEnable())
             return ApplicationConfigState.empty
-        return this.executor ? ApplicationConfigState.done : ApplicationConfigState.undone
+        if (isEmpty(this.executor)) {
+            if (isEmpty(context.sqliteExecutorPath)) {
+                return ApplicationConfigState.undone
+            } else if (this.nonExistsPath(context.sqliteExecutorPath)) {
+                return ApplicationConfigState.error
+            }
+            return ApplicationConfigState.done
+        } else {
+            if (this.nonExistsPath(this.executor)) {
+                return ApplicationConfigState.error
+            }
+            return ApplicationConfigState.done
+        }
     }
 }
 
