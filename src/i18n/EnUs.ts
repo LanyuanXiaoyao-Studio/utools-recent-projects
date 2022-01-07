@@ -69,6 +69,8 @@ export class EnUs implements Sentence {
     readonly sourceCodeRepository: string = 'Source Code'
     readonly sqlite3: string = 'Configure Sqlite3 executable file path'
     readonly sqlite3Desc: string = 'Read the data needs Sqlite3 cli, you can go to「https://www.sqlite.org/download.html」and download the cli'
+    readonly sqliteGlobal: string = 'SQLite executor path (Global)'
+    readonly sqliteGlobalDesc: string = 'This path would be used by any software that need to parse SQLite database config, and you can override it in specific configuration.'
     readonly systemInformation: string = 'System Information'
     readonly systemUser: string = 'System User'
     readonly systemVersion: string = 'System Version'

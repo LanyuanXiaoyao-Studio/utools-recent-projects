@@ -72,6 +72,8 @@ export const sentenceKey = {
     sourceCodeRepository: 'sourceCodeRepository',
     sqlite3: 'sqlite3',
     sqlite3Desc: 'sqlite3Desc',
+    sqliteGlobal: 'sqliteGlobal',
+    sqliteGlobalDesc: 'sqliteGlobalDesc',
     systemInformation: 'systemInformation',
     systemUser: 'systemUser',
     systemVersion: 'systemVersion',
@@ -153,6 +155,8 @@ export interface Sentence {
     readonly sourceCodeRepository: string
     readonly sqlite3: string
     readonly sqlite3Desc: string
+    readonly sqliteGlobal: string
+    readonly sqliteGlobalDesc: string
     readonly systemInformation: string
     readonly systemUser: string
     readonly systemVersion: string

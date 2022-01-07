@@ -69,6 +69,8 @@ export class ZhCn implements Sentence {
     readonly sourceCodeRepository: string = '源码主页'
     readonly sqlite3: string = '设置 Sqlite3 可执行程序路径'
     readonly sqlite3Desc: string = '读取数据需要使用 Sqlite3 命令行程序，可以自行前往「https://www.sqlite.org/download.html」下载对应平台的可执行文件'
+    readonly sqliteGlobal: string = 'SQLite 可执行文件路径 (全局配置)'
+    readonly sqliteGlobalDesc: string = '该选项可支持需要使用 SQLite 解析配置文件的软件使用同样的 SQLite 可执行文件路径，在具体的配置中也可以覆盖该选项的路径'
     readonly systemInformation: string = '系统信息'
     readonly systemUser: string = 'System 用户'
     readonly systemVersion: string = 'System 版本'

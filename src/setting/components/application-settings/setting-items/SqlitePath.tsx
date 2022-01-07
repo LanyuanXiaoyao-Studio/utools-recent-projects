@@ -4,7 +4,7 @@ import {
     ApplicationSettingItemProps,
     ApplicationSettingItemState,
 } from '../ApplicationSettingItem'
-import {NativeChip} from '../Chips'
+import {NativeChip, TestChip} from '../Chips'
 import {existsCacheSync} from '../../../../utils/files/SettingInputHelper'
 import {i18n, sentenceKey} from '../../../../i18n'
 import {isEmpty, isNil} from 'licia'
@@ -83,14 +83,12 @@ export class SqlitePath extends ApplicationSettingItem<ApplicationSettingItemPro
     override render() {
         return (<Fragment>
             <div class="form-group">
-                <div class="form-label">
-                    Sqlite 可执行文件路径
-                </div>
+                <div class="form-label">{i18n.t(sentenceKey.sqliteGlobal)}</div>
                 <div
                     class="form-description"
                     style="padding-bottom: 5px"
                 >
-                    Sqlite 可执行文件路径
+                    {i18n.t(sentenceKey.sqliteGlobalDesc)}
                 </div>
                 <div style={{ width: '100%' }}>
                     <div class="input-group">
@@ -130,6 +128,7 @@ export class SqlitePath extends ApplicationSettingItem<ApplicationSettingItemPro
                 </div>
                 <div class="form-tags">
                     <NativeChip/>
+                    <TestChip/>
                 </div>
             </div>
         </Fragment>)

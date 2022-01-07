@@ -19,7 +19,7 @@ import {generatePinyinIndex} from '../../utils/index-generator/PinyinIndex'
 import {systemUser} from '../../Utils'
 import {i18n, sentenceKey} from '../../i18n'
 import {parse} from 'path'
-import {isEmptySqliteExecutor} from '../../utils/sqlite/CheckSqliteExecutor'
+import {getSqliteExecutor, isEmptySqliteExecutor} from '../../utils/sqlite/CheckSqliteExecutor'
 
 const EVERNOTE_MAC: string = 'evernote-mac'
 const EVERNOTE_WIN: string = 'evernote-win'
@@ -163,7 +163,7 @@ export class EvernoteWinApplicationImpl extends ApplicationCacheConfigAndExecuto
         if (isEmptySqliteExecutor(context, this.executor)) return items
         // language=SQLite
         let sql = 'select hex(i.guid)    as guid,\n       n.title        as title,\n       n.date_updated as seq,\n       n.tags         as tag,\n       nb.name        as level_one,\n       nb.stack       as level_two\nfrom note_attr n,\n     notebook_attr nb,\n     items i\nwhere n.uid = i.uid\n  and n.notebook_uid is not null\n  and n.notebook_uid = nb.uid\n  and n.is_deleted is null\norder by n.date_updated desc'
-        let result = execFileSync(this.executor, [this.config, sql, '-readonly'], {
+        let result = execFileSync(getSqliteExecutor(context, this.executor), [this.config, sql, '-readonly'], {
             encoding: 'utf-8',
             maxBuffer: 20971520,
         })
