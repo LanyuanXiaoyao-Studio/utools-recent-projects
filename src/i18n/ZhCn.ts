@@ -1,6 +1,8 @@
 import {Sentence} from './index'
 
 export class ZhCn implements Sentence {
+    readonly showBookmarkCatalogue: string = '显示书签目录'
+    readonly showBookmarkCatalogueDesc: string = '启动改选项可以在浏览器书签结果的名称前加入书签的目录层级显示，对于希望搜索匹配目录中的关键字的用户很有用'
     readonly auto: string = '自动'
     readonly beta: string = '测试'
     readonly betaDesc: string = `beta 意味着这个功能处于试验阶段\n但我无法测试所有使用场景\n需要你在遇到无法正常使用的时候积极向我反馈`

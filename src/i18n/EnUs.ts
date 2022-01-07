@@ -1,6 +1,8 @@
 import {Sentence} from './index'
 
 export class EnUs implements Sentence {
+    readonly showBookmarkCatalogue: string = 'Show bookmark catalogue'
+    readonly showBookmarkCatalogueDesc: string = 'Enable this option would show the catalogue of the bookmark item before the result item\'s title, it is useful for who want to search the keyword in catalogue name'
     readonly auto: string = 'Auto'
     readonly beta: string = 'Beta'
     readonly betaDesc: string = `beta means that this adaption\nis in preview version\nI can't test all the use scenes\nI need you submit the feedback \nwhen you meet some error`

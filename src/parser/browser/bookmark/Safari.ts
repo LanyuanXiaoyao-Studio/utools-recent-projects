@@ -61,7 +61,7 @@ export class SafariBookmarkApplicationImpl extends BrowserApplicationImpl<Safari
                 }
             }
             array.forEach(i => {
-                let title = `${isNil(i?.['Parents']) || isEmpty(i?.['Parents']) ? '' : `[${i['Parents'].map(p => findTitle(p)).join('/')}] `}${findTitle(i) ?? ''}`
+                let title = `${context.enableShowBookmarkCatalogue ? isNil(i?.['Parents']) || isEmpty(i?.['Parents']) ? '' : `[${i['Parents'].map(p => findTitle(p)).join('/')}] ` : ''}${findTitle(i) ?? ''}`
                 let url = i?.['URLString']
                 items.push({
                     id: '',

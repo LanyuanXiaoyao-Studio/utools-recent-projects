@@ -11,6 +11,7 @@ import {GetFavicon} from './setting-items/GetFavicon'
 import {HistoryLimit} from './setting-items/HistoryLimit'
 import {SqlitePath} from './setting-items/SqlitePath'
 import {EnhanceConfig} from './setting-items/EnhanceConfig'
+import {ShowBookmarkCatalogue} from './setting-items/ShowBookmarkCatalogue'
 
 export interface EnhanceSettingItemProps {
     slot: Component
@@ -83,6 +84,7 @@ export class ApplicationSettingCard extends Component<ApplicationSettingCardProp
                                 data-content={i18n.t(sentenceKey.browser)}
                             />
                             <GetFavicon context={this.props.context}/>
+                            <ShowBookmarkCatalogue context={this.props.context}/>
                             <EnhanceSettingItem
                                 slot={<Fragment>
                                     <div class="divider"/>

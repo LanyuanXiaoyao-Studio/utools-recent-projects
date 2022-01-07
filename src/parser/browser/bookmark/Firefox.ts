@@ -34,7 +34,10 @@ export class FirefoxBookmarkApplicationImpl extends SqliteBrowserApplicationImpl
         let sql = 'select b.id as id, b.type as type, b.parent as parent, b.title as title, p.url as url, b.dateAdded as date_added\nfrom moz_bookmarks b\n         left join moz_places p on b.fk = p.id\norder by b.dateAdded desc'
         let result = ''
         await this.copyAndReadFile(this.config, path => {
-            result = execFileSync(getSqliteExecutor(context, this.executor), [path, sql, '-readonly'], { encoding: 'utf-8', maxBuffer: 20971520 })
+            result = execFileSync(getSqliteExecutor(context, this.executor), [path, sql, '-readonly'], {
+                encoding: 'utf-8',
+                maxBuffer: 20971520,
+            })
         })
         if (!isEmpty(result)) {
             let array = parseSqliteDefaultResult(result, ['n/id', 'n/type', 'n/parent', 'title', 'url', 'n/date_added'])
@@ -57,7 +60,7 @@ export class FirefoxBookmarkApplicationImpl extends SqliteBrowserApplicationImpl
                     .join('/'))
             array.filter(i => !isEmpty(i?.['url'] ?? ''))
                 .forEach(i => {
-                    let title = `${isEmpty(i?.['parents'] ?? '') ? '' : `[${i['parents']}]`} ${i?.['title'] ?? ''}`
+                    let title = `${context.enableShowBookmarkCatalogue ? isEmpty(i?.['parents'] ?? '') ? '' : `[${i['parents']}] ` : ''}${i?.['title'] ?? ''}`
                     let url = i?.['url'] ?? ''
                     let time = Math.round(parseInt((i?.['date_added'] ?? '0')) / 1000)
                     items.push({

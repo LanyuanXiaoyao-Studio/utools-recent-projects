@@ -9,6 +9,7 @@ export class Context {
     static browserHistoryLimitId: string = 'setting-browser-history-limit'
     static sqliteExecutorPathId: string = 'setting-sqlite-executor-path'
     static enableEnhanceConfigId: string = 'setting-enhance-config'
+    static enableShowBookmarkCatalogueId: string = 'setting-show-bookmark-catalogue'
 
     readonly languageSetting: string = 'auto'
     readonly enableFilterNonExistsFiles: boolean = false
@@ -20,6 +21,7 @@ export class Context {
     readonly browserHistoryLimit: number = 100
     readonly sqliteExecutorPath: string = ''
     readonly enableEnhanceConfig: boolean = false
+    readonly enableShowBookmarkCatalogue: boolean = true
 
     constructor(nativeId: string) {
         this.languageSetting = utools.dbStorage.getItem(Context.languageSettingId) ?? 'auto'
@@ -30,6 +32,7 @@ export class Context {
         this.enablePinyinIndex = utools.dbStorage.getItem(Context.enablePinyinIndexId) ?? true
         this.browserHistoryLimit = parseInt(utools.dbStorage.getItem(Context.browserHistoryLimitId) ?? '100')
         this.enableEnhanceConfig = utools.dbStorage.getItem(Context.enableEnhanceConfigId) ?? false
+        this.enableShowBookmarkCatalogue = utools.dbStorage.getItem(Context.enableShowBookmarkCatalogueId) ?? true
         // 本地生效
         this.enableEditPathInputDirectly = utools.dbStorage.getItem(Context.joinId(nativeId, Context.enableEditPathInputDirectlyId)) ?? false
         this.sqliteExecutorPath = utools.dbStorage.getItem(Context.joinId(nativeId, Context.sqliteExecutorPathId)) ?? ''

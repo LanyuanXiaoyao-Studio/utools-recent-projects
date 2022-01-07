@@ -46,7 +46,7 @@ export class ChromiumBookmarkApplicationImpl extends BrowserApplicationImpl<Chro
             ...generateParents(undefined, (json?.['roots']?.['synced']?.['children'] ?? []), 'parents', 'children'),
         ]
         array.forEach(site => {
-            let title = `${isEmpty(site?.['parents'] ?? []) ? '' : `[${site['parents'].map(i => i.name).join('/')}]`} ${site?.['name'] ?? ''}`
+            let title = `${context.enableShowBookmarkCatalogue ? isEmpty(site?.['parents'] ?? []) ? '' : `[${site['parents'].map(i => i.name).join('/')}] ` : ''}${site?.['name'] ?? ''}`
             let url = site?.['url'] ?? ''
             let time = parseTimeFrom1604(parseInt((site?.['date_added'] ?? '0')))
             items.push({
