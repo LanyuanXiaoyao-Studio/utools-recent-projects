@@ -4,7 +4,7 @@ import {
     ApplicationSettingItemProps,
     ApplicationSettingItemState,
 } from '../ApplicationSettingItem'
-import {NativeChip, TestChip} from '../Chips'
+import {EnhanceChip, NativeChip, TestChip} from '../Chips'
 import {existsCacheSync} from '../../../../utils/files/SettingInputHelper'
 import {i18n, sentenceKey} from '../../../../i18n'
 import {isEmpty, isNil} from 'licia'
@@ -128,6 +128,7 @@ export class SqlitePath extends ApplicationSettingItem<ApplicationSettingItemPro
                 </div>
                 <div class="form-tags">
                     <NativeChip/>
+                    <EnhanceChip/>
                     <TestChip/>
                 </div>
             </div>

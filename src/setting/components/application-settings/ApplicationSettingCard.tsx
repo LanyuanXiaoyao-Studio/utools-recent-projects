@@ -90,11 +90,16 @@ export class ApplicationSettingCard extends Component<ApplicationSettingCardProp
                                 </Fragment>}
                                 context={this.props.context}
                             />
-                            <div
-                                className="divider text-center"
-                                data-content="其他"
+                            <EnhanceSettingItem
+                                slot={<Fragment>
+                                    <div
+                                        className="divider text-center"
+                                        data-content="其他"
+                                    />
+                                    <SqlitePath context={this.props.context}/>
+                                </Fragment>}
+                                context={this.props.context}
                             />
-                            <SqlitePath context={this.props.context}/>
                         </form>
                     </div>
                 </div>
