@@ -7,6 +7,7 @@ export class Context {
     static enableEditPathInputDirectlyId: string = 'setting-edit-path-input-directly'
     static enablePinyinIndexId: string = 'setting-pinyin-index'
     static browserHistoryLimitId: string = 'browser-history-limit'
+    static sqliteExecutorPathId: string = 'sqliteExecutorPathId'
 
     readonly languageSetting: string = 'auto'
     readonly enableFilterNonExistsFiles: boolean = false
@@ -16,6 +17,7 @@ export class Context {
     readonly enableEditPathInputDirectly: boolean = false
     readonly enablePinyinIndex: boolean = true
     readonly browserHistoryLimit: number = 100
+    readonly sqliteExecutorPath: string = ''
 
     constructor(nativeId: string) {
         this.languageSetting = utools.dbStorage.getItem(Context.languageSettingId) ?? 'auto'
@@ -27,6 +29,7 @@ export class Context {
         this.browserHistoryLimit = parseInt(utools.dbStorage.getItem(Context.browserHistoryLimitId) ?? '100')
         // 本地生效
         this.enableEditPathInputDirectly = utools.dbStorage.getItem(Context.joinId(nativeId, Context.enableEditPathInputDirectlyId)) ?? false
+        this.sqliteExecutorPath = utools.dbStorage.getItem(Context.joinId(nativeId, Context.sqliteExecutorPathId)) ?? ''
     }
 
     static joinId(nativeId: string, id: string): string {

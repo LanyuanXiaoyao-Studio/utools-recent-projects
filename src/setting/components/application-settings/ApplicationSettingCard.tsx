@@ -9,6 +9,7 @@ import {FilterNonExistsFiles} from './setting-items/FilterNonExistsFiles'
 import {GetFileIcon} from './setting-items/GetFileIcon'
 import {GetFavicon} from './setting-items/GetFavicon'
 import {HistoryLimit} from './setting-items/HistoryLimit'
+import {SqlitePath} from './setting-items/SqlitePath'
 
 export interface ApplicationSettingCardProps {
     context: Context
@@ -61,6 +62,11 @@ export class ApplicationSettingCard extends Component<ApplicationSettingCardProp
                             <GetFavicon context={this.props.context}/>
                             <div class="divider"/>
                             <HistoryLimit context={this.props.context}/>
+                            <div
+                                class="divider text-center"
+                                data-content="其他"
+                            />
+                            <SqlitePath context={this.props.context}/>
                         </form>
                     </div>
                 </div>
