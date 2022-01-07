@@ -6,8 +6,8 @@ export class Context {
     static enableOpenNotificationId: string = 'setting-open-notification'
     static enableEditPathInputDirectlyId: string = 'setting-edit-path-input-directly'
     static enablePinyinIndexId: string = 'setting-pinyin-index'
-    static browserHistoryLimitId: string = 'browser-history-limit'
-    static sqliteExecutorPathId: string = 'sqliteExecutorPathId'
+    static browserHistoryLimitId: string = 'setting-browser-history-limit'
+    static sqliteExecutorPathId: string = 'setting-sqlite-executor-path'
     static enableEnhanceConfigId: string = 'setting-enhance-config'
 
     readonly languageSetting: string = 'auto'
