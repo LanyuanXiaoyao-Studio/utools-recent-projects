@@ -87,8 +87,8 @@ export const sentenceKey = {
     unknownInputError: 'unknownInputError',
     unready: 'unready',
     utoolsVersion: 'utoolsVersion',
-    showBookmarkCatalogue: '',
-    showBookmarkCatalogueDesc: '',
+    showBookmarkCatalogue: 'showBookmarkCatalogue',
+    showBookmarkCatalogueDesc: 'showBookmarkCatalogueDesc',
 }
 
 export interface Sentence {
