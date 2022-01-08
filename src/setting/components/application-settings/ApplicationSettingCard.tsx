@@ -12,6 +12,7 @@ import {HistoryLimit} from './setting-items/HistoryLimit'
 import {SqlitePath} from './setting-items/SqlitePath'
 import {EnhanceConfig} from './setting-items/EnhanceConfig'
 import {ShowBookmarkCatalogue} from './setting-items/ShowBookmarkCatalogue'
+import {FilePathInMatch} from './setting-items/FilePathInMatch'
 
 export interface EnhanceSettingItemProps {
     slot: Component
@@ -67,18 +68,20 @@ export class ApplicationSettingCard extends Component<ApplicationSettingCardProp
                                 data-content={i18n.t(sentenceKey.search)}
                             />
                             <PinyinIndex context={this.props.context}/>
+                            <div
+                                class="divider text-center"
+                                data-content={i18n.t(sentenceKey.file)}
+                            />
+                            <GetFileIcon context={this.props.context}/>
                             <EnhanceSettingItem
                                 slot={<Fragment>
-                                    <div
-                                        class="divider text-center"
-                                        data-content={i18n.t(sentenceKey.file)}
-                                    />
+                                    <div class="divider"/>
                                     <FilterNonExistsFiles context={this.props.context}/>
+                                    <div class="divider"/>
+                                    <FilePathInMatch context={this.props.context}/>
                                 </Fragment>}
                                 context={this.props.context}
                             />
-                            <div class="divider"/>
-                            <GetFileIcon context={this.props.context}/>
                             <div
                                 class="divider text-center"
                                 data-content={i18n.t(sentenceKey.browser)}
@@ -95,7 +98,7 @@ export class ApplicationSettingCard extends Component<ApplicationSettingCardProp
                             <EnhanceSettingItem
                                 slot={<Fragment>
                                     <div
-                                        className="divider text-center"
+                                        class="divider text-center"
                                         data-content="其他"
                                     />
                                     <SqlitePath context={this.props.context}/>

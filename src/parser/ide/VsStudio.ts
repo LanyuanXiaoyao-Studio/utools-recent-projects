@@ -13,6 +13,7 @@ import {parse} from 'path'
 import {existsOrNot} from '../../Utils'
 import {Context} from '../../Context'
 import {generatePinyinIndex} from '../../utils/index-generator/PinyinIndex'
+import {generateFilePathIndex} from '../../utils/index-generator/FilePathIndex'
 
 const VS_STUDIO: string = 'vs-studio'
 
@@ -60,7 +61,11 @@ export class VsStudioApplicationImpl extends ApplicationCacheConfigImpl<VsStudio
                         title: parseObj.name,
                         description: description,
                         icon: icon,
-                        searchKey: unique([...generatePinyinIndex(context, parseObj.name), parseObj.name, path]),
+                        searchKey: unique([
+                            ...generatePinyinIndex(context, parseObj.name),
+                            ...generateFilePathIndex(context, path),
+                            parseObj.name,
+                        ]),
                         exists: exists,
                         command: new ElectronExecutor(path),
                         datetime: parseInt(`${datetime}`),

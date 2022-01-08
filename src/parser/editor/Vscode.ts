@@ -16,6 +16,7 @@ import {existsOrNot, generateStringByOS, systemUser} from '../../Utils'
 import {Context} from '../../Context'
 import {i18n, sentenceKey} from '../../i18n'
 import {generatePinyinIndex} from '../../utils/index-generator/PinyinIndex'
+import {generateFilePathIndex} from '../../utils/index-generator/FilePathIndex'
 
 const VSCODE: string = 'vscode'
 
@@ -110,7 +111,11 @@ export class VscodeApplicationImpl extends ApplicationCacheConfigAndExecutorImpl
                         title: parser.name,
                         description: description,
                         icon: icon,
-                        searchKey: unique([...generatePinyinIndex(context, path), path]),
+                        searchKey: unique([
+                            ...generatePinyinIndex(context, parser.name),
+                            ...generateFilePathIndex(context, path),
+                            parser.name,
+                        ]),
                         exists: exists,
                         command: new ShellExecutor(commandText),
                     })

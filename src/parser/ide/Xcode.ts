@@ -15,6 +15,7 @@ import {existsOrNot, systemUser} from '../../Utils'
 import {Context} from '../../Context'
 import {generatePinyinIndex} from '../../utils/index-generator/PinyinIndex'
 import {signCalculate} from '../../utils/files/SignCalculate'
+import {generateFilePathIndex} from '../../utils/index-generator/FilePathIndex'
 
 const XCODE: string = 'xcode'
 
@@ -81,7 +82,11 @@ export class XcodeApplicationImpl extends ApplicationCacheImpl<XcodeProjectItemI
                     title: parseObj.name,
                     description: description,
                     icon: icon,
-                    searchKey: unique([...generatePinyinIndex(context, parseObj.name), parseObj.name, path]),
+                    searchKey: unique([
+                        ...generatePinyinIndex(context, parseObj.name),
+                        ...generateFilePathIndex(context, path),
+                        parseObj.name,
+                    ]),
                     exists: exists,
                     command: new ShellExecutor(`open ${path}`),
                 })

@@ -17,6 +17,7 @@ import {i18n, sentenceKey} from '../../i18n'
 import WinReg from 'winreg'
 import {generatePinyinIndex} from '../../utils/index-generator/PinyinIndex'
 import plistParser from 'bplist-parser'
+import {generateFilePathIndex} from '../../utils/index-generator/FilePathIndex'
 
 const WPS_WIN_INTERNATION: string = 'wps-win-internation'
 const WPS_MAC_INTERNATION: string = 'wps-mac-internation'
@@ -61,7 +62,11 @@ export class WpsWinInternationalApplicationImpl extends ApplicationImpl<WpsWinIn
                     title: parser.name,
                     description: description,
                     icon: icon,
-                    searchKey: unique([...generatePinyinIndex(context, parser.name), parser.name, path]),
+                    searchKey: unique([
+                        ...generatePinyinIndex(context, parser.name),
+                        ...generateFilePathIndex(context, path),
+                        parser.name,
+                    ]),
                     exists: exists,
                     command: new ShellExecutor(`powershell.exe -command "Invoke-Item '${path}'"`),
                     datetime: datetime,
@@ -118,7 +123,11 @@ export class WpsMacInternationalApplicationImpl extends ApplicationConfigImpl<Wp
                         title: parser.name,
                         description: description,
                         icon: icon,
-                        searchKey: unique([...generatePinyinIndex(context, parser.name), parser.name, path]),
+                        searchKey: unique([
+                            ...generatePinyinIndex(context, parser.name),
+                            ...generateFilePathIndex(context, path),
+                            parser.name,
+                        ]),
                         exists: exists,
                         command: new ShellExecutor(`open "${path}"`),
                         datetime: 0,
@@ -180,7 +189,11 @@ export class WpsLinuxInternationalApplicationImpl extends ApplicationConfigAndEx
                     title: parser.name,
                     description: description,
                     icon: icon,
-                    searchKey: unique([...generatePinyinIndex(context, parser.name), parser.name, path]),
+                    searchKey: unique([
+                        ...generatePinyinIndex(context, parser.name),
+                        ...generateFilePathIndex(context, path),
+                        parser.name,
+                    ]),
                     exists: exists,
                     command: new ShellExecutor(`${this.executor} "${path}"`),
                     datetime: 0,

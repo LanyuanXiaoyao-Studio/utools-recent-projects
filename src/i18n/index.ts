@@ -89,6 +89,8 @@ export const sentenceKey = {
     utoolsVersion: 'utoolsVersion',
     showBookmarkCatalogue: 'showBookmarkCatalogue',
     showBookmarkCatalogueDesc: 'showBookmarkCatalogueDesc',
+    filePathInMatch: 'filePathInMatch',
+    filePathInMatchDesc: 'filePathInMatchDesc',
 }
 
 export interface Sentence {
@@ -177,6 +179,8 @@ export interface Sentence {
     readonly utoolsVersion: string
     readonly showBookmarkCatalogue: string
     readonly showBookmarkCatalogueDesc: string
+    readonly filePathInMatch: string
+    readonly filePathInMatchDesc: string
 }
 
 let languageData = new I18n('zh-CN', {

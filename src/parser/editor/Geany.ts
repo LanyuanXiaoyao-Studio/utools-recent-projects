@@ -22,6 +22,7 @@ import {createReadStream} from 'fs'
 import {isEmpty, isNil, unique} from 'licia'
 import {parse} from 'path'
 import {generatePinyinIndex} from '../../utils/index-generator/PinyinIndex'
+import {generateFilePathIndex} from '../../utils/index-generator/FilePathIndex'
 
 const GEANY: string = 'geany'
 
@@ -90,12 +91,17 @@ export class GeanyApplicationImpl extends ApplicationCacheConfigAndExecutorImpl<
                     let command = this.isMacOs
                         ? new NohupShellExecutor(this.executor, path, args)
                         : new ShellExecutor(`${this.executor} "${path}" "${args}"`)
+                    let name = `${parser.name}${parser.ext}`
                     items.push({
                         id: '',
-                        title: parser.name,
+                        title: name,
                         description: description,
                         icon: icon,
-                        searchKey: unique([...generatePinyinIndex(context, parser.name), parser.name, path]),
+                        searchKey: unique([
+                            ...generatePinyinIndex(context, name),
+                            ...generateFilePathIndex(context, path),
+                            name,
+                        ]),
                         exists: exists,
                         command: command,
                     })

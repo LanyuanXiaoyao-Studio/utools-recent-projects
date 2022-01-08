@@ -17,6 +17,7 @@ import {readFile} from 'fs/promises'
 import {generatePinyinIndex} from '../../utils/index-generator/PinyinIndex'
 import {existsOrNot, systemUser} from '../../Utils'
 import {signCalculate} from '../../utils/files/SignCalculate'
+import {generateFilePathIndex} from '../../utils/index-generator/FilePathIndex'
 
 const DEFAULT_FOLDER_X: string = 'default-folder-x'
 
@@ -85,8 +86,8 @@ export class DefaultFolderXApplicationImpl extends ApplicationCacheImpl<DefaultF
                             icon: icon,
                             searchKey: [
                                 ...generatePinyinIndex(context, title),
+                                ...generateFilePathIndex(context, path),
                                 title,
-                                path,
                             ],
                             exists: exists,
                             command: new ShellExecutor(`open '${path}'`),

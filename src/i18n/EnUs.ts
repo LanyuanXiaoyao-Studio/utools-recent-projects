@@ -86,4 +86,6 @@ export class EnUs implements Sentence {
     readonly unknownInputError: string = 'Unknown input error'
     readonly unready: string = 'Incomplete'
     readonly utoolsVersion: string = 'uTools Version'
+    readonly filePathInMatch: string = 'Add file path to index of search'
+    readonly filePathInMatchDesc: string = 'Enable this option would add file path to index of search for history that type is file, it is useful for who is disturbed by file path when search can close this option.'
 }

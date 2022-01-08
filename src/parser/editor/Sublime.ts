@@ -16,6 +16,7 @@ import {existsOrNot, generateStringByOS, systemUser} from '../../Utils'
 import {Context} from '../../Context'
 import {i18n, sentenceKey} from '../../i18n'
 import {generatePinyinIndex} from '../../utils/index-generator/PinyinIndex'
+import {generateFilePathIndex} from '../../utils/index-generator/FilePathIndex'
 
 const SUBLIME: string = 'sublime'
 
@@ -91,12 +92,17 @@ export class SublimeApplicationImpl extends ApplicationCacheConfigAndExecutorImp
                     description: readPath,
                     icon: context.enableGetFileIcon ? utools.getFileIcon(readPath) : this.icon,
                 })
+                let name = `${parser.name}${parser.ext}`
                 items.push({
                     id: '',
-                    title: `${parser.name}${parser.ext}`,
+                    title: name,
                     description: description,
                     icon: icon,
-                    searchKey: unique([...generatePinyinIndex(context, path), path]),
+                    searchKey: unique([
+                        ...generatePinyinIndex(context, name),
+                        ...generateFilePathIndex(context, path),
+                        name,
+                    ]),
                     exists: exists,
                     command: new ShellExecutor(`"${this.executor}" ${args} "${this.parsePath(path)}"`),
                 })

@@ -86,4 +86,6 @@ export class ZhCn implements Sentence {
     readonly unknownInputError: string = '出现未知的输入错误'
     readonly unready: string = '待完善'
     readonly utoolsVersion: string = 'uTools 版本'
+    readonly filePathInMatch: string = '文件路径加入搜索匹配'
+    readonly filePathInMatchDesc: string = '启动该选项将对涉及本地文件类型的历史记录，把文件的全路径包含在可搜索的关键字中，对于文件路径内容容易产生搜索干扰的用户，可以酌情关闭该设置'
 }

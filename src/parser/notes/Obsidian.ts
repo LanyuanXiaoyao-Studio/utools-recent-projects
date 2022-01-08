@@ -14,6 +14,7 @@ import {existsOrNot, generateStringByOS, systemUser, walker} from '../../Utils'
 import {parse, resolve} from 'path'
 import {i18n, sentenceKey} from '../../i18n'
 import {generatePinyinIndex} from '../../utils/index-generator/PinyinIndex'
+import {generateFilePathIndex} from '../../utils/index-generator/FilePathIndex'
 
 const OBSIDIAN: string = 'obsidian'
 
@@ -82,7 +83,11 @@ export class ObsidianApplicationImpl extends ApplicationConfigImpl<ObsidianProje
                             title: parseObj.name,
                             description: description,
                             icon: icon,
-                            searchKey: unique([...generatePinyinIndex(context, parseObj.name), parseObj.name, obj.path]),
+                            searchKey: unique([
+                                ...generatePinyinIndex(context, parseObj.name),
+                                ...generateFilePathIndex(context, obj.path),
+                                parseObj.name,
+                            ]),
                             exists: exists,
                             command: new UtoolsExecutor(`obsidian://open?vault=${obj.id}&file=${parseObj.name}`),
                             datetime: stat.atimeMs,

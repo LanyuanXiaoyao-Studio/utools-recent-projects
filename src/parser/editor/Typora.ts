@@ -75,7 +75,9 @@ export class TyporaApplicationImpl extends ApplicationCacheConfigAndExecutorImpl
                         title: i?.['name'] ?? '',
                         description: description,
                         icon: icon,
-                        searchKey: unique([...generatePinyinIndex(context, path), path]),
+                        searchKey: unique([
+                            ...generatePinyinIndex(context, path), path
+                        ]),
                         exists: exists,
                         command: new NohupShellExecutor(this.executor, path),
                         datetime: i?.['date'] ?? 0,

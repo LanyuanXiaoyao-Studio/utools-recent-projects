@@ -14,6 +14,7 @@ import {existsOrNot, generateStringByOS, systemUser} from '../../Utils'
 import {parse} from 'path'
 import {i18n, sentenceKey} from '../../i18n'
 import {generatePinyinIndex} from '../../utils/index-generator/PinyinIndex'
+import {generateFilePathIndex} from '../../utils/index-generator/FilePathIndex'
 
 const LIBRE: string = 'libre'
 
@@ -82,7 +83,11 @@ export class LibreOfficeApplicationImpl extends ApplicationCacheConfigAndExecuto
                     title: name,
                     description: description,
                     icon: icon,
-                    searchKey: unique([...generatePinyinIndex(context, name), name, realPath]),
+                    searchKey: unique([
+                        ...generatePinyinIndex(context, name),
+                        ...generateFilePathIndex(context, realPath),
+                        name,
+                    ]),
                     exists: exists,
                     command: new ShellExecutor(`"${this.executor}" "${path}"`),
                     datetime: date,

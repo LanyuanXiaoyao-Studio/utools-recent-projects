@@ -16,6 +16,7 @@ import {lstatSync, readdirSync} from 'fs'
 import {Context} from '../../Context'
 import {generatePinyinIndex} from '../../utils/index-generator/PinyinIndex'
 import plistParser from 'bplist-parser'
+import {generateFilePathIndex} from '../../utils/index-generator/FilePathIndex'
 
 const OFFICE_MAC: string = 'office-mac'
 const OFFICE_WIN: string = 'office-win'
@@ -70,7 +71,11 @@ export class OfficeMacApplicationImpl extends ApplicationCacheConfigImpl<OfficeP
                         title: parser.name,
                         description: description,
                         icon: icon,
-                        searchKey: unique([...generatePinyinIndex(context, parser.name), parser.name, url.pathname]),
+                        searchKey: unique([
+                            ...generatePinyinIndex(context, parser.name),
+                            ...generateFilePathIndex(context, url.pathname),
+                            parser.name,
+                        ]),
                         exists: exists,
                         command: new ShellExecutor(`open ${url}`),
                         datetime: date,
@@ -127,7 +132,11 @@ export class OfficeWinApplicationImpl extends ApplicationImpl<OfficeProjectItemI
                 title: parser.name,
                 description: description,
                 icon: icon,
-                searchKey: unique([...generatePinyinIndex(context, parser.name), parser.name, path]),
+                searchKey: unique([
+                    ...generatePinyinIndex(context, parser.name),
+                    ...generateFilePathIndex(context, path),
+                    parser.name,
+                ]),
                 exists: exists,
                 command: new ShellExecutor(`powershell.exe -command "Invoke-Item '${path}'"`),
                 datetime: 0,

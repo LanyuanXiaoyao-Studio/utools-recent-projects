@@ -1,6 +1,6 @@
 import {
-    Application,
-    ApplicationCacheConfigAndExecutorImpl, ApplicationImpl,
+    ApplicationCacheConfigAndExecutorImpl,
+    ApplicationImpl,
     DatetimeProjectItemImpl,
     DescriptionGetter,
     Group,
@@ -14,6 +14,7 @@ import {parse} from 'path'
 import {existsOrNot} from '../../Utils'
 import {Context} from '../../Context'
 import {generatePinyinIndex} from '../../utils/index-generator/PinyinIndex'
+import {generateFilePathIndex} from '../../utils/index-generator/FilePathIndex'
 
 const JETBRAINS: string = 'jetbrains'
 
@@ -28,11 +29,11 @@ export class JetBrainsApplicationImpl extends ApplicationCacheConfigAndExecutorI
     }
 
     override defaultConfigPath(): string {
-        return '';
+        return ''
     }
 
     override defaultExecutorPath(): string {
-        return '';
+        return ''
     }
 
     async generateCacheProjectItems(context: Context): Promise<Array<JetBrainsProjectItemImpl>> {
@@ -56,7 +57,11 @@ export class JetBrainsApplicationImpl extends ApplicationCacheConfigAndExecutorI
                         title: parseObj.name,
                         description: description,
                         icon: icon,
-                        searchKey: unique([...generatePinyinIndex(context, parseObj.name), parseObj.name, path]),
+                        searchKey: unique([
+                            ...generatePinyinIndex(context, parseObj.name),
+                            ...generateFilePathIndex(context, path),
+                            parseObj.name,
+                        ]),
                         exists: exists,
                         command: new NohupShellExecutor(this.executor, path),
                         datetime: parseInt(`${datetime}`),
