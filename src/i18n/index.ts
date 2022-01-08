@@ -32,10 +32,14 @@ export const sentenceKey = {
     executorSuffix: 'executorSuffix',
     file: 'file',
     fileOpening: 'fileOpening',
+    filePathInMatch: 'filePathInMatch',
+    filePathInMatchDesc: 'filePathInMatchDesc',
     filePathNonExistsTips: 'filePathNonExistsTips',
     fileSelectorPlaceholder: 'fileSelectorPlaceholder',
     filterNonExistsFiles: 'filterNonExistsFiles',
     filterNonExistsFilesDesc: 'filterNonExistsFilesDesc',
+    fullUrlInMatch: 'fullUrlInMatch',
+    fullUrlInMatchDesc: 'fullUrlInMatchDesc',
     getFavicon: 'getFavicon',
     getFaviconDesc: 'getFaviconDesc',
     getFileIcon: 'getFileIcon',
@@ -71,6 +75,8 @@ export const sentenceKey = {
     search: 'search',
     settingBetaDesc: 'settingBetaDesc',
     settingDocument: 'settingDocument',
+    showBookmarkCatalogue: 'showBookmarkCatalogue',
+    showBookmarkCatalogueDesc: 'showBookmarkCatalogueDesc',
     smartTag: 'smartTag',
     sourceCodeRepository: 'sourceCodeRepository',
     sqlite3: 'sqlite3',
@@ -81,16 +87,12 @@ export const sentenceKey = {
     systemUser: 'systemUser',
     systemVersion: 'systemVersion',
     tag: 'tag',
-    unSupportTipsDesc: 'unSupportTipsDesc',
-    unSupportTipsTitle: 'unSupportTipsTitle',
     unknownError: 'unknownError',
     unknownInputError: 'unknownInputError',
     unready: 'unready',
+    unSupportTipsDesc: 'unSupportTipsDesc',
+    unSupportTipsTitle: 'unSupportTipsTitle',
     utoolsVersion: 'utoolsVersion',
-    showBookmarkCatalogue: 'showBookmarkCatalogue',
-    showBookmarkCatalogueDesc: 'showBookmarkCatalogueDesc',
-    filePathInMatch: 'filePathInMatch',
-    filePathInMatchDesc: 'filePathInMatchDesc',
 }
 
 export interface Sentence {
@@ -122,10 +124,14 @@ export interface Sentence {
     readonly executorSuffix: string
     readonly file: string
     readonly fileOpening: string
+    readonly filePathInMatch: string
+    readonly filePathInMatchDesc: string
     readonly filePathNonExistsTips: string
     readonly fileSelectorPlaceholder: string
     readonly filterNonExistsFiles: string
     readonly filterNonExistsFilesDesc: string
+    readonly fullUrlInMatch: string
+    readonly fullUrlInMatchDesc: string
     readonly getFavicon: string
     readonly getFaviconDesc: string
     readonly getFileIcon: string
@@ -161,6 +167,8 @@ export interface Sentence {
     readonly search: string
     readonly settingBetaDesc: string
     readonly settingDocument: string
+    readonly showBookmarkCatalogue: string
+    readonly showBookmarkCatalogueDesc: string
     readonly smartTag: string
     readonly sourceCodeRepository: string
     readonly sqlite3: string
@@ -171,16 +179,12 @@ export interface Sentence {
     readonly systemUser: string
     readonly systemVersion: string
     readonly tag: string
-    readonly unSupportTipsDesc: string
-    readonly unSupportTipsTitle: string
     readonly unknownError: string
     readonly unknownInputError: string
     readonly unready: string
+    readonly unSupportTipsDesc: string
+    readonly unSupportTipsTitle: string
     readonly utoolsVersion: string
-    readonly showBookmarkCatalogue: string
-    readonly showBookmarkCatalogueDesc: string
-    readonly filePathInMatch: string
-    readonly filePathInMatchDesc: string
 }
 
 let languageData = new I18n('zh-CN', {

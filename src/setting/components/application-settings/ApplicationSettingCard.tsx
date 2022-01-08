@@ -13,6 +13,7 @@ import {SqlitePath} from './setting-items/SqlitePath'
 import {EnhanceConfig} from './setting-items/EnhanceConfig'
 import {ShowBookmarkCatalogue} from './setting-items/ShowBookmarkCatalogue'
 import {FilePathInMatch} from './setting-items/FilePathInMatch'
+import {FullUrlInMatch} from './setting-items/FullUrlInMatch'
 
 export interface EnhanceSettingItemProps {
     slot: Component
@@ -87,7 +88,15 @@ export class ApplicationSettingCard extends Component<ApplicationSettingCardProp
                                 data-content={i18n.t(sentenceKey.browser)}
                             />
                             <GetFavicon context={this.props.context}/>
+                            <div class="divider"/>
                             <ShowBookmarkCatalogue context={this.props.context}/>
+                            <EnhanceSettingItem
+                                slot={<Fragment>
+                                    <div class="divider"/>
+                                    <FullUrlInMatch context={this.props.context}/>
+                                </Fragment>}
+                                context={this.props.context}
+                            />
                             <EnhanceSettingItem
                                 slot={<Fragment>
                                     <div class="divider"/>

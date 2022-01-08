@@ -8,6 +8,7 @@ import {generateHostIndex} from '../../../utils/index-generator/HostIndex'
 import {i18n, sentenceKey} from '../../../i18n'
 import {parseSqliteDefaultResult} from '../../../utils/sqlite/ParseResult'
 import {getSqliteExecutor, isEmptySqliteExecutor} from '../../../utils/sqlite/CheckSqliteExecutor'
+import {generateFullUrlIndex} from '../../../utils/index-generator/FullUrlIndex'
 
 const FIREFOX: string = 'firefox'
 
@@ -71,6 +72,7 @@ export class FirefoxBookmarkApplicationImpl extends SqliteBrowserApplicationImpl
                         searchKey: unique([
                             ...generatePinyinIndex(context, title),
                             ...generateHostIndex(context, url),
+                            ...generateFullUrlIndex(context, url),
                             title,
                         ]),
                         exists: true,

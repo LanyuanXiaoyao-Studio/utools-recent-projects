@@ -17,6 +17,7 @@ import {existsSync} from 'fs'
 import {i18n, sentenceKey} from '../../../i18n'
 import {generatePinyinIndex} from '../../../utils/index-generator/PinyinIndex'
 import {generateHostIndex} from '../../../utils/index-generator/HostIndex'
+import {generateFullUrlIndex} from '../../../utils/index-generator/FullUrlIndex'
 
 const SAFARI: string = 'safari'
 
@@ -71,6 +72,7 @@ export class SafariBookmarkApplicationImpl extends BrowserApplicationImpl<Safari
                     searchKey: unique([
                         ...generatePinyinIndex(context, title),
                         ...generateHostIndex(context, url),
+                        ...generateFullUrlIndex(context, url),
                         title,
                     ]),
                     exists: true,

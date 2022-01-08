@@ -9,6 +9,7 @@ import {generatePinyinIndex} from '../../../utils/index-generator/PinyinIndex'
 import {generateHostIndex} from '../../../utils/index-generator/HostIndex'
 import {parseSqliteDefaultResult} from '../../../utils/sqlite/ParseResult'
 import {getSqliteExecutor, isEmptySqliteExecutor} from '../../../utils/sqlite/CheckSqliteExecutor'
+import {generateFullUrlIndex} from '../../../utils/index-generator/FullUrlIndex'
 
 const CHROMIUM: string = 'chromium'
 const configName = 'History'
@@ -79,6 +80,7 @@ export class ChromiumHistoryApplicationImpl extends SqliteBrowserApplicationImpl
                     searchKey: unique([
                         ...generatePinyinIndex(context, title),
                         ...generateHostIndex(context, url),
+                        ...generateFullUrlIndex(context, url),
                         title,
                     ]),
                     exists: true,

@@ -17,6 +17,7 @@ import {generateParents, parseTimeFrom1604} from '../../../Utils'
 import {i18n, sentenceKey} from '../../../i18n'
 import {generatePinyinIndex} from '../../../utils/index-generator/PinyinIndex'
 import {generateHostIndex} from '../../../utils/index-generator/HostIndex'
+import {generateFullUrlIndex} from '../../../utils/index-generator/FullUrlIndex'
 
 const CHROMIUM: string = 'chromium'
 const configName = 'Bookmarks'
@@ -57,6 +58,7 @@ export class ChromiumBookmarkApplicationImpl extends BrowserApplicationImpl<Chro
                 searchKey: unique([
                     ...generatePinyinIndex(context, title),
                     ...generateHostIndex(context, url),
+                    ...generateFullUrlIndex(context, url),
                     title,
                 ]),
                 exists: true,
