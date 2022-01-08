@@ -136,7 +136,7 @@ export class VscodeApplicationImpl extends ApplicationCacheConfigAndExecutorImpl
 
     override generateSettingItems(context: Context, nativeId: string): Array<SettingItem> {
         let superSettings = super.generateSettingItems(context, nativeId)
-        superSettings.splice(1, 0, new SwitchSettingItem(
+        superSettings.splice(0, 0, new SwitchSettingItem(
             this.openInNewId(nativeId),
             i18n.t(sentenceKey.openInNew),
             this.openInNew,
