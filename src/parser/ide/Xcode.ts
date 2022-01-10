@@ -68,7 +68,7 @@ export class XcodeApplicationImpl extends ApplicationCacheImpl<XcodeProjectItemI
         if (isNil(statSync(this.configPath))) {
             throw new Error(`无法找到配置文件 ${this.configPath}`)
         }
-        let result = execSync(generateScript(this.configPath), { encoding: 'utf-8' })
+        let result = execSync(generateScript(this.configPath), { encoding: 'utf-8', windowsHide: true })
         if (!isNil(result) && !isEmpty(result)) {
             let paths = result.split(',').map(p => p.trim())
             paths.forEach(path => {

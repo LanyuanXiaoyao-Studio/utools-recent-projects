@@ -48,7 +48,7 @@ export class ShellExecutor implements Executor {
             utools.showNotification(i18n.t(sentenceKey.errorArgs))
             return
         }
-        exec(this.command, error => {
+        exec(this.command, { windowsHide: true }, error => {
             console.log('error', error)
             if (isNil(error)) {
                 utools.hideMainWindow()

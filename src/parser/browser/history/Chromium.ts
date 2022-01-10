@@ -36,7 +36,11 @@ export class ChromiumHistoryApplicationImpl extends SqliteBrowserApplicationImpl
         let sql = 'select v.id                                                                                                        as id,\n       u.url                                                                                                       as url,\n       u.title                                                                                                     as title,\n       cast(strftime(\'%s\', datetime((v.visit_time / 1000000) - 11644473600, \'unixepoch\',\n                                    \'localtime\')) as numeric)                                                      as timestamp\nfrom visits v\n         left join urls u on v.url = u.id\nwhere v.visit_time is not null\n  and v.url is not null\n  and v.visit_duration != 0\ngroup by u.last_visit_time\norder by timestamp desc\nlimit ' + context.browserHistoryLimit
         let result = ''
         await this.copyAndReadFile(this.config, path => {
-            result = execFileSync(getSqliteExecutor(context, this.executor), [path, sql, '-readonly'], { encoding: 'utf-8', maxBuffer: 20971520 })
+            result = execFileSync(getSqliteExecutor(context, this.executor), [path, sql, '-readonly'], {
+                encoding: 'utf-8',
+                maxBuffer: 20971520,
+                windowsHide: true,
+            })
         })
 
         // 获取 favicon 的尝试
