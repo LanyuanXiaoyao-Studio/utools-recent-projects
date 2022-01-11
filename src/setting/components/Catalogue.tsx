@@ -1,6 +1,6 @@
 import Nano, {Component, Fragment} from 'nano-jsx'
 import {Application, ApplicationConfigState, ProjectItemImpl} from '../../Types'
-import {isEmpty, isNil} from 'licia'
+import {debounce, isEmpty, isNil} from 'licia'
 import {settingStore} from '../Store'
 import {compareChar} from '../../Utils'
 import {i18n, sentenceKey} from '../../i18n'
@@ -178,7 +178,7 @@ export class Catalogue extends Component<CatalogueProps, CatalogueState> {
         }
     }
 
-    private search(text: string) {
+    private debounceSearch = debounce(text => {
         this.setState({
             ...this.state,
             searchText: text.toLowerCase(),
@@ -190,5 +190,9 @@ export class Catalogue extends Component<CatalogueProps, CatalogueState> {
         if (!isEmpty(this.state.searchText)) {
             input?.setSelectionRange(this.state.searchText.length, this.state.searchText.length)
         }
+    }, 300)
+
+    private search(text: string) {
+        this.debounceSearch(text)
     }
 }
