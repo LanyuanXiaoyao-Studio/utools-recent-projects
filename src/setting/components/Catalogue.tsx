@@ -1,6 +1,6 @@
 import Nano, {Component, Fragment} from 'nano-jsx'
 import {Application, ApplicationConfigState, ProjectItemImpl} from '../../Types'
-import {isNil} from 'licia'
+import {isEmpty, isNil} from 'licia'
 import {settingStore} from '../Store'
 import {compareChar} from '../../Utils'
 import {i18n, sentenceKey} from '../../i18n'
@@ -20,10 +20,11 @@ export interface CatalogueProps {
 
 export interface CatalogueState {
     applicationGroupMap: { [key: string]: Array<Application<ProjectItemImpl>> }
+    searchText: string
 }
 
 export class Catalogue extends Component<CatalogueProps, CatalogueState> {
-    store = settingStore.use()
+    private store = settingStore.use()
 
     private localContext: Context = this.props.context
 
@@ -40,6 +41,7 @@ export class Catalogue extends Component<CatalogueProps, CatalogueState> {
         }
         this.state = {
             applicationGroupMap: map,
+            searchText: '',
         }
     }
 
@@ -56,31 +58,6 @@ export class Catalogue extends Component<CatalogueProps, CatalogueState> {
 
     override didUnmount(): any {
         this.store.cancel()
-    }
-
-    help() {
-        utools.shellOpenExternal('https://yuanliao.info/d/3978')
-    }
-
-    survey() {
-        utools.ubrowser.goto('https://wj.qq.com/s2/9430048/c591/').run({ width: 1200, height: 800 })
-    }
-
-    home() {
-        utools.shellOpenExternal('https://github.com/LanyuanXiaoyao-Studio/utools-recent-projects')
-    }
-
-    badge(application: Application<ProjectItemImpl>): BadgeInfo {
-        switch (application.isFinishConfig(this.localContext)) {
-            case ApplicationConfigState.empty:
-                return { show: false, class: '', text: '' }
-            case ApplicationConfigState.undone:
-                return { show: true, class: 'badge badge-unready', text: i18n.t(sentenceKey.unready) }
-            case ApplicationConfigState.done:
-                return { show: true, class: 'badge badge-ready', text: i18n.t(sentenceKey.ready) }
-            case ApplicationConfigState.error:
-                return { show: true, class: 'badge badge-error', text: i18n.t(sentenceKey.error) }
-        }
     }
 
     override render() {
@@ -102,7 +79,7 @@ export class Catalogue extends Component<CatalogueProps, CatalogueState> {
                     <li class="nav-item">
                         <a
                             href="#"
-                            onclick={() => this.help()}
+                            onclick={() => Catalogue.help()}
                         >
                             <i class="icon icon-message"/>
                             <b>{i18n.t(sentenceKey.settingDocument)}</b>
@@ -111,7 +88,7 @@ export class Catalogue extends Component<CatalogueProps, CatalogueState> {
                     <li class="nav-item">
                         <a
                             href="#"
-                            onclick={() => this.home()}
+                            onclick={() => Catalogue.home()}
                         >
                             <i class="icon icon-link"/>
                             <b>{i18n.t(sentenceKey.sourceCodeRepository)}</b>
@@ -120,13 +97,23 @@ export class Catalogue extends Component<CatalogueProps, CatalogueState> {
                     <li class="nav-item">
                         <a
                             href="#"
-                            onclick={() => this.survey()}
+                            onclick={() => Catalogue.survey()}
                         >
                             <i class="icon icon-emoji"/>
                             <b>{i18n.t(sentenceKey.requestMoreApplication)}</b>
                         </a>
                     </li>
                     <div class="divider"/>
+                    <div class="input-group">
+                        <input
+                            id="catalogue-input"
+                            class="form-input input-sm"
+                            type="text"
+                            placeholder="搜索软件适配项"
+                            value={this.state.searchText}
+                            oninput={event => this.search(event.target?.value ?? '')}
+                        />
+                    </div>
                     {Object.keys(this.state.applicationGroupMap)
                         .sort((a, b) => compareChar(a, b))
                         .map(key => (
@@ -135,26 +122,73 @@ export class Catalogue extends Component<CatalogueProps, CatalogueState> {
                                     <b>{key}</b>
                                 </a>
                                 <ul class="nav">
-                                    {this.state.applicationGroupMap[key].map(app => (
-                                        <li
-                                            class={'nav-item ' + this.badge(app).class}
-                                            data-badge={this.badge(app).text}
-                                        >
-                                            <a href={'#' + app.id}>
-                                                <img
-                                                    class="catalogue-app-icon"
-                                                    src={iconMap[app.icon] ?? ''}
-                                                    alt={app.name}
-                                                />
-                                                <span class="catalogue-app-name">{app.name}</span>
-                                            </a>
-                                        </li>
-                                    ))}
+                                    {this.state.applicationGroupMap[key]
+                                        .filter(app => {
+                                            if (isEmpty(this.state.searchText)) {
+                                                return true
+                                            } else {
+                                                return app.name.toLowerCase().indexOf(this.state.searchText) > -1
+                                            }
+                                        })
+                                        .map(app => (
+                                            <li
+                                                class={'nav-item ' + Catalogue.badge(this.localContext, app).class}
+                                                data-badge={Catalogue.badge(this.localContext, app).text}
+                                            >
+                                                <a href={'#' + app.id}>
+                                                    <img
+                                                        class="catalogue-app-icon"
+                                                        src={iconMap[app.icon] ?? ''}
+                                                        alt={app.name}
+                                                    />
+                                                    <span class="catalogue-app-name">{app.name}</span>
+                                                </a>
+                                            </li>
+                                        ))}
                                 </ul>
                             </li>
                         ))}
                 </ul>
             </Fragment>
         )
+    }
+
+    private static help() {
+        utools.shellOpenExternal('https://yuanliao.info/d/3978')
+    }
+
+    private static survey() {
+        utools.ubrowser.goto('https://wj.qq.com/s2/9430048/c591/').run({ width: 1200, height: 800 })
+    }
+
+    private static home() {
+        utools.shellOpenExternal('https://github.com/LanyuanXiaoyao-Studio/utools-recent-projects')
+    }
+
+    private static badge(context: Context, application: Application<ProjectItemImpl>): BadgeInfo {
+        switch (application.isFinishConfig(context)) {
+            case ApplicationConfigState.empty:
+                return { show: false, class: '', text: '' }
+            case ApplicationConfigState.undone:
+                return { show: true, class: 'badge badge-unready', text: i18n.t(sentenceKey.unready) }
+            case ApplicationConfigState.done:
+                return { show: true, class: 'badge badge-ready', text: i18n.t(sentenceKey.ready) }
+            case ApplicationConfigState.error:
+                return { show: true, class: 'badge badge-error', text: i18n.t(sentenceKey.error) }
+        }
+    }
+
+    private search(text: string) {
+        this.setState({
+            ...this.state,
+            searchText: text.toLowerCase(),
+        })
+        this.update()
+
+        let input = document.getElementById('catalogue-input') as HTMLInputElement
+        input?.focus()
+        if (!isEmpty(this.state.searchText)) {
+            input?.setSelectionRange(this.state.searchText.length, this.state.searchText.length)
+        }
     }
 }
