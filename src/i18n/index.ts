@@ -8,6 +8,7 @@ export const sentenceKey = {
     betaDesc: 'betaDesc',
     browser: 'browser',
     browserPathDescPrefix: 'browserPathDescPrefix',
+    catalogueSearchPlaceHolder: 'catalogueSearchPlaceHolder',
     cloud: 'cloud',
     cloudDesc: 'cloudDesc',
     configFileAt: 'configFileAt',
@@ -101,6 +102,7 @@ export interface Sentence {
     readonly betaDesc: string
     readonly browser: string
     readonly browserPathDescPrefix: string
+    readonly catalogueSearchPlaceHolder: string
     readonly cloud: string
     readonly cloudDesc: string
     readonly configFileAt: string

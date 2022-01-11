@@ -1,6 +1,6 @@
 import Nano, {Component, Fragment} from 'nano-jsx'
 import {Application, ApplicationConfigState, ProjectItemImpl} from '../../Types'
-import {debounce, isEmpty, isNil} from 'licia'
+import {contain, debounce, isEmpty, isNil} from 'licia'
 import {settingStore} from '../Store'
 import {compareChar} from '../../Utils'
 import {i18n, sentenceKey} from '../../i18n'
@@ -109,7 +109,7 @@ export class Catalogue extends Component<CatalogueProps, CatalogueState> {
                             id="catalogue-input"
                             class="form-input input-sm"
                             type="text"
-                            placeholder="搜索软件适配项"
+                            placeholder={i18n.t(sentenceKey.catalogueSearchPlaceHolder)}
                             value={this.state.searchText}
                             oninput={event => this.search(event.target?.value ?? '')}
                         />
@@ -127,7 +127,7 @@ export class Catalogue extends Component<CatalogueProps, CatalogueState> {
                                             if (isEmpty(this.state.searchText)) {
                                                 return true
                                             } else {
-                                                return app.name.toLowerCase().indexOf(this.state.searchText) > -1
+                                                return contain(app.name.toLowerCase(), this.state.searchText)
                                             }
                                         })
                                         .map(app => (

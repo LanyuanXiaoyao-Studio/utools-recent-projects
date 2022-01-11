@@ -6,6 +6,7 @@ export class ZhCn implements Sentence {
     readonly betaDesc: string = `beta 意味着这个功能处于试验阶段\n但我无法测试所有使用场景\n需要你在遇到无法正常使用的时候积极向我反馈`
     readonly browser: string = '浏览器'
     readonly browserPathDescPrefix: string = '文件通常放在: '
+    readonly catalogueSearchPlaceHolder: string = '搜索过滤软件适配项'
     readonly cloud: string = '全局'
     readonly cloudDesc: string = '同账号的设备同步该设置'
     readonly configFileAt: string = '配置文件通常放在'

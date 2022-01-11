@@ -6,6 +6,7 @@ export class EnUs implements Sentence {
     readonly betaDesc: string = `beta means that this adaption\nis in preview version\nI can't test all the use scenes\nI need you submit the feedback \nwhen you meet some error`
     readonly browser: string = 'Browser'
     readonly browserPathDescPrefix: string = 'file usually at: '
+    readonly catalogueSearchPlaceHolder: string = 'Search and filter adapter'
     readonly cloud: string = 'Global'
     readonly cloudDesc: string = 'Sync this setting on device that\nlogin with the same account'
     readonly configFileAt: string = 'Config file usually at'
