@@ -104,22 +104,22 @@ export class Catalogue extends Component<CatalogueProps, CatalogueState> {
                         </a>
                     </li>
                     <div class="divider"/>
-                    <div class="input-group">
-                        <input
-                            id="catalogue-input"
-                            class="form-input input-sm"
-                            type="text"
-                            placeholder={i18n.t(sentenceKey.catalogueSearchPlaceHolder)}
-                            value={this.state.searchText}
-                            oninput={event => this.setState({ ...this.state, searchText: event.target?.value ?? '' })}
-                        />
-                        <button
-                            class="btn btn-sm btn-primary input-group-btn"
-                            onclick={() => this.search()}
-                        >
-                            <i class="icon icon-search"/>
-                        </button>
-                    </div>
+                    {/*<div class="input-group">*/}
+                    {/*    <input*/}
+                    {/*        id="catalogue-input"*/}
+                    {/*        class="form-input input-sm"*/}
+                    {/*        type="text"*/}
+                    {/*        placeholder={i18n.t(sentenceKey.catalogueSearchPlaceHolder)}*/}
+                    {/*        value={this.state.searchText}*/}
+                    {/*        oninput={event => this.setState({ ...this.state, searchText: event.target?.value ?? '' })}*/}
+                    {/*    />*/}
+                    {/*    <button*/}
+                    {/*        class="btn btn-sm btn-primary input-group-btn"*/}
+                    {/*        onclick={() => this.search()}*/}
+                    {/*    >*/}
+                    {/*        <i class="icon icon-search"/>*/}
+                    {/*    </button>*/}
+                    {/*</div>*/}
                     {Object.keys(this.state.applicationGroupMap)
                         .sort((a, b) => compareChar(a, b))
                         .map(key => (
