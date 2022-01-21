@@ -1,6 +1,6 @@
 import Nano, {Component, Fragment} from 'nano-jsx'
 import {Application, ApplicationConfigState, ProjectItemImpl} from '../../Types'
-import {contain, debounce, isEmpty, isNil} from 'licia'
+import {contain, isEmpty, isNil} from 'licia'
 import {settingStore} from '../Store'
 import {compareChar} from '../../Utils'
 import {i18n, sentenceKey} from '../../i18n'
@@ -111,8 +111,14 @@ export class Catalogue extends Component<CatalogueProps, CatalogueState> {
                             type="text"
                             placeholder={i18n.t(sentenceKey.catalogueSearchPlaceHolder)}
                             value={this.state.searchText}
-                            oninput={event => this.search(event.target?.value ?? '')}
+                            oninput={event => this.setState({ ...this.state, searchText: event.target?.value ?? '' })}
                         />
+                        <button
+                            class="btn btn-sm btn-primary input-group-btn"
+                            onclick={() => this.search()}
+                        >
+                            <i class="icon icon-search"/>
+                        </button>
                     </div>
                     {Object.keys(this.state.applicationGroupMap)
                         .sort((a, b) => compareChar(a, b))
@@ -178,21 +184,7 @@ export class Catalogue extends Component<CatalogueProps, CatalogueState> {
         }
     }
 
-    private debounceSearch = debounce(text => {
-        this.setState({
-            ...this.state,
-            searchText: text.toLowerCase(),
-        })
+    private search() {
         this.update()
-
-        let input = document.getElementById('catalogue-input') as HTMLInputElement
-        input?.focus()
-        if (!isEmpty(this.state.searchText)) {
-            input?.setSelectionRange(this.state.searchText.length, this.state.searchText.length)
-        }
-    }, 300)
-
-    private search(text: string) {
-        this.debounceSearch(text)
     }
 }
