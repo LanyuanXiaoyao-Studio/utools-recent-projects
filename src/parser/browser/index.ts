@@ -99,6 +99,7 @@ export type BrowserId =
     | 'yandex'
     | 'liebao'
     | 'deepin'
+    | 'xiaobai'
 
 export const getDefaultConfigPath: (id: BrowserId) => string = id => {
     return generateStringByOS({
@@ -182,6 +183,11 @@ const pathDescriptionMap: { [key: string]: () => StringByOS } = {
     'deepin': () => {
         return {
             linux: `${systemHome()}/.config/browser/Default/`,
+        }
+    },
+    'xiaobai': () => {
+        return {
+            win32: `${systemHome()}\\AppData\\Local\\xbbrowser\\User Data\\Default\\`
         }
     },
     'safari': () => {

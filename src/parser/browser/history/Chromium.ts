@@ -110,4 +110,5 @@ export const applications: Array<ApplicationImpl<ChromiumHistoryProjectItemImpl>
     new ChromiumHistoryApplicationImpl('yandex', 'Yandex', CHROMIUM, undefined, false, undefined, configName),
     new ChromiumHistoryApplicationImpl('liebao', '猎豹浏览器', CHROMIUM, [Platform.win32], false, undefined, configName),
     new ChromiumHistoryApplicationImpl('deepin', '深度浏览器', CHROMIUM, [Platform.linux], false, undefined, configName),
+    new ChromiumHistoryApplicationImpl('xiaobai', '小白浏览器', CHROMIUM, [Platform.win32], false, undefined, configName),
 ]

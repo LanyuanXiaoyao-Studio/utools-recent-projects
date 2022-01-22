@@ -103,4 +103,5 @@ export const applications: Array<ApplicationImpl<ChromiumBookmarkProjectItemImpl
     new ChromiumBookmarkApplicationImpl('yandex', 'Yandex', CHROMIUM, undefined, true, undefined, configName),
     new ChromiumBookmarkApplicationImpl('liebao', '猎豹浏览器', CHROMIUM, [Platform.win32], true, undefined, configName),
     new ChromiumBookmarkApplicationImpl('deepin', '深度浏览器', CHROMIUM, [Platform.linux], true, undefined, configName),
+    new ChromiumBookmarkApplicationImpl('xiaobai', '小白浏览器', CHROMIUM, [Platform.win32], true, undefined, configName),
 ]
