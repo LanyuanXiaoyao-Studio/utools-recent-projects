@@ -15,6 +15,9 @@ export const parseSqliteDefaultResult: (result: string, fieldNames: Array<string
             if (fieldName.startsWith('n/')) {
                 fieldName = fieldName.substring(2)
                 object[fieldName] = isEmpty(field) ? 0 : parseInt(field)
+            } else if (fieldName.startsWith('f/')) {
+                fieldName = fieldName.substring(2)
+                object[fieldName] = isEmpty(field) ? 0.0 : parseFloat(field)
             } else if (fieldName.startsWith('b/')) {
                 fieldName = fieldName.substring(2)
                 object[fieldName] = isEmpty(field) ? false : field === 'true'

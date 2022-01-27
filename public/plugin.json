@@ -408,6 +408,18 @@
           }
         }
       ]
+    },
+    {
+      "code"    : "shortcuts-project",
+      "explain" : "快速打开最近使用的 Shortcut (快捷指令)",
+      "icon"    : "icon/shortcuts.png",
+      "platform": [
+        "darwin"
+      ],
+      "cmds"    : [
+        "Shortcuts",
+        "最近打开的 Shortcut (快捷指令)"
+      ]
     }
   ]
 }

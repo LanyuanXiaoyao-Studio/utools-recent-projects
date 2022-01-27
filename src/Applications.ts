@@ -18,6 +18,7 @@ import {applications as obsidianApplications} from './parser/notes/Obsidian'
 import {applications as geanyApplications} from './parser/editor/Geany'
 import {applications as defaultFolderXApplications} from './parser/system/DefaultFolderX'
 import {applications as evernoteApplication} from './parser/notes/Evernote'
+import {applications as shortcutsApplication} from './parser/system/Shortcuts'
 import {AllProjectArgs, AllProjectSortByTimeArgs, AllProjectSortByTitleArgs} from './Entrance'
 
 export class ProjectFeature implements Feature<ProjectArgsImpl> {
@@ -54,6 +55,7 @@ export const argsMapping: { [keys: string]: ProjectFeature } = {
     'geany-project': new ProjectFeature(new AllProjectArgs(geanyApplications)),
     'default-folder-x-project': new ProjectFeature(new AllProjectSortByTimeArgs(defaultFolderXApplications)),
     'evernote-project': new ProjectFeature(new AllProjectSortByTimeArgs(evernoteApplication)),
+    'shortcuts-project': new ProjectFeature(new AllProjectSortByTimeArgs(shortcutsApplication)),
 }
 
 export const applications: Array<ApplicationImpl<ProjectItemImpl>> = []
