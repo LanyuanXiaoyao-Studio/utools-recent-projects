@@ -7,7 +7,7 @@ import {
     SwitchSettingItem,
 } from '../../Types'
 import Nano, {Component, Fragment, Img} from 'nano-jsx'
-import {isNil} from 'licia'
+import {isEmpty, isNil} from 'licia'
 import {iconMap} from '../../Icon'
 import {settingStore} from '../Store'
 import {Context} from '../../Context'
@@ -72,7 +72,7 @@ export class SettingCard extends Component<SettingCardProps, SettingCardState> {
                     </div>
                     <div class="form-group card-body">
                         {this.props.application.enabled
-                            ? isNil(this.props.application.description)
+                            ? (isNil(this.props.application.description) || isEmpty(this.props.application.description))
                                 ? <Fragment/>
                                 :
                                 <blockquote class="card-description">
