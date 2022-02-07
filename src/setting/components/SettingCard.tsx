@@ -6,7 +6,7 @@ import {
     SettingType,
     SwitchSettingItem,
 } from '../../Types'
-import Nano, {Component, Fragment, Img} from 'nano-jsx'
+import Nano, {Component, Fragment} from 'nano-jsx'
 import {isEmpty, isNil} from 'licia'
 import {iconMap} from '../../Icon'
 import {settingStore} from '../Store'
@@ -59,9 +59,10 @@ export class SettingCard extends Component<SettingCardProps, SettingCardState> {
                         class={this.props.application.beta ? 'form-legend card-header tooltip tooltip-top' : 'form-legend card-header'}
                         data-tooltip={i18n.t(sentenceKey.betaDesc)}
                     >
-                        <Img
+                        <img
                             class="icon"
                             src={iconMap[this.props.application.icon] ?? ''}
+                            alt={getName(this.props.application.name)}
                         />
                         <span
                             class={'title' + (this.props.application.beta ? ' badge badge-unready' : '')}
