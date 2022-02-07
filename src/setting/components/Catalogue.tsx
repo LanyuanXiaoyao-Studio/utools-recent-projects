@@ -1,8 +1,8 @@
 import Nano, {Component, Fragment} from 'nano-jsx'
 import {Application, ApplicationConfigState, ProjectItemImpl} from '../../Types'
-import {contain, isEmpty, isNil} from 'licia'
+import {isNil} from 'licia'
 import {settingStore} from '../Store'
-import {compareChar} from '../../Utils'
+import {compareChar, getName} from '../../Utils'
 import {i18n, sentenceKey} from '../../i18n'
 import {iconMap} from '../../Icon'
 import {Context} from '../../Context'
@@ -42,6 +42,31 @@ export class Catalogue extends Component<CatalogueProps, CatalogueState> {
         this.state = {
             applicationGroupMap: map,
             searchText: '',
+        }
+    }
+
+    private static help() {
+        utools.shellOpenExternal('https://yuanliao.info/d/3978')
+    }
+
+    private static survey() {
+        utools.ubrowser.goto('https://wj.qq.com/s2/9430048/c591/').run({ width: 1200, height: 800 })
+    }
+
+    private static home() {
+        utools.shellOpenExternal('https://github.com/LanyuanXiaoyao-Studio/utools-recent-projects')
+    }
+
+    private static badge(context: Context, application: Application<ProjectItemImpl>): BadgeInfo {
+        switch (application.isFinishConfig(context)) {
+            case ApplicationConfigState.empty:
+                return { show: false, class: '', text: '' }
+            case ApplicationConfigState.undone:
+                return { show: true, class: 'badge badge-unready', text: i18n.t(sentenceKey.unready) }
+            case ApplicationConfigState.done:
+                return { show: true, class: 'badge badge-ready', text: i18n.t(sentenceKey.ready) }
+            case ApplicationConfigState.error:
+                return { show: true, class: 'badge badge-error', text: i18n.t(sentenceKey.error) }
         }
     }
 
@@ -129,13 +154,13 @@ export class Catalogue extends Component<CatalogueProps, CatalogueState> {
                                 </a>
                                 <ul class="nav">
                                     {this.state.applicationGroupMap[key]
-                                        .filter(app => {
-                                            if (isEmpty(this.state.searchText)) {
-                                                return true
-                                            } else {
-                                                return contain(app.name.toLowerCase(), this.state.searchText)
-                                            }
-                                        })
+                                        // .filter(app => {
+                                        //     if (isEmpty(this.state.searchText)) {
+                                        //         return true
+                                        //     } else {
+                                        //         return contain(app.name.toLowerCase(), this.state.searchText)
+                                        //     }
+                                        // })
                                         .map(app => (
                                             <li
                                                 class={'nav-item ' + Catalogue.badge(this.localContext, app).class}
@@ -145,9 +170,9 @@ export class Catalogue extends Component<CatalogueProps, CatalogueState> {
                                                     <img
                                                         class="catalogue-app-icon"
                                                         src={iconMap[app.icon] ?? ''}
-                                                        alt={app.name}
+                                                        alt={getName(app.name)}
                                                     />
-                                                    <span class="catalogue-app-name">{app.name}</span>
+                                                    <span class="catalogue-app-name">{getName(app.name)}</span>
                                                 </a>
                                             </li>
                                         ))}
@@ -157,31 +182,6 @@ export class Catalogue extends Component<CatalogueProps, CatalogueState> {
                 </ul>
             </Fragment>
         )
-    }
-
-    private static help() {
-        utools.shellOpenExternal('https://yuanliao.info/d/3978')
-    }
-
-    private static survey() {
-        utools.ubrowser.goto('https://wj.qq.com/s2/9430048/c591/').run({ width: 1200, height: 800 })
-    }
-
-    private static home() {
-        utools.shellOpenExternal('https://github.com/LanyuanXiaoyao-Studio/utools-recent-projects')
-    }
-
-    private static badge(context: Context, application: Application<ProjectItemImpl>): BadgeInfo {
-        switch (application.isFinishConfig(context)) {
-            case ApplicationConfigState.empty:
-                return { show: false, class: '', text: '' }
-            case ApplicationConfigState.undone:
-                return { show: true, class: 'badge badge-unready', text: i18n.t(sentenceKey.unready) }
-            case ApplicationConfigState.done:
-                return { show: true, class: 'badge badge-ready', text: i18n.t(sentenceKey.ready) }
-            case ApplicationConfigState.error:
-                return { show: true, class: 'badge badge-error', text: i18n.t(sentenceKey.error) }
-        }
     }
 
     private search() {

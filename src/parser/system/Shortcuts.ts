@@ -27,7 +27,7 @@ export class ShortcutsApplicationImpl extends ApplicationCacheConfigAndExecutorI
     constructor() {
         super(
             SHORTCUTS,
-            'Shortcuts (快捷指令)',
+            () => i18n.t(sentenceKey.shortcuts),
             'icon/shortcuts.png',
             SHORTCUTS,
             [Platform.darwin],

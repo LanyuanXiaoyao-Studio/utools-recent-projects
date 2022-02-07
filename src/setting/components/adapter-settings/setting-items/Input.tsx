@@ -1,10 +1,11 @@
 import Nano, {Fragment} from 'nano-jsx'
-import {DescriptionGetter, InputSettingItem} from '../../../../Types'
+import {InputSettingItem} from '../../../../Types'
 import {AdapterSettingItem, AdapterSettingItemProps, AdapterSettingItemState} from '../AdapterSettingItem'
-import {isEmpty, isFn, isNil} from 'licia'
+import {isEmpty, isNil} from 'licia'
 import {i18n, sentenceKey} from '../../../../i18n'
 import fs from 'fs'
 import {existsCacheSync} from '../../../../utils/files/SettingInputHelper'
+import {getDescription} from '../../../../Utils'
 
 export interface InputProps extends AdapterSettingItemProps {
     item: InputSettingItem
@@ -64,9 +65,7 @@ export class Input extends AdapterSettingItem<InputProps, AdapterSettingItemStat
                         ? <Fragment/>
                         :
                         <div class="setting-item-description">
-                            {isFn(this.props.item.description)
-                                ? (this.props.item.description as DescriptionGetter)()
-                                : this.props.item.description}
+                            {getDescription(this.props.item.description!)}
                         </div>}
                     <div class="input-group">
                         {this.props.context.enableEditPathInputDirectly

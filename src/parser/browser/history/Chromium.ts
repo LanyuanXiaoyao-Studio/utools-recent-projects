@@ -1,8 +1,16 @@
-import {ApplicationImpl, DatetimeProjectItemImpl, ElectronExecutor, Group, GroupName, Platform} from '../../../Types'
+import {
+    ApplicationImpl,
+    DatetimeProjectItemImpl,
+    ElectronExecutor,
+    Group,
+    GroupName,
+    NameGetter,
+    Platform,
+} from '../../../Types'
 import {BrowserId, getDefaultConfigPath, SqliteBrowserApplicationImpl} from '../index'
 import {execFileSync} from 'child_process'
 import {isEmpty, unique} from 'licia'
-import {removeAllQueryFromUrl} from '../../../Utils'
+import {getName, removeAllQueryFromUrl} from '../../../Utils'
 import {Context} from '../../../Context'
 import {i18n, sentenceKey} from '../../../i18n'
 import {generatePinyinIndex} from '../../../utils/index-generator/PinyinIndex'
@@ -20,8 +28,8 @@ export class ChromiumHistoryProjectItemImpl extends DatetimeProjectItemImpl {}
 export class ChromiumHistoryApplicationImpl extends SqliteBrowserApplicationImpl<ChromiumHistoryProjectItemImpl> {
     private readonly browserId: BrowserId
 
-    constructor(id: BrowserId, name: string, type: string, platforms: Array<Platform> = [Platform.win32, Platform.darwin, Platform.linux], description: boolean = true, beta: boolean = false, configName: string = '') {
-        super(`${id}-history`, `${name}`, `icon/browser-${id}.png`, type, platforms, Group[GroupName.browserHistory], description ? () => handler(this.defaultConfigPath()) : undefined, beta, configName)
+    constructor(id: BrowserId, name: string | NameGetter, type: string, platforms: Array<Platform> = [Platform.win32, Platform.darwin, Platform.linux], description: boolean = true, beta: boolean = false, configName: string = '') {
+        super(`${id}-history`, `${getName(name)}`, `icon/browser-${id}.png`, type, platforms, Group[GroupName.browserHistory], description ? () => handler(this.defaultConfigPath()) : undefined, beta, configName)
         this.browserId = id
     }
 

@@ -5,6 +5,7 @@ import {
     DescriptionGetter,
     Group,
     GroupName,
+    NameGetter,
     Platform,
     ShellExecutor,
 } from '../../Types'
@@ -26,7 +27,7 @@ export class OfficeProjectItemImpl extends DatetimeProjectItemImpl {}
 export class OfficeMacApplicationImpl extends ApplicationCacheConfigImpl<OfficeProjectItemImpl> {
     private readonly defaultConfig
 
-    constructor(id: string, name: string, icon: string, configFilename: string, defaultConfig: string | DescriptionGetter = '') {
+    constructor(id: string, name: string | NameGetter, icon: string, configFilename: string, defaultConfig: string | DescriptionGetter = '') {
         super(
             `office-mac-${id}`,
             name,
@@ -119,7 +120,10 @@ export class OfficeWinApplicationImpl extends ApplicationImpl<OfficeProjectItemI
             .sort((p1, p2) => p2.datetime - p1.datetime)
             .map(p => this.generateCommand(p.path))
             .join('')
-        let result = execSync(`powershell.exe -command "chcp 65001;${command}"`, { encoding: 'utf8', windowsHide: true }).trim()
+        let result = execSync(`powershell.exe -command "chcp 65001;${command}"`, {
+            encoding: 'utf8',
+            windowsHide: true,
+        }).trim()
         let paths = result.split(/\r?\n/).slice(1)
         paths.forEach(path => {
             let parser = parse(path)

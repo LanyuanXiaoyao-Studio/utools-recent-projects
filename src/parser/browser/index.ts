@@ -42,18 +42,6 @@ export abstract class SqliteBrowserApplicationImpl<P extends ProjectItemImpl> ex
         ]
     }
 
-    protected copyAndReadFile: (path: string, handle: (tmpPath: string) => void) => void = async (path, handle) => {
-        let tmpPath = utools.getPath('temp')
-        let tmpDatabasePath = join(tmpPath, randomId())
-        await copyFile(path, tmpDatabasePath)
-        try {
-            handle(tmpDatabasePath)
-        } finally {
-            await rm(tmpDatabasePath, { force: true })
-        }
-    }
-
-
     override isFinishConfig(context: Context): ApplicationConfigState {
         if (this.disEnable())
             return ApplicationConfigState.empty
@@ -75,6 +63,17 @@ export abstract class SqliteBrowserApplicationImpl<P extends ProjectItemImpl> ex
             } else {
                 return ApplicationConfigState.done
             }
+        }
+    }
+
+    protected copyAndReadFile: (path: string, handle: (tmpPath: string) => void) => void = async (path, handle) => {
+        let tmpPath = utools.getPath('temp')
+        let tmpDatabasePath = join(tmpPath, randomId())
+        await copyFile(path, tmpDatabasePath)
+        try {
+            handle(tmpDatabasePath)
+        } finally {
+            await rm(tmpDatabasePath, { force: true })
         }
     }
 }
@@ -187,7 +186,7 @@ const pathDescriptionMap: { [key: string]: () => StringByOS } = {
     },
     'xiaobai': () => {
         return {
-            win32: `${systemHome()}\\AppData\\Local\\xbbrowser\\User Data\\Default\\`
+            win32: `${systemHome()}\\AppData\\Local\\xbbrowser\\User Data\\Default\\`,
         }
     },
     'safari': () => {

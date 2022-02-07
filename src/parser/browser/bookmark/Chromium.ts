@@ -6,6 +6,7 @@ import {
     Group,
     GroupName,
     InputSettingItem,
+    NameGetter,
     Platform,
     SettingItem,
 } from '../../../Types'
@@ -13,7 +14,7 @@ import {BrowserApplicationImpl, BrowserId, getDefaultConfigPath} from '../index'
 import {Context} from '../../../Context'
 import {readFile} from 'fs/promises'
 import {isEmpty, unique} from 'licia'
-import {generateParents, parseTimeFrom1604} from '../../../Utils'
+import {generateParents, getName, parseTimeFrom1604} from '../../../Utils'
 import {i18n, sentenceKey} from '../../../i18n'
 import {generatePinyinIndex} from '../../../utils/index-generator/PinyinIndex'
 import {generateHostIndex} from '../../../utils/index-generator/HostIndex'
@@ -28,8 +29,8 @@ export class ChromiumBookmarkProjectItemImpl extends DatetimeProjectItemImpl {}
 export class ChromiumBookmarkApplicationImpl extends BrowserApplicationImpl<ChromiumBookmarkProjectItemImpl> {
     private readonly browserId: BrowserId
 
-    constructor(id: BrowserId, name: string, type: string, platforms: Array<Platform> = [Platform.win32, Platform.darwin, Platform.linux], description: boolean = true, beta: boolean = false, configName: string = '') {
-        super(`${id}-bookmark`, `${name}`, `icon/browser-${id}.png`, type, platforms, Group[GroupName.browserBookmark], description ? () => handler(this.defaultConfigPath()) : undefined, beta, configName)
+    constructor(id: BrowserId, name: string | NameGetter, type: string, platforms: Array<Platform> = [Platform.win32, Platform.darwin, Platform.linux], description: boolean = true, beta: boolean = false, configName: string = '') {
+        super(`${id}-bookmark`, `${getName(name)}`, `icon/browser-${id}.png`, type, platforms, Group[GroupName.browserBookmark], description ? () => handler(this.defaultConfigPath()) : undefined, beta, configName)
         this.browserId = id
     }
 
@@ -73,7 +74,7 @@ export class ChromiumBookmarkApplicationImpl extends BrowserApplicationImpl<Chro
         return [
             new InputSettingItem(
                 this.configId(nativeId),
-                `${i18n.t(sentenceKey.configPrefix)} ${this.name} 「${this.configFilename}」${i18n.t(sentenceKey.configSuffix)}`,
+                `${i18n.t(sentenceKey.configPrefix)} ${getName(this.name)} 「${this.configFilename}」${i18n.t(sentenceKey.configSuffix)}`,
                 this.config,
             ),
         ]

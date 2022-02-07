@@ -25,6 +25,7 @@ export const sentenceKey = {
     error: 'error',
     errorArgs: 'errorArgs',
     errorInfoToClipboard: 'errorInfoToClipboard',
+    evernote: 'evernote',
     evernoteUserId: 'evernoteUserId',
     evernoteUserIdDesc: 'evernoteUserIdDesc',
     evernoteUserIdPlaceholder: 'evernoteUserIdPlaceholder',
@@ -76,6 +77,7 @@ export const sentenceKey = {
     search: 'search',
     settingBetaDesc: 'settingBetaDesc',
     settingDocument: 'settingDocument',
+    shortcuts: 'shortcuts',
     showBookmarkCatalogue: 'showBookmarkCatalogue',
     showBookmarkCatalogueDesc: 'showBookmarkCatalogueDesc',
     smartTag: 'smartTag',
@@ -119,6 +121,7 @@ export interface Sentence {
     readonly error: string
     readonly errorArgs: string
     readonly errorInfoToClipboard: string
+    readonly evernote: string
     readonly evernoteUserId: string
     readonly evernoteUserIdDesc: string
     readonly executorFileAt: string
@@ -169,6 +172,7 @@ export interface Sentence {
     readonly search: string
     readonly settingBetaDesc: string
     readonly settingDocument: string
+    readonly shortcuts: string
     readonly showBookmarkCatalogue: string
     readonly showBookmarkCatalogueDesc: string
     readonly smartTag: string

@@ -1,7 +1,7 @@
 import {contain, isEmpty, isEqual, isNil} from 'licia'
 import {exec} from 'child_process'
 import {shell} from 'electron'
-import {initLanguage, platformFromUtools} from './Utils'
+import {getName, initLanguage, platformFromUtools} from './Utils'
 import {existsSync} from 'fs'
 import {Context} from './Context'
 import {i18n, sentenceKey} from './i18n'
@@ -281,7 +281,7 @@ export abstract class ProjectArgsImpl extends ArgsImpl<ProjectItemImpl> {
                     .filter(p => context.enableFilterNonExistsFiles ? p.exists : true)
                     .forEach(p => this.projectItemCache.push(p))
             } else if (finish === ApplicationConfigState.error) {
-                utools.showNotification(`${app.name} ${i18n.t(sentenceKey.getProjectsError)}`)
+                utools.showNotification(`${getName(app.name)} ${i18n.t(sentenceKey.getProjectsError)}`)
             }
         }
         return this.projectItemCache.sort(this.compare)
@@ -423,6 +423,8 @@ export const Group: { [keys in GroupName]: string } = {
     [GroupName.system]: 'System',
 }
 
+export type NameGetter = (context?: Context) => string
+
 export type DescriptionGetter = (context?: Context) => string | undefined
 
 /**
@@ -430,7 +432,7 @@ export type DescriptionGetter = (context?: Context) => string | undefined
  */
 export interface Application<P extends ProjectItemImpl> {
     readonly id: string
-    readonly name: string
+    readonly name: string | NameGetter
     readonly icon: string
     readonly type: string
     readonly platform: Array<Platform>
@@ -450,7 +452,7 @@ export interface Application<P extends ProjectItemImpl> {
  */
 export abstract class ApplicationImpl<P extends ProjectItemImpl> implements Application<P> {
     readonly id: string
-    readonly name: string
+    readonly name: string | NameGetter
     readonly icon: string
     readonly type: string
     readonly platform: Array<Platform>
@@ -459,7 +461,7 @@ export abstract class ApplicationImpl<P extends ProjectItemImpl> implements Appl
     readonly beta: boolean
     enabled: boolean = false
 
-    protected constructor(id: string, name: string, icon: string, type: string, platform: Array<Platform>, group: string = 'default', description: string | DescriptionGetter = '', beta: boolean = false) {
+    protected constructor(id: string, name: string | NameGetter, icon: string, type: string, platform: Array<Platform>, group: string = 'default', description: string | DescriptionGetter = '', beta: boolean = false) {
         this.id = id
         this.name = name
         this.icon = icon
@@ -534,7 +536,7 @@ export abstract class ApplicationConfigImpl<P extends ProjectItemImpl> extends A
     readonly configFilename: string
     config: string = ''
 
-    constructor(id: string, name: string, icon: string, type: string, platform: Array<Platform>, group: string = 'default', description: string | DescriptionGetter = '', beta: boolean = false, configFilename: string) {
+    constructor(id: string, name: string | NameGetter, icon: string, type: string, platform: Array<Platform>, group: string = 'default', description: string | DescriptionGetter = '', beta: boolean = false, configFilename: string) {
         super(id, name, icon, type, platform, group, description, beta)
         this.configFilename = configFilename
     }
@@ -551,7 +553,7 @@ export abstract class ApplicationConfigImpl<P extends ProjectItemImpl> extends A
     configSettingItem(context: Context, nativeId: string): SettingItem {
         return new InputSettingItem(
             this.configId(nativeId),
-            `${i18n.t(sentenceKey.configPrefix)} ${this.name}「${this.configFilename}」${i18n.t(sentenceKey.configSuffix)}`,
+            `${i18n.t(sentenceKey.configPrefix)} ${getName(this.name)}「${this.configFilename}」${i18n.t(sentenceKey.configSuffix)}`,
             this.config,
         )
     }
@@ -613,7 +615,7 @@ export abstract class ApplicationConfigAndExecutorImpl<P extends ProjectItemImpl
     executorSettingItem(context: Context, nativeId: string): SettingItem {
         return new InputSettingItem(
             this.executorId(nativeId),
-            `${i18n.t(sentenceKey.executorPrefix)} ${this.name} ${i18n.t(sentenceKey.executorSuffix)}`,
+            `${i18n.t(sentenceKey.executorPrefix)} ${getName(this.name)} ${i18n.t(sentenceKey.executorSuffix)}`,
             this.executor,
         )
     }

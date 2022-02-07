@@ -1,4 +1,12 @@
-import {ApplicationImpl, DatetimeProjectItemImpl, ElectronExecutor, Group, GroupName, Platform} from '../../../Types'
+import {
+    ApplicationImpl,
+    DatetimeProjectItemImpl,
+    ElectronExecutor,
+    Group,
+    GroupName,
+    NameGetter,
+    Platform,
+} from '../../../Types'
 import {BrowserId, getDefaultConfigPath, SqliteBrowserApplicationImpl} from '../index'
 import {execFileSync} from 'child_process'
 import {contain, isEmpty, isNil, reverse, unique} from 'licia'
@@ -9,6 +17,7 @@ import {i18n, sentenceKey} from '../../../i18n'
 import {parseSqliteDefaultResult} from '../../../utils/sqlite/ParseResult'
 import {getSqliteExecutor, isEmptySqliteExecutor} from '../../../utils/sqlite/CheckSqliteExecutor'
 import {generateFullUrlIndex} from '../../../utils/index-generator/FullUrlIndex'
+import {getName} from '../../../Utils'
 
 const FIREFOX: string = 'firefox'
 
@@ -18,8 +27,8 @@ export class FirefoxBookmarkApplicationImpl extends SqliteBrowserApplicationImpl
     private readonly browserId: BrowserId
     private readonly configName: string
 
-    constructor(id: BrowserId, name: string, type: string, platforms: Array<Platform> = [Platform.win32, Platform.darwin, Platform.linux], beta: boolean = false, configName: string = '') {
-        super(`${id}-bookmark`, `${name}`, `icon/browser-${id}.png`, type, platforms, Group[GroupName.browserBookmark], () => `${configName} ${i18n.t(sentenceKey.browserPathDescPrefix)} ${this.defaultConfigPath()}`, beta, configName)
+    constructor(id: BrowserId, name: string | NameGetter, type: string, platforms: Array<Platform> = [Platform.win32, Platform.darwin, Platform.linux], beta: boolean = false, configName: string = '') {
+        super(`${id}-bookmark`, `${getName(name)}`, `icon/browser-${id}.png`, type, platforms, Group[GroupName.browserBookmark], () => `${configName} ${i18n.t(sentenceKey.browserPathDescPrefix)} ${this.defaultConfigPath()}`, beta, configName)
         this.browserId = id
         this.configName = configName
     }

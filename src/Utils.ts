@@ -1,5 +1,5 @@
 import {existsSync, readdirSync, Stats, statSync} from 'fs'
-import {Platform} from './Types'
+import {DescriptionGetter, NameGetter, Platform} from './Types'
 import {isEmpty, isFn, isNil, isUrl, Url} from 'licia'
 import {Context} from './Context'
 import {i18n, sentenceKey} from './i18n'
@@ -229,3 +229,11 @@ export const listRegistry: (prefix: string, path: string) => Promise<Array<PathA
         }
     })
 })
+
+export const getName: (name: string | NameGetter) => string = name => {
+    return isFn(name) ? (name as NameGetter)() : (name as string)
+}
+
+export const getDescription: (description: string | DescriptionGetter) => string | undefined = description => {
+    return isFn(description) ? (description as DescriptionGetter)() : (description as string)
+}

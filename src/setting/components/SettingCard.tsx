@@ -1,6 +1,5 @@
 import {
     ApplicationImpl,
-    DescriptionGetter,
     InputSettingItem,
     PlainSettingItem,
     ProjectItemImpl,
@@ -8,7 +7,7 @@ import {
     SwitchSettingItem,
 } from '../../Types'
 import Nano, {Component, Fragment, Img} from 'nano-jsx'
-import {isFn, isNil} from 'licia'
+import {isNil} from 'licia'
 import {iconMap} from '../../Icon'
 import {settingStore} from '../Store'
 import {Context} from '../../Context'
@@ -16,6 +15,7 @@ import {i18n, sentenceKey} from '../../i18n'
 import {Plain} from './adapter-settings/setting-items/Plain'
 import {EnableSwitch, Switch} from './adapter-settings/setting-items/Switch'
 import {Input} from './adapter-settings/setting-items/Input'
+import {getDescription, getName} from '../../Utils'
 
 export interface SettingCardProps {
     context: Context
@@ -67,7 +67,7 @@ export class SettingCard extends Component<SettingCardProps, SettingCardState> {
                             class={'title' + (this.props.application.beta ? ' badge badge-unready' : '')}
                             data-badge={i18n.t(sentenceKey.beta)}
                         >
-                            {this.props.application.name}
+                            {getName(this.props.application.name)}
                         </span>
                     </div>
                     <div class="form-group card-body">
@@ -77,9 +77,7 @@ export class SettingCard extends Component<SettingCardProps, SettingCardState> {
                                 :
                                 <blockquote class="card-description">
                                     <cite>
-                                        {isFn(this.props.application.description)
-                                            ? (this.props.application.description as DescriptionGetter)()
-                                            : this.props.application.description}
+                                        {getDescription(this.props.application.description)}
                                     </cite>
                                 </blockquote>
                             : <Fragment/>}

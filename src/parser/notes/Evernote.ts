@@ -30,7 +30,7 @@ export class EvernoteMacApplicationImpl extends ApplicationCacheConfigAndExecuto
     constructor() {
         super(
             EVERNOTE_MAC,
-            '印象笔记',
+            () => i18n.t(sentenceKey.evernote),
             'icon/evernote.png',
             EVERNOTE_MAC,
             [Platform.darwin],
@@ -116,6 +116,7 @@ export class EvernoteWinProjectItemImpl extends DatetimeProjectItemImpl {}
 
 export class EvernoteWinApplicationImpl extends ApplicationCacheConfigAndExecutorImpl<EvernoteWinProjectItemImpl> {
     private user: string = ''
+    private readonly regex = /[\da-f]{2}/ig
 
     constructor() {
         super(
@@ -137,25 +138,6 @@ export class EvernoteWinApplicationImpl extends ApplicationCacheConfigAndExecuto
     // sqlite3
     override defaultExecutorPath(): string {
         return ``
-    }
-
-    private readonly regex = /[\da-f]{2}/ig
-
-    private doubleReverse(text: string): string {
-        return reverse(text.match(this.regex) ?? []).join('')
-    }
-
-    private convertGuid(guid: string): string {
-        if (isEmpty(guid)) return ''
-        let source = guid,
-            prefix = source.substring(0, 16),
-            suffix = source.substring(16, 32),
-            block1 = prefix.substring(0, 8),
-            block2 = prefix.substring(8, 12),
-            block3 = prefix.substring(12, 16),
-            block4 = suffix.substring(0, 4),
-            block5 = suffix.substring(4, 16)
-        return `${this.doubleReverse(block1)}-${this.doubleReverse(block2)}-${this.doubleReverse(block3)}-${block4}-${block5}`.toLowerCase()
     }
 
     async generateCacheProjectItems(context: Context): Promise<Array<EvernoteWinProjectItemImpl>> {
@@ -202,10 +184,6 @@ export class EvernoteWinApplicationImpl extends ApplicationCacheConfigAndExecuto
         return items
     }
 
-    private userId(nativeId: string) {
-        return `${nativeId}/${this.id}-user`
-    }
-
     override update(nativeId: string) {
         super.update(nativeId)
         this.user = utools.dbStorage.getItem(this.userId(nativeId)) ?? ''
@@ -248,6 +226,27 @@ export class EvernoteWinApplicationImpl extends ApplicationCacheConfigAndExecuto
                 i18n.t(sentenceKey.sqlite3Desc),
             ),
         ]
+    }
+
+    private doubleReverse(text: string): string {
+        return reverse(text.match(this.regex) ?? []).join('')
+    }
+
+    private convertGuid(guid: string): string {
+        if (isEmpty(guid)) return ''
+        let source = guid,
+            prefix = source.substring(0, 16),
+            suffix = source.substring(16, 32),
+            block1 = prefix.substring(0, 8),
+            block2 = prefix.substring(8, 12),
+            block3 = prefix.substring(12, 16),
+            block4 = suffix.substring(0, 4),
+            block5 = suffix.substring(4, 16)
+        return `${this.doubleReverse(block1)}-${this.doubleReverse(block2)}-${this.doubleReverse(block3)}-${block4}-${block5}`.toLowerCase()
+    }
+
+    private userId(nativeId: string) {
+        return `${nativeId}/${this.id}-user`
     }
 }
 
