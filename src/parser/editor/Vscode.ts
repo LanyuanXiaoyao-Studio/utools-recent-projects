@@ -24,7 +24,7 @@ import {execFileSync} from 'child_process'
 import {parseSqliteDefaultResult} from '../../utils/sqlite/ParseResult'
 
 const VSCODE: string = 'vscode'
-const VSCODE1640: string = 'vscode-1640'
+const VSCODE_OLD: string = 'vscode-old'
 
 export class VscodeProjectItemImpl extends ProjectItemImpl {}
 
@@ -91,19 +91,19 @@ const parseEntries: (entries: any, context: Context, openInNew: boolean, isWindo
     return items
 }
 
-export class VscodeApplicationImpl extends ApplicationCacheConfigAndExecutorImpl<VscodeProjectItemImpl> {
+export class VscodeOldApplicationImpl extends ApplicationCacheConfigAndExecutorImpl<VscodeProjectItemImpl> {
     openInNew: boolean = false
     private isWindows: boolean = utools.isWindows()
 
     constructor() {
         super(
-            VSCODE,
-            'Visual Studio Code',
+            VSCODE_OLD,
+            'Visual Studio Code (< 1.64.0)',
             'icon/ms-visual-studio-code.png',
-            VSCODE,
+            VSCODE_OLD,
             [Platform.win32, Platform.darwin, Platform.linux],
             Group[GroupName.editor],
-            () => `${i18n.t(sentenceKey.configFileAt)} ${this.defaultConfigPath()}, ${i18n.t(sentenceKey.executorFileAt)} ${this.defaultExecutorPath()}`,
+            () => `1.64.0 版本之前的旧版本需要单独配置, ${i18n.t(sentenceKey.configFileAt)} ${this.defaultConfigPath()}, ${i18n.t(sentenceKey.executorFileAt)} ${this.defaultExecutorPath()}`,
             undefined,
             'storage.json',
         )
@@ -158,17 +158,17 @@ export class VscodeApplicationImpl extends ApplicationCacheConfigAndExecutorImpl
     }
 }
 
-export class Vscode1640ApplicationImpl extends ApplicationCacheConfigAndExecutorImpl<VscodeProjectItemImpl> {
+export class VscodeApplicationImpl extends ApplicationCacheConfigAndExecutorImpl<VscodeProjectItemImpl> {
     openInNew: boolean = false
     sqliteExecutor: string = ''
     private isWindows: boolean = utools.isWindows()
 
     constructor() {
         super(
-            VSCODE1640,
-            'Visual Studio Code 1.64.0+',
+            VSCODE,
+            'Visual Studio Code',
             'icon/ms-visual-studio-code.png',
-            VSCODE1640,
+            VSCODE,
             [Platform.win32, Platform.darwin, Platform.linux],
             Group[GroupName.editor],
             () => `${i18n.t(sentenceKey.configFileAt)} ${this.defaultConfigPath()}, ${i18n.t(sentenceKey.executorFileAt)} ${this.defaultExecutorPath()}`,
@@ -256,6 +256,6 @@ export class Vscode1640ApplicationImpl extends ApplicationCacheConfigAndExecutor
 }
 
 export const applications: Array<ApplicationImpl<VscodeProjectItemImpl>> = [
+    new VscodeOldApplicationImpl(),
     new VscodeApplicationImpl(),
-    new Vscode1640ApplicationImpl(),
 ]
