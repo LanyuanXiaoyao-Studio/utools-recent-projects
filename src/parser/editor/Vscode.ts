@@ -24,7 +24,7 @@ import {execFileSync} from 'child_process'
 import {parseSqliteDefaultResult} from '../../utils/sqlite/ParseResult'
 
 const VSCODE: string = 'vscode'
-const VSCODE_OLD: string = 'vscode-old'
+const VSCODE_1640: string = 'vscode-1640'
 
 export class VscodeProjectItemImpl extends ProjectItemImpl {}
 
@@ -91,16 +91,16 @@ const parseEntries: (entries: any, context: Context, openInNew: boolean, isWindo
     return items
 }
 
-export class VscodeOldApplicationImpl extends ApplicationCacheConfigAndExecutorImpl<VscodeProjectItemImpl> {
+export class VscodeApplicationImpl extends ApplicationCacheConfigAndExecutorImpl<VscodeProjectItemImpl> {
     openInNew: boolean = false
     private isWindows: boolean = utools.isWindows()
 
     constructor() {
         super(
-            VSCODE_OLD,
+            VSCODE,
             'Visual Studio Code (< 1.64.0)',
             'icon/ms-visual-studio-code.png',
-            VSCODE_OLD,
+            VSCODE,
             [Platform.win32, Platform.darwin, Platform.linux],
             Group[GroupName.editor],
             () => `1.64.0 版本之前的旧版本需要单独配置, ${i18n.t(sentenceKey.configFileAt)} ${this.defaultConfigPath()}, ${i18n.t(sentenceKey.executorFileAt)} ${this.defaultExecutorPath()}`,
@@ -158,17 +158,17 @@ export class VscodeOldApplicationImpl extends ApplicationCacheConfigAndExecutorI
     }
 }
 
-export class VscodeApplicationImpl extends ApplicationCacheConfigAndExecutorImpl<VscodeProjectItemImpl> {
+export class Vscode1640ApplicationImpl extends ApplicationCacheConfigAndExecutorImpl<VscodeProjectItemImpl> {
     openInNew: boolean = false
     sqliteExecutor: string = ''
     private isWindows: boolean = utools.isWindows()
 
     constructor() {
         super(
-            VSCODE,
+            VSCODE_1640,
             'Visual Studio Code',
             'icon/ms-visual-studio-code.png',
-            VSCODE,
+            VSCODE_1640,
             [Platform.win32, Platform.darwin, Platform.linux],
             Group[GroupName.editor],
             () => `${i18n.t(sentenceKey.configFileAt)} ${this.defaultConfigPath()}, ${i18n.t(sentenceKey.executorFileAt)} ${this.defaultExecutorPath()}`,
@@ -257,6 +257,6 @@ export class VscodeApplicationImpl extends ApplicationCacheConfigAndExecutorImpl
 }
 
 export const applications: Array<ApplicationImpl<VscodeProjectItemImpl>> = [
+    new Vscode1640ApplicationImpl(),
     new VscodeApplicationImpl(),
-    new VscodeOldApplicationImpl(),
 ]
