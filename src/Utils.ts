@@ -237,3 +237,7 @@ export const getName: (name: string | NameGetter) => string = name => {
 export const getDescription: (description: string | DescriptionGetter) => string | undefined = description => {
     return isFn(description) ? (description as DescriptionGetter)() : (description as string)
 }
+
+export const getDescriptionByTemplate: (description: string | DescriptionGetter, template: (text: string | undefined) => any) => any = (description, template) => {
+    return template(isFn(description) ? (description as DescriptionGetter)() : (description as string))
+}

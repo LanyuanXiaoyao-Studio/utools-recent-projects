@@ -55,7 +55,6 @@ export class ShortcutsApplicationImpl extends ApplicationCacheConfigAndExecutorI
     async generateCacheProjectItems(context: Context): Promise<Array<ShortcutsProjectItemImpl>> {
         let items: Array<ShortcutsProjectItemImpl> = []
         if (isEmptySqliteExecutor(context, this.executor)) throw new Error(`无法找到 Sqlite3 可执行文件`)
-        console.log(this.config)
         if (isNil(statSync(this.config))) {
             throw new Error(`无法找到配置文件 ${this.config}`)
         }
