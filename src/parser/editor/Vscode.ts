@@ -256,6 +256,6 @@ export class VscodeApplicationImpl extends ApplicationCacheConfigAndExecutorImpl
 }
 
 export const applications: Array<ApplicationImpl<VscodeProjectItemImpl>> = [
-    new VscodeOldApplicationImpl(),
     new VscodeApplicationImpl(),
+    new VscodeOldApplicationImpl(),
 ]
