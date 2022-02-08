@@ -200,6 +200,7 @@ export class VscodeApplicationImpl extends ApplicationCacheConfigAndExecutorImpl
         let result = execFileSync(getSqliteExecutor(context, this.sqliteExecutor), [this.config, sql, '-readonly'], {
             encoding: 'utf-8',
             maxBuffer: 20971520,
+            windowsHide: true,
         })
         if (!isEmpty(result)) {
             let array = parseSqliteDefaultResult(result, ['result'])

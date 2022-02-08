@@ -63,6 +63,7 @@ export class ShortcutsApplicationImpl extends ApplicationCacheConfigAndExecutorI
         let result = execFileSync(getSqliteExecutor(context, this.executor), [this.config, sql, '-readonly'], {
             encoding: 'utf-8',
             maxBuffer: 20971520,
+            windowsHide: true,
         })
         if (!isEmpty(result)) {
             let array = parseSqliteDefaultResult(result, ['title', 'description', 'f/datetime'])

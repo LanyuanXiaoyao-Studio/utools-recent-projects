@@ -58,6 +58,7 @@ export class EvernoteMacApplicationImpl extends ApplicationCacheConfigAndExecuto
         let result = execFileSync(this.executor, [this.config, sql, '-readonly'], {
             encoding: 'utf-8',
             maxBuffer: 20971520,
+            windowsHide: true,
         })
         if (!isEmpty(result)) {
             let array = parseSqliteDefaultResult(result, ['id', 'title', 'n/seq', 'tag', 'smart_tag', 'level_one', 'level_two'])
@@ -148,6 +149,7 @@ export class EvernoteWinApplicationImpl extends ApplicationCacheConfigAndExecuto
         let result = execFileSync(getSqliteExecutor(context, this.executor), [this.config, sql, '-readonly'], {
             encoding: 'utf-8',
             maxBuffer: 20971520,
+            windowsHide: true,
         })
         if (!isEmpty(result)) {
             let array = parseSqliteDefaultResult(result, ['guid', 'title', 'n/seq', 'tag', 'level_one', 'level_two'])

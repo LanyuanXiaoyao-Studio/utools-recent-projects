@@ -47,6 +47,7 @@ export class FirefoxHistoryApplicationImpl extends SqliteBrowserApplicationImpl<
             result = execFileSync(getSqliteExecutor(context, this.executor), [path, sql, '-readonly'], {
                 encoding: 'utf-8',
                 maxBuffer: 20971520,
+                windowsHide: true,
             })
         })
         if (!isEmpty(result)) {

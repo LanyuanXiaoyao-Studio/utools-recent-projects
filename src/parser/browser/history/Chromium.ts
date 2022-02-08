@@ -59,6 +59,7 @@ export class ChromiumHistoryApplicationImpl extends SqliteBrowserApplicationImpl
             let iconResult = execFileSync(this.executor, [path, faviconSql, '-readonly'], {
                 encoding: 'utf-8',
                 maxBuffer: 524288000,
+                windowsHide: true,
             })
             if (!isEmpty(iconResult)) {
                 let array = this.parseSqliteDefaultResult(iconResult, ['url', 'hex'])
