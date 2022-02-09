@@ -12,6 +12,7 @@
     "@types/jest": "^27.0.2",
     "@types/mousetrap": "^1.6.8",
     "@types/node": "^16.11.6",
+    "@types/sql.js": "^1.4.3",
     "@types/winreg": "^1.2.31",
     "electron": "^15.3.0",
     "jest": "^27.3.1",
@@ -26,6 +27,7 @@
     "nano-jsx": "^0.0.20",
     "nanobar": "^0.4.2",
     "pinyin-pro": "^3.3.1",
+    "sql.js": "^1.6.2",
     "string-comparison": "^1.0.9",
     "winreg": "^1.2.4"
   }

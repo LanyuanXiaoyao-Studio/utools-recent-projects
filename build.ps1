@@ -29,6 +29,7 @@ $packageJson=@"
     "nano-jsx"         : "^0.0.20",
     "nanobar"          : "^0.4.2",
     "pinyin-pro"       : "^3.3.1",
+    "sql.js"           : "^1.6.2",
     "string-comparison": "^1.0.9",
     "winreg"           : "^1.2.4"
   }
@@ -70,6 +71,11 @@ Set-Location $temp
 
 Set-Location "$temp\node_modules\pinyin-pro"
 Remove-Item -Force -Recurse data,handle-data,lib,test,types,.eslintrc,.travis.yml,*.md,LICENSE,tsconfig.json
+Set-Location $temp
+
+Set-Location "$temp\node_modules\sql.js"
+Remove-Item -Force -Recurse .devcontainer,.eslintrc.js,.jsdoc.config.json,.nojekyll,AUTHORS,*.md,LICENSE,*.svg,dist/*.zip,dist/worker*,dist/*debug*,dist/*wasm*,dist/*memory*
+Copy-Item "$current_path\lib\sql.js\package.json" .
 Set-Location $temp
 
 Set-Location "$temp\node_modules\string-comparison"
