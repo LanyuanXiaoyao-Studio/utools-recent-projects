@@ -74,8 +74,9 @@ rm -rf data handle-data lib test types .eslintrc .travis.yml *.md LICENSE tsconf
 cd $temp
 
 cd "${temp}/node_modules/sql.js"
-rm -rf .devcontainer .eslintrc.js .jsdoc.config.json .nojekyll AUTHORS *.md LICENSE *.svg dist/*.zip dist/worker* dist/*debug* dist/*wasm* dist/*memory*
-cp -r ${current_path}/lib/sql.js/package.json .
+rm -rf .devcontainer .eslintrc.js .jsdoc.config.json .nojekyll AUTHORS *.md LICENSE *.svg dist/*.zip dist/worker* dist/*debug* dist/*memory* dist/sql-asm.js
+#rm -rf .devcontainer .eslintrc.js .jsdoc.config.json .nojekyll AUTHORS *.md LICENSE *.svg dist/*.zip dist/worker* dist/*debug* dist/*wasm* dist/*memory*
+#cp -r ${current_path}/lib/sql.js/package.json .
 cd $temp
 
 cd "${temp}/node_modules/string-comparison"

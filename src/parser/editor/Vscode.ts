@@ -1,10 +1,8 @@
 import {
     ApplicationCacheConfigAndExecutorImpl,
-    ApplicationConfigState,
     ApplicationImpl,
     Group,
     GroupName,
-    InputSettingItem,
     Platform,
     ProjectItemImpl,
     SettingItem,
@@ -19,9 +17,7 @@ import {Context} from '../../Context'
 import {i18n, sentenceKey} from '../../i18n'
 import {generatePinyinIndex} from '../../utils/index-generator/PinyinIndex'
 import {generateFilePathIndex} from '../../utils/index-generator/FilePathIndex'
-import {getSqliteExecutor, isEmptySqliteExecutor} from '../../utils/sqlite/CheckSqliteExecutor'
-import {execFileSync} from 'child_process'
-import {parseSqliteDefaultResult} from '../../utils/sqlite/ParseResult'
+import {queryFromSqlite} from '../../utils/sqlite/SqliteExecutor'
 
 const VSCODE: string = 'vscode'
 const VSCODE_1640: string = 'vscode-1640'
@@ -160,7 +156,6 @@ export class VscodeApplicationImpl extends ApplicationCacheConfigAndExecutorImpl
 
 export class Vscode1640ApplicationImpl extends ApplicationCacheConfigAndExecutorImpl<VscodeProjectItemImpl> {
     openInNew: boolean = false
-    sqliteExecutor: string = ''
     private isWindows: boolean = utools.isWindows()
 
     constructor() {
@@ -194,19 +189,13 @@ export class Vscode1640ApplicationImpl extends ApplicationCacheConfigAndExecutor
     }
 
     async generateCacheProjectItems(context: Context): Promise<Array<VscodeProjectItemImpl>> {
-        if (isEmptySqliteExecutor(context, this.sqliteExecutor)) throw new Error(`无法找到 Sqlite3 可执行文件`)
         // language=SQLite
-        let sql = 'select value as result from ItemTable where key = \'history.recentlyOpenedPathsList\''
-        let result = execFileSync(getSqliteExecutor(context, this.sqliteExecutor), [this.config, sql, '-readonly'], {
-            encoding: 'utf-8',
-            maxBuffer: 20971520,
-            windowsHide: true,
-        })
-        if (!isEmpty(result)) {
-            let array = parseSqliteDefaultResult(result, ['result'])
-            if (!isNil(array) && !isEmpty(array)) {
-                let object = JSON.parse(array[0]['result'])
-                return parseEntries(object['entries'], context, this.openInNew, this.isWindows, this.icon, this.executor)
+        let results = await queryFromSqlite(this.config, 'select value as result from ItemTable where key = \'history.recentlyOpenedPathsList\'')
+        if (!isEmpty(results)) {
+            let row = results[0]
+            let source = row['result'] as string
+            if (!isEmpty(source)) {
+                return parseEntries(JSON.parse(source)['entries'], context, this.openInNew, this.isWindows, this.icon, this.executor)
             }
         }
         return []
@@ -216,14 +205,9 @@ export class Vscode1640ApplicationImpl extends ApplicationCacheConfigAndExecutor
         return `${nativeId}/${this.id}-open-in-new`
     }
 
-    sqliteExecutorId(nativeId: string) {
-        return `${nativeId}/${this.id}-sqlite3-executor`
-    }
-
     override update(nativeId: string) {
         super.update(nativeId)
         this.openInNew = utools.dbStorage.getItem(this.openInNewId(nativeId)) ?? false
-        this.sqliteExecutor = utools.dbStorage.getItem(this.sqliteExecutorId(nativeId)) ?? ''
     }
 
     override generateSettingItems(context: Context, nativeId: string): Array<SettingItem> {
@@ -234,25 +218,7 @@ export class Vscode1640ApplicationImpl extends ApplicationCacheConfigAndExecutor
             this.openInNew,
             i18n.t(sentenceKey.openInNewDesc),
         ))
-        superSettings.splice(2, 0, new InputSettingItem(
-            this.sqliteExecutorId(nativeId),
-            i18n.t(sentenceKey.sqlite3),
-            this.sqliteExecutor,
-            i18n.t(sentenceKey.sqlite3Desc),
-        ))
         return superSettings
-    }
-
-    override isFinishConfig(context: Context): ApplicationConfigState {
-        if (this.disEnable())
-            return ApplicationConfigState.empty
-        if (isEmpty(this.config) || isEmpty(this.executor) || (isEmpty(this.sqliteExecutor) && isEmpty(context.sqliteExecutorPath))) {
-            return ApplicationConfigState.undone
-        } else if (this.nonExistsPath(this.config) || this.nonExistsPath(this.executor) || (this.nonExistsPath(this.sqliteExecutor) && this.nonExistsPath(context.sqliteExecutorPath))) {
-            return ApplicationConfigState.error
-        } else {
-            return ApplicationConfigState.done
-        }
     }
 }
 
