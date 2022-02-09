@@ -81,15 +81,7 @@
 ### Visual Studio Code
 
 自`1.46.0`起，Visual Studio Code 将历史记录数据从`storage.json`中移除，转移到全局数据库中，所以`1.46.0`
-以上版本的配置文件需要设置为`/Users/xxx/Library/Application Support/Code/User/globalStorage/state.vscdb`，并且配合 SQLite
-命令行工具读取，在插件里，两种读取方式将分别适配，显示为两个适配。
-
-### Browser History
-
-目前所有支持的浏览器历史记录获取都需要通过 sqlite3 进行，由于 uTools 平台对二进制文件打包的限制，也为了避免不同浏览器采用的 sqlite 版本不同，所以需要用户自行下载 sqlite 命令行作为可执行程序路径。
-
-sqlite 命令行可以在 sqlite 官网下载到：[官网下载页面](https://www.sqlite.org/download.html)，需要自行下载对应平台的命令行程序。
-![sqlite3 download help](https://z3.ax1x.com/2021/10/11/5VcOOA.png)
+以上版本的配置文件需要设置为`/Users/xxx/Library/Application Support/Code/User/globalStorage/state.vscdb`，在插件里，两种读取方式将分别适配，显示为两个适配。
 
 ### JetBrains
 
