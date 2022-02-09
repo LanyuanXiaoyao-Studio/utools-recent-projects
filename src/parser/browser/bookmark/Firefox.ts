@@ -7,23 +7,21 @@ import {
     NameGetter,
     Platform,
 } from '../../../Types'
-import {BrowserId, getDefaultConfigPath, SqliteBrowserApplicationImpl} from '../index'
-import {execFileSync} from 'child_process'
+import {BrowserApplicationImpl, BrowserId, getDefaultConfigPath} from '../index'
 import {contain, isEmpty, isNil, reverse, unique} from 'licia'
 import {Context} from '../../../Context'
 import {generatePinyinIndex} from '../../../utils/index-generator/PinyinIndex'
 import {generateHostIndex} from '../../../utils/index-generator/HostIndex'
 import {i18n, sentenceKey} from '../../../i18n'
-import {parseSqliteDefaultResult} from '../../../utils/sqlite/ParseResult'
-import {getSqliteExecutor, isEmptySqliteExecutor} from '../../../utils/sqlite/CheckSqliteExecutor'
 import {generateFullUrlIndex} from '../../../utils/index-generator/FullUrlIndex'
 import {getName} from '../../../Utils'
+import {queryFromSqlite} from '../../../utils/sqlite/SqliteExecutor'
 
 const FIREFOX: string = 'firefox'
 
 export class FirefoxBookmarkProjectItemImpl extends DatetimeProjectItemImpl {}
 
-export class FirefoxBookmarkApplicationImpl extends SqliteBrowserApplicationImpl<FirefoxBookmarkProjectItemImpl> {
+export class FirefoxBookmarkApplicationImpl extends BrowserApplicationImpl<FirefoxBookmarkProjectItemImpl> {
     private readonly browserId: BrowserId
     private readonly configName: string
 
@@ -39,19 +37,11 @@ export class FirefoxBookmarkApplicationImpl extends SqliteBrowserApplicationImpl
 
     async generateCacheProjectItems(context: Context): Promise<Array<FirefoxBookmarkProjectItemImpl>> {
         let items: Array<FirefoxBookmarkProjectItemImpl> = []
-        if (isEmptySqliteExecutor(context, this.executor)) return items
         // language=SQLite
         let sql = 'select b.id as id, b.type as type, b.parent as parent, b.title as title, p.url as url, b.dateAdded as date_added\nfrom moz_bookmarks b\n         left join moz_places p on b.fk = p.id\norder by b.dateAdded desc'
-        let result = ''
-        await this.copyAndReadFile(this.config, path => {
-            result = execFileSync(getSqliteExecutor(context, this.executor), [path, sql, '-readonly'], {
-                encoding: 'utf-8',
-                maxBuffer: 20971520,
-                windowsHide: true,
-            })
-        })
-        if (!isEmpty(result)) {
-            let array = parseSqliteDefaultResult(result, ['n/id', 'n/type', 'n/parent', 'title', 'url', 'n/date_added'])
+        let array = await queryFromSqlite(this.config, sql)
+        console.log(array)
+        if (!isEmpty(array)) {
             let map = {}
             array.forEach(i => map[i.id] = i)
             array.forEach(i => i.parent = map[i.parent])

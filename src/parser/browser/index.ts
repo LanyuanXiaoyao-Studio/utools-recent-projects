@@ -1,80 +1,11 @@
-import {
-    ApplicationCacheConfigAndExecutorImpl,
-    ApplicationConfigState,
-    InputSettingItem,
-    ProjectItemImpl,
-    SettingItem,
-} from '../../Types'
+import {ApplicationCacheConfigImpl, ApplicationConfigImpl, ProjectItemImpl} from '../../Types'
 import {generateStringByOS, StringByOS, systemHome} from '../../Utils'
-import {isEmpty, randomId} from 'licia'
 import {Context} from '../../Context'
-import {copyFile, rm} from 'fs/promises'
-import {join} from 'path'
-import {i18n, sentenceKey} from '../../i18n'
 
-export abstract class BrowserApplicationImpl<P extends ProjectItemImpl> extends ApplicationCacheConfigAndExecutorImpl<P> {
-    override defaultExecutorPath(): string {
-        // 只是读取书签用不上这个配置
-        return ''
-    }
-
+export abstract class BrowserApplicationImpl<P extends ProjectItemImpl> extends ApplicationCacheConfigImpl<P> {
     protected ifGetFavicon: (url: string, context: Context) => string = (url, context) => {
         // return context.enableGetFaviconFromNet ? `https://api.clowntool.cn/getico/?url=${url}` : this.icon
         return context.enableGetFaviconFromNet ? `https://f1.allesedv.com/${url}` : this.icon
-    }
-}
-
-export abstract class SqliteBrowserApplicationImpl<P extends ProjectItemImpl> extends BrowserApplicationImpl<P> {
-    override defaultExecutorPath(): string {
-        // sqlite3 的设置没有默认值
-        return ''
-    }
-
-    override generateSettingItems(context: Context, nativeId: string): Array<SettingItem> {
-        return [
-            this.configSettingItem(context, nativeId),
-            new InputSettingItem(
-                this.executorId(nativeId),
-                i18n.t(sentenceKey.sqlite3),
-                this.executor,
-                i18n.t(sentenceKey.sqlite3Desc),
-            ),
-        ]
-    }
-
-    override isFinishConfig(context: Context): ApplicationConfigState {
-        if (this.disEnable())
-            return ApplicationConfigState.empty
-        if (isEmpty(this.config)) {
-            return ApplicationConfigState.undone
-        } else if (this.nonExistsPath(this.config)) {
-            return ApplicationConfigState.error
-        } else {
-            if (isEmpty(this.executor)) {
-                if (isEmpty(context.sqliteExecutorPath)) {
-                    return ApplicationConfigState.undone
-                } else if (this.nonExistsPath(context.sqliteExecutorPath)) {
-                    return ApplicationConfigState.error
-                } else {
-                    return ApplicationConfigState.done
-                }
-            } else if (this.nonExistsPath(this.executor)) {
-                return ApplicationConfigState.error
-            } else {
-                return ApplicationConfigState.done
-            }
-        }
-    }
-
-    protected copyAndReadFile: (path: string, handle: (tmpPath: string) => void) => void = async (path, handle) => {
-        let tmpPath = utools.getPath('temp')
-        let tmpDatabasePath = join(tmpPath, randomId())
-        await copyFile(path, tmpDatabasePath)
-        try {
-            handle(tmpDatabasePath)
-        } finally {
-            await rm(tmpDatabasePath, { force: true })
-        }
     }
 }
 

@@ -7,23 +7,21 @@ import {
     NameGetter,
     Platform,
 } from '../../../Types'
-import {BrowserId, getDefaultConfigPath, SqliteBrowserApplicationImpl} from '../index'
-import {execFileSync} from 'child_process'
+import {BrowserApplicationImpl, BrowserId, getDefaultConfigPath} from '../index'
 import {isEmpty, unique} from 'licia'
 import {getName, removeAllQueryFromUrl} from '../../../Utils'
 import {Context} from '../../../Context'
 import {generatePinyinIndex} from '../../../utils/index-generator/PinyinIndex'
 import {generateHostIndex} from '../../../utils/index-generator/HostIndex'
 import {i18n, sentenceKey} from '../../../i18n'
-import {parseSqliteDefaultResult} from '../../../utils/sqlite/ParseResult'
-import {getSqliteExecutor, isEmptySqliteExecutor} from '../../../utils/sqlite/CheckSqliteExecutor'
 import {generateFullUrlIndex} from '../../../utils/index-generator/FullUrlIndex'
+import {queryFromSqlite} from '../../../utils/sqlite/SqliteExecutor'
 
 const FIREFOX: string = 'firefox'
 
 export class FirefoxHistoryProjectItemImpl extends DatetimeProjectItemImpl {}
 
-export class FirefoxHistoryApplicationImpl extends SqliteBrowserApplicationImpl<FirefoxHistoryProjectItemImpl> {
+export class FirefoxHistoryApplicationImpl extends BrowserApplicationImpl<FirefoxHistoryProjectItemImpl> {
     private readonly browserId: BrowserId
     private readonly configName: string
 
@@ -39,19 +37,10 @@ export class FirefoxHistoryApplicationImpl extends SqliteBrowserApplicationImpl<
 
     async generateCacheProjectItems(context: Context): Promise<Array<FirefoxHistoryProjectItemImpl>> {
         let items: Array<FirefoxHistoryProjectItemImpl> = []
-        if (isEmptySqliteExecutor(context, this.executor)) return items
         // language=SQLite
         let sql = 'select p.url                                                                                         as url,\n       p.title                                                                                       as title,\n       p.description                                                                                 as description,\n       cast(strftime(\'%s\', datetime((h.visit_date / 1000000), \'unixepoch\', \'localtime\')) as numeric) as timestamp\nfrom moz_historyvisits h,\n     moz_places p\nwhere h.place_id = p.id\n  and p.hidden = 0\n  and h.visit_date is not null\norder by h.visit_date desc\nlimit ' + context.browserHistoryLimit
-        let result = ''
-        await this.copyAndReadFile(this.config, path => {
-            result = execFileSync(getSqliteExecutor(context, this.executor), [path, sql, '-readonly'], {
-                encoding: 'utf-8',
-                maxBuffer: 20971520,
-                windowsHide: true,
-            })
-        })
-        if (!isEmpty(result)) {
-            let array = parseSqliteDefaultResult(result, ['url', 'title', 'description', 'n/timestamp'])
+        let array = await queryFromSqlite(this.config, sql)
+        if (!isEmpty(array)) {
             array.forEach(i => {
                 let title: string = i['title'] ?? ''
                 let url: string = i['url'] ?? ''

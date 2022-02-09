@@ -1,14 +1,11 @@
 import {
-    ApplicationConfigState,
     ApplicationImpl,
     DatetimeProjectItemImpl,
     ElectronExecutor,
     Group,
     GroupName,
-    InputSettingItem,
     NameGetter,
     Platform,
-    SettingItem,
 } from '../../../Types'
 import {BrowserApplicationImpl, BrowserId, getDefaultConfigPath} from '../index'
 import {Context} from '../../../Context'
@@ -68,26 +65,6 @@ export class ChromiumBookmarkApplicationImpl extends BrowserApplicationImpl<Chro
             })
         })
         return items
-    }
-
-    override generateSettingItems(context: Context, nativeId: string): Array<SettingItem> {
-        return [
-            new InputSettingItem(
-                this.configId(nativeId),
-                `${i18n.t(sentenceKey.configPrefix)} ${getName(this.name)} 「${this.configFilename}」${i18n.t(sentenceKey.configSuffix)}`,
-                this.config,
-            ),
-        ]
-    }
-
-    override isFinishConfig(context: Context): ApplicationConfigState {
-        if (this.disEnable())
-            return ApplicationConfigState.empty
-        if (isEmpty(this.config)) {
-            return ApplicationConfigState.undone
-        } else {
-            return ApplicationConfigState.done
-        }
     }
 }
 

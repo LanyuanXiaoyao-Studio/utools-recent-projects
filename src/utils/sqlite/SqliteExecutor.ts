@@ -12,7 +12,7 @@ export const queryFromSqlite: (databaseFilePath: string, sql: string) => Promise
         database = new SQL.Database(readFileSync(databaseFilePath))
         statement = database!.prepare(sql)
         let result: Array<any> = []
-        if (statement.step()) {
+        while (statement.step()) {
             result.push(statement.getAsObject())
         }
         return result
