@@ -9,7 +9,6 @@ import {FilterNonExistsFiles} from './setting-items/FilterNonExistsFiles'
 import {GetFileIcon} from './setting-items/GetFileIcon'
 import {GetFavicon} from './setting-items/GetFavicon'
 import {HistoryLimit} from './setting-items/HistoryLimit'
-import {SqlitePath} from './setting-items/SqlitePath'
 import {EnhanceConfig} from './setting-items/EnhanceConfig'
 import {ShowBookmarkCatalogue} from './setting-items/ShowBookmarkCatalogue'
 import {FilePathInMatch} from './setting-items/FilePathInMatch'
@@ -104,16 +103,15 @@ export class ApplicationSettingCard extends Component<ApplicationSettingCardProp
                                 </Fragment>}
                                 context={this.props.context}
                             />
-                            <EnhanceSettingItem
-                                slot={<Fragment>
-                                    <div
-                                        class="divider text-center"
-                                        data-content="其他"
-                                    />
-                                    <SqlitePath context={this.props.context}/>
-                                </Fragment>}
-                                context={this.props.context}
-                            />
+                            {/*<EnhanceSettingItem*/}
+                            {/*    slot={<Fragment>*/}
+                            {/*        <div*/}
+                            {/*            class="divider text-center"*/}
+                            {/*            data-content="其他"*/}
+                            {/*        />*/}
+                            {/*    </Fragment>}*/}
+                            {/*    context={this.props.context}*/}
+                            {/*/>*/}
                         </form>
                     </div>
                 </div>

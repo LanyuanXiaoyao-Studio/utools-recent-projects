@@ -7,7 +7,6 @@ export class Context {
     static enableEditPathInputDirectlyId: string = 'setting-edit-path-input-directly'
     static enablePinyinIndexId: string = 'setting-pinyin-index'
     static browserHistoryLimitId: string = 'setting-browser-history-limit'
-    static sqliteExecutorPathId: string = 'setting-sqlite-executor-path'
     static enableEnhanceConfigId: string = 'setting-enhance-config'
     static enableShowBookmarkCatalogueId: string = 'setting-show-bookmark-catalogue'
     static enableFilePathInMatchId: string = 'setting-file-path-in-match'
@@ -21,7 +20,6 @@ export class Context {
     readonly enableEditPathInputDirectly: boolean = false
     readonly enablePinyinIndex: boolean = true
     readonly browserHistoryLimit: number = 100
-    readonly sqliteExecutorPath: string = ''
     readonly enableEnhanceConfig: boolean = false
     readonly enableShowBookmarkCatalogue: boolean = true
     readonly enableFilePathInMatch: boolean = true
@@ -41,7 +39,6 @@ export class Context {
         this.enableFullUrlInMatch = utools.dbStorage.getItem(Context.enableFullUrlInMatchId) ?? false
         // 本地生效
         this.enableEditPathInputDirectly = utools.dbStorage.getItem(Context.joinId(nativeId, Context.enableEditPathInputDirectlyId)) ?? false
-        this.sqliteExecutorPath = utools.dbStorage.getItem(Context.joinId(nativeId, Context.sqliteExecutorPathId)) ?? ''
     }
 
     static joinId(nativeId: string, id: string): string {
