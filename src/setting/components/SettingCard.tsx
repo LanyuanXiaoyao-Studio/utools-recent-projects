@@ -79,7 +79,7 @@ export class SettingCard extends Component<SettingCardProps, SettingCardState> {
                                     this.props.application.description,
                                     text => isEmpty(text)
                                         ? <Fragment/>
-                                        : <blockquote className="card-description">
+                                        : <blockquote class="card-description">
                                             <cite>{text}</cite>
                                         </blockquote>,
                                 )
