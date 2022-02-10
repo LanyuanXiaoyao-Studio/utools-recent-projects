@@ -190,6 +190,7 @@ html
                 margin-left 5px
 
 $dark-background-color = #2f3031
+$dark-text-color = #dedede
 
 .container.dark
   background-color $dark-background-color
@@ -198,6 +199,7 @@ $dark-background-color = #2f3031
     border-color #b4b4b4
 
   .card
+    color $dark-text-color
     background-color $dark-background-color
 
   .divider[data-content]::after
@@ -208,15 +210,28 @@ $dark-background-color = #2f3031
   .form-label,
   .information-card .title,
   .application-setting-card .title
-    color #dedede
+    color $dark-text-color
 
   .form-item .card-description
     color #b4b4b4
 
+  .form-switch
+    input:checked + .form-icon
+      background: #5755d9;
+      border-color: #5755d9;
+
+    .form-icon
+      background transparent
+      border-color #747474
+
+  .form-select, .form-select option
+    background transparent
+    border-color #747474
+
   .form-input
     background-color #3c3c3c !important
     border-color #464646
-    color #dedede
+    color $dark-text-color
 
     &.is-error
       background-color #e85600 !important
@@ -229,13 +244,13 @@ $dark-background-color = #2f3031
     border-color #424242
 
   .modal
-    color #dedede
+    color $dark-text-color
 
     .modal-overlay
       background #1d1d1ddd
 
     .modal-title
-      color #dedede
+      color $dark-text-color
 
     .modal-container
       background $dark-background-color
