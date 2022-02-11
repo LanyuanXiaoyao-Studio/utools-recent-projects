@@ -193,7 +193,6 @@ export interface Sentence {
     readonly unSupportTipsTitle: string
     readonly utoolsVersion: string
     readonly xiaobaiBrowser: string
-
 }
 
 let languageData = new I18n('zh-CN', {
