@@ -9,11 +9,13 @@ export const sentenceKey = {
     browser: 'browser',
     browserPathDescPrefix: 'browserPathDescPrefix',
     catalogueSearchPlaceHolder: 'catalogueSearchPlaceHolder',
+    centBrowser: 'centBrowser',
     cloud: 'cloud',
     cloudDesc: 'cloudDesc',
     configFileAt: 'configFileAt',
     configPrefix: 'configPrefix',
     configSuffix: 'configSuffix',
+    deepinBrowser: 'deepinBrowser',
     devTip: 'devTip',
     emptyTipsDesc: 'emptyTipsDesc',
     emptyTipsTitle: 'emptyTipsTitle',
@@ -54,8 +56,10 @@ export const sentenceKey = {
     inputPathDirectlyDesc: 'inputPathDirectlyDesc',
     languageSetting: 'languageSetting',
     languageSettingDesc: 'languageSettingDesc',
+    liebaoBrowser: 'liebaoBrowser',
     local: 'local',
     localDesc: 'localDesc',
+    maxthonBrowser: 'maxthonBrowser',
     nativeId: 'nativeId',
     nativeIdDesc: 'nativeIdDesc',
     needReboot: 'needReboot',
@@ -92,6 +96,7 @@ export const sentenceKey = {
     unSupportTipsDesc: 'unSupportTipsDesc',
     unSupportTipsTitle: 'unSupportTipsTitle',
     utoolsVersion: 'utoolsVersion',
+    xiaobaiBrowser: 'xiaobaiBrowser',
 }
 
 export interface Sentence {
@@ -101,11 +106,13 @@ export interface Sentence {
     readonly browser: string
     readonly browserPathDescPrefix: string
     readonly catalogueSearchPlaceHolder: string
+    readonly centBrowser: string
     readonly cloud: string
     readonly cloudDesc: string
     readonly configFileAt: string
     readonly configPrefix: string
     readonly configSuffix: string
+    readonly deepinBrowser: string
     readonly devTip: string
     readonly emptyTipsDesc: string
     readonly emptyTipsTitle: string
@@ -145,8 +152,10 @@ export interface Sentence {
     readonly inputPathDirectlyDesc: string
     readonly languageSetting: string
     readonly languageSettingDesc: string
+    readonly liebaoBrowser: string
     readonly local: string
     readonly localDesc: string
+    readonly maxthonBrowser: string
     readonly nativeId: string
     readonly nativeIdDesc: string
     readonly needReboot: string
@@ -183,6 +192,8 @@ export interface Sentence {
     readonly unSupportTipsDesc: string
     readonly unSupportTipsTitle: string
     readonly utoolsVersion: string
+    readonly xiaobaiBrowser: string
+
 }
 
 let languageData = new I18n('zh-CN', {
