@@ -9,7 +9,7 @@ import {
 } from '../../../Types'
 import {BrowserApplicationImpl, BrowserId, getDefaultConfigPath} from '../index'
 import {isEmpty, unique} from 'licia'
-import {getName, removeAllQueryFromUrl} from '../../../Utils'
+import {removeAllQueryFromUrl} from '../../../Utils'
 import {Context} from '../../../Context'
 import {i18n, sentenceKey} from '../../../i18n'
 import {generatePinyinIndex} from '../../../utils/index-generator/PinyinIndex'
@@ -27,7 +27,7 @@ export class ChromiumHistoryApplicationImpl extends BrowserApplicationImpl<Chrom
     private readonly browserId: BrowserId
 
     constructor(id: BrowserId, name: string | NameGetter, type: string, platforms: Array<Platform> = [Platform.win32, Platform.darwin, Platform.linux], description: boolean = true, beta: boolean = false, configName: string = '') {
-        super(`${id}-history`, `${getName(name)}`, `icon/browser-${id}.png`, type, platforms, Group[GroupName.browserHistory], description ? () => handler(this.defaultConfigPath()) : undefined, beta, configName)
+        super(`${id}-history`, name, `icon/browser-${id}.png`, type, platforms, Group[GroupName.browserHistory], description ? () => handler(this.defaultConfigPath()) : undefined, beta, configName)
         this.browserId = id
     }
 

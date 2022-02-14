@@ -14,7 +14,6 @@ import {generatePinyinIndex} from '../../../utils/index-generator/PinyinIndex'
 import {generateHostIndex} from '../../../utils/index-generator/HostIndex'
 import {i18n, sentenceKey} from '../../../i18n'
 import {generateFullUrlIndex} from '../../../utils/index-generator/FullUrlIndex'
-import {getName} from '../../../Utils'
 import {queryFromSqlite} from '../../../utils/sqlite/SqliteExecutor'
 
 const FIREFOX: string = 'firefox'
@@ -26,7 +25,7 @@ export class FirefoxBookmarkApplicationImpl extends BrowserApplicationImpl<Firef
     private readonly configName: string
 
     constructor(id: BrowserId, name: string | NameGetter, type: string, platforms: Array<Platform> = [Platform.win32, Platform.darwin, Platform.linux], beta: boolean = false, configName: string = '') {
-        super(`${id}-bookmark`, `${getName(name)}`, `icon/browser-${id}.png`, type, platforms, Group[GroupName.browserBookmark], () => `${configName} ${i18n.t(sentenceKey.browserPathDescPrefix)} ${this.defaultConfigPath()}`, beta, configName)
+        super(`${id}-bookmark`, name, `icon/browser-${id}.png`, type, platforms, Group[GroupName.browserBookmark], () => `${configName} ${i18n.t(sentenceKey.browserPathDescPrefix)} ${this.defaultConfigPath()}`, beta, configName)
         this.browserId = id
         this.configName = configName
     }

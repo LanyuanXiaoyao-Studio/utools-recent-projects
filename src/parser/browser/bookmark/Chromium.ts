@@ -11,7 +11,7 @@ import {BrowserApplicationImpl, BrowserId, getDefaultConfigPath} from '../index'
 import {Context} from '../../../Context'
 import {readFile} from 'fs/promises'
 import {isEmpty, unique} from 'licia'
-import {generateParents, getName, parseTimeFrom1604} from '../../../Utils'
+import {generateParents, parseTimeFrom1604} from '../../../Utils'
 import {i18n, sentenceKey} from '../../../i18n'
 import {generatePinyinIndex} from '../../../utils/index-generator/PinyinIndex'
 import {generateHostIndex} from '../../../utils/index-generator/HostIndex'
@@ -27,7 +27,7 @@ export class ChromiumBookmarkApplicationImpl extends BrowserApplicationImpl<Chro
     private readonly browserId: BrowserId
 
     constructor(id: BrowserId, name: string | NameGetter, type: string, platforms: Array<Platform> = [Platform.win32, Platform.darwin, Platform.linux], description: boolean = true, beta: boolean = false, configName: string = '') {
-        super(`${id}-bookmark`, `${getName(name)}`, `icon/browser-${id}.png`, type, platforms, Group[GroupName.browserBookmark], description ? () => handler(this.defaultConfigPath()) : undefined, beta, configName)
+        super(`${id}-bookmark`, name, `icon/browser-${id}.png`, type, platforms, Group[GroupName.browserBookmark], description ? () => handler(this.defaultConfigPath()) : undefined, beta, configName)
         this.browserId = id
     }
 
