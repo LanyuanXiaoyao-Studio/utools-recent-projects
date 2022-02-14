@@ -97,7 +97,7 @@ export class EvernoteWinApplicationImpl extends ApplicationCacheConfigImpl<Evern
     constructor() {
         super(
             EVERNOTE_WIN,
-            '印象笔记',
+            () => i18n.t(sentenceKey.evernote),
             'icon/evernote.png',
             EVERNOTE_WIN,
             [Platform.win32],
