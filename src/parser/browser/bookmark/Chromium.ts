@@ -82,4 +82,5 @@ export const applications: Array<ApplicationImpl<ChromiumBookmarkProjectItemImpl
     new ChromiumBookmarkApplicationImpl('liebao', () => i18n.t(sentenceKey.liebaoBrowser), CHROMIUM, [Platform.win32], true, undefined, configName),
     new ChromiumBookmarkApplicationImpl('deepin', () => i18n.t(sentenceKey.deepinBrowser), CHROMIUM, [Platform.linux], true, undefined, configName),
     new ChromiumBookmarkApplicationImpl('xiaobai', () => i18n.t(sentenceKey.xiaobaiBrowser), CHROMIUM, [Platform.win32], true, undefined, configName),
+    new ChromiumBookmarkApplicationImpl('twinkstar', () => i18n.t(sentenceKey.twinkstarBrowser), CHROMIUM, [Platform.win32], true, undefined, configName),
 ]

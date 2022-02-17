@@ -90,11 +90,12 @@ export const sentenceKey = {
     systemUser: 'systemUser',
     systemVersion: 'systemVersion',
     tag: 'tag',
+    twinkstarBrowser: 'twinkstarBrowser',
+    unSupportTipsDesc: 'unSupportTipsDesc',
+    unSupportTipsTitle: 'unSupportTipsTitle',
     unknownError: 'unknownError',
     unknownInputError: 'unknownInputError',
     unready: 'unready',
-    unSupportTipsDesc: 'unSupportTipsDesc',
-    unSupportTipsTitle: 'unSupportTipsTitle',
     utoolsVersion: 'utoolsVersion',
     xiaobaiBrowser: 'xiaobaiBrowser',
 }
@@ -186,11 +187,12 @@ export interface Sentence {
     readonly systemUser: string
     readonly systemVersion: string
     readonly tag: string
+    readonly twinkstarBrowser: string
+    readonly unSupportTipsDesc: string
+    readonly unSupportTipsTitle: string
     readonly unknownError: string
     readonly unknownInputError: string
     readonly unready: string
-    readonly unSupportTipsDesc: string
-    readonly unSupportTipsTitle: string
     readonly utoolsVersion: string
     readonly xiaobaiBrowser: string
 }
