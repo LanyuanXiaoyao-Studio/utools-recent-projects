@@ -95,4 +95,7 @@ export class ZhCn implements Sentence {
     readonly unready: string = '待完善'
     readonly utoolsVersion: string = 'uTools 版本'
     readonly xiaobaiBrowser: string = '小白浏览器'
+
+    readonly outPluginImmediately: string = '打开项目后立即退出插件'
+    readonly outPluginImmediatelyDesc: string = '启动改选项可以方便在打开项目后马上开始其他 uTools 操作，而无需再次退出本插件，如果你需要连续打开多个项目，也可以关闭该选项'
 }

@@ -3,6 +3,7 @@ import {isEmpty, isNil} from 'licia'
 import {i18n, sentenceKey} from './i18n'
 import S from 'licia/$'
 import NanoBar from 'nanobar'
+import {Context} from './Context'
 
 const emptyTips: () => ProjectItemImpl = () => {
     return {
@@ -98,7 +99,7 @@ export class AllProjectArgs extends ProjectArgsImpl {
         if (this.context?.enableOpenNotification ?? false) {
             utools.showNotification(`${i18n.t(sentenceKey.fileOpening)}: ${item.title}`)
         }
-        item.command.execute()
+        item.command.execute(isNil(this.context) ? Context.get() : this.context!)
     }
 }
 

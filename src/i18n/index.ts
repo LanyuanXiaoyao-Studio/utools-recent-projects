@@ -98,6 +98,9 @@ export const sentenceKey = {
     unready: 'unready',
     utoolsVersion: 'utoolsVersion',
     xiaobaiBrowser: 'xiaobaiBrowser',
+
+    outPluginImmediately: 'outPluginImmediately',
+    outPluginImmediatelyDesc: 'outPluginImmediatelyDesc',
 }
 
 export interface Sentence {
@@ -195,6 +198,9 @@ export interface Sentence {
     readonly unready: string
     readonly utoolsVersion: string
     readonly xiaobaiBrowser: string
+
+    readonly outPluginImmediately: string
+    readonly outPluginImmediatelyDesc: string
 }
 
 let languageData = new I18n('zh-CN', {

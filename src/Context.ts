@@ -11,6 +11,7 @@ export class Context {
     static enableShowBookmarkCatalogueId: string = 'setting-show-bookmark-catalogue'
     static enableFilePathInMatchId: string = 'setting-file-path-in-match'
     static enableFullUrlInMatchId: string = 'setting-full-url-in-match'
+    static enableOutPluginImmediatelyId: string = 'setting-out-plugin-immediately'
 
     readonly languageSetting: string = 'auto'
     readonly enableFilterNonExistsFiles: boolean = false
@@ -24,6 +25,7 @@ export class Context {
     readonly enableShowBookmarkCatalogue: boolean = true
     readonly enableFilePathInMatch: boolean = true
     readonly enableFullUrlInMatch: boolean = false
+    readonly enableOutPluginImmediately: boolean = true
 
     constructor(nativeId: string) {
         this.languageSetting = utools.dbStorage.getItem(Context.languageSettingId) ?? 'auto'
@@ -37,8 +39,8 @@ export class Context {
         this.enableShowBookmarkCatalogue = utools.dbStorage.getItem(Context.enableShowBookmarkCatalogueId) ?? true
         this.enableFilePathInMatch = utools.dbStorage.getItem(Context.enableFilePathInMatchId) ?? true
         this.enableFullUrlInMatch = utools.dbStorage.getItem(Context.enableFullUrlInMatchId) ?? false
-        // 本地生效
         this.enableEditPathInputDirectly = utools.dbStorage.getItem(Context.joinId(nativeId, Context.enableEditPathInputDirectlyId)) ?? false
+        this.enableOutPluginImmediately = utools.dbStorage.getItem(Context.enableOutPluginImmediatelyId) ?? true
     }
 
     static joinId(nativeId: string, id: string): string {

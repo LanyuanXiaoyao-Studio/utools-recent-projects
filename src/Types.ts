@@ -12,7 +12,7 @@ import {signCalculate} from './utils/files/SignCalculate'
  */
 export interface Executor {
     readonly command: string
-    execute: () => void
+    execute: (context: Context) => void
 }
 
 /**
@@ -27,7 +27,7 @@ export class NoExecutor implements Executor {
         this.command = ''
     }
 
-    execute(): void {
+    execute(context: Context): void {
     }
 }
 
@@ -43,7 +43,7 @@ export class ShellExecutor implements Executor {
         this.command = command
     }
 
-    execute(): void {
+    execute(context: Context): void {
         if (isEmpty(this.command)) {
             utools.showNotification(i18n.t(sentenceKey.errorArgs))
             return
@@ -51,8 +51,10 @@ export class ShellExecutor implements Executor {
         exec(this.command, { windowsHide: true }, error => {
             console.log('error', error)
             if (isNil(error)) {
-                utools.hideMainWindow()
-                utools.outPlugin()
+                if (context.enableOutPluginImmediately) {
+                    utools.hideMainWindow()
+                    utools.outPlugin()
+                }
             } else {
                 utools.showNotification(error?.message ?? i18n.t(sentenceKey.unknownError))
             }
@@ -90,15 +92,17 @@ export class ElectronExecutor implements Executor {
         this.command = command
     }
 
-    execute(): void {
+    execute(context: Context): void {
         if (isEmpty(this.command)) {
             utools.showNotification(i18n.t(sentenceKey.errorArgs))
             return
         }
         shell.openExternal(this.command)
             .then(() => {
-                utools.hideMainWindow()
-                utools.outPlugin()
+                if (context.enableOutPluginImmediately) {
+                    utools.hideMainWindow()
+                    utools.outPlugin()
+                }
             })
             .catch(error => utools.showNotification(error?.message ?? i18n.t(sentenceKey.unknownError)))
     }
@@ -111,15 +115,17 @@ export class UtoolsExecutor implements Executor {
         this.command = command
     }
 
-    execute(): void {
+    execute(context: Context): void {
         if (isEmpty(this.command)) {
             utools.showNotification(i18n.t(sentenceKey.errorArgs))
             return
         }
         try {
             utools.shellOpenExternal(this.command)
-            utools.hideMainWindow()
-            utools.outPlugin()
+            if (context.enableOutPluginImmediately) {
+                utools.hideMainWindow()
+                utools.outPlugin()
+            }
         } catch (error: any) {
             utools.showNotification(error?.message ?? i18n.t(sentenceKey.unknownError))
         }

@@ -13,6 +13,7 @@ import {EnhanceConfig} from './setting-items/EnhanceConfig'
 import {ShowBookmarkCatalogue} from './setting-items/ShowBookmarkCatalogue'
 import {FilePathInMatch} from './setting-items/FilePathInMatch'
 import {FullUrlInMatch} from './setting-items/FullUrlInMatch'
+import {OutPluginImmediately} from './setting-items/OutPluginImmediately'
 
 export interface EnhanceSettingItemProps {
     slot: Component
@@ -59,6 +60,8 @@ export class ApplicationSettingCard extends Component<ApplicationSettingCardProp
                             <Language context={this.props.context}/>
                             <div class="divider"/>
                             <NotifyFileOpen context={this.props.context}/>
+                            <div class="divider"/>
+                            <OutPluginImmediately context={this.props.context}/>
                             <div class="divider"/>
                             <InputPathDirectly context={this.props.context}/>
                             <div class="divider"/>

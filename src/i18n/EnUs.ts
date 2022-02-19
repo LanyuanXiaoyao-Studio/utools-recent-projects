@@ -95,4 +95,7 @@ export class EnUs implements Sentence {
     readonly unready: string = 'Incomplete'
     readonly utoolsVersion: string = 'uTools Version'
     readonly xiaobaiBrowser: string = 'Xiaobai'
+
+    readonly outPluginImmediately: string = 'Out plugin after open project'
+    readonly outPluginImmediatelyDesc: string = 'Enable this option could let you do any uTools\' behavior after open a project conveniently. If you would like to open multi projects continuously, you can disable this option.'
 }
