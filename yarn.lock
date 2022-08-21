@@ -844,10 +844,10 @@ boolean@^3.0.1:
   resolved "https://registry.nlark.com/boolean/download/boolean-3.1.4.tgz?cache=0&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fboolean%2Fdownload%2Fboolean-3.1.4.tgz#f51a2fb5838a99e06f9b6ec1edb674de67026435"
   integrity sha1-9RovtYOKmeBvm27B7bZ03mcCZDU=
 
-bplist-parser@^0.3.0:
-  version "0.3.0"
-  resolved "https://registry.npm.taobao.org/bplist-parser/download/bplist-parser-0.3.0.tgz#ba50666370f61bbf94881636cd9f7d23c5286090"
-  integrity sha1-ulBmY3D2G7+UiBY2zZ99I8UoYJA=
+bplist-parser@^0.3.2:
+  version "0.3.2"
+  resolved "https://registry.npmmirror.com/bplist-parser/-/bplist-parser-0.3.2.tgz#3ac79d67ec52c4c107893e0237eb787cbacbced7"
+  integrity sha512-apC2+fspHGI3mMKj+dGevkGo/tCqVB8jMb6i+OX+E29p0Iposz07fABkRIfVUPNd5A5VbuOz1bZbnmkKLYF+wQ==
   dependencies:
     big-integer "1.6.x"
 
@@ -2249,10 +2249,10 @@ levn@~0.3.0:
     prelude-ls "~1.1.2"
     type-check "~0.3.2"
 
-licia@^1.31.1:
-  version "1.31.1"
-  resolved "https://registry.npmmirror.com/licia/download/licia-1.31.1.tgz#750ebc35804e7c1497a112faaf7ca1699cb4efab"
-  integrity sha1-dQ68NYBOfBSXoRL6r3yhaZy076s=
+licia@^1.37.0:
+  version "1.37.0"
+  resolved "https://registry.npmmirror.com/licia/-/licia-1.37.0.tgz#8a14b1b4026d77f397d40387b93fb486711156cc"
+  integrity sha512-jX49+WmzikOPGNrcy/giS23HCI8Pb7RF585Ei5d7oWF4WMelaZWv4odqQNdT0jtHkoUxqSvPz67Jvyq06xamUA==
 
 locate-path@^5.0.0:
   version "5.0.0"
@@ -2383,10 +2383,10 @@ ms@2.1.2:
   resolved "https://registry.nlark.com/ms/download/ms-2.1.2.tgz#d09d1f357b443f493382a8eb3ccd183872ae6009"
   integrity sha1-0J0fNXtEP0kzgqjrPM0YOHKuYAk=
 
-nano-jsx@^0.0.20:
-  version "0.0.20"
-  resolved "https://registry.nlark.com/nano-jsx/download/nano-jsx-0.0.20.tgz#2891f3e27bbefbd668b491ec774e1d2404ba783a"
-  integrity sha1-KJHz4nu++9ZotJHsd04dJAS6eDo=
+nano-jsx@^0.0.32:
+  version "0.0.32"
+  resolved "https://registry.npmmirror.com/nano-jsx/-/nano-jsx-0.0.32.tgz#241cefd0507513d3739e4e4302301aa149171aea"
+  integrity sha512-3wLq0BCT/xMRu0UJG/bPd6j8KYi0MfubjOflCDBhHk0P0shE7KfHRJSfCKsvyCF23WshIy12SoMF05aOf7N2pQ==
 
 nanobar@^0.4.2:
   version "0.4.2"
@@ -2538,10 +2538,10 @@ pify@^3.0.0:
   resolved "https://registry.npm.taobao.org/pify/download/pify-3.0.0.tgz#e5a4acd2c101fdf3d9a4d07f0dbc4db49dd28176"
   integrity sha1-5aSs0sEB/fPZpNB/DbxNtJ3SgXY=
 
-pinyin-pro@^3.3.1:
-  version "3.3.1"
-  resolved "https://registry.nlark.com/pinyin-pro/download/pinyin-pro-3.3.1.tgz#c8582b258e398e68b5275c984b94f5c154e075dd"
-  integrity sha1-yFgrJY45jmi1J1yYS5T1wVTgdd0=
+pinyin-pro@^3.11.0:
+  version "3.11.0"
+  resolved "https://registry.npmmirror.com/pinyin-pro/-/pinyin-pro-3.11.0.tgz#bb0c198f6bf2cb739414c790fa2781bcaa762971"
+  integrity sha512-l2JDFyEIMdTIyff3OkuoSIJCpYTwrxrR2KuMyGMjdNEcHGcEVSKIEb7mvKEKOhJaZLp2FB++Jax+MD0BWafbhg==
 
 pirates@^4.0.1:
   version "4.0.1"
@@ -2816,10 +2816,10 @@ sprintf-js@~1.0.2:
   resolved "https://registry.npm.taobao.org/sprintf-js/download/sprintf-js-1.0.3.tgz#04e6926f662895354f3dd015203633b857297e2c"
   integrity sha1-BOaSb2YolTVPPdAVIDYzuFcpfiw=
 
-sql.js@^1.6.2:
-  version "1.6.2"
-  resolved "https://registry.npmjs.org/sql.js/-/sql.js-1.6.2.tgz#7fb70ff68089434826a39b8f5afb2170d682eb3f"
-  integrity sha512-9iucI5fXQa+Gspeqf/BNB20PxJIn5LhXDt4mjXoFPqXdR+NqtFs15SdKpSIJ6s529aGL9zFR9p2eSCIEiMsNGA==
+sql.js@^1.7.0:
+  version "1.7.0"
+  resolved "https://registry.npmmirror.com/sql.js/-/sql.js-1.7.0.tgz#cadfed9773b643fbba0fc1ed1847e3a647e1fcb9"
+  integrity sha512-qAfft3xkSgHqmmfNugWTp/59PsqIw8gbeao5TZmpmzQQsAJ49de3iDDKuxVixidYs6dkHNksY8m27v2dZNn2jw==
 
 stack-utils@^2.0.3:
   version "2.0.3"
@@ -2828,10 +2828,10 @@ stack-utils@^2.0.3:
   dependencies:
     escape-string-regexp "^2.0.0"
 
-string-comparison@^1.0.9:
-  version "1.0.9"
-  resolved "https://registry.npmmirror.com/string-comparison/download/string-comparison-1.0.9.tgz#1435c7d5553a76fc6ae12995fe8f3cf724bb8a54"
-  integrity sha1-FDXH1VU6dvxq4SmV/o889yS7ilQ=
+string-comparison@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.npmmirror.com/string-comparison/-/string-comparison-1.1.0.tgz#579c43554721d68db5a7819bd78b261559af3ed4"
+  integrity sha512-9its9Hn37UNw6HlHFH0CGaTkkCWSCFtI3J5qLbuJqKAfbgEc0Ix+rFWfky47TcLlr5GvTSAqbGzHzQndZ7QaSQ==
 
 string-length@^4.0.1:
   version "4.0.2"

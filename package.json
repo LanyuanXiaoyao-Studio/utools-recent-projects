@@ -22,13 +22,13 @@
     "utools-api-types": "^2.3.0"
   },
   "dependencies": {
-    "bplist-parser": "^0.3.0",
-    "licia": "^1.31.1",
-    "nano-jsx": "^0.0.20",
+    "bplist-parser": "^0.3.2",
+    "licia": "^1.37.0",
+    "nano-jsx": "^0.0.32",
     "nanobar": "^0.4.2",
-    "pinyin-pro": "^3.3.1",
-    "sql.js": "^1.6.2",
-    "string-comparison": "^1.0.9",
+    "pinyin-pro": "^3.11.0",
+    "sql.js": "^1.7.0",
+    "string-comparison": "^1.1.0",
     "winreg": "^1.2.4"
   }
 }

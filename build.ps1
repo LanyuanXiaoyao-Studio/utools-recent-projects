@@ -24,13 +24,13 @@ $packageJson=@"
   "version"        : "1.0.0",
   "license"        : "MIT",
   "dependencies"   : {
-    "bplist-parser"    : "^0.3.0",
-    "licia"            : "^1.31.1",
-    "nano-jsx"         : "^0.0.20",
+    "bplist-parser"    : "^0.3.2",
+    "licia"            : "^1.37.0",
+    "nano-jsx"         : "^0.0.32",
     "nanobar"          : "^0.4.2",
-    "pinyin-pro"       : "^3.3.1",
-    "sql.js"           : "^1.6.2",
-    "string-comparison": "^1.0.9",
+    "pinyin-pro"       : "^3.11.0",
+    "sql.js"           : "^1.7.0",
+    "string-comparison": "^1.1.0",
     "winreg"           : "^1.2.4"
   }
 }
@@ -45,7 +45,7 @@ Remove-Item -Force *.ts,*.md
 Set-Location $temp
 
 Set-Location "$temp\node_modules\nano-jsx"
-Remove-Item -Force -Recurse .vscode,readme,.eslintrc,.prettierrc,bundles,typings,*.tsx,jest*.json,tsconfig*.json,LICENSE,*.md
+Remove-Item -Force -Recurse readme,bundles,*.tsx,jest*.json,tsconfig*.json,LICENSE,*.md
 Get-ChildItem * -Include *.ts -Recurse | Remove-Item
 Get-ChildItem * -Include *.map -Recurse | Remove-Item
 Set-Location $temp
@@ -70,7 +70,7 @@ Rename-Item nanobar.min.js -NewName nanobar.js
 Set-Location $temp
 
 Set-Location "$temp\node_modules\pinyin-pro"
-Remove-Item -Force -Recurse data,handle-data,lib,test,types,.eslintrc,.travis.yml,*.md,LICENSE,tsconfig.json
+Remove-Item -Force -Recurse data,lib,test,types,.eslintrc,.travis.yml,*.md,LICENSE,tsconfig.json
 Set-Location $temp
 
 Set-Location "$temp\node_modules\sql.js"

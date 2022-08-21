@@ -25,13 +25,13 @@ packageJson='{
                 "version"        : "1.0.0",
                 "license"        : "MIT",
                 "dependencies"   : {
-                  "bplist-parser"    : "^0.3.0",
-                  "licia"            : "^1.31.1",
-                  "nano-jsx"         : "^0.0.20",
+                  "bplist-parser"    : "^0.3.2",
+                  "licia"            : "^1.37.0",
+                  "nano-jsx"         : "^0.0.32",
                   "nanobar"          : "^0.4.2",
-                  "pinyin-pro"       : "^3.3.1",
-                  "sql.js"           : "^1.6.2",
-                  "string-comparison": "^1.0.9",
+                  "pinyin-pro"       : "^3.11.0",
+                  "sql.js"           : "^1.7.0",
+                  "string-comparison": "^1.1.0",
                   "winreg"           : "^1.2.4"
                 }
               }'
@@ -45,7 +45,7 @@ rm -rf *.ts *.md
 cd $temp
 
 cd "${temp}/node_modules/nano-jsx"
-rm -rf .vscode readme .eslintrc .prettierrc bundles typings *.tsx jest*.json tsconfig*.json LICENSE *.md
+rm -rf readme bundles *.tsx jest*.json tsconfig*.json LICENSE *.md
 find lib -name '*.ts' | xargs rm -rf
 find lib -name '*.map' | xargs rm -rf
 cd $temp
@@ -70,7 +70,7 @@ mv nanobar.min.js nanobar.js
 cd $temp
 
 cd "${temp}/node_modules/pinyin-pro"
-rm -rf data handle-data lib test types .eslintrc .travis.yml *.md LICENSE tsconfig.json
+rm -rf data lib test types .eslintrc .travis.yml *.md LICENSE tsconfig.json
 cd $temp
 
 cd "${temp}/node_modules/sql.js"
