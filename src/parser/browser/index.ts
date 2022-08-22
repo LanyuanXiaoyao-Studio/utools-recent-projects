@@ -31,6 +31,7 @@ export type BrowserId =
     | 'deepin'
     | 'xiaobai'
     | 'twinkstar'
+    | 'huawei'
 
 export const getDefaultConfigPath: (id: BrowserId) => string = id => {
     return generateStringByOS({

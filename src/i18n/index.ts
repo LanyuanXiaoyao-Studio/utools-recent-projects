@@ -51,6 +51,7 @@ export const sentenceKey = {
     getProjectsError: 'getProjectsError',
     historyLimit: 'historyLimit',
     historyLimitDesc: 'historyLimitDesc',
+    huaweiBrowser: 'huaweiBrowser',
     inputDirectlyPlaceholder: 'inputDirectlyPlaceholder',
     inputPathDirectly: 'inputPathDirectly',
     inputPathDirectlyDesc: 'inputPathDirectlyDesc',
@@ -70,6 +71,8 @@ export const sentenceKey = {
     notifyFileOpenDesc: 'notifyFileOpenDesc',
     openInNew: 'openInNew',
     openInNewDesc: 'openInNewDesc',
+    outPluginImmediately: 'outPluginImmediately',
+    outPluginImmediatelyDesc: 'outPluginImmediatelyDesc',
     pathNotFound: 'pathNotFound',
     pinyinIndex: 'pinyinIndex',
     pinyinIndexDesc: 'pinyinIndexDesc',
@@ -91,16 +94,13 @@ export const sentenceKey = {
     systemVersion: 'systemVersion',
     tag: 'tag',
     twinkstarBrowser: 'twinkstarBrowser',
-    unSupportTipsDesc: 'unSupportTipsDesc',
-    unSupportTipsTitle: 'unSupportTipsTitle',
     unknownError: 'unknownError',
     unknownInputError: 'unknownInputError',
     unready: 'unready',
+    unSupportTipsDesc: 'unSupportTipsDesc',
+    unSupportTipsTitle: 'unSupportTipsTitle',
     utoolsVersion: 'utoolsVersion',
     xiaobaiBrowser: 'xiaobaiBrowser',
-
-    outPluginImmediately: 'outPluginImmediately',
-    outPluginImmediatelyDesc: 'outPluginImmediatelyDesc',
 }
 
 export interface Sentence {
@@ -151,6 +151,7 @@ export interface Sentence {
     readonly getProjectsError: string
     readonly historyLimit: string
     readonly historyLimitDesc: string
+    readonly huaweiBrowser: string
     readonly inputDirectlyPlaceholder: string
     readonly inputPathDirectly: string
     readonly inputPathDirectlyDesc: string
@@ -170,6 +171,8 @@ export interface Sentence {
     readonly notifyFileOpenDesc: string
     readonly openInNew: string
     readonly openInNewDesc: string
+    readonly outPluginImmediately: string
+    readonly outPluginImmediatelyDesc: string
     readonly pathNotFound: string
     readonly pinyinIndex: string
     readonly pinyinIndexDesc: string
@@ -191,16 +194,13 @@ export interface Sentence {
     readonly systemVersion: string
     readonly tag: string
     readonly twinkstarBrowser: string
-    readonly unSupportTipsDesc: string
-    readonly unSupportTipsTitle: string
     readonly unknownError: string
     readonly unknownInputError: string
     readonly unready: string
+    readonly unSupportTipsDesc: string
+    readonly unSupportTipsTitle: string
     readonly utoolsVersion: string
     readonly xiaobaiBrowser: string
-
-    readonly outPluginImmediately: string
-    readonly outPluginImmediatelyDesc: string
 }
 
 let languageData = new I18n('zh-CN', {
