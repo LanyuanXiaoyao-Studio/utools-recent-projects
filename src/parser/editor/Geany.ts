@@ -30,7 +30,7 @@ export class GeanyProjectItemImpl extends ProjectItemImpl {}
 
 export class GeanyApplicationImpl extends ApplicationCacheConfigAndExecutorImpl<GeanyProjectItemImpl> {
     openInNew: boolean = false
-    private isMacOs: boolean = utools.isMacOs()
+    private isMacOs: boolean = utools.isMacOS()
 
     constructor() {
         super(

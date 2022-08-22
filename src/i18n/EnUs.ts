@@ -7,6 +7,7 @@ export class EnUs implements Sentence {
     readonly browser: string = 'Browser'
     readonly browserPathDescPrefix: string = 'file usually at: '
     readonly catalogueSearchPlaceHolder: string = 'Search and filter adapter'
+    readonly catsxpBrowser: string = 'Catsxp'
     readonly centBrowser: string = 'CentBrowser'
     readonly cloud: string = 'Global'
     readonly cloudDesc: string = 'Sync this setting on device that\nlogin with the same account'

@@ -9,6 +9,7 @@ export const sentenceKey = {
     browser: 'browser',
     browserPathDescPrefix: 'browserPathDescPrefix',
     catalogueSearchPlaceHolder: 'catalogueSearchPlaceHolder',
+    catsxpBrowser: 'catsxpBrowser',
     centBrowser: 'centBrowser',
     cloud: 'cloud',
     cloudDesc: 'cloudDesc',
@@ -110,6 +111,7 @@ export interface Sentence {
     readonly browser: string
     readonly browserPathDescPrefix: string
     readonly catalogueSearchPlaceHolder: string
+    readonly catsxpBrowser: string
     readonly centBrowser: string
     readonly cloud: string
     readonly cloudDesc: string

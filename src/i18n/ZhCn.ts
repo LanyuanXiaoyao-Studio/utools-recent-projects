@@ -7,6 +7,7 @@ export class ZhCn implements Sentence {
     readonly browser: string = '浏览器'
     readonly browserPathDescPrefix: string = '文件通常放在: '
     readonly catalogueSearchPlaceHolder: string = '搜索过滤软件适配项'
+    readonly catsxpBrowser: string = '猫眼浏览器'
     readonly centBrowser: string = '百分浏览器'
     readonly cloud: string = '全局'
     readonly cloudDesc: string = '同账号的设备同步该设置'
