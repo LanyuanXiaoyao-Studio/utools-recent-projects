@@ -84,5 +84,5 @@ export const applications: Array<ApplicationImpl<ChromiumBookmarkProjectItemImpl
     new ChromiumBookmarkApplicationImpl('xiaobai', () => i18n.t(sentenceKey.xiaobaiBrowser), CHROMIUM, [Platform.win32], true, undefined, configName),
     new ChromiumBookmarkApplicationImpl('twinkstar', () => i18n.t(sentenceKey.twinkstarBrowser), CHROMIUM, [Platform.win32], true, undefined, configName),
     new ChromiumBookmarkApplicationImpl('huawei', () => i18n.t(sentenceKey.huaweiBrowser), CHROMIUM, [Platform.win32], true, undefined, configName),
-    new ChromiumBookmarkApplicationImpl('catsxp', () => i18n.t(sentenceKey.huaweiBrowser), CHROMIUM, [Platform.win32], true, undefined, configName),
+    new ChromiumBookmarkApplicationImpl('catsxp', () => i18n.t(sentenceKey.catsxpBrowser), CHROMIUM, [Platform.win32], true, undefined, configName),
 ]

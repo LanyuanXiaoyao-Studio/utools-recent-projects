@@ -109,4 +109,6 @@ export const applications: Array<ApplicationImpl<ChromiumHistoryProjectItemImpl>
     new ChromiumHistoryApplicationImpl('liebao', () => i18n.t(sentenceKey.liebaoBrowser), CHROMIUM, [Platform.win32], true, undefined, configName),
     new ChromiumHistoryApplicationImpl('deepin', () => i18n.t(sentenceKey.deepinBrowser), CHROMIUM, [Platform.linux], true, undefined, configName),
     new ChromiumHistoryApplicationImpl('xiaobai', () => i18n.t(sentenceKey.xiaobaiBrowser), CHROMIUM, [Platform.win32], true, undefined, configName),
+    new ChromiumHistoryApplicationImpl('huawei', () => i18n.t(sentenceKey.huaweiBrowser), CHROMIUM, [Platform.win32], true, undefined, configName),
+    new ChromiumHistoryApplicationImpl('catsxp', () => i18n.t(sentenceKey.catsxpBrowser), CHROMIUM, [Platform.win32], true, undefined, configName),
 ]
