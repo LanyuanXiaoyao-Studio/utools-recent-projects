@@ -128,4 +128,14 @@ const pathDescriptionMap: { [key: string]: () => StringByOS } = {
             darwin: `${systemHome()}/Library/Safari/`,
         }
     },
+    'huawei': () => {
+        return {
+            win32: `${systemHome()}\\AppData\\Local\\CatsxpSoftware\\Catsxp-Browser\\User Data\\Default`
+        }
+    },
+    'catsxp': () => {
+        return {
+            win32: `${systemHome()}\\AppData\\Local\\Huawei\\HuaweiBrowser\\User Data\\Default`
+        }
+    }
 }
