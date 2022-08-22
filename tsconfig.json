@@ -16,7 +16,11 @@
       "utools-api-types"
     ],
     "jsx"                             : "react",
-    "jsxFactory"                      : "Nano.h"
+    "jsxFactory"                      : "Nano.h",
+    "lib"                             : [
+      "es6",
+      "dom"
+    ]
   },
   "exclude"        : [
     "test"

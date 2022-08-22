@@ -11,7 +11,7 @@ store[storeId('setting-edit-path-input-directly')] = false
 global.utools = {
     isLinux: () => false,
     isWindows: () => false,
-    isMacOs: () => true,
+    isMacOS: () => true,
     getNativeId: () => nativeId,
     dbStorage: {
         getItem(key) {
