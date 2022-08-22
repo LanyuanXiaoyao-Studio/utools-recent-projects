@@ -41,7 +41,7 @@ export const existsOrNot: (string, ExistsOrNotItem) => ExistsOrNotItem = (path, 
  */
 export const platformFromUtools: () => Platform = () => {
     if (utools.isWindows()) return Platform.win32
-    else if (utools.isMacOs()) return Platform.darwin
+    else if (utools.isMacOS()) return Platform.darwin
     else if (utools.isLinux()) return Platform.linux
     else return Platform.unknown
 }
