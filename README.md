@@ -38,6 +38,8 @@
 |          Safari          |    ✔     |    ✔    |         |   ✔   |       |
 |          Deepin          |    ✔     |    ✔    |         |       |   ✔   |
 |         Xiaobai          |    ✔     |    ✔    |    ✔    |       |       |
+|          Huawei          |    ✔     |    ✔    |    ✔    |       |       |
+|          Catsxp          |    ✔     |    ✔    |    ✔    |       |       |
 |    Visual Studio Code    |          |    ✔    |    ✔    |   ✔   |   ✔   |
 |          Typora          |          |    ✔    |    ✔    |       |   ✔   |
 |         Obsidian         |          |    ✔    |    ✔    |   ✔   |   ✔   |

@@ -21,6 +21,10 @@
   - 猎豹浏览器
   - Safari
   - 深度浏览器
+  - 小白浏览器
+  - 心愿浏览器
+  - 华为浏览器
+  - 猫眼浏览器
 - Editor
   - Visual Studio Code
   - Typora
