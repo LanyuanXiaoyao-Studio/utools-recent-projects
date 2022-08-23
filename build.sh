@@ -45,7 +45,7 @@ rm -rf *.ts *.md
 cd $temp
 
 cd "${temp}/node_modules/nano-jsx"
-rm -rf readme bundles *.tsx jest*.json tsconfig*.json LICENSE *.md
+rm -rf esm readme bundles *.tsx jest*.json tsconfig*.json LICENSE *.md .npmrc
 find lib -name '*.ts' | xargs rm -rf
 find lib -name '*.map' | xargs rm -rf
 cd $temp
@@ -56,7 +56,7 @@ mv BigInteger.min.js BigInteger.js
 cd $temp
 
 cd "${temp}/node_modules/bplist-parser"
-rm -rf *.md .editorconfig .eslintignore .eslintrc.js
+rm -rf *.md .editorconfig .eslintignore .eslintrc.js *.d.ts
 cd $temp
 
 cd "${temp}/node_modules/winreg"
@@ -78,7 +78,7 @@ rm -rf .devcontainer .eslintrc.js .jsdoc.config.json .nojekyll AUTHORS *.md LICE
 cd $temp
 
 cd "${temp}/node_modules/string-comparison"
-rm -rf LICENCE *.md
+rm -rf LICENCE *.md dist/*.d.ts dist/*.mjs
 cd $temp
 
 cd $current_path

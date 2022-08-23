@@ -45,7 +45,7 @@ Remove-Item -Force *.ts,*.md
 Set-Location $temp
 
 Set-Location "$temp\node_modules\nano-jsx"
-Remove-Item -Force -Recurse readme,bundles,*.tsx,jest*.json,tsconfig*.json,LICENSE,*.md
+Remove-Item -Force -Recurse esm,readme,bundles,*.tsx,jest*.json,tsconfig*.json,LICENSE,*.md,.npmrc
 Get-ChildItem * -Include *.ts -Recurse | Remove-Item
 Get-ChildItem * -Include *.map -Recurse | Remove-Item
 Set-Location $temp
@@ -56,7 +56,7 @@ Rename-Item BigInteger.min.js -NewName BigInteger.js
 Set-Location $temp
 
 Set-Location "$temp\node_modules\bplist-parser"
-Remove-Item -Force -Recurse *.md,.editorconfig,.eslintignore,.eslintrc.js
+Remove-Item -Force -Recurse *.md,.editorconfig,.eslintignore,.eslintrc.js,*.d.ts
 Set-Location $temp
 
 Set-Location "$temp\node_modules\winreg"
@@ -78,7 +78,7 @@ Remove-Item -Force -Recurse .devcontainer,.eslintrc.js,.jsdoc.config.json,.nojek
 Set-Location $temp
 
 Set-Location "$temp\node_modules\string-comparison"
-Remove-Item -Force -Recurse LICENCE,*.md
+Remove-Item -Force -Recurse LICENCE,*.md,dist/*.d.ts,dist/*.mjs
 Set-Location $temp
 
 Set-Location $current_path
