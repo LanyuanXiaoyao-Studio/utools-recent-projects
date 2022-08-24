@@ -196,6 +196,13 @@ export class Vscode1640ApplicationImpl extends ApplicationCacheConfigAndExecutor
         })
     }
 
+    override configSettingItemProperties(): SettingProperties {
+        return {
+            ...super.configSettingItemProperties(),
+            filters: configExtensionFilter("vscdb")
+        }
+    }
+
     async generateCacheProjectItems(context: Context): Promise<Array<VscodeProjectItemImpl>> {
         // language=SQLite
         let results = await queryFromSqlite(this.config, 'select value as result from ItemTable where key = \'history.recentlyOpenedPathsList\'')
