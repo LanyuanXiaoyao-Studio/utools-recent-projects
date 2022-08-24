@@ -1,3 +1,8 @@
+import {readFileSync, statSync} from 'fs'
+import {endWith, isEmpty, isNil, unique} from 'licia'
+import {parse, resolve} from 'path'
+import {Context} from '../../Context'
+import {i18n, sentenceKey} from '../../i18n'
 import {
     ApplicationConfigImpl,
     ApplicationImpl,
@@ -5,16 +10,12 @@ import {
     Group,
     GroupName,
     Platform,
+    SettingProperties,
     UtoolsExecutor,
 } from '../../Types'
-import {Context} from '../../Context'
-import {readFileSync, statSync} from 'fs'
-import {endWith, isEmpty, isNil, unique} from 'licia'
-import {existsOrNot, generateStringByOS, systemUser, walker} from '../../Utils'
-import {parse, resolve} from 'path'
-import {i18n, sentenceKey} from '../../i18n'
-import {generatePinyinIndex} from '../../utils/index-generator/PinyinIndex'
+import {configExtensionFilter, existsOrNot, generateStringByOS, systemUser, walker} from '../../Utils'
 import {generateFilePathIndex} from '../../utils/index-generator/FilePathIndex'
+import {generatePinyinIndex} from '../../utils/index-generator/PinyinIndex'
 
 const OBSIDIAN: string = 'obsidian'
 
@@ -41,6 +42,13 @@ export class ObsidianApplicationImpl extends ApplicationConfigImpl<ObsidianProje
             darwin: `/Users/${systemUser()}/Library/Application Support/obsidian/obsidian.json`,
             linux: `/home/${systemUser()}/.config/obsidian/obsidian.json`,
         })
+    }
+
+    override configSettingItemProperties(): SettingProperties {
+        return {
+            ...super.configSettingItemProperties(),
+            filters: configExtensionFilter('json'),
+        }
     }
 
     async generateProjectItems(context: Context): Promise<Array<ObsidianProjectItemImpl>> {

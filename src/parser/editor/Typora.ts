@@ -1,3 +1,7 @@
+import {readFileSync} from 'fs'
+import {isEmpty, strToBytes, unique} from 'licia'
+import {Context} from '../../Context'
+import {i18n, sentenceKey} from '../../i18n'
 import {
     ApplicationCacheConfigAndExecutorImpl,
     ApplicationImpl,
@@ -6,12 +10,9 @@ import {
     GroupName,
     NohupShellExecutor,
     Platform,
+    SettingProperties,
 } from '../../Types'
-import {Context} from '../../Context'
-import {readFileSync} from 'fs'
-import {isEmpty, strToBytes, unique} from 'licia'
-import {existsOrNot, generateStringByOS, systemUser} from '../../Utils'
-import {i18n, sentenceKey} from '../../i18n'
+import {configExtensionFilter, existsOrNot, generateStringByOS, systemUser} from '../../Utils'
 import {generatePinyinIndex} from '../../utils/index-generator/PinyinIndex'
 
 const TYPORA: string = 'typora'
@@ -45,6 +46,13 @@ export class TyporaApplicationImpl extends ApplicationCacheConfigAndExecutorImpl
             win32: 'C:\\Program Files\\Typora\\Typora.exe',
             linux: '(不同发行版安装路径差异较大, 自行使用 which 命令找到 typora 命令所在路径作为可执行文件路径)',
         })
+    }
+
+    override configSettingItemProperties(): SettingProperties {
+        return {
+            ...super.configSettingItemProperties(),
+            filters: configExtensionFilter('data'),
+        }
     }
 
     async generateCacheProjectItems(context: Context): Promise<Array<TyporaProjectItemImpl>> {

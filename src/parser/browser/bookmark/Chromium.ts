@@ -1,3 +1,7 @@
+import {readFile} from 'fs/promises'
+import {isEmpty, unique} from 'licia'
+import {Context} from '../../../Context'
+import {i18n, sentenceKey} from '../../../i18n'
 import {
     ApplicationImpl,
     DatetimeProjectItemImpl,
@@ -7,15 +11,11 @@ import {
     NameGetter,
     Platform,
 } from '../../../Types'
-import {BrowserApplicationImpl, BrowserId, getDefaultConfigPath} from '../index'
-import {Context} from '../../../Context'
-import {readFile} from 'fs/promises'
-import {isEmpty, unique} from 'licia'
 import {generateParents, parseTimeFrom1604} from '../../../Utils'
-import {i18n, sentenceKey} from '../../../i18n'
-import {generatePinyinIndex} from '../../../utils/index-generator/PinyinIndex'
-import {generateHostIndex} from '../../../utils/index-generator/HostIndex'
 import {generateFullUrlIndex} from '../../../utils/index-generator/FullUrlIndex'
+import {generateHostIndex} from '../../../utils/index-generator/HostIndex'
+import {generatePinyinIndex} from '../../../utils/index-generator/PinyinIndex'
+import {BrowserApplicationImpl, BrowserId, getDefaultConfigPath} from '../index'
 
 const CHROMIUM: string = 'chromium'
 const configName = 'Bookmarks'

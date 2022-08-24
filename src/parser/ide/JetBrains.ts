@@ -1,3 +1,7 @@
+import {readFile} from 'fs/promises'
+import {isEmpty, isNil, unique} from 'licia'
+import {parse} from 'path'
+import {Context} from '../../Context'
 import {
     ApplicationCacheConfigAndExecutorImpl,
     ApplicationImpl,
@@ -8,14 +12,11 @@ import {
     NameGetter,
     NohupShellExecutor,
     Platform,
+    SettingProperties,
 } from '../../Types'
-import {readFile} from 'fs/promises'
-import {isEmpty, isNil, unique} from 'licia'
-import {parse} from 'path'
-import {existsOrNot} from '../../Utils'
-import {Context} from '../../Context'
-import {generatePinyinIndex} from '../../utils/index-generator/PinyinIndex'
+import {configExtensionFilter, existsOrNot} from '../../Utils'
 import {generateFilePathIndex} from '../../utils/index-generator/FilePathIndex'
+import {generatePinyinIndex} from '../../utils/index-generator/PinyinIndex'
 
 const JETBRAINS: string = 'jetbrains'
 
@@ -35,6 +36,13 @@ export class JetBrainsApplicationImpl extends ApplicationCacheConfigAndExecutorI
 
     override defaultExecutorPath(): string {
         return ''
+    }
+
+    override configSettingItemProperties(): SettingProperties {
+        return {
+            ...super.configSettingItemProperties(),
+            filters: configExtensionFilter('xml'),
+        }
     }
 
     async generateCacheProjectItems(context: Context): Promise<Array<JetBrainsProjectItemImpl>> {

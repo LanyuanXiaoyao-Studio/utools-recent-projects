@@ -1,3 +1,6 @@
+import {isEmpty, unique} from 'licia'
+import {Context} from '../../../Context'
+import {i18n, sentenceKey} from '../../../i18n'
 import {
     ApplicationImpl,
     DatetimeProjectItemImpl,
@@ -7,15 +10,12 @@ import {
     NameGetter,
     Platform,
 } from '../../../Types'
-import {BrowserApplicationImpl, BrowserId, getDefaultConfigPath} from '../index'
-import {isEmpty, unique} from 'licia'
 import {removeAllQueryFromUrl} from '../../../Utils'
-import {Context} from '../../../Context'
-import {i18n, sentenceKey} from '../../../i18n'
-import {generatePinyinIndex} from '../../../utils/index-generator/PinyinIndex'
-import {generateHostIndex} from '../../../utils/index-generator/HostIndex'
 import {generateFullUrlIndex} from '../../../utils/index-generator/FullUrlIndex'
+import {generateHostIndex} from '../../../utils/index-generator/HostIndex'
+import {generatePinyinIndex} from '../../../utils/index-generator/PinyinIndex'
 import {queryFromSqlite} from '../../../utils/sqlite/SqliteExecutor'
+import {BrowserApplicationImpl, BrowserId, getDefaultConfigPath} from '../index'
 
 const CHROMIUM: string = 'chromium'
 const configName = 'History'

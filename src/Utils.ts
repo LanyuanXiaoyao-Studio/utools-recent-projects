@@ -1,11 +1,11 @@
 import {existsSync, readdirSync, Stats, statSync} from 'fs'
-import {DescriptionGetter, NameGetter, Platform} from './Types'
 import {isEmpty, isFn, isNil, isUrl, Url} from 'licia'
-import {Context} from './Context'
-import {i18n, sentenceKey} from './i18n'
+import S from 'licia/$'
 import {join, parse} from 'path'
 import WinReg from 'winreg'
-import S from 'licia/$'
+import {Context} from './Context'
+import {i18n, sentenceKey} from './i18n'
+import {DescriptionGetter, NameGetter, Platform} from './Types'
 
 /**
  * 字符比较, 用于在 array.sort() 使用
@@ -177,6 +177,21 @@ export const initLanguage: (context?: Context) => void = context => {
     } else {
         i18n.locale(context.languageSetting)
     }
+}
+
+export const extensionFilter: (name: string, extension: string) => [{ name: string, extensions: Array<string> }] = (name, extension) => {
+    return [{
+        name: name,
+        extensions: [extension],
+    }]
+}
+
+export const configExtensionFilter: (extension: string) => [{ name: string, extensions: Array<string> }] = extension => {
+    return extensionFilter('Config', extension)
+}
+
+export const executorExtensionFilter: (extension: string) => [{ name: string, extensions: Array<string> }] = extension => {
+    return extensionFilter('Executor', extension)
 }
 
 export const walker: (path: string, filter?: (fullPath: string, stat?: Stats) => boolean) => Array<string> = (path, filter) => {

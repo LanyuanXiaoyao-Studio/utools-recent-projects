@@ -1,3 +1,7 @@
+import {readFile} from 'fs/promises'
+import {isEmpty, isNil, unique} from 'licia'
+import {parse} from 'path'
+import {Context} from '../../Context'
 import {
     ApplicationCacheConfigImpl,
     ApplicationImpl,
@@ -6,14 +10,11 @@ import {
     Group,
     GroupName,
     Platform,
+    SettingProperties,
 } from '../../Types'
-import {readFile} from 'fs/promises'
-import {isEmpty, isNil, unique} from 'licia'
-import {parse} from 'path'
-import {existsOrNot} from '../../Utils'
-import {Context} from '../../Context'
-import {generatePinyinIndex} from '../../utils/index-generator/PinyinIndex'
+import {configExtensionFilter, existsOrNot} from '../../Utils'
 import {generateFilePathIndex} from '../../utils/index-generator/FilePathIndex'
+import {generatePinyinIndex} from '../../utils/index-generator/PinyinIndex'
 
 const VS_STUDIO: string = 'vs-studio'
 
@@ -37,6 +38,13 @@ export class VsStudioApplicationImpl extends ApplicationCacheConfigImpl<VsStudio
 
     override defaultConfigPath(): string {
         return ''
+    }
+
+    override configSettingItemProperties(): SettingProperties {
+        return {
+            ...super.configSettingItemProperties(),
+            filters: configExtensionFilter('xml'),
+        }
     }
 
     async generateCacheProjectItems(context: Context): Promise<Array<VsStudioProjectItemImpl>> {

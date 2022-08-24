@@ -1,8 +1,13 @@
+import {readFile} from 'fs/promises'
+import {every, has, isEmpty, isEqual, isNil, some, Url} from 'licia'
+import {Context} from '../../Context'
+import {i18n, sentenceKey} from '../../i18n'
 import {
     ApplicationCacheImpl,
     ApplicationConfigState,
     ApplicationImpl,
     DatetimeProjectItemImpl,
+    DefaultSettingProperties,
     Group,
     GroupName,
     InputSettingItem,
@@ -10,14 +15,10 @@ import {
     SettingItem,
     ShellExecutor,
 } from '../../Types'
-import {Context} from '../../Context'
-import {i18n, sentenceKey} from '../../i18n'
-import {every, has, isEmpty, isEqual, isNil, some, Url} from 'licia'
-import {readFile} from 'fs/promises'
-import {generatePinyinIndex} from '../../utils/index-generator/PinyinIndex'
-import {existsOrNot, systemUser} from '../../Utils'
+import {existsOrNot, extensionFilter, systemUser} from '../../Utils'
 import {signCalculate} from '../../utils/files/SignCalculate'
 import {generateFilePathIndex} from '../../utils/index-generator/FilePathIndex'
+import {generatePinyinIndex} from '../../utils/index-generator/PinyinIndex'
 
 const DEFAULT_FOLDER_X: string = 'default-folder-x'
 
@@ -113,16 +114,31 @@ export class DefaultFolderXApplicationImpl extends ApplicationCacheImpl<DefaultF
                 this.recentFilesConfigPathId(nativeId),
                 `${i18n.t(sentenceKey.configPrefix)}「RecentFiles.plist」${i18n.t(sentenceKey.configSuffix)}`,
                 this.recentFilesConfigPath,
+                undefined,
+                {
+                    ...(new DefaultSettingProperties()),
+                    filters: extensionFilter('Recent Files', 'plist'),
+                },
             ),
             new InputSettingItem(
                 this.recentFinderFoldersConfigPathId(nativeId),
                 `${i18n.t(sentenceKey.configPrefix)}「RecentFinderFolders.plist」${i18n.t(sentenceKey.configSuffix)}`,
                 this.recentFinderFoldersConfigPath,
+                undefined,
+                {
+                    ...(new DefaultSettingProperties()),
+                    filters: extensionFilter('Recent Finder Folders', 'plist'),
+                },
             ),
             new InputSettingItem(
                 this.recentFoldersConfigPathId(nativeId),
                 `${i18n.t(sentenceKey.configPrefix)}「RecentFolders.plist」${i18n.t(sentenceKey.configSuffix)}`,
                 this.recentFoldersConfigPath,
+                undefined,
+                {
+                    ...(new DefaultSettingProperties()),
+                    filters: extensionFilter('Recent Folders', 'plist'),
+                },
             ),
         ]
     }

@@ -1,3 +1,6 @@
+import {isEmpty, unique} from 'licia'
+import {Context} from '../../../Context'
+import {i18n, sentenceKey} from '../../../i18n'
 import {
     ApplicationImpl,
     DatetimeProjectItemImpl,
@@ -5,17 +8,14 @@ import {
     Group,
     GroupName,
     NameGetter,
-    Platform,
+    Platform, SettingProperties,
 } from '../../../Types'
-import {BrowserApplicationImpl, BrowserId, getDefaultConfigPath} from '../index'
-import {isEmpty, unique} from 'licia'
-import {removeAllQueryFromUrl} from '../../../Utils'
-import {Context} from '../../../Context'
-import {generatePinyinIndex} from '../../../utils/index-generator/PinyinIndex'
-import {generateHostIndex} from '../../../utils/index-generator/HostIndex'
-import {i18n, sentenceKey} from '../../../i18n'
+import {configExtensionFilter, removeAllQueryFromUrl} from '../../../Utils'
 import {generateFullUrlIndex} from '../../../utils/index-generator/FullUrlIndex'
+import {generateHostIndex} from '../../../utils/index-generator/HostIndex'
+import {generatePinyinIndex} from '../../../utils/index-generator/PinyinIndex'
 import {queryFromSqlite} from '../../../utils/sqlite/SqliteExecutor'
+import {BrowserApplicationImpl, BrowserId, getDefaultConfigPath} from '../index'
 
 const FIREFOX: string = 'firefox'
 
@@ -33,6 +33,13 @@ export class FirefoxHistoryApplicationImpl extends BrowserApplicationImpl<Firefo
 
     override defaultConfigPath(): string {
         return `${getDefaultConfigPath(this.browserId)}${this.configName}`
+    }
+
+    override configSettingItemProperties(): SettingProperties {
+        return {
+            ...super.configSettingItemProperties(),
+            filters: configExtensionFilter('sqlite'),
+        }
     }
 
     async generateCacheProjectItems(context: Context): Promise<Array<FirefoxHistoryProjectItemImpl>> {

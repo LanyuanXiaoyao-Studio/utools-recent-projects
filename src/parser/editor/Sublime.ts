@@ -1,3 +1,8 @@
+import {readFile} from 'fs/promises'
+import {isNil, unique} from 'licia'
+import {parse} from 'path'
+import {Context} from '../../Context'
+import {i18n, sentenceKey} from '../../i18n'
 import {
     ApplicationCacheConfigAndExecutorImpl,
     ApplicationImpl,
@@ -5,18 +10,13 @@ import {
     GroupName,
     Platform,
     ProjectItemImpl,
-    SettingItem,
+    SettingItem, SettingProperties,
     ShellExecutor,
     SwitchSettingItem,
 } from '../../Types'
-import {readFile} from 'fs/promises'
-import {isNil, unique} from 'licia'
-import {parse} from 'path'
-import {existsOrNot, generateStringByOS, systemUser} from '../../Utils'
-import {Context} from '../../Context'
-import {i18n, sentenceKey} from '../../i18n'
-import {generatePinyinIndex} from '../../utils/index-generator/PinyinIndex'
+import {configExtensionFilter, existsOrNot, generateStringByOS, systemUser} from '../../Utils'
 import {generateFilePathIndex} from '../../utils/index-generator/FilePathIndex'
+import {generatePinyinIndex} from '../../utils/index-generator/PinyinIndex'
 
 const SUBLIME: string = 'sublime'
 
@@ -53,6 +53,13 @@ export class SublimeApplicationImpl extends ApplicationCacheConfigAndExecutorImp
             darwin: `/Users/${systemUser()}/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl`,
             linux: `(不同发行版安装路径差异较大, 自行使用 which 命令找到 subl 命令所在路径作为可执行文件路径)`,
         })
+    }
+
+    override configSettingItemProperties(): SettingProperties {
+        return {
+            ...super.configSettingItemProperties(),
+            filters: configExtensionFilter("sublime_session")
+        }
     }
 
     parsePath(source: string): string {

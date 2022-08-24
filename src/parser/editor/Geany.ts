@@ -2,6 +2,12 @@
  * 参考实现 https://gitee.com/squallliu/utools-recent-projects/commit/e22d4d07f339682606dda083f404a3e94db90559
  * 感谢 https://gitee.com/squallliu 的贡献
  */
+import {createReadStream} from 'fs'
+import {isEmpty, isNil, unique} from 'licia'
+import {parse} from 'path'
+import {createInterface} from 'readline'
+import {Context} from '../../Context'
+import {i18n, sentenceKey} from '../../i18n'
 import {
     ApplicationCacheConfigAndExecutorImpl,
     ApplicationImpl,
@@ -10,19 +16,13 @@ import {
     NohupShellExecutor,
     Platform,
     ProjectItemImpl,
-    SettingItem,
+    SettingItem, SettingProperties,
     ShellExecutor,
     SwitchSettingItem,
 } from '../../Types'
-import {i18n, sentenceKey} from '../../i18n'
-import {existsOrNot, generateStringByOS, systemUser} from '../../Utils'
-import {Context} from '../../Context'
-import {createInterface} from 'readline'
-import {createReadStream} from 'fs'
-import {isEmpty, isNil, unique} from 'licia'
-import {parse} from 'path'
-import {generatePinyinIndex} from '../../utils/index-generator/PinyinIndex'
+import {configExtensionFilter, existsOrNot, generateStringByOS, systemUser} from '../../Utils'
 import {generateFilePathIndex} from '../../utils/index-generator/FilePathIndex'
+import {generatePinyinIndex} from '../../utils/index-generator/PinyinIndex'
 
 const GEANY: string = 'geany'
 
@@ -60,6 +60,13 @@ export class GeanyApplicationImpl extends ApplicationCacheConfigAndExecutorImpl<
             darwin: '/Applications/Geany.app/Contents/MacOS/geany',
             linux: '/usr/bin/geany',
         })
+    }
+
+    override configSettingItemProperties(): SettingProperties {
+        return {
+            ...super.configSettingItemProperties(),
+            filters: configExtensionFilter("conf")
+        }
     }
 
     async generateCacheProjectItems(context: Context): Promise<Array<GeanyProjectItemImpl>> {

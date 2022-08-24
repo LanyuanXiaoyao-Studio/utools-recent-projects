@@ -1,3 +1,8 @@
+import {execSync} from 'child_process'
+import {statSync} from 'fs'
+import {isEmpty, isEqual, isNil, unique} from 'licia'
+import {parse} from 'path'
+import {Context} from '../../Context'
 import {
     ApplicationCacheImpl,
     ApplicationImpl,
@@ -7,15 +12,10 @@ import {
     ProjectItemImpl,
     ShellExecutor,
 } from '../../Types'
-import {execSync} from 'child_process'
-import {isEmpty, isEqual, isNil, unique} from 'licia'
-import {parse} from 'path'
-import {statSync} from 'fs'
 import {existsOrNot, systemUser} from '../../Utils'
-import {Context} from '../../Context'
-import {generatePinyinIndex} from '../../utils/index-generator/PinyinIndex'
 import {signCalculate} from '../../utils/files/SignCalculate'
 import {generateFilePathIndex} from '../../utils/index-generator/FilePathIndex'
+import {generatePinyinIndex} from '../../utils/index-generator/PinyinIndex'
 
 const XCODE: string = 'xcode'
 

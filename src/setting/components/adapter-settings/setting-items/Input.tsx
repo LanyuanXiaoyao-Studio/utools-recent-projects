@@ -1,26 +1,38 @@
-import Nano, {Fragment} from 'nano-jsx'
-import {InputSettingItem} from '../../../../Types'
-import {AdapterSettingItem, AdapterSettingItemProps, AdapterSettingItemState} from '../AdapterSettingItem'
-import {isEmpty, isNil} from 'licia'
-import {i18n, sentenceKey} from '../../../../i18n'
 import fs from 'fs'
-import {existsCacheSync} from '../../../../utils/files/SettingInputHelper'
+import {isEmpty, isNil} from 'licia'
+import Nano, {Fragment} from 'nano-jsx'
+import {i18n, sentenceKey} from '../../../../i18n'
+import {InputSettingItem, SettingProperties} from '../../../../Types'
 import {getDescription} from '../../../../Utils'
+import {existsCacheSync} from '../../../../utils/files/SettingInputHelper'
+import {AdapterSettingItem, AdapterSettingItemProps, AdapterSettingItemState} from '../AdapterSettingItem'
 
 export interface InputProps extends AdapterSettingItemProps {
     item: InputSettingItem
 }
 
 export class Input extends AdapterSettingItem<InputProps, AdapterSettingItemState> {
-    select(event, id: string, name: string) {
+    select(event, id: string, name: string, properties: SettingProperties) {
+        let mergeProperties: Array<'openFile' | 'openDirectory' | 'multiSelections' | 'showHiddenFiles' | 'createDirectory' | 'promptToCreate' | 'noResolveAliases' | 'treatPackageAsDirectory' | 'dontAddToRecent'> = []
+        if (properties.openFile) {
+            mergeProperties.push('openFile')
+        }
+        if (properties.openDirectory) {
+            mergeProperties.push('openDirectory')
+        }
+        if (properties.treatPackageAsDirectory) {
+            mergeProperties.push('treatPackageAsDirectory')
+        }
+        let mergeFilters: { name: string, extensions: string[] }[] = [
+            ...properties.filters,
+            { name: 'All Files', extensions: ['*'] },
+        ]
+
         let result = utools.showOpenDialog({
             title: name,
             message: name,
-            properties: [
-                'openFile',
-                'treatPackageAsDirectory',
-                'showHiddenFiles',
-            ],
+            properties: mergeProperties,
+            filters: mergeFilters,
         })
         if (isNil(result) || isEmpty(result)) {
             alert(i18n.t(sentenceKey.nonExistsPathOrCancel))
@@ -84,7 +96,7 @@ export class Input extends AdapterSettingItem<InputProps, AdapterSettingItemStat
                                     class={`form-input input-sm ${existsCacheSync(this.props.item.value as string) ? '' : 'is-error'}`}
                                     value={this.props.item.value == null ? '' : this.props.item.value}
                                     placeholder={i18n.t(sentenceKey.fileSelectorPlaceholder)}
-                                    onClick={event => this.select(event, this.props.item.id, this.props.item.name)}
+                                    onClick={event => this.select(event, this.props.item.id, this.props.item.name, this.props.item.properties)}
                                     readOnly
                                 />
                             </Fragment>}

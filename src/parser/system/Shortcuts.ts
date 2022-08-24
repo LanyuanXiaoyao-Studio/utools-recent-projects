@@ -1,3 +1,7 @@
+import {statSync} from 'fs'
+import {isEmpty, isNil, unique} from 'licia'
+import {Context} from '../../Context'
+import {i18n, sentenceKey} from '../../i18n'
 import {
     ApplicationCacheConfigImpl,
     ApplicationImpl,
@@ -6,11 +10,9 @@ import {
     GroupName,
     NohupShellExecutor,
     Platform,
+    SettingProperties,
 } from '../../Types'
-import {isEmpty, isNil, unique} from 'licia'
-import {statSync} from 'fs'
-import {Context} from '../../Context'
-import {i18n, sentenceKey} from '../../i18n'
+import {configExtensionFilter} from '../../Utils'
 import {generatePinyinIndex} from '../../utils/index-generator/PinyinIndex'
 import {queryFromSqlite} from '../../utils/sqlite/SqliteExecutor'
 
@@ -40,6 +42,13 @@ export class ShortcutsApplicationImpl extends ApplicationCacheConfigImpl<Shortcu
     override update(nativeId: string) {
         super.update(nativeId)
         this.config = this.defaultConfigPath()
+    }
+
+    override configSettingItemProperties(): SettingProperties {
+        return {
+            ...super.configSettingItemProperties(),
+            filters: configExtensionFilter('sqlite'),
+        }
     }
 
     async generateCacheProjectItems(context: Context): Promise<Array<ShortcutsProjectItemImpl>> {

@@ -1,6 +1,6 @@
-import {ApplicationCacheConfigImpl, ApplicationConfigImpl, ProjectItemImpl} from '../../Types'
-import {generateStringByOS, StringByOS, systemHome} from '../../Utils'
 import {Context} from '../../Context'
+import {ApplicationCacheConfigImpl, ProjectItemImpl} from '../../Types'
+import {generateStringByOS, StringByOS, systemHome} from '../../Utils'
 
 export abstract class BrowserApplicationImpl<P extends ProjectItemImpl> extends ApplicationCacheConfigImpl<P> {
     protected ifGetFavicon: (url: string, context: Context) => string = (url, context) => {
@@ -130,12 +130,12 @@ const pathDescriptionMap: { [key: string]: () => StringByOS } = {
     },
     'huawei': () => {
         return {
-            win32: `${systemHome()}\\AppData\\Local\\CatsxpSoftware\\Catsxp-Browser\\User Data\\Default`
+            win32: `${systemHome()}\\AppData\\Local\\CatsxpSoftware\\Catsxp-Browser\\User Data\\Default`,
         }
     },
     'catsxp': () => {
         return {
-            win32: `${systemHome()}\\AppData\\Local\\Huawei\\HuaweiBrowser\\User Data\\Default`
+            win32: `${systemHome()}\\AppData\\Local\\Huawei\\HuaweiBrowser\\User Data\\Default`,
         }
-    }
+    },
 }

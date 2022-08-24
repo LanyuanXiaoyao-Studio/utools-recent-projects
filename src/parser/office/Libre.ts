@@ -1,3 +1,8 @@
+import {readFile} from 'fs/promises'
+import {isEmpty, isNil, now, unique, Url} from 'licia'
+import {parse} from 'path'
+import {Context} from '../../Context'
+import {i18n, sentenceKey} from '../../i18n'
 import {
     ApplicationCacheConfigAndExecutorImpl,
     ApplicationImpl,
@@ -5,16 +10,12 @@ import {
     Group,
     GroupName,
     Platform,
+    SettingProperties,
     ShellExecutor,
 } from '../../Types'
-import {readFile} from 'fs/promises'
-import {isEmpty, isNil, now, unique, Url} from 'licia'
-import {Context} from '../../Context'
-import {existsOrNot, generateStringByOS, systemUser} from '../../Utils'
-import {parse} from 'path'
-import {i18n, sentenceKey} from '../../i18n'
-import {generatePinyinIndex} from '../../utils/index-generator/PinyinIndex'
+import {configExtensionFilter, existsOrNot, generateStringByOS, systemUser} from '../../Utils'
 import {generateFilePathIndex} from '../../utils/index-generator/FilePathIndex'
+import {generatePinyinIndex} from '../../utils/index-generator/PinyinIndex'
 
 const LIBRE: string = 'libre'
 
@@ -51,6 +52,13 @@ export class LibreOfficeApplicationImpl extends ApplicationCacheConfigAndExecuto
             darwin: `/Applications/LibreOffice.app/Contents/MacOS/soffice`,
             linux: `/usr/bin/soffice`,
         })
+    }
+
+    override configSettingItemProperties(): SettingProperties {
+        return {
+            ...super.configSettingItemProperties(),
+            filters: configExtensionFilter('xcu'),
+        }
     }
 
     async generateCacheProjectItems(context: Context): Promise<Array<LibreOfficeProjectItemImpl>> {

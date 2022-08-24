@@ -1,10 +1,10 @@
-import {contain, isEmpty, isEqual, isNil} from 'licia'
 import {exec} from 'child_process'
 import {shell} from 'electron'
-import {getName, initLanguage, platformFromUtools} from './Utils'
 import {existsSync} from 'fs'
+import {contain, isEmpty, isEqual, isNil} from 'licia'
 import {Context} from './Context'
 import {i18n, sentenceKey} from './i18n'
+import {getName, initLanguage, platformFromUtools} from './Utils'
 import {signCalculate} from './utils/files/SignCalculate'
 
 /**
@@ -337,35 +337,51 @@ export enum SettingType {
     switch,
 }
 
-/**
- * 配置值类型
- */
-export type SettingValue = string | boolean
+export interface SettingProperties {
+    readonly openFile: boolean
+    readonly openDirectory: boolean
+    readonly treatPackageAsDirectory: boolean
+    readonly filters: Array<{ name: string, extensions: Array<string> }>
+}
+
+export class DefaultSettingProperties implements SettingProperties {
+    readonly openFile: boolean = true
+    readonly openDirectory: boolean = false
+    readonly treatPackageAsDirectory: boolean = true
+    readonly filters: Array<{ name: string, extensions: Array<string> }> = []
+}
+
+export class SelectMacAppSettingProperties extends DefaultSettingProperties {
+    override readonly treatPackageAsDirectory: boolean = false
+}
 
 export interface SettingItem {
     readonly type: SettingType
     readonly id: string
     readonly name: string
-    readonly value: SettingValue
+    readonly value: string | boolean
     readonly description?: string | DescriptionGetter
     readonly placeholder?: string | DescriptionGetter
+    readonly properties: SettingProperties
 }
 
 export abstract class SettingItemImpl implements SettingItem {
     readonly type: SettingType
     readonly id: string
     readonly name: string
-    readonly value: SettingValue
+    readonly value: string | boolean
     readonly description?: string | DescriptionGetter
     readonly placeholder?: string | DescriptionGetter
+    readonly properties: SettingProperties
 
     protected constructor(
         type: SettingType,
         id: string,
         name: string,
-        value: SettingValue,
+        value: string | boolean,
         description?: string | DescriptionGetter,
         placeholder?: string | DescriptionGetter,
+        properties: SettingProperties = new DefaultSettingProperties(),
     ) {
         this.type = type
         this.id = id
@@ -373,24 +389,25 @@ export abstract class SettingItemImpl implements SettingItem {
         this.value = value
         this.description = description
         this.placeholder = placeholder
+        this.properties = properties
     }
 }
 
 export class PlainSettingItem extends SettingItemImpl {
-    constructor(id: string, name: string, value: string, description?: string | DescriptionGetter, placeholder?: string | DescriptionGetter) {
-        super(SettingType.plain, id, name, value, description, placeholder)
+    constructor(id: string, name: string, value: string, description?: string | DescriptionGetter, placeholder?: string | DescriptionGetter, properties?: SettingProperties) {
+        super(SettingType.plain, id, name, value, description, placeholder, properties)
     }
 }
 
 export class InputSettingItem extends SettingItemImpl {
-    constructor(id: string, name: string, value: string, description?: string | DescriptionGetter) {
-        super(SettingType.path, id, name, value, description)
+    constructor(id: string, name: string, value: string, description?: string | DescriptionGetter, properties?: SettingProperties) {
+        super(SettingType.path, id, name, value, description, undefined, properties)
     }
 }
 
 export class SwitchSettingItem extends SettingItemImpl {
-    constructor(id: string, name: string, value: boolean, description?: string | DescriptionGetter) {
-        super(SettingType.switch, id, name, value, description)
+    constructor(id: string, name: string, value: boolean, description?: string | DescriptionGetter, properties?: SettingProperties) {
+        super(SettingType.switch, id, name, value, description, undefined, properties)
     }
 }
 
@@ -561,7 +578,13 @@ export abstract class ApplicationConfigImpl<P extends ProjectItemImpl> extends A
             this.configId(nativeId),
             `${i18n.t(sentenceKey.configPrefix)} ${getName(this.name)}「${this.configFilename}」${i18n.t(sentenceKey.configSuffix)}`,
             this.config,
+            undefined,
+            this.configSettingItemProperties()
         )
+    }
+
+    configSettingItemProperties(): SettingProperties {
+        return new DefaultSettingProperties()
     }
 
     override generateSettingItems(context: Context, nativeId: string): Array<SettingItem> {
@@ -623,7 +646,13 @@ export abstract class ApplicationConfigAndExecutorImpl<P extends ProjectItemImpl
             this.executorId(nativeId),
             `${i18n.t(sentenceKey.executorPrefix)} ${getName(this.name)} ${i18n.t(sentenceKey.executorSuffix)}`,
             this.executor,
+            undefined,
+            this.executorSettingItemProperties(),
         )
+    }
+
+    executorSettingItemProperties(): SettingProperties {
+        return new DefaultSettingProperties()
     }
 
     override generateSettingItems(context: Context, nativeId: string): Array<SettingItem> {

@@ -1,4 +1,7 @@
 import {isEmpty, isNil, reverse, unique} from 'licia'
+import {parse} from 'path'
+import {Context} from '../../Context'
+import {i18n, sentenceKey} from '../../i18n'
 import {
     ApplicationCacheConfigImpl,
     ApplicationConfigState,
@@ -9,13 +12,11 @@ import {
     PlainSettingItem,
     Platform,
     SettingItem,
+    SettingProperties,
     UtoolsExecutor,
 } from '../../Types'
-import {Context} from '../../Context'
+import {configExtensionFilter, systemUser} from '../../Utils'
 import {generatePinyinIndex} from '../../utils/index-generator/PinyinIndex'
-import {systemUser} from '../../Utils'
-import {i18n, sentenceKey} from '../../i18n'
-import {parse} from 'path'
 import {queryFromSqlite} from '../../utils/sqlite/SqliteExecutor'
 
 const EVERNOTE_MAC: string = 'evernote-mac'
@@ -39,6 +40,13 @@ export class EvernoteMacApplicationImpl extends ApplicationCacheConfigImpl<Evern
 
     override defaultConfigPath(): string {
         return `/Users/${systemUser()}/Library/Application Support/com.yinxiang.Mac/accounts/app.yinxiang.com/xxx/localNoteStore/LocalNoteStore.sqlite`
+    }
+
+    override configSettingItemProperties(): SettingProperties {
+        return {
+            ...super.configSettingItemProperties(),
+            filters: configExtensionFilter("sqlite")
+        }
     }
 
     async generateCacheProjectItems(context: Context): Promise<Array<EvernoteMacProjectItemImpl>> {
@@ -109,6 +117,13 @@ export class EvernoteWinApplicationImpl extends ApplicationCacheConfigImpl<Evern
 
     override defaultConfigPath(): string {
         return `C:\\Users\\${systemUser()}\\Yinxiang Biji\\Databases\\xxx#app.yinxiang.com.exb`
+    }
+
+    override configSettingItemProperties(): SettingProperties {
+        return {
+            ...super.configSettingItemProperties(),
+            filters: configExtensionFilter('exb'),
+        }
     }
 
     async generateCacheProjectItems(context: Context): Promise<Array<EvernoteWinProjectItemImpl>> {

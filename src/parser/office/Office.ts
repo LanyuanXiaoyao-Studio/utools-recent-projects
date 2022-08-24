@@ -1,3 +1,9 @@
+import plistParser from 'bplist-parser'
+import {execSync} from 'child_process'
+import {lstatSync, readdirSync} from 'fs'
+import {isEmpty, isNil, unique, Url} from 'licia'
+import {join, parse} from 'path'
+import {Context} from '../../Context'
 import {
     ApplicationCacheConfigImpl,
     ApplicationImpl,
@@ -9,15 +15,9 @@ import {
     Platform,
     ShellExecutor,
 } from '../../Types'
-import {isEmpty, isNil, unique, Url} from 'licia'
-import {join, parse} from 'path'
-import {execSync} from 'child_process'
 import {existsOrNot, systemUser} from '../../Utils'
-import {lstatSync, readdirSync} from 'fs'
-import {Context} from '../../Context'
-import {generatePinyinIndex} from '../../utils/index-generator/PinyinIndex'
-import plistParser from 'bplist-parser'
 import {generateFilePathIndex} from '../../utils/index-generator/FilePathIndex'
+import {generatePinyinIndex} from '../../utils/index-generator/PinyinIndex'
 
 const OFFICE_MAC: string = 'office-mac'
 const OFFICE_WIN: string = 'office-win'

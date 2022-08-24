@@ -1,3 +1,6 @@
+import {existsSync} from 'fs'
+import {isEmpty, unique} from 'licia'
+import {Context} from '../../../Context'
 import {
     ApplicationConfigState,
     ApplicationImpl,
@@ -8,15 +11,12 @@ import {
     Platform,
     SettingItem,
 } from '../../../Types'
-import {BrowserApplicationImpl} from '../index'
-import {isEmpty, unique} from 'licia'
 import {removeAllQueryFromUrl, systemHome} from '../../../Utils'
-import {Context} from '../../../Context'
-import {existsSync} from 'fs'
-import {generatePinyinIndex} from '../../../utils/index-generator/PinyinIndex'
-import {generateHostIndex} from '../../../utils/index-generator/HostIndex'
 import {generateFullUrlIndex} from '../../../utils/index-generator/FullUrlIndex'
+import {generateHostIndex} from '../../../utils/index-generator/HostIndex'
+import {generatePinyinIndex} from '../../../utils/index-generator/PinyinIndex'
 import {queryFromSqlite} from '../../../utils/sqlite/SqliteExecutor'
+import {BrowserApplicationImpl} from '../index'
 
 const SAFARI: string = 'safari'
 

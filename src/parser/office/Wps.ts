@@ -1,3 +1,10 @@
+import plistParser from 'bplist-parser'
+import {readFile} from 'fs/promises'
+import {isEmpty, isNil, unique} from 'licia'
+import {parse} from 'path'
+import WinReg from 'winreg'
+import {Context} from '../../Context'
+import {i18n, sentenceKey} from '../../i18n'
 import {
     ApplicationConfigAndExecutorImpl,
     ApplicationConfigImpl,
@@ -6,18 +13,12 @@ import {
     Group,
     GroupName,
     Platform,
+    SettingProperties,
     ShellExecutor,
 } from '../../Types'
-import {isEmpty, isNil, unique} from 'licia'
-import {parse} from 'path'
-import {existsOrNot, listRegistry, systemUser} from '../../Utils'
-import {Context} from '../../Context'
-import {readFile} from 'fs/promises'
-import {i18n, sentenceKey} from '../../i18n'
-import WinReg from 'winreg'
-import {generatePinyinIndex} from '../../utils/index-generator/PinyinIndex'
-import plistParser from 'bplist-parser'
+import {configExtensionFilter, existsOrNot, listRegistry, systemUser} from '../../Utils'
 import {generateFilePathIndex} from '../../utils/index-generator/FilePathIndex'
+import {generatePinyinIndex} from '../../utils/index-generator/PinyinIndex'
 
 const WPS_WIN_INTERNATION: string = 'wps-win-internation'
 const WPS_MAC_INTERNATION: string = 'wps-mac-internation'
@@ -99,6 +100,13 @@ export class WpsMacInternationalApplicationImpl extends ApplicationConfigImpl<Wp
         return `/Users/${systemUser()}/Library/Containers/com.kingsoft.wpsoffice.mac.global/Data/Library/Preferences/com.kingsoft.plist`
     }
 
+    override configSettingItemProperties(): SettingProperties {
+        return {
+            ...super.configSettingItemProperties(),
+            filters: [...configExtensionFilter('plist')],
+        }
+    }
+
     async generateProjectItems(context: Context): Promise<Array<WpsMacInternationalProjectItemImpl>> {
         let items: Array<WpsMacInternationalProjectItemImpl> = []
         let data = await plistParser.parseFile(this.config)
@@ -161,6 +169,13 @@ export class WpsLinuxInternationalApplicationImpl extends ApplicationConfigAndEx
 
     override defaultExecutorPath(): string {
         return `/usr/bin/wps`
+    }
+
+    override configSettingItemProperties(): SettingProperties {
+        return {
+            ...super.configSettingItemProperties(),
+            filters: configExtensionFilter('conf'),
+        }
     }
 
     async generateProjectItems(context: Context): Promise<Array<WpsLinuxInternationalProjectItemImpl>> {

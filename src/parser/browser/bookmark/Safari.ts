@@ -1,3 +1,8 @@
+import {parseFile} from 'bplist-parser'
+import {existsSync} from 'fs'
+import {isEmpty, isNil, unique} from 'licia'
+import {Context} from '../../../Context'
+import {i18n, sentenceKey} from '../../../i18n'
 import {
     ApplicationConfigState,
     ApplicationImpl,
@@ -8,16 +13,11 @@ import {
     ProjectItemImpl,
     SettingItem,
 } from '../../../Types'
-import {BrowserApplicationImpl} from '../index'
-import {Context} from '../../../Context'
-import {parseFile} from 'bplist-parser'
-import {isEmpty, isNil, unique} from 'licia'
 import {generateParents, systemHome} from '../../../Utils'
-import {existsSync} from 'fs'
-import {i18n, sentenceKey} from '../../../i18n'
-import {generatePinyinIndex} from '../../../utils/index-generator/PinyinIndex'
-import {generateHostIndex} from '../../../utils/index-generator/HostIndex'
 import {generateFullUrlIndex} from '../../../utils/index-generator/FullUrlIndex'
+import {generateHostIndex} from '../../../utils/index-generator/HostIndex'
+import {generatePinyinIndex} from '../../../utils/index-generator/PinyinIndex'
+import {BrowserApplicationImpl} from '../index'
 
 const SAFARI: string = 'safari'
 
