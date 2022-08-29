@@ -24,6 +24,7 @@ export class TyporaApplicationImpl extends ApplicationCacheConfigAndExecutorImpl
         super(
             TYPORA,
             'Typora',
+            'https://typora.io/',
             'icon/typora.png',
             TYPORA,
             [Platform.win32, Platform.linux],

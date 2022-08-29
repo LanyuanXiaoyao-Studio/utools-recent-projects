@@ -25,6 +25,7 @@ export class VsStudioApplicationImpl extends ApplicationCacheConfigImpl<VsStudio
         super(
             VS_STUDIO,
             'Visual Studio',
+            'https://visualstudio.microsoft.com/',
             'icon/ms-visual-studio.png',
             VS_STUDIO,
             [Platform.win32],

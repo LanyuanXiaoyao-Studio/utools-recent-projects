@@ -40,6 +40,30 @@ export const getDefaultConfigPath: (id: BrowserId) => string = id => {
     })
 }
 
+export const getHomepage: (id: BrowserId) => string = id => {
+    return homepageMap[id]
+}
+
+const homepageMap: { [key: string]: string } = {
+    'chromium': 'https://www.chromium.org/chromium-projects/',
+    'firefox': 'https://www.mozilla.org/en-US/firefox/products/',
+    'chrome': 'https://www.google.com/chrome/',
+    'edge': 'https://www.microsoft.com/en-us/edge',
+    'qq': 'https://browser.qq.com/',
+    'maxthon': 'https://www.maxthon.com/',
+    'opera': 'https://www.opera.com/',
+    'brave': 'https://brave.com/',
+    'vivaldi': 'https://vivaldi.com/',
+    'cent': 'http://www.centbrowser.com/',
+    'yandex': 'https://yandex.com/',
+    'liebao': 'https://www.liebao.cn/',
+    'deepin': '',
+    'xiaobai': 'https://www.minibai.com/',
+    'twinkstar': 'https://www.twinkstar.com/',
+    'huawei': '',
+    'catsxp': 'https://www.catsxp.com/',
+}
+
 const pathDescriptionMap: { [key: string]: () => StringByOS } = {
     'chromium': () => {
         return {}

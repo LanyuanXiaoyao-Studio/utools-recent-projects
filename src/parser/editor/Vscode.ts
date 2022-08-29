@@ -22,6 +22,7 @@ import {queryFromSqlite} from '../../utils/sqlite/SqliteExecutor'
 
 const VSCODE: string = 'vscode'
 const VSCODE_1640: string = 'vscode-1640'
+const HOMEPAGE: string = 'https://code.visualstudio.com/'
 
 export class VscodeProjectItemImpl extends ProjectItemImpl {}
 
@@ -96,6 +97,7 @@ export class VscodeApplicationImpl extends ApplicationCacheConfigAndExecutorImpl
         super(
             VSCODE,
             'Visual Studio Code (< 1.64.0)',
+            HOMEPAGE,
             'icon/ms-visual-studio-code.png',
             VSCODE,
             [Platform.win32, Platform.darwin, Platform.linux],
@@ -170,6 +172,7 @@ export class Vscode1640ApplicationImpl extends ApplicationCacheConfigAndExecutor
         super(
             VSCODE_1640,
             'Visual Studio Code',
+            HOMEPAGE,
             'icon/ms-visual-studio-code.png',
             VSCODE_1640,
             [Platform.win32, Platform.darwin, Platform.linux],

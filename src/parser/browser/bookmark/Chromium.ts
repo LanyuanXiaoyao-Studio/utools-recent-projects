@@ -15,7 +15,7 @@ import {generateParents, parseTimeFrom1604} from '../../../Utils'
 import {generateFullUrlIndex} from '../../../utils/index-generator/FullUrlIndex'
 import {generateHostIndex} from '../../../utils/index-generator/HostIndex'
 import {generatePinyinIndex} from '../../../utils/index-generator/PinyinIndex'
-import {BrowserApplicationImpl, BrowserId, getDefaultConfigPath} from '../index'
+import {BrowserApplicationImpl, BrowserId, getDefaultConfigPath, getHomepage} from '../index'
 
 const CHROMIUM: string = 'chromium'
 const configName = 'Bookmarks'
@@ -27,7 +27,7 @@ export class ChromiumBookmarkApplicationImpl extends BrowserApplicationImpl<Chro
     private readonly browserId: BrowserId
 
     constructor(id: BrowserId, name: string | NameGetter, type: string, platforms: Array<Platform> = [Platform.win32, Platform.darwin, Platform.linux], description: boolean = true, beta: boolean = false, configName: string = '') {
-        super(`${id}-bookmark`, name, `icon/browser-${id}.png`, type, platforms, Group[GroupName.browserBookmark], description ? () => handler(this.defaultConfigPath()) : undefined, beta, configName)
+        super(`${id}-bookmark`, name, getHomepage(id), `icon/browser-${id}.png`, type, platforms, Group[GroupName.browserBookmark], description ? () => handler(this.defaultConfigPath()) : undefined, beta, configName)
         this.browserId = id
     }
 

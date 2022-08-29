@@ -456,6 +456,7 @@ export type DescriptionGetter = (context?: Context) => string | undefined
 export interface Application<P extends ProjectItemImpl> {
     readonly id: string
     readonly name: string | NameGetter
+    readonly homepage: string
     readonly icon: string
     readonly type: string
     readonly platform: Array<Platform>
@@ -476,6 +477,7 @@ export interface Application<P extends ProjectItemImpl> {
 export abstract class ApplicationImpl<P extends ProjectItemImpl> implements Application<P> {
     readonly id: string
     readonly name: string | NameGetter
+    readonly homepage: string
     readonly icon: string
     readonly type: string
     readonly platform: Array<Platform>
@@ -484,9 +486,10 @@ export abstract class ApplicationImpl<P extends ProjectItemImpl> implements Appl
     readonly beta: boolean
     enabled: boolean = false
 
-    protected constructor(id: string, name: string | NameGetter, icon: string, type: string, platform: Array<Platform>, group: string = 'default', description: string | DescriptionGetter = '', beta: boolean = false) {
+    protected constructor(id: string, name: string | NameGetter, homepage: string = '', icon: string, type: string, platform: Array<Platform>, group: string = 'default', description: string | DescriptionGetter = '', beta: boolean = false) {
         this.id = id
         this.name = name
+        this.homepage = homepage
         this.icon = icon
         this.type = type
         this.platform = platform
@@ -559,8 +562,8 @@ export abstract class ApplicationConfigImpl<P extends ProjectItemImpl> extends A
     readonly configFilename: string
     config: string = ''
 
-    constructor(id: string, name: string | NameGetter, icon: string, type: string, platform: Array<Platform>, group: string = 'default', description: string | DescriptionGetter = '', beta: boolean = false, configFilename: string) {
-        super(id, name, icon, type, platform, group, description, beta)
+    constructor(id: string, name: string | NameGetter, homepage: string = '', icon: string, type: string, platform: Array<Platform>, group: string = 'default', description: string | DescriptionGetter = '', beta: boolean = false, configFilename: string) {
+        super(id, name, homepage, icon, type, platform, group, description, beta)
         this.configFilename = configFilename
     }
 
@@ -579,7 +582,7 @@ export abstract class ApplicationConfigImpl<P extends ProjectItemImpl> extends A
             `${i18n.t(sentenceKey.configPrefix)} ${getName(this.name)}「${this.configFilename}」${i18n.t(sentenceKey.configSuffix)}`,
             this.config,
             undefined,
-            this.configSettingItemProperties()
+            this.configSettingItemProperties(),
         )
     }
 

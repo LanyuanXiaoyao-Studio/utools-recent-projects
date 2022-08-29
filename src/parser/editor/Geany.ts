@@ -36,6 +36,7 @@ export class GeanyApplicationImpl extends ApplicationCacheConfigAndExecutorImpl<
         super(
             GEANY,
             'Geany',
+            'https://www.geany.org/',
             'icon/geany.png',
             GEANY,
             [Platform.win32, Platform.darwin, Platform.linux],

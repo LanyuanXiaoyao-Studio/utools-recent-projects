@@ -31,6 +31,7 @@ export class OfficeMacApplicationImpl extends ApplicationCacheConfigImpl<OfficeP
         super(
             `office-mac-${id}`,
             name,
+            'https://www.office.com/',
             icon,
             OFFICE_MAC,
             [Platform.darwin],
@@ -94,6 +95,7 @@ export class OfficeWinApplicationImpl extends ApplicationImpl<OfficeProjectItemI
         super(
             OFFICE_WIN,
             'Office 2019',
+            'https://www.office.com/',
             'icon/office.png',
             OFFICE_WIN,
             [Platform.win32],

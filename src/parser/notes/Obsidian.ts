@@ -26,6 +26,7 @@ export class ObsidianApplicationImpl extends ApplicationConfigImpl<ObsidianProje
         super(
             OBSIDIAN,
             'Obsidian',
+            'https://obsidian.md/',
             'icon/obsidian.png',
             OBSIDIAN,
             [Platform.win32, Platform.darwin, Platform.linux],

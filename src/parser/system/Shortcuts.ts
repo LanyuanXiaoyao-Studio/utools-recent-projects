@@ -25,6 +25,7 @@ export class ShortcutsApplicationImpl extends ApplicationCacheConfigImpl<Shortcu
         super(
             SHORTCUTS,
             () => i18n.t(sentenceKey.shortcuts),
+            'https://apps.apple.com/cn/app/%E5%BF%AB%E6%8D%B7%E6%8C%87%E4%BB%A4/id915249334',
             'icon/shortcuts.png',
             SHORTCUTS,
             [Platform.darwin],

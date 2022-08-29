@@ -28,6 +28,7 @@ export class LibreOfficeApplicationImpl extends ApplicationCacheConfigAndExecuto
         super(
             LIBRE,
             'LibreOffice',
+            'https://www.libreoffice.org/',
             'icon/libreoffice.png',
             LIBRE,
             [Platform.win32, Platform.darwin, Platform.linux],

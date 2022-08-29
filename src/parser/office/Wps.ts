@@ -31,6 +31,7 @@ export class WpsWinInternationalApplicationImpl extends ApplicationImpl<WpsWinIn
         super(
             WPS_WIN_INTERNATION,
             'WPS Office (International)',
+            'https://www.wps.com/',
             'icon/wps-internation.png',
             WPS_WIN_INTERNATION,
             [Platform.win32],
@@ -85,6 +86,7 @@ export class WpsMacInternationalApplicationImpl extends ApplicationConfigImpl<Wp
         super(
             WPS_MAC_INTERNATION,
             'WPS Office (International)',
+            'https://www.wps.com/',
             'icon/wps-internation.png',
             WPS_MAC_INTERNATION,
             [Platform.darwin],
@@ -153,6 +155,7 @@ export class WpsLinuxInternationalApplicationImpl extends ApplicationConfigAndEx
         super(
             WPS_LINUX_INTERNATION,
             'WPS Office (International)',
+            'https://www.wps.com/',
             'icon/wps-internation.png',
             WPS_LINUX_INTERNATION,
             [Platform.linux],

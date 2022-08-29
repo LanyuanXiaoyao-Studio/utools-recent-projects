@@ -34,6 +34,7 @@ export class DefaultFolderXApplicationImpl extends ApplicationCacheImpl<DefaultF
         super(
             DEFAULT_FOLDER_X,
             'Default Folder X',
+            'https://stclairsoft.com/DefaultFolderX/',
             'icon/default-folder-x.png',
             DEFAULT_FOLDER_X,
             [Platform.darwin],

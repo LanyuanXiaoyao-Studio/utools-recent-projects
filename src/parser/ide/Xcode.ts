@@ -53,6 +53,7 @@ export class XcodeApplicationImpl extends ApplicationCacheImpl<XcodeProjectItemI
         super(
             XCODE,
             'Xcode',
+            'https://developer.apple.com/xcode/',
             'icon/xcode.png',
             XCODE,
             [Platform.darwin],

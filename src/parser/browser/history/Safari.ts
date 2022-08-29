@@ -27,6 +27,7 @@ export class SafariHistoryApplicationImpl extends BrowserApplicationImpl<SafariH
         super(
             `${SAFARI}-history`,
             'Safari',
+            'https://www.apple.com/safari/',
             `icon/browser-${SAFARI}.png`,
             SAFARI,
             [Platform.darwin],

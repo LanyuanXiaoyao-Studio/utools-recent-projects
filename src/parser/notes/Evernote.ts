@@ -29,6 +29,7 @@ export class EvernoteMacApplicationImpl extends ApplicationCacheConfigImpl<Evern
         super(
             EVERNOTE_MAC,
             () => i18n.t(sentenceKey.evernote),
+            'https://www.yinxiang.com/',
             'icon/evernote.png',
             EVERNOTE_MAC,
             [Platform.darwin],
@@ -106,6 +107,7 @@ export class EvernoteWinApplicationImpl extends ApplicationCacheConfigImpl<Evern
         super(
             EVERNOTE_WIN,
             () => i18n.t(sentenceKey.evernote),
+            'https://www.yinxiang.com/',
             'icon/evernote.png',
             EVERNOTE_WIN,
             [Platform.win32],

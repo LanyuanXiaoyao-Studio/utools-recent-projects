@@ -1,3 +1,8 @@
+import {isEmpty, isNil} from 'licia'
+import Nano, {Component, Fragment} from 'nano-jsx'
+import {Context} from '../../Context'
+import {i18n, sentenceKey} from '../../i18n'
+import {iconMap} from '../../Icon'
 import {
     ApplicationImpl,
     InputSettingItem,
@@ -6,16 +11,11 @@ import {
     SettingType,
     SwitchSettingItem,
 } from '../../Types'
-import Nano, {Component, Fragment} from 'nano-jsx'
-import {isEmpty, isNil} from 'licia'
-import {iconMap} from '../../Icon'
+import {getDescriptionByTemplate, getName} from '../../Utils'
 import {settingStore} from '../Store'
-import {Context} from '../../Context'
-import {i18n, sentenceKey} from '../../i18n'
+import {Input} from './adapter-settings/setting-items/Input'
 import {Plain} from './adapter-settings/setting-items/Plain'
 import {EnableSwitch, Switch} from './adapter-settings/setting-items/Switch'
-import {Input} from './adapter-settings/setting-items/Input'
-import {getDescriptionByTemplate, getName} from '../../Utils'
 
 export interface SettingCardProps {
     context: Context
@@ -64,14 +64,25 @@ export class SettingCard extends Component<SettingCardProps, SettingCardState> {
                             src={iconMap[this.props.application.icon] ?? ''}
                             alt={getName(this.props.application.name)}
                         />
-                        <span
+                        <div
                             class={'title' + (this.props.application.beta ? ' badge badge-unready' : '')}
                             data-badge={i18n.t(sentenceKey.beta)}
                         >
-                            {getName(this.props.application.name)}
-                        </span>
+                            <div>{getName(this.props.application.name)}</div>
+                        </div>
                     </div>
                     <div class="form-group card-body">
+                        <div class="extra-info">
+                            {isEmpty(this.props.application.homepage)
+                                ? <Fragment/>
+                                : <span
+                                    class="homepage c-hand bg-primary p-1 my-2"
+                                    onclick={() => utools.shellOpenExternal(this.props.application.homepage)}
+                                >
+                                    软件官网
+                            </span>}
+                        </div>
+
                         {this.props.application.enabled
                             ? isNil(this.props.application.description)
                                 ? <Fragment/>

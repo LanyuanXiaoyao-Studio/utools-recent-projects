@@ -29,6 +29,7 @@ export class SublimeApplicationImpl extends ApplicationCacheConfigAndExecutorImp
         super(
             SUBLIME,
             'Sublime Text',
+            'https://www.sublimetext.com/',
             'icon/sublime.png',
             SUBLIME,
             [Platform.win32, Platform.darwin, Platform.linux],

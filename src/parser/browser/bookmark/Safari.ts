@@ -17,7 +17,7 @@ import {generateParents, systemHome} from '../../../Utils'
 import {generateFullUrlIndex} from '../../../utils/index-generator/FullUrlIndex'
 import {generateHostIndex} from '../../../utils/index-generator/HostIndex'
 import {generatePinyinIndex} from '../../../utils/index-generator/PinyinIndex'
-import {BrowserApplicationImpl} from '../index'
+import {BrowserApplicationImpl, getHomepage} from '../index'
 
 const SAFARI: string = 'safari'
 
@@ -28,6 +28,7 @@ export class SafariBookmarkApplicationImpl extends BrowserApplicationImpl<Safari
         super(
             `${SAFARI}-bookmark`,
             'Safari',
+            'https://www.apple.com/safari/',
             `icon/browser-${SAFARI}.png`,
             SAFARI,
             [Platform.darwin],

@@ -15,7 +15,7 @@ import {generateFullUrlIndex} from '../../../utils/index-generator/FullUrlIndex'
 import {generateHostIndex} from '../../../utils/index-generator/HostIndex'
 import {generatePinyinIndex} from '../../../utils/index-generator/PinyinIndex'
 import {queryFromSqlite} from '../../../utils/sqlite/SqliteExecutor'
-import {BrowserApplicationImpl, BrowserId, getDefaultConfigPath} from '../index'
+import {BrowserApplicationImpl, BrowserId, getDefaultConfigPath, getHomepage} from '../index'
 
 const CHROMIUM: string = 'chromium'
 const configName = 'History'
@@ -27,7 +27,7 @@ export class ChromiumHistoryApplicationImpl extends BrowserApplicationImpl<Chrom
     private readonly browserId: BrowserId
 
     constructor(id: BrowserId, name: string | NameGetter, type: string, platforms: Array<Platform> = [Platform.win32, Platform.darwin, Platform.linux], description: boolean = true, beta: boolean = false, configName: string = '') {
-        super(`${id}-history`, name, `icon/browser-${id}.png`, type, platforms, Group[GroupName.browserHistory], description ? () => handler(this.defaultConfigPath()) : undefined, beta, configName)
+        super(`${id}-history`, name, getHomepage(id), `icon/browser-${id}.png`, type, platforms, Group[GroupName.browserHistory], description ? () => handler(this.defaultConfigPath()) : undefined, beta, configName)
         this.browserId = id
     }
 
