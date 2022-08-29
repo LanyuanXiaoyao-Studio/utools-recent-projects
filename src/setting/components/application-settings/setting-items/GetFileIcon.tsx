@@ -1,12 +1,12 @@
 import Nano, {Fragment} from 'nano-jsx'
+import {Context} from '../../../../Context'
+import {i18n, sentenceKey} from '../../../../i18n'
+import {CloudSyncChip} from '../../Chips'
 import {
     ApplicationSettingItem,
     ApplicationSettingItemProps,
     ApplicationSettingItemState,
 } from '../ApplicationSettingItem'
-import {i18n, sentenceKey} from '../../../../i18n'
-import {CloudSyncChip} from '../Chips'
-import {Context} from '../../../../Context'
 
 export class GetFileIcon extends ApplicationSettingItem<ApplicationSettingItemProps, ApplicationSettingItemState> {
     override render() {

@@ -1,6 +1,6 @@
+import {I18n} from 'licia'
 import {EnUs} from './EnUs'
 import {ZhCn} from './ZhCn'
-import {I18n} from 'licia'
 
 export const sentenceKey = {
     auto: 'auto',
@@ -102,6 +102,8 @@ export const sentenceKey = {
     unSupportTipsTitle: 'unSupportTipsTitle',
     utoolsVersion: 'utoolsVersion',
     xiaobaiBrowser: 'xiaobaiBrowser',
+    homepage: 'homepage',
+    clickToOpen: 'clickToOpen',
 }
 
 export interface Sentence {
@@ -203,6 +205,8 @@ export interface Sentence {
     readonly unSupportTipsTitle: string
     readonly utoolsVersion: string
     readonly xiaobaiBrowser: string
+    readonly homepage: string
+    readonly clickToOpen: string
 }
 
 let languageData = new I18n('zh-CN', {

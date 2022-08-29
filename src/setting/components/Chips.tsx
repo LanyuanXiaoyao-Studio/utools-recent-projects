@@ -1,5 +1,41 @@
 import Nano, {Component, Fragment} from 'nano-jsx'
-import {i18n, sentenceKey} from '../../../i18n'
+import {i18n, sentenceKey} from '../../i18n'
+
+export interface CategoryChipProps {
+    category: string
+}
+
+export class CategoryChip extends Component<CategoryChipProps> {
+    override render() {
+        return (
+            <Fragment>
+                <span class="chip-wrapper">
+                    <span class="chip c-hand category">{this.props.category}</span>
+                </span>
+            </Fragment>
+        )
+    }
+}
+
+export interface HomepageChipProps {
+    homepage: string
+}
+
+export class HomepageChip extends Component<HomepageChipProps> {
+    override render() {
+        return (
+            <Fragment>
+                <span
+                    class="chip-wrapper tooltip tooltip-right"
+                    data-tooltip={`${i18n.t(sentenceKey.clickToOpen)} ${this.props.homepage}`}
+                    onclick={() => utools.shellOpenExternal(this.props.homepage)}
+                >
+                    <span class="chip c-hand homepage">{i18n.t(sentenceKey.homepage)}</span>
+                </span>
+            </Fragment>
+        )
+    }
+}
 
 export class CloudSyncChip extends Component {
     override render() {

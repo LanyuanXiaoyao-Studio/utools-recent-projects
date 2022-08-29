@@ -16,6 +16,7 @@ import {settingStore} from '../Store'
 import {Input} from './adapter-settings/setting-items/Input'
 import {Plain} from './adapter-settings/setting-items/Plain'
 import {EnableSwitch, Switch} from './adapter-settings/setting-items/Switch'
+import {CategoryChip, HomepageChip} from './Chips'
 
 export interface SettingCardProps {
     context: Context
@@ -54,7 +55,7 @@ export class SettingCard extends Component<SettingCardProps, SettingCardState> {
                     id={this.props.application.id}
                 />
                 <div class="form-item setting-card card">
-                    <div class="card-mark">{this.props.application.group}</div>
+                    {/*<div class="card-mark">{this.props.application.group}</div>*/}
                     <div
                         class={this.props.application.beta ? 'form-legend card-header tooltip tooltip-top' : 'form-legend card-header'}
                         data-tooltip={i18n.t(sentenceKey.betaDesc)}
@@ -68,19 +69,16 @@ export class SettingCard extends Component<SettingCardProps, SettingCardState> {
                             class={'title' + (this.props.application.beta ? ' badge badge-unready' : '')}
                             data-badge={i18n.t(sentenceKey.beta)}
                         >
-                            <div>{getName(this.props.application.name)}</div>
+                            <span>{getName(this.props.application.name)}</span>
                         </div>
                     </div>
-                    <div class="form-group card-body">
-                        <div class="extra-info">
-                            {isEmpty(this.props.application.homepage)
-                                ? <Fragment/>
-                                : <span
-                                    class="homepage c-hand bg-primary p-1 my-2"
-                                    onclick={() => utools.shellOpenExternal(this.props.application.homepage)}
-                                >
-                                    软件官网
-                            </span>}
+                    <div
+                        class="form-group card-body"
+                        style="padding-top: 0"
+                    >
+                        <div class="form-tags py-2">
+                            <HomepageChip homepage={this.props.application.homepage}/>
+                            <CategoryChip category={this.props.application.group}/>
                         </div>
 
                         {this.props.application.enabled

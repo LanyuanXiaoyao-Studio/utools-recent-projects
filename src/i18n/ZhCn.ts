@@ -99,4 +99,6 @@ export class ZhCn implements Sentence {
     readonly unSupportTipsTitle: string = '该关键字不支持当前平台'
     readonly utoolsVersion: string = 'uTools 版本'
     readonly xiaobaiBrowser: string = '小白浏览器'
+    readonly homepage: string = '官网'
+    readonly clickToOpen: string = '点击打开'
 }

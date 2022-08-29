@@ -99,4 +99,6 @@ export class EnUs implements Sentence {
     readonly unSupportTipsTitle: string = 'Feature is not support this platform'
     readonly utoolsVersion: string = 'uTools Version'
     readonly xiaobaiBrowser: string = 'Xiaobai'
+    readonly homepage: string = 'Homepage'
+    readonly clickToOpen: string = 'Click to open'
 }
