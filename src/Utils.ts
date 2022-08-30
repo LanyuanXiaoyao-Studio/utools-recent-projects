@@ -36,12 +36,17 @@ export const existsOrNot: (string, ExistsOrNotItem) => ExistsOrNotItem = (path, 
         icon: item.icon,
     }
 
+export const isMacOS = () => {
+    // @ts-ignore
+    return isNil(utools.isMacOS) ? utools.isMacOs() : utools.isMacOS()
+}
+
 /**
  * 用于从 uTools 的系统版本转换为枚举类型的系统版本, 方便后续比较使用
  */
 export const platformFromUtools: () => Platform = () => {
     if (utools.isWindows()) return Platform.win32
-    else if (utools.isMacOS()) return Platform.darwin
+    else if (isMacOS()) return Platform.darwin
     else if (utools.isLinux()) return Platform.linux
     else return Platform.unknown
 }

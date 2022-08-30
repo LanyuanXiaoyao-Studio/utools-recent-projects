@@ -21,7 +21,7 @@ import {
     ShellExecutor,
     SwitchSettingItem,
 } from '../../Types'
-import {configExtensionFilter, existsOrNot, generateStringByOS, systemUser} from '../../Utils'
+import {configExtensionFilter, existsOrNot, generateStringByOS, isMacOS, systemUser} from '../../Utils'
 import {generateFilePathIndex} from '../../utils/index-generator/FilePathIndex'
 import {generatePinyinIndex} from '../../utils/index-generator/PinyinIndex'
 
@@ -31,7 +31,7 @@ export class GeanyProjectItemImpl extends ProjectItemImpl {}
 
 export class GeanyApplicationImpl extends ApplicationCacheConfigAndExecutorImpl<GeanyProjectItemImpl> {
     openInNew: boolean = false
-    private isMacOs: boolean = utools.isMacOS()
+    private isMacOs: boolean = isMacOS()
 
     constructor() {
         super(
