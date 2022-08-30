@@ -61,7 +61,7 @@ export class SettingCard extends Component<SettingCardProps, SettingCardState> {
                         data-tooltip={i18n.t(sentenceKey.betaDesc)}
                     >
                         <img
-                            class="icon"
+                            class={`icon ${this.props.context.enableRoundRound ? 'round-round' : ''}`}
                             src={iconMap[this.props.application.icon] ?? ''}
                             alt={getName(this.props.application.name)}
                         />

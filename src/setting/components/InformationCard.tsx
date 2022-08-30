@@ -1,6 +1,7 @@
 import Nano, {Component, Fragment, Img} from 'nano-jsx'
-import {Platform} from '../../Types'
+import {Context} from '../../Context'
 import {i18n, sentenceKey} from '../../i18n'
+import {Platform} from '../../Types'
 import {systemUser} from '../../Utils'
 
 const platformName: (Platform) => string = platform => {
@@ -16,6 +17,7 @@ const platformName: (Platform) => string = platform => {
 }
 
 export interface InformationCardProps {
+    context: Context
     platform: Platform
 }
 
@@ -51,7 +53,7 @@ export class InformationCard extends Component<InformationCardProps, Information
                 <div class="form-item information-card card">
                     <div class="card-header">
                         <Img
-                            class="icon"
+                            class={`icon ${this.props.context.enableRoundRound ? 'round-round' : ''}`}
                             src={this.state.avatar}
                         />
                         <span class="title">{this.state.username}</span>

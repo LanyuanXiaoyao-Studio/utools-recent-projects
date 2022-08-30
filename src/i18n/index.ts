@@ -104,6 +104,8 @@ export const sentenceKey = {
     xiaobaiBrowser: 'xiaobaiBrowser',
     homepage: 'homepage',
     clickToOpen: 'clickToOpen',
+    roundTips: 'roundTips',
+    roundCloseTips: 'roundCloseTips',
 }
 
 export interface Sentence {
@@ -207,6 +209,8 @@ export interface Sentence {
     readonly xiaobaiBrowser: string
     readonly homepage: string
     readonly clickToOpen: string
+    readonly roundTips: string
+    readonly roundCloseTips: string
 }
 
 let languageData = new I18n('zh-CN', {

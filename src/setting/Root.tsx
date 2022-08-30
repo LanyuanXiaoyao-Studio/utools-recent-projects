@@ -1,16 +1,16 @@
-import Nano, {Component, Fragment} from 'nano-jsx'
-import {CustomCss, SpectreCss, SpectreIconCss} from './css'
-import {ApplicationImpl, Platform, ProjectItemImpl} from '../Types'
-import {SettingCard} from './components/SettingCard'
-import {Catalogue} from './components/Catalogue'
-import {Announcement} from './components/Announcement'
 import {contain} from 'licia'
-import {InformationCard} from './components/InformationCard'
-import {compareChar, isDevelopment, platformFromUtools} from '../Utils'
-import {ApplicationSettingCard} from './components/application-settings/ApplicationSettingCard'
-import {Context} from '../Context'
+import Nano, {Component, Fragment} from 'nano-jsx'
 import {applications} from '../Applications'
+import {Context} from '../Context'
 import {i18n, sentenceKey} from '../i18n'
+import {ApplicationImpl, Platform, ProjectItemImpl} from '../Types'
+import {compareChar, isDevelopment, platformFromUtools} from '../Utils'
+import {Announcement} from './components/Announcement'
+import {ApplicationSettingCard} from './components/application-settings/ApplicationSettingCard'
+import {Catalogue} from './components/Catalogue'
+import {InformationCard} from './components/InformationCard'
+import {SettingCard} from './components/SettingCard'
+import {CustomCss, SpectreCss, SpectreIconCss} from './css'
 
 interface RootProps {
     context: Context
@@ -71,7 +71,10 @@ class Root extends Component<RootProps, RootState> {
                                     : <Fragment/>}
                                 {/*右侧配置信息*/}
                                 {/*用户和系统信息*/}
-                                <InformationCard platform={this.state.platform}/>
+                                <InformationCard
+                                    context={this.props.context}
+                                    platform={this.state.platform}
+                                />
                                 <ApplicationSettingCard context={this.props.context}/>
                                 {/*具体应用配置信息*/}
                                 {this.state.applications

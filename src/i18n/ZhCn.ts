@@ -101,4 +101,6 @@ export class ZhCn implements Sentence {
     readonly xiaobaiBrowser: string = '小白浏览器'
     readonly homepage: string = '官网'
     readonly clickToOpen: string = '点击打开'
+    readonly roundTips: string = '转起来！转起来！'
+    readonly roundCloseTips: string = '彩蛋已关闭'
 }

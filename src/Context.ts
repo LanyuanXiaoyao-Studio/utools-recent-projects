@@ -12,6 +12,7 @@ export class Context {
     static enableFilePathInMatchId: string = 'setting-file-path-in-match'
     static enableFullUrlInMatchId: string = 'setting-full-url-in-match'
     static enableOutPluginImmediatelyId: string = 'setting-out-plugin-immediately'
+    static enableRoundRoundId: string = 'setting-round-round'
 
     readonly languageSetting: string = 'auto'
     readonly enableFilterNonExistsFiles: boolean = false
@@ -26,6 +27,7 @@ export class Context {
     readonly enableFilePathInMatch: boolean = true
     readonly enableFullUrlInMatch: boolean = false
     readonly enableOutPluginImmediately: boolean = true
+    readonly enableRoundRound: boolean = true
 
     constructor(nativeId: string) {
         this.languageSetting = utools.dbStorage.getItem(Context.languageSettingId) ?? 'auto'
@@ -41,6 +43,7 @@ export class Context {
         this.enableFullUrlInMatch = utools.dbStorage.getItem(Context.enableFullUrlInMatchId) ?? false
         this.enableEditPathInputDirectly = utools.dbStorage.getItem(Context.joinId(nativeId, Context.enableEditPathInputDirectlyId)) ?? false
         this.enableOutPluginImmediately = utools.dbStorage.getItem(Context.enableOutPluginImmediatelyId) ?? true
+        this.enableRoundRound = utools.dbStorage.getItem(Context.enableRoundRoundId) ?? true
     }
 
     static joinId(nativeId: string, id: string): string {

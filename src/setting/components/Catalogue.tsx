@@ -1,11 +1,11 @@
-import Nano, {Component, Fragment} from 'nano-jsx'
-import {Application, ApplicationConfigState, ProjectItemImpl} from '../../Types'
 import {isNil} from 'licia'
-import {settingStore} from '../Store'
-import {compareChar, getName} from '../../Utils'
+import Nano, {Component, Fragment} from 'nano-jsx'
+import {Context} from '../../Context'
 import {i18n, sentenceKey} from '../../i18n'
 import {iconMap} from '../../Icon'
-import {Context} from '../../Context'
+import {Application, ApplicationConfigState, ProjectItemImpl} from '../../Types'
+import {compareChar, getName} from '../../Utils'
+import {settingStore} from '../Store'
 
 export interface BadgeInfo {
     readonly show: boolean
@@ -91,13 +91,13 @@ export class Catalogue extends Component<CatalogueProps, CatalogueState> {
                 <ul class="nav">
                     <li class="nav-item">
                         <a href="#information-card">
-                            <i class="icon icon-people"/>
+                            <i class={`icon icon-people ${this.localContext.enableRoundRound ? 'round-round' : ''}`}/>
                             <b>{i18n.t(sentenceKey.systemInformation)}</b>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="#application-setting-card">
-                            <i class="icon icon-edit"/>
+                            <i class={`icon icon-edit ${this.localContext.enableRoundRound ? 'round-round' : ''}`}/>
                             <b>{i18n.t(sentenceKey.pluginSetting)}</b>
                         </a>
                     </li>
@@ -106,7 +106,7 @@ export class Catalogue extends Component<CatalogueProps, CatalogueState> {
                             href="#"
                             onclick={() => Catalogue.help()}
                         >
-                            <i class="icon icon-message"/>
+                            <i class={`icon icon-message ${this.localContext.enableRoundRound ? 'round-round' : ''}`}/>
                             <b>{i18n.t(sentenceKey.settingDocument)}</b>
                         </a>
                     </li>
@@ -115,7 +115,7 @@ export class Catalogue extends Component<CatalogueProps, CatalogueState> {
                             href="#"
                             onclick={() => Catalogue.home()}
                         >
-                            <i class="icon icon-link"/>
+                            <i class={`icon icon-link ${this.localContext.enableRoundRound ? 'round-round' : ''}`}/>
                             <b>{i18n.t(sentenceKey.sourceCodeRepository)}</b>
                         </a>
                     </li>
@@ -124,7 +124,7 @@ export class Catalogue extends Component<CatalogueProps, CatalogueState> {
                             href="#"
                             onclick={() => Catalogue.survey()}
                         >
-                            <i class="icon icon-emoji"/>
+                            <i class={`icon icon-emoji ${this.localContext.enableRoundRound ? 'round-round' : ''}`}/>
                             <b>{i18n.t(sentenceKey.requestMoreApplication)}</b>
                         </a>
                     </li>
@@ -168,7 +168,7 @@ export class Catalogue extends Component<CatalogueProps, CatalogueState> {
                                             >
                                                 <a href={'#' + app.id}>
                                                     <img
-                                                        class="catalogue-app-icon"
+                                                        class={`catalogue-app-icon ${this.localContext.enableRoundRound ? 'round-round' : ''}`}
                                                         src={iconMap[app.icon] ?? ''}
                                                         alt={getName(app.name)}
                                                     />

@@ -101,4 +101,6 @@ export class EnUs implements Sentence {
     readonly xiaobaiBrowser: string = 'Xiaobai'
     readonly homepage: string = 'Homepage'
     readonly clickToOpen: string = 'Click to open'
+    readonly roundTips: string = 'Round! Round!'
+    readonly roundCloseTips: string = 'Easter egg is closed'
 }
