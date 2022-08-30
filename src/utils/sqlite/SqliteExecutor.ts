@@ -1,6 +1,6 @@
+import {readFileSync} from 'fs'
 import {isEmpty, isNil} from 'licia'
 import sqlInit, {Database, Statement} from 'sql.js'
-import {readFileSync} from 'fs'
 
 let SQL
 

@@ -202,7 +202,7 @@ export class Vscode1640ApplicationImpl extends ApplicationCacheConfigAndExecutor
     override configSettingItemProperties(): SettingProperties {
         return {
             ...super.configSettingItemProperties(),
-            filters: configExtensionFilter("vscdb")
+            filters: configExtensionFilter('vscdb'),
         }
     }
 

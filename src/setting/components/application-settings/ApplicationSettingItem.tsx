@@ -1,5 +1,5 @@
-import {Context} from '../../../Context'
 import {Component} from 'nano-jsx'
+import {Context} from '../../../Context'
 
 export interface ApplicationSettingItemProps {
     context: Context

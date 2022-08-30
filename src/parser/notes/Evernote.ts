@@ -46,7 +46,7 @@ export class EvernoteMacApplicationImpl extends ApplicationCacheConfigImpl<Evern
     override configSettingItemProperties(): SettingProperties {
         return {
             ...super.configSettingItemProperties(),
-            filters: configExtensionFilter("sqlite")
+            filters: configExtensionFilter('sqlite'),
         }
     }
 

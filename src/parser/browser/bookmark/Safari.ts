@@ -17,7 +17,7 @@ import {generateParents, systemHome} from '../../../Utils'
 import {generateFullUrlIndex} from '../../../utils/index-generator/FullUrlIndex'
 import {generateHostIndex} from '../../../utils/index-generator/HostIndex'
 import {generatePinyinIndex} from '../../../utils/index-generator/PinyinIndex'
-import {BrowserApplicationImpl, getHomepage} from '../index'
+import {BrowserApplicationImpl} from '../index'
 
 const SAFARI: string = 'safari'
 

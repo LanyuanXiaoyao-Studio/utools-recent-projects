@@ -1,9 +1,9 @@
-import Nano, {Fragment} from 'nano-jsx'
-import {PlainSettingItem} from '../../../../Types'
-import {AdapterSettingItem, AdapterSettingItemProps, AdapterSettingItemState} from '../AdapterSettingItem'
 import {isNil} from 'licia'
+import Nano, {Fragment} from 'nano-jsx'
 import {i18n, sentenceKey} from '../../../../i18n'
+import {PlainSettingItem} from '../../../../Types'
 import {getDescription} from '../../../../Utils'
+import {AdapterSettingItem, AdapterSettingItemProps, AdapterSettingItemState} from '../AdapterSettingItem'
 
 export interface PlainProps extends AdapterSettingItemProps {
     item: PlainSettingItem

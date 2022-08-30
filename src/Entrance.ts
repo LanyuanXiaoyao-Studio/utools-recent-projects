@@ -1,9 +1,9 @@
-import {Action, Callback, DatetimeProjectItemImpl, NoExecutor, ProjectArgsImpl, ProjectItemImpl} from './Types'
 import {isEmpty, isNil} from 'licia'
-import {i18n, sentenceKey} from './i18n'
 import S from 'licia/$'
 import NanoBar from 'nanobar'
 import {Context} from './Context'
+import {i18n, sentenceKey} from './i18n'
+import {Action, Callback, DatetimeProjectItemImpl, NoExecutor, ProjectArgsImpl, ProjectItemImpl} from './Types'
 
 const emptyTips: () => ProjectItemImpl = () => {
     return {

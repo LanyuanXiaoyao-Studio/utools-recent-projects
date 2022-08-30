@@ -8,7 +8,8 @@ import {
     Group,
     GroupName,
     NameGetter,
-    Platform, SettingProperties,
+    Platform,
+    SettingProperties,
 } from '../../../Types'
 import {configExtensionFilter} from '../../../Utils'
 import {generateFullUrlIndex} from '../../../utils/index-generator/FullUrlIndex'

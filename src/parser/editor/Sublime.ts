@@ -10,7 +10,8 @@ import {
     GroupName,
     Platform,
     ProjectItemImpl,
-    SettingItem, SettingProperties,
+    SettingItem,
+    SettingProperties,
     ShellExecutor,
     SwitchSettingItem,
 } from '../../Types'
@@ -59,7 +60,7 @@ export class SublimeApplicationImpl extends ApplicationCacheConfigAndExecutorImp
     override configSettingItemProperties(): SettingProperties {
         return {
             ...super.configSettingItemProperties(),
-            filters: configExtensionFilter("sublime_session")
+            filters: configExtensionFilter('sublime_session'),
         }
     }
 

@@ -1,5 +1,5 @@
-import {SpectreCss, SpectreIconCss} from './Spectre'
 import {CustomCss} from './Custom'
+import {SpectreCss, SpectreIconCss} from './Spectre'
 
 export {
     SpectreCss,

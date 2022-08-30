@@ -1,5 +1,5 @@
-import {SettingUIFeature} from './setting/Setting'
 import {argsMapping} from './Applications'
+import {SettingUIFeature} from './setting/Setting'
 
 
 export const build: any = {

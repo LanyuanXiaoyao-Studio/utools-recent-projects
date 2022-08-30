@@ -1,8 +1,8 @@
+import {isEmpty} from 'licia'
 import Nano, {Fragment} from 'nano-jsx'
+import {i18n, sentenceKey} from '../../../../i18n'
 import {ApplicationImpl, ProjectItemImpl, SwitchSettingItem} from '../../../../Types'
 import {AdapterSettingItem, AdapterSettingItemProps, AdapterSettingItemState} from '../AdapterSettingItem'
-import {isEmpty} from 'licia'
-import {i18n, sentenceKey} from '../../../../i18n'
 
 export interface SwitchProps extends AdapterSettingItemProps {
     item: SwitchSettingItem

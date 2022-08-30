@@ -16,7 +16,8 @@ import {
     NohupShellExecutor,
     Platform,
     ProjectItemImpl,
-    SettingItem, SettingProperties,
+    SettingItem,
+    SettingProperties,
     ShellExecutor,
     SwitchSettingItem,
 } from '../../Types'
@@ -66,7 +67,7 @@ export class GeanyApplicationImpl extends ApplicationCacheConfigAndExecutorImpl<
     override configSettingItemProperties(): SettingProperties {
         return {
             ...super.configSettingItemProperties(),
-            filters: configExtensionFilter("conf")
+            filters: configExtensionFilter('conf'),
         }
     }
 

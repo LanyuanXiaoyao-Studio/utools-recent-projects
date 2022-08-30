@@ -1,5 +1,5 @@
-import {Context} from '../../Context'
 import {Url} from 'licia'
+import {Context} from '../../Context'
 
 export const generateHostIndex: (context: Context, text: string) => Array<string> = (context, text) => {
     try {

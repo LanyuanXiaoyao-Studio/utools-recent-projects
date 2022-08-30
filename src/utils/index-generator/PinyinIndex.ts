@@ -1,6 +1,6 @@
-import {Context} from '../../Context'
 import {isEmpty, isNil, Lru, unique} from 'licia'
 import {pinyin as pinyinPro} from 'pinyin-pro'
+import {Context} from '../../Context'
 
 // @ts-ignore
 /*export const cartesian: (words: Array<Array<string>>) => Array<Array<string>> = words => {
