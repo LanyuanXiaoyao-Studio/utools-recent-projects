@@ -27,7 +27,7 @@ export class Context {
     readonly enableFilePathInMatch: boolean = true
     readonly enableFullUrlInMatch: boolean = false
     readonly enableOutPluginImmediately: boolean = true
-    readonly enableRoundRound: boolean = true
+    readonly enableRoundRound: boolean = false
 
     constructor(nativeId: string) {
         this.languageSetting = utools.dbStorage.getItem(Context.languageSettingId) ?? 'auto'
@@ -43,7 +43,7 @@ export class Context {
         this.enableFullUrlInMatch = utools.dbStorage.getItem(Context.enableFullUrlInMatchId) ?? false
         this.enableEditPathInputDirectly = utools.dbStorage.getItem(Context.joinId(nativeId, Context.enableEditPathInputDirectlyId)) ?? false
         this.enableOutPluginImmediately = utools.dbStorage.getItem(Context.enableOutPluginImmediatelyId) ?? true
-        this.enableRoundRound = utools.dbStorage.getItem(Context.enableRoundRoundId) ?? true
+        this.enableRoundRound = utools.dbStorage.getItem(Context.enableRoundRoundId) ?? false
     }
 
     static joinId(nativeId: string, id: string): string {
