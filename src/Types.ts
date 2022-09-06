@@ -116,6 +116,38 @@ export class ElectronExecutor implements Executor {
     }
 }
 
+export class ElectronPathExecutor implements Executor {
+    readonly command: string
+
+    constructor(command: string) {
+        this.command = command
+    }
+
+    execute(context: Context): void {
+        if (isEmpty(this.command)) {
+            utools.showNotification(i18n.t(sentenceKey.errorArgs))
+            return
+        }
+        shell.openPath(this.command)
+            .then(message => {
+                if (isEmpty(message) && context.enableOutPluginImmediately) {
+                    utools.hideMainWindow()
+                    utools.outPlugin()
+                } else {
+                    utools.showNotification(message)
+                }
+            })
+            .catch(error => {
+                let message = error?.message ?? i18n.t(sentenceKey.unknownError)
+                if (context.isDev) {
+                    console.log('error', message)
+                }
+                utools.showNotification(message)
+            })
+    }
+
+}
+
 export class UtoolsExecutor implements Executor {
     readonly command: string
 
