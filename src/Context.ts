@@ -13,7 +13,7 @@ export class Context {
     static enableFullUrlInMatchId: string = 'setting-full-url-in-match'
     static enableOutPluginImmediatelyId: string = 'setting-out-plugin-immediately'
     static enableRoundRoundId: string = 'setting-round-round'
-
+    readonly isDev: boolean
     readonly languageSetting: string = 'auto'
     readonly enableFilterNonExistsFiles: boolean = false
     readonly enableGetFaviconFromNet: boolean = false
@@ -30,6 +30,8 @@ export class Context {
     readonly enableRoundRound: boolean = false
 
     constructor(nativeId: string) {
+        this.isDev = utools.isDev() ?? false
+
         this.languageSetting = utools.dbStorage.getItem(Context.languageSettingId) ?? 'auto'
         this.enableFilterNonExistsFiles = utools.dbStorage.getItem(Context.enableFilterNonExistsFilesId) ?? false
         this.enableGetFaviconFromNet = utools.dbStorage.getItem(Context.enableGetFaviconFromNetId) ?? false

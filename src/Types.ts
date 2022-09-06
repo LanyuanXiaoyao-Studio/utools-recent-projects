@@ -49,7 +49,9 @@ export class ShellExecutor implements Executor {
             return
         }
         exec(this.command, { windowsHide: true }, error => {
-            console.log('error', error)
+            if (context.isDev) {
+                console.log('error', error)
+            }
             if (isNil(error)) {
                 if (context.enableOutPluginImmediately) {
                     utools.hideMainWindow()
@@ -104,7 +106,13 @@ export class ElectronExecutor implements Executor {
                     utools.outPlugin()
                 }
             })
-            .catch(error => utools.showNotification(error?.message ?? i18n.t(sentenceKey.unknownError)))
+            .catch(error => {
+                let message = error?.message ?? i18n.t(sentenceKey.unknownError)
+                if (context.isDev) {
+                    console.log('error', message)
+                }
+                utools.showNotification(message)
+            })
     }
 }
 
@@ -127,7 +135,11 @@ export class UtoolsExecutor implements Executor {
                 utools.outPlugin()
             }
         } catch (error: any) {
-            utools.showNotification(error?.message ?? i18n.t(sentenceKey.unknownError))
+            let message = error?.message ?? i18n.t(sentenceKey.unknownError)
+            if (context.isDev) {
+                console.log('error', message)
+            }
+            utools.showNotification(message)
         }
     }
 }
