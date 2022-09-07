@@ -4,7 +4,7 @@
   "author": "lanyuanxiaoyao",
   "license": "MIT",
   "scripts": {
-    "build": "bash build.sh",
+    "build": "bash bin/build.sh",
     "build-win": "powershell.exe .\\build.ps1",
     "test": "jest"
   },
@@ -15,6 +15,7 @@
     "@types/sql.js": "^1.4.3",
     "@types/winreg": "^1.2.31",
     "electron": "^20.0.3",
+    "fast-glob": "^3.2.11",
     "jest": "^28.1.3",
     "jest-environment-jsdom": "^28.1.3",
     "stylus": "^0.59.0",

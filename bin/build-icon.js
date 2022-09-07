@@ -1,7 +1,11 @@
 const fs = require('fs')
 const path = require('path')
-
-let iconFolderPath = 'icon'
+const args = process.argv.slice(2)
+if (args.length < 1) {
+  throw new Error("Need args for root path")
+}
+const root = args[0]
+let iconFolderPath = path.join(root, 'icon')
 let iconPaths = fs.readdirSync(iconFolderPath)
                   .filter(s => s.endsWith('png'))
                   .map(s => path.join(iconFolderPath, s))
@@ -15,7 +19,7 @@ let iconBase64s = iconPaths.map(p => {
     value: `data:image/png;base64,${buffer.toString('base64')}`,
   }
 })
-let iconTarget = path.join('public', 'icon')
+let iconTarget = path.join(root, 'public', 'icon')
 if (!fs.existsSync(iconTarget)) {
   fs.mkdirSync(iconTarget, {recursive: true})
 }
@@ -30,5 +34,5 @@ ${iconBase64s.map(o => `    'icon/${o.name}': '${o.value}',`)
              .join('\n')}
 }
 `
-let iconTsFilePath = path.join('dist', 'Icon.js')
+let iconTsFilePath = path.join(root, 'dist', 'Icon.js')
 fs.writeFileSync(iconTsFilePath, iconTsFileText)
