@@ -26,7 +26,7 @@ export class JetBrainsProjectItemImpl extends DatetimeProjectItemImpl {}
  * JetBrains 系列应用实现
  */
 export class JetBrainsApplicationImpl extends ApplicationCacheConfigAndExecutorImpl<JetBrainsProjectItemImpl> {
-    constructor(id: string, name: string | NameGetter, homepage: string = '', icon: string, platform: Array<Platform> = [Platform.win32, Platform.darwin, Platform.linux], description: string | DescriptionGetter = '', beta: boolean = false, configFilename: string = 'recentProject.xml') {
+    constructor(id: string, name: string | NameGetter, homepage: string = '', icon: string, platform: Array<Platform> = [Platform.win32, Platform.darwin, Platform.linux], description: string | DescriptionGetter = '', beta: boolean = false, configFilename: string = 'recentProjects.xml') {
         super(id, name, homepage, icon, JETBRAINS, platform, Group[GroupName.jetbrains], description, beta, configFilename)
     }
 
