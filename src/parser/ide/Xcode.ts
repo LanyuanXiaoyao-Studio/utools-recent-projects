@@ -8,7 +8,7 @@ import {
     ApplicationImpl,
     Group,
     GroupName,
-    Platform,
+    PLATFORM_MACOS,
     ProjectItemImpl,
     ShellExecutor,
 } from '../../Types'
@@ -56,7 +56,7 @@ export class XcodeApplicationImpl extends ApplicationCacheImpl<XcodeProjectItemI
             'https://developer.apple.com/xcode/',
             'icon/xcode.png',
             XCODE,
-            [Platform.darwin],
+            PLATFORM_MACOS,
             Group[GroupName.xcode],
             () => `Xcode 配置文件位置固定在 /Users/${systemUser()}/Library/Application Support/com.apple.sharedfilelist/com.apple.LSSharedFileList.ApplicationRecentDocuments/com.apple.dt.xcode.sfl2, 应该无需额外配置, 如果你的配置文件存在不在默认路径的情况, 请向我反馈`,
             true,

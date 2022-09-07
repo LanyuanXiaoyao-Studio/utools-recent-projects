@@ -11,7 +11,7 @@ import {
     Group,
     GroupName,
     InputSettingItem,
-    Platform,
+    PLATFORM_MACOS,
     SettingItem,
     ShellExecutor,
 } from '../../Types'
@@ -37,7 +37,7 @@ export class DefaultFolderXApplicationImpl extends ApplicationCacheImpl<DefaultF
             'https://stclairsoft.com/DefaultFolderX/',
             'icon/default-folder-x.png',
             DEFAULT_FOLDER_X,
-            [Platform.darwin],
+            PLATFORM_MACOS,
             Group[GroupName.system],
             () => `配置文件通常放在 /Users/${systemUser()}/Library/Application Support/com.stclairsoft.DefaultFolderX5/default`,
             true,

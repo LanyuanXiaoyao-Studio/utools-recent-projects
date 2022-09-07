@@ -9,7 +9,7 @@ import {
     Group,
     GroupName,
     NohupShellExecutor,
-    Platform,
+    PLATFORM_NO_MACOS,
     SettingProperties,
 } from '../../Types'
 import {configExtensionFilter, existsOrNot, generateStringByOS, systemUser} from '../../Utils'
@@ -27,7 +27,7 @@ export class TyporaApplicationImpl extends ApplicationCacheConfigAndExecutorImpl
             'https://typora.io/',
             'icon/typora.png',
             TYPORA,
-            [Platform.win32, Platform.linux],
+            PLATFORM_NO_MACOS,
             Group[GroupName.editor],
             () => `${i18n.t(sentenceKey.configFileAt)} ${this.defaultConfigPath()}, ${i18n.t(sentenceKey.executorFileAt)} ${this.defaultExecutorPath()}`,
             undefined,

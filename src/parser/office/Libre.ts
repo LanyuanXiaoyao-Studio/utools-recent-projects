@@ -9,7 +9,7 @@ import {
     DatetimeProjectItemImpl,
     Group,
     GroupName,
-    Platform,
+    PLATFORM_ALL,
     SettingProperties,
     ShellExecutor,
 } from '../../Types'
@@ -31,7 +31,7 @@ export class LibreOfficeApplicationImpl extends ApplicationCacheConfigAndExecuto
             'https://www.libreoffice.org/',
             'icon/libreoffice.png',
             LIBRE,
-            [Platform.win32, Platform.darwin, Platform.linux],
+            PLATFORM_ALL,
             Group[GroupName.office],
             () => `${i18n.t(sentenceKey.configFileAt)} ${this.defaultConfigPath()}, ${i18n.t(sentenceKey.executorFileAt)} ${this.defaultExecutorPath()}`,
             true,

@@ -363,6 +363,34 @@ export enum Platform {
     unknown,
 }
 
+export const PLATFORM_ALL: Array<Platform> = [
+    Platform.win32,
+    Platform.darwin,
+    Platform.linux,
+]
+
+export const PLATFORM_NO_MACOS: Array<Platform> = [
+    Platform.win32,
+    Platform.linux,
+]
+
+export const PLATFORM_NO_LINUX: Array<Platform> = [
+    Platform.win32,
+    Platform.darwin,
+]
+
+export const PLATFORM_WINDOWS: Array<Platform> = [
+    Platform.win32,
+]
+
+export const PLATFORM_MACOS: Array<Platform> = [
+    Platform.darwin,
+]
+
+export const PLATFORM_LINUX: Array<Platform> = [
+    Platform.linux,
+]
+
 /**
  * 配置项的类型
  */

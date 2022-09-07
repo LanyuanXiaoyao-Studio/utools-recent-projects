@@ -12,7 +12,8 @@ import {
     Group,
     GroupName,
     NameGetter,
-    Platform,
+    PLATFORM_MACOS,
+    PLATFORM_WINDOWS,
     ShellExecutor,
 } from '../../Types'
 import {existsOrNot, systemUser} from '../../Utils'
@@ -34,7 +35,7 @@ export class OfficeMacApplicationImpl extends ApplicationCacheConfigImpl<OfficeP
             'https://www.office.com/',
             icon,
             OFFICE_MAC,
-            [Platform.darwin],
+            PLATFORM_MACOS,
             Group[GroupName.office],
             () => `配置文件通常放在 ${defaultConfig}`,
             false,
@@ -98,7 +99,7 @@ export class OfficeWinApplicationImpl extends ApplicationImpl<OfficeProjectItemI
             'https://www.office.com/',
             'icon/office.png',
             OFFICE_WIN,
-            [Platform.win32],
+            PLATFORM_WINDOWS,
             Group[GroupName.office],
             () => `Office 2019 通过解析 C:\\Users\\${systemUser()}\\AppData\\Roaming\\Microsoft\\Office\\Recent 下的文件记录来得到历史打开文件列表, 这种方式依赖于默认的 Office 行为, 目前仅支持有限的 Office 文档格式`,
             false,

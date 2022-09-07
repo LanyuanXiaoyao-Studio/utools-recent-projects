@@ -8,7 +8,7 @@ import {
     ElectronExecutor,
     Group,
     GroupName,
-    Platform,
+    PLATFORM_MACOS,
     SettingItem,
 } from '../../../Types'
 import {removeAllQueryFromUrl, systemHome} from '../../../Utils'
@@ -30,7 +30,7 @@ export class SafariHistoryApplicationImpl extends BrowserApplicationImpl<SafariH
             'https://www.apple.com/safari/',
             `icon/browser-${SAFARI}.png`,
             SAFARI,
-            [Platform.darwin],
+            PLATFORM_MACOS,
             Group[GroupName.browserHistory],
             undefined,
             false,

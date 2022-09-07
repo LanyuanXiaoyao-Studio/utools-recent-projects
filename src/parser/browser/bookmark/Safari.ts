@@ -9,7 +9,7 @@ import {
     ElectronExecutor,
     Group,
     GroupName,
-    Platform,
+    PLATFORM_MACOS,
     ProjectItemImpl,
     SettingItem,
 } from '../../../Types'
@@ -31,7 +31,7 @@ export class SafariBookmarkApplicationImpl extends BrowserApplicationImpl<Safari
             'https://www.apple.com/safari/',
             `icon/browser-${SAFARI}.png`,
             SAFARI,
-            [Platform.darwin],
+            PLATFORM_MACOS,
             Group[GroupName.browserBookmark],
             () => i18n.t(sentenceKey.safariBookmarkDesc),
             false,

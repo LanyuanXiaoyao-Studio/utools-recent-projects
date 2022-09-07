@@ -9,6 +9,7 @@ import {
     GroupName,
     NameGetter,
     Platform,
+    PLATFORM_ALL,
 } from '../../../Types'
 import {removeAllQueryFromUrl} from '../../../Utils'
 import {generateFullUrlIndex} from '../../../utils/index-generator/FullUrlIndex'
@@ -26,7 +27,7 @@ export class ChromiumHistoryProjectItemImpl extends DatetimeProjectItemImpl {}
 export class ChromiumHistoryApplicationImpl extends BrowserApplicationImpl<ChromiumHistoryProjectItemImpl> {
     private readonly browserId: BrowserId
 
-    constructor(id: BrowserId, name: string | NameGetter, type: string, platforms: Array<Platform> = [Platform.win32, Platform.darwin, Platform.linux], description: boolean = true, beta: boolean = false, configName: string = '') {
+    constructor(id: BrowserId, name: string | NameGetter, type: string, platforms: Array<Platform> = PLATFORM_ALL, description: boolean = true, beta: boolean = false, configName: string = '') {
         super(`${id}-history`, name, getHomepage(id), `icon/browser-${id}.png`, type, platforms, Group[GroupName.browserHistory], description ? () => handler(this.defaultConfigPath()) : undefined, beta, configName)
         this.browserId = id
     }

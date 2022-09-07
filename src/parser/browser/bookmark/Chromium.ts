@@ -10,6 +10,8 @@ import {
     GroupName,
     NameGetter,
     Platform,
+    PLATFORM_ALL,
+    PLATFORM_WINDOWS,
 } from '../../../Types'
 import {generateParents, parseTimeFrom1604} from '../../../Utils'
 import {generateFullUrlIndex} from '../../../utils/index-generator/FullUrlIndex'
@@ -26,7 +28,7 @@ export class ChromiumBookmarkProjectItemImpl extends DatetimeProjectItemImpl {}
 export class ChromiumBookmarkApplicationImpl extends BrowserApplicationImpl<ChromiumBookmarkProjectItemImpl> {
     private readonly browserId: BrowserId
 
-    constructor(id: BrowserId, name: string | NameGetter, type: string, platforms: Array<Platform> = [Platform.win32, Platform.darwin, Platform.linux], description: boolean = true, beta: boolean = false, configName: string = '') {
+    constructor(id: BrowserId, name: string | NameGetter, type: string, platforms: Array<Platform> = PLATFORM_ALL, description: boolean = true, beta: boolean = false, configName: string = '') {
         super(`${id}-bookmark`, name, getHomepage(id), `icon/browser-${id}.png`, type, platforms, Group[GroupName.browserBookmark], description ? () => handler(this.defaultConfigPath()) : undefined, beta, configName)
         this.browserId = id
     }
@@ -72,17 +74,17 @@ export const applications: Array<ApplicationImpl<ChromiumBookmarkProjectItemImpl
     new ChromiumBookmarkApplicationImpl('chromium', 'Chromium', CHROMIUM, undefined, false, undefined, configName),
     new ChromiumBookmarkApplicationImpl('chrome', 'Google Chrome', CHROMIUM, undefined, true, undefined, configName),
     new ChromiumBookmarkApplicationImpl('edge', 'Microsoft Edge', CHROMIUM, undefined, true, undefined, configName),
-    new ChromiumBookmarkApplicationImpl('qq', () => `QQ ${i18n.t(sentenceKey.browser)}`, CHROMIUM, [Platform.win32], true, undefined, configName),
-    new ChromiumBookmarkApplicationImpl('maxthon', () => i18n.t(sentenceKey.maxthonBrowser), CHROMIUM, [Platform.win32], true, undefined, configName),
+    new ChromiumBookmarkApplicationImpl('qq', () => `QQ ${i18n.t(sentenceKey.browser)}`, CHROMIUM, PLATFORM_WINDOWS, true, undefined, configName),
+    new ChromiumBookmarkApplicationImpl('maxthon', () => i18n.t(sentenceKey.maxthonBrowser), CHROMIUM, PLATFORM_WINDOWS, true, undefined, configName),
     new ChromiumBookmarkApplicationImpl('opera', 'Opera', CHROMIUM, undefined, true, undefined, configName),
     new ChromiumBookmarkApplicationImpl('brave', 'Brave', CHROMIUM, undefined, true, undefined, configName),
     new ChromiumBookmarkApplicationImpl('vivaldi', 'Vivaldi', CHROMIUM, undefined, true, undefined, configName),
-    new ChromiumBookmarkApplicationImpl('cent', () => i18n.t(sentenceKey.centBrowser), CHROMIUM, [Platform.win32], true, undefined, configName),
+    new ChromiumBookmarkApplicationImpl('cent', () => i18n.t(sentenceKey.centBrowser), CHROMIUM, PLATFORM_WINDOWS, true, undefined, configName),
     new ChromiumBookmarkApplicationImpl('yandex', 'Yandex', CHROMIUM, undefined, true, undefined, configName),
-    new ChromiumBookmarkApplicationImpl('liebao', () => i18n.t(sentenceKey.liebaoBrowser), CHROMIUM, [Platform.win32], true, undefined, configName),
-    new ChromiumBookmarkApplicationImpl('deepin', () => i18n.t(sentenceKey.deepinBrowser), CHROMIUM, [Platform.linux], true, undefined, configName),
-    new ChromiumBookmarkApplicationImpl('xiaobai', () => i18n.t(sentenceKey.xiaobaiBrowser), CHROMIUM, [Platform.win32], true, undefined, configName),
-    new ChromiumBookmarkApplicationImpl('twinkstar', () => i18n.t(sentenceKey.twinkstarBrowser), CHROMIUM, [Platform.win32], true, undefined, configName),
-    new ChromiumBookmarkApplicationImpl('huawei', () => i18n.t(sentenceKey.huaweiBrowser), CHROMIUM, [Platform.win32], true, undefined, configName),
-    new ChromiumBookmarkApplicationImpl('catsxp', () => i18n.t(sentenceKey.catsxpBrowser), CHROMIUM, [Platform.win32], true, undefined, configName),
+    new ChromiumBookmarkApplicationImpl('liebao', () => i18n.t(sentenceKey.liebaoBrowser), CHROMIUM, PLATFORM_WINDOWS, true, undefined, configName),
+    new ChromiumBookmarkApplicationImpl('deepin', () => i18n.t(sentenceKey.deepinBrowser), CHROMIUM, PLATFORM_WINDOWS, true, undefined, configName),
+    new ChromiumBookmarkApplicationImpl('xiaobai', () => i18n.t(sentenceKey.xiaobaiBrowser), CHROMIUM, PLATFORM_WINDOWS, true, undefined, configName),
+    new ChromiumBookmarkApplicationImpl('twinkstar', () => i18n.t(sentenceKey.twinkstarBrowser), CHROMIUM, PLATFORM_WINDOWS, true, undefined, configName),
+    new ChromiumBookmarkApplicationImpl('huawei', () => i18n.t(sentenceKey.huaweiBrowser), CHROMIUM, PLATFORM_WINDOWS, true, undefined, configName),
+    new ChromiumBookmarkApplicationImpl('catsxp', () => i18n.t(sentenceKey.catsxpBrowser), CHROMIUM, PLATFORM_WINDOWS, true, undefined, configName),
 ]

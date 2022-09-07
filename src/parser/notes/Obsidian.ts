@@ -9,7 +9,7 @@ import {
     DatetimeProjectItemImpl,
     Group,
     GroupName,
-    Platform,
+    PLATFORM_ALL,
     SettingProperties,
     UtoolsExecutor,
 } from '../../Types'
@@ -29,7 +29,7 @@ export class ObsidianApplicationImpl extends ApplicationConfigImpl<ObsidianProje
             'https://obsidian.md/',
             'icon/obsidian.png',
             OBSIDIAN,
-            [Platform.win32, Platform.darwin, Platform.linux],
+            PLATFORM_ALL,
             Group[GroupName.notes],
             () => `${i18n.t(sentenceKey.configFileAt)} ${this.defaultConfigPath()}`,
             true,
