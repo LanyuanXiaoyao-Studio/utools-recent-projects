@@ -1,4 +1,5 @@
 import {existsSync, readdirSync, Stats, statSync} from 'fs'
+import {access} from 'fs/promises'
 import {isEmpty, isFn, isNil, isUrl, Url} from 'licia'
 import S from 'licia/$'
 import {join, parse} from 'path'
@@ -35,6 +36,22 @@ export const existsOrNot: (string, ExistsOrNotItem) => ExistsOrNotItem = (path, 
         description: i18n.t(sentenceKey.pathNotFound),
         icon: item.icon,
     }
+
+export const existsOrNotAsync: (string, ExistsOrNotItem) => Promise<ExistsOrNotItem> = async (path, item) => {
+    try {
+        await access(path)
+        return {
+            exists: true,
+            ...item,
+        }
+    } catch {
+        return {
+            exists: false,
+            description: i18n.t(sentenceKey.pathNotFound),
+            icon: item.icon,
+        }
+    }
+}
 
 export const isMacOS = () => {
     // @ts-ignore
