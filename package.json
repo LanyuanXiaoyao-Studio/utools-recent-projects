@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "build": "bash bin/build.sh",
-    "build-win": "powershell.exe .\\build.ps1",
+    "build-win": "powershell.exe .\\bin\\build.ps1",
     "test": "jest"
   },
   "devDependencies": {

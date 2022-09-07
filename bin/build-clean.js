@@ -7,7 +7,7 @@ if (args.length < 1) {
   throw new Error('Need args for root path')
 }
 const root = args[0]
-const nodeModulesPath = path.join(root, 'temp', 'node_modules')
+const nodeModulesPath = path.join(root, 'temp', 'node_modules').replace(/\\/g, '/')
 
 let paths = fg.sync([
   `${nodeModulesPath}/**/*.(md|ts|json|map|svg)`,

@@ -7,6 +7,7 @@ tsc --outDir $dist
 
 # 获取项目根目录
 $root_path=Get-Location
+$root_path="$root_path"
 Write-Output $root_path
 
 $bin_path="$root_path\bin"
@@ -45,7 +46,7 @@ Write-Output $packageJson | Out-File package.json -Encoding utf8
 yarn install --offline
 # yarn install
 
-node $bin_path/build-clean.js $root_path
+node $bin_path\build-clean.js $root_path
 
 Set-Location $root_path
 Copy-Item -Recurse "$temp_path\node_modules" $dist
