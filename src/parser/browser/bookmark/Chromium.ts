@@ -6,8 +6,7 @@ import {
     ApplicationImpl,
     DatetimeProjectItemImpl,
     ElectronExecutor,
-    Group,
-    GroupName,
+    GROUP_BROWSER_BOOKMARK,
     NameGetter,
     Platform,
     PLATFORM_ALL,
@@ -29,7 +28,7 @@ export class ChromiumBookmarkApplicationImpl extends BrowserApplicationImpl<Chro
     private readonly browserId: BrowserId
 
     constructor(id: BrowserId, name: string | NameGetter, type: string, platforms: Array<Platform> = PLATFORM_ALL, description: boolean = true, beta: boolean = false, configName: string = '') {
-        super(`${id}-bookmark`, name, getHomepage(id), `icon/browser-${id}.png`, type, platforms, Group[GroupName.browserBookmark], description ? () => handler(this.defaultConfigPath()) : undefined, beta, configName)
+        super(`${id}-bookmark`, name, getHomepage(id), `icon/browser-${id}.png`, type, platforms, GROUP_BROWSER_BOOKMARK, description ? () => handler(this.defaultConfigPath()) : undefined, beta, configName)
         this.browserId = id
     }
 

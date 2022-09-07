@@ -5,8 +5,7 @@ import {
     ApplicationImpl,
     DatetimeProjectItemImpl,
     ElectronExecutor,
-    Group,
-    GroupName,
+    GROUP_BROWSER_HISTORY,
     NameGetter,
     Platform,
     PLATFORM_ALL,
@@ -28,7 +27,7 @@ export class ChromiumHistoryApplicationImpl extends BrowserApplicationImpl<Chrom
     private readonly browserId: BrowserId
 
     constructor(id: BrowserId, name: string | NameGetter, type: string, platforms: Array<Platform> = PLATFORM_ALL, description: boolean = true, beta: boolean = false, configName: string = '') {
-        super(`${id}-history`, name, getHomepage(id), `icon/browser-${id}.png`, type, platforms, Group[GroupName.browserHistory], description ? () => handler(this.defaultConfigPath()) : undefined, beta, configName)
+        super(`${id}-history`, name, getHomepage(id), `icon/browser-${id}.png`, type, platforms, GROUP_BROWSER_HISTORY, description ? () => handler(this.defaultConfigPath()) : undefined, beta, configName)
         this.browserId = id
     }
 

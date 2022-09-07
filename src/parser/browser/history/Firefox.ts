@@ -5,8 +5,7 @@ import {
     ApplicationImpl,
     DatetimeProjectItemImpl,
     ElectronExecutor,
-    Group,
-    GroupName,
+    GROUP_BROWSER_HISTORY,
     NameGetter,
     Platform,
     PLATFORM_ALL,
@@ -28,7 +27,7 @@ export class FirefoxHistoryApplicationImpl extends BrowserApplicationImpl<Firefo
     private readonly configName: string
 
     constructor(id: BrowserId, name: string | NameGetter, type: string, platforms: Array<Platform> = PLATFORM_ALL, beta: boolean = false, configName: string = '') {
-        super(`${id}-history`, name, getHomepage(id), `icon/browser-${id}.png`, type, platforms, Group[GroupName.browserHistory], () => `${configName} ${i18n.t(sentenceKey.browserPathDescPrefix)} ${this.defaultConfigPath()}`, beta, configName)
+        super(`${id}-history`, name, getHomepage(id), `icon/browser-${id}.png`, type, platforms, GROUP_BROWSER_HISTORY, () => `${configName} ${i18n.t(sentenceKey.browserPathDescPrefix)} ${this.defaultConfigPath()}`, beta, configName)
         this.browserId = id
         this.configName = configName
     }

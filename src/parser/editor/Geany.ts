@@ -11,8 +11,7 @@ import {i18n, sentenceKey} from '../../i18n'
 import {
     ApplicationCacheConfigAndExecutorImpl,
     ApplicationImpl,
-    Group,
-    GroupName,
+    GROUP_EDITOR,
     NohupShellExecutor,
     PLATFORM_ALL,
     ProjectItemImpl,
@@ -41,7 +40,7 @@ export class GeanyApplicationImpl extends ApplicationCacheConfigAndExecutorImpl<
             'icon/geany.png',
             GEANY,
             PLATFORM_ALL,
-            Group[GroupName.editor],
+            GROUP_EDITOR,
             () => `${i18n.t(sentenceKey.configFileAt)} ${this.defaultConfigPath()}, ${i18n.t(sentenceKey.executorFileAt)} ${this.defaultExecutorPath()}`,
             false,
             'geany.conf',

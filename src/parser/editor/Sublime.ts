@@ -6,8 +6,7 @@ import {i18n, sentenceKey} from '../../i18n'
 import {
     ApplicationCacheConfigAndExecutorImpl,
     ApplicationImpl,
-    Group,
-    GroupName,
+    GROUP_EDITOR,
     PLATFORM_ALL,
     ProjectItemImpl,
     SettingItem,
@@ -34,7 +33,7 @@ export class SublimeApplicationImpl extends ApplicationCacheConfigAndExecutorImp
             'icon/sublime.png',
             SUBLIME,
             PLATFORM_ALL,
-            Group[GroupName.editor],
+            GROUP_EDITOR,
             () => `${i18n.t(sentenceKey.configFileAt)} ${this.defaultConfigPath()}, ${i18n.t(sentenceKey.executorFileAt)} ${this.defaultExecutorPath()} (注意 Sublime Text 单独提供了命令行程序, 不是程序本体)`,
             undefined,
             'Session.sublime_session',

@@ -6,8 +6,7 @@ import {
     ApplicationImpl,
     DatetimeProjectItemImpl,
     ElectronExecutor,
-    Group,
-    GroupName,
+    GROUP_BROWSER_HISTORY,
     PLATFORM_MACOS,
     SettingItem,
 } from '../../../Types'
@@ -31,7 +30,7 @@ export class SafariHistoryApplicationImpl extends BrowserApplicationImpl<SafariH
             `icon/browser-${SAFARI}.png`,
             SAFARI,
             PLATFORM_MACOS,
-            Group[GroupName.browserHistory],
+            GROUP_BROWSER_HISTORY,
             undefined,
             false,
             'History.db',

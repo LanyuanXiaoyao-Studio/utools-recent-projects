@@ -490,33 +490,13 @@ export enum ApplicationConfigState {
     error,
 }
 
-export enum GroupName {
-    browser,
-    browserHistory,
-    browserBookmark,
-    editor,
-    notes,
-    ide,
-    jetbrains,
-    vsStudio,
-    xcode,
-    office,
-    system,
-}
-
-export const Group: { [keys in GroupName]: string } = {
-    [GroupName.browser]: 'Browser',
-    [GroupName.browserHistory]: 'Browser History',
-    [GroupName.browserBookmark]: 'Browser Bookmark',
-    [GroupName.editor]: 'Editor',
-    [GroupName.notes]: 'Notes',
-    [GroupName.ide]: 'IDE',
-    [GroupName.jetbrains]: 'JetBrains',
-    [GroupName.vsStudio]: 'Visual Studio',
-    [GroupName.xcode]: 'Xcode',
-    [GroupName.office]: 'Office',
-    [GroupName.system]: 'System',
-}
+export const GROUP_BROWSER_HISTORY = 'Browser History'
+export const GROUP_BROWSER_BOOKMARK = 'Browser Bookmark'
+export const GROUP_EDITOR = 'Editor'
+export const GROUP_NOTES = 'Notes'
+export const GROUP_IDE = 'IDE'
+export const GROUP_OFFICE = 'Office'
+export const GROUP_SYSTEM = 'System'
 
 export type NameGetter = (context?: Context) => string
 

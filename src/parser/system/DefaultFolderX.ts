@@ -8,8 +8,7 @@ import {
     ApplicationImpl,
     DatetimeProjectItemImpl,
     DefaultSettingProperties,
-    Group,
-    GroupName,
+    GROUP_SYSTEM,
     InputSettingItem,
     PLATFORM_MACOS,
     SettingItem,
@@ -38,7 +37,7 @@ export class DefaultFolderXApplicationImpl extends ApplicationCacheImpl<DefaultF
             'icon/default-folder-x.png',
             DEFAULT_FOLDER_X,
             PLATFORM_MACOS,
-            Group[GroupName.system],
+            GROUP_SYSTEM,
             () => `配置文件通常放在 /Users/${systemUser()}/Library/Application Support/com.stclairsoft.DefaultFolderX5/default`,
             true,
         )

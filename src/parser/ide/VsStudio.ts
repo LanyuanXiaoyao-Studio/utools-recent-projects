@@ -7,8 +7,7 @@ import {
     ApplicationImpl,
     DatetimeProjectItemImpl,
     ElectronExecutor,
-    Group,
-    GroupName,
+    GROUP_IDE,
     PLATFORM_WINDOWS,
     SettingProperties,
 } from '../../Types'
@@ -29,7 +28,7 @@ export class VsStudioApplicationImpl extends ApplicationCacheConfigImpl<VsStudio
             'icon/ms-visual-studio.png',
             VS_STUDIO,
             PLATFORM_WINDOWS,
-            Group[GroupName.vsStudio],
+            GROUP_IDE,
             `历史项目将使用默认关联的应用打开, 想要实现直接通过 Visual Studio 打开, 需要自行设置 sln 文件与 Visual Studio 默认关联
 本功能依据官网最新的 Visual Studio 2019 开发`,
             false,

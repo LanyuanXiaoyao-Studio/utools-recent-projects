@@ -7,8 +7,7 @@ import {
     ApplicationImpl,
     DatetimeProjectItemImpl,
     DescriptionGetter,
-    Group,
-    GroupName,
+    GROUP_IDE,
     NameGetter,
     NohupShellExecutor,
     Platform,
@@ -28,7 +27,7 @@ export class JetBrainsProjectItemImpl extends DatetimeProjectItemImpl {}
  */
 export class JetBrainsApplicationImpl extends ApplicationCacheConfigAndExecutorImpl<JetBrainsProjectItemImpl> {
     constructor(id: string, name: string | NameGetter, homepage: string = '', icon: string, platform: Array<Platform> = PLATFORM_ALL, description: string | DescriptionGetter = '', beta: boolean = false, configFilename: string = 'recentProjects.xml') {
-        super(id, name, homepage, icon, JETBRAINS, platform, Group[GroupName.jetbrains], description, beta, configFilename)
+        super(id, name, homepage, icon, JETBRAINS, platform, GROUP_IDE, description, beta, configFilename)
     }
 
     override defaultConfigPath(): string {
