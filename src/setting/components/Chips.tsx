@@ -111,3 +111,18 @@ export class EnhanceChip extends Component {
         )
     }
 }
+
+export class DecreasePerformanceChip extends Component {
+    override render() {
+        return (
+            <Fragment>
+                <span
+                    class="chip-wrapper tooltip tooltip-right"
+                    data-tooltip={i18n.t(sentenceKey.decreasePerformanceDesc)}
+                >
+                    <span class="chip c-hand decrease-performance">{i18n.t(sentenceKey.decreasePerformance)}</span>
+                </span>
+            </Fragment>
+        )
+    }
+}

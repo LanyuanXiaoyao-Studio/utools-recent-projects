@@ -103,4 +103,7 @@ export class EnUs implements Sentence {
     readonly clickToOpen: string = 'Click to open'
     readonly roundTips: string = 'Round! Round!'
     readonly roundCloseTips: string = 'Easter egg is closed'
+    readonly unlimited: string = 'Unlimited'
+    readonly decreasePerformance: string = 'Decrease performance'
+    readonly decreasePerformanceDesc: string = 'The Option may \ndecrease performance'
 }

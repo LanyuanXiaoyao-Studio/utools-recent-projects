@@ -106,6 +106,9 @@ export const sentenceKey = {
     clickToOpen: 'clickToOpen',
     roundTips: 'roundTips',
     roundCloseTips: 'roundCloseTips',
+    unlimited: 'unlimited',
+    decreasePerformance: 'decreasePerformance',
+    decreasePerformanceDesc: 'decreasePerformanceDesc',
 }
 
 export interface Sentence {
@@ -211,6 +214,9 @@ export interface Sentence {
     readonly clickToOpen: string
     readonly roundTips: string
     readonly roundCloseTips: string
+    readonly unlimited: string
+    readonly decreasePerformance: string
+    readonly decreasePerformanceDesc: string
 }
 
 let languageData = new I18n('zh-CN', {

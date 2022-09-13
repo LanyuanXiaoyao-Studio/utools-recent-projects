@@ -48,7 +48,7 @@ export class SafariHistoryApplicationImpl extends BrowserApplicationImpl<SafariH
             return []
         }
         // language=SQLite
-        let sql = 'select i.url                                                                                         as url,\n       v.title                                                                                       as title,\n       cast(strftime(\'%s\', datetime(v.visit_time + 978307200, \'unixepoch\', \'localtime\')) as numeric) as timestamp\nfrom history_items i,\n     history_visits v\nwhere i.id = v.history_item\ngroup by i.url\norder by timestamp desc\nlimit ' + context.browserHistoryLimit
+        let sql = 'select i.url                                                                                         as url,\n       v.title                                                                                       as title,\n       cast(strftime(\'%s\', datetime(v.visit_time + 978307200, \'unixepoch\', \'localtime\')) as numeric) as timestamp\nfrom history_items i,\n     history_visits v\nwhere i.id = v.history_item\ngroup by i.url\norder by timestamp desc\n' + this.limitCondition(context)
         let array = await queryFromSqlite(configPath, sql)
         if (!isEmpty(array)) {
             array.forEach(i => {

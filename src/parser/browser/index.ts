@@ -7,6 +7,14 @@ export abstract class BrowserApplicationImpl<P extends ProjectItemImpl> extends 
         // return context.enableGetFaviconFromNet ? `https://api.clowntool.cn/getico/?url=${url}` : this.icon
         return context.enableGetFaviconFromNet ? `https://f1.allesedv.com/${url}` : this.icon
     }
+
+    protected limitCondition: (context: Context) => string = context => {
+        if (context.browserHistoryLimit == 0) {
+            return ''
+        } else {
+            return `limit ${context.browserHistoryLimit}`
+        }
+    }
 }
 
 export interface PathDescription {

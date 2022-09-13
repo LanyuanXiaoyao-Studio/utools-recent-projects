@@ -103,4 +103,7 @@ export class ZhCn implements Sentence {
     readonly clickToOpen: string = '点击打开'
     readonly roundTips: string = '转起来！转起来！'
     readonly roundCloseTips: string = '彩蛋已关闭'
+    readonly unlimited: string = '无限制'
+    readonly decreasePerformance: string = '影响性能'
+    readonly decreasePerformanceDesc: string = '该选项可能会影响插件性能，请谨慎设置'
 }

@@ -1,7 +1,7 @@
 import Nano, {Fragment} from 'nano-jsx'
 import {Context} from '../../../../Context'
 import {i18n, sentenceKey} from '../../../../i18n'
-import {CloudSyncChip, EnhanceChip} from '../../Chips'
+import {CloudSyncChip, DecreasePerformanceChip, EnhanceChip} from '../../Chips'
 import {
     ApplicationSettingItem,
     ApplicationSettingItemProps,
@@ -20,6 +20,7 @@ export class HistoryLimit extends ApplicationSettingItem<ApplicationSettingItemP
                     <div class="form-tags">
                         <CloudSyncChip/>
                         <EnhanceChip/>
+                        <DecreasePerformanceChip/>
                     </div>
                 </div>
                 <div class="col-2 flex-column-center">
@@ -27,6 +28,11 @@ export class HistoryLimit extends ApplicationSettingItem<ApplicationSettingItemP
                         class="form-select select-sm"
                         onchange={event => this.select(Context.browserHistoryLimitId, event.target)}
                     >
+                        <option
+                            value="0"
+                            {...(this.localContext.browserHistoryLimit === 0 ? { selected: true } : {})}
+                        >{i18n.t(sentenceKey.unlimited)}
+                        </option>
                         <option
                             value="100"
                             {...(this.localContext.browserHistoryLimit === 100 ? { selected: true } : {})}
