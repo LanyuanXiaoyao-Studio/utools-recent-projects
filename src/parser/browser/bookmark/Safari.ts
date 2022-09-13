@@ -6,10 +6,10 @@ import {i18n, sentenceKey} from '../../../i18n'
 import {
     ApplicationConfigState,
     ApplicationImpl,
+    DatetimeProjectItemImpl,
     ElectronExecutor,
     GROUP_BROWSER_BOOKMARK,
     PLATFORM_MACOS,
-    ProjectItemImpl,
     SettingItem,
 } from '../../../Types'
 import {generateParents, systemHome} from '../../../Utils'
@@ -20,7 +20,7 @@ import {BrowserApplicationImpl} from '../index'
 
 const SAFARI: string = 'safari'
 
-export class SafariBookmarkProjectItemImpl extends ProjectItemImpl {}
+export class SafariBookmarkProjectItemImpl extends DatetimeProjectItemImpl {}
 
 export class SafariBookmarkApplicationImpl extends BrowserApplicationImpl<SafariBookmarkProjectItemImpl> {
     constructor() {
@@ -77,6 +77,7 @@ export class SafariBookmarkApplicationImpl extends BrowserApplicationImpl<Safari
                     ]),
                     exists: true,
                     command: new ElectronExecutor(url),
+                    datetime: 0,
                 })
             })
         }
