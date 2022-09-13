@@ -48,7 +48,7 @@ export class EnUs implements Sentence {
     readonly getFileIconDesc: string = 'Enable this option, Plugin would get the file icon from system and display it in the result, but this will affect some performance, which is not recommended on low-performance machines.'
     readonly getProjectsError: string = 'Error for getting projects, check settings please'
     readonly historyLimit: string = 'History limit'
-    readonly historyLimitDesc: string = 'Set the max of history item, but you need to know that it configure single browser\'s max, if you set 200 at this, and have configured 2 browser, finally you will get 400 history item.'
+    readonly historyLimitDesc: string = 'Set the max of history item, but you need to know that it configure single browser\'s max, if you set 200 at this, and have configured 2 browser, finally you will get 400 history item. 「Unlimited」will greatly reduce the loading performance.'
     readonly huaweiBrowser: string = 'Huawei'
     readonly inputDirectlyPlaceholder: string = 'Input the file path'
     readonly inputPathDirectly: string = 'Input path directly'

@@ -48,7 +48,7 @@ export class ZhCn implements Sentence {
     readonly getFileIconDesc: string = '启动该选项可以在文件型历史记录的结果里显示系统文件图标作为 Icon，但这会影响一些性能，在低性能的机器上不建议开启'
     readonly getProjectsError: string = '获取项目记录错误，请检查配置'
     readonly historyLimit: string = '历史记录获取条数'
-    readonly historyLimitDesc: string = '可以设置历史记录获取的最大数量，值得注意的是这是单个浏览器的限制而不是总的数量，如果设置数量为200，浏览器配置了2个，那么最大获取历史记录的数量为400'
+    readonly historyLimitDesc: string = '可以设置历史记录获取的最大数量，值得注意的是这是单个浏览器的限制而不是总的数量，如果设置数量为200，浏览器配置了2个，那么最大获取历史记录的数量为400；设置「无限制」会导致加载速度大幅下降'
     readonly huaweiBrowser: string = '华为浏览器'
     readonly inputDirectlyPlaceholder: string = '输入文件路径'
     readonly inputPathDirectly: string = '直接输入路径'
