@@ -1,5 +1,5 @@
 import {readFile} from 'fs/promises'
-import {isEmpty, isNil, unique} from 'licia'
+import {isEmpty, isNil, normalizePath, unique} from 'licia'
 import {parse} from 'path'
 import {Context} from '../../Context'
 import {
@@ -19,6 +19,32 @@ import {generateFilePathIndex} from '../../utils/index-generator/FilePathIndex'
 import {generatePinyinIndex} from '../../utils/index-generator/PinyinIndex'
 
 const JETBRAINS: string = 'jetbrains'
+
+export interface RecentProjects {
+    path: string
+    datetime: number
+}
+
+export const parseRecentProjects: (context: Context, path: string) => Promise<Array<RecentProjects>> = async (context, path) => {
+    let projectPaths: Array<RecentProjects> = []
+    let buffer = await readFile(path)
+    if (!isNil(buffer)) {
+        let content = buffer.toString()
+        let domParser = new DOMParser().parseFromString(content, 'application/xml')
+        domParser.querySelectorAll('application option[name=additionalInfo] entry').forEach((element, index) => {
+            let path = element.getAttribute('key') ?? ''
+            let datetime = element.querySelector('option[name=projectOpenTimestamp]')?.getAttribute('value') ?? 0
+            if (!isEmpty(path)) {
+                path = path.replace('$USER_HOME$', utools.getPath('home'))
+                projectPaths.push({
+                    path: normalizePath(path),
+                    datetime: parseInt(`${datetime}`),
+                })
+            }
+        })
+    }
+    return projectPaths
+}
 
 export class JetBrainsProjectItemImpl extends DatetimeProjectItemImpl {}
 
@@ -47,35 +73,26 @@ export class JetBrainsApplicationImpl extends ApplicationCacheConfigAndExecutorI
 
     async generateCacheProjectItems(context: Context): Promise<Array<JetBrainsProjectItemImpl>> {
         let items: Array<JetBrainsProjectItemImpl> = []
-        let buffer = await readFile(this.config)
-        if (!isNil(buffer)) {
-            let content = buffer.toString()
-            let domParser = new DOMParser().parseFromString(content, 'application/xml')
-            domParser.querySelectorAll('application option[name=additionalInfo] entry').forEach((element, index) => {
-                let path = element.getAttribute('key') ?? ''
-                let datetime = element.querySelector('option[name=projectOpenTimestamp]')?.getAttribute('value') ?? 0
-                if (!isEmpty(path)) {
-                    path = path.replace('$USER_HOME$', utools.getPath('home'))
-                    let parseObj = parse(path)
-                    let { exists, description, icon } = existsOrNot(path, {
-                        description: path,
-                        icon: this.icon,
-                    })
-                    items.push({
-                        id: '',
-                        title: parseObj.name,
-                        description: description,
-                        icon: icon,
-                        searchKey: unique([
-                            ...generatePinyinIndex(context, parseObj.name),
-                            ...generateFilePathIndex(context, path),
-                            parseObj.name,
-                        ]),
-                        exists: exists,
-                        command: new NohupShellExecutor(this.executor, path),
-                        datetime: parseInt(`${datetime}`),
-                    })
-                }
+        let recentProjects = await parseRecentProjects(context, this.config)
+        for (const recentProject of recentProjects) {
+            let parseObj = parse(recentProject.path)
+            let { exists, description, icon } = existsOrNot(recentProject.path, {
+                description: recentProject.path,
+                icon: this.icon,
+            })
+            items.push({
+                id: '',
+                title: parseObj.name,
+                description: description,
+                icon: icon,
+                searchKey: unique([
+                    ...generatePinyinIndex(context, parseObj.name),
+                    ...generateFilePathIndex(context, recentProject.path),
+                    parseObj.name,
+                ]),
+                exists: exists,
+                command: new NohupShellExecutor(this.executor, recentProject.path),
+                datetime: recentProject.datetime,
             })
         }
         return items
