@@ -9,7 +9,6 @@ let iconFolderPath = path.join(root, 'icon')
 let iconPaths = fs.readdirSync(iconFolderPath)
                   .filter(s => s.endsWith('png'))
                   .map(s => path.join(iconFolderPath, s))
-console.log(iconPaths)
 let iconBase64s = iconPaths.map(p => {
   let parser = path.parse(p)
   let buffer = fs.readFileSync(p)

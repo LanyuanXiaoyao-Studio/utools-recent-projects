@@ -26,9 +26,11 @@ let paths = fg.sync([
   `${nodeModulesPath}/winreg/test`,
   `!${nodeModulesPath}/**/package.json`,
 ], {unique: true, dot: true, onlyFiles: false})
+let count = 0
 paths.forEach(p => {
-  console.log(`Delete ${p}`)
   if (fs.existsSync(p)) {
     fs.rmSync(p, {recursive: true, force: true})
+    count++
   }
 })
+console.log(`Delete ${count} files.`)
