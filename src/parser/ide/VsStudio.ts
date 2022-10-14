@@ -86,7 +86,7 @@ export class VsStudioApplicationImpl extends ApplicationCacheConfigAndExecutorIm
                             parseObj.name,
                         ]),
                         exists: exists,
-                        command: new ShellExecutor(`"${this.executor}" '${path}' /Edit`),
+                        command: new ShellExecutor(`"${this.executor}" "${path}"`),
                         datetime: parseInt(`${datetime}`),
                     })
                 })
