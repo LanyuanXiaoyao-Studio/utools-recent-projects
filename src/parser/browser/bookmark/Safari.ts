@@ -7,10 +7,10 @@ import {
     ApplicationConfigState,
     ApplicationImpl,
     DatetimeProjectItemImpl,
-    ElectronExecutor,
     GROUP_BROWSER_BOOKMARK,
     PLATFORM_MACOS,
     SettingItem,
+    UtoolsExecutor,
 } from '../../../Types'
 import {generateParents, systemHome} from '../../../Utils'
 import {generateFullUrlIndex} from '../../../utils/index-generator/FullUrlIndex'
@@ -76,7 +76,7 @@ export class SafariBookmarkApplicationImpl extends BrowserApplicationImpl<Safari
                         title,
                     ]),
                     exists: true,
-                    command: new ElectronExecutor(url),
+                    command: new UtoolsExecutor(url),
                     datetime: 0,
                 })
             })

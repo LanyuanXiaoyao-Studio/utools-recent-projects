@@ -4,11 +4,11 @@ import {i18n, sentenceKey} from '../../../i18n'
 import {
     ApplicationImpl,
     DatetimeProjectItemImpl,
-    ElectronExecutor,
     GROUP_BROWSER_HISTORY,
     NameGetter,
     Platform,
     PLATFORM_ALL,
+    UtoolsExecutor,
 } from '../../../Types'
 import {removeAllQueryFromUrl} from '../../../Utils'
 import {generateFullUrlIndex} from '../../../utils/index-generator/FullUrlIndex'
@@ -57,7 +57,7 @@ export class ChromiumHistoryApplicationImpl extends BrowserApplicationImpl<Chrom
                         title,
                     ]),
                     exists: true,
-                    command: new ElectronExecutor(url),
+                    command: new UtoolsExecutor(url),
                     datetime: i['timestamp'] ?? 0,
                 })
             })

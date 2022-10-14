@@ -5,12 +5,12 @@ import {i18n, sentenceKey} from '../../../i18n'
 import {
     ApplicationImpl,
     DatetimeProjectItemImpl,
-    ElectronExecutor,
     GROUP_BROWSER_BOOKMARK,
     NameGetter,
     Platform,
     PLATFORM_ALL,
     PLATFORM_WINDOWS,
+    UtoolsExecutor,
 } from '../../../Types'
 import {generateParents, parseTimeFrom1604} from '../../../Utils'
 import {generateFullUrlIndex} from '../../../utils/index-generator/FullUrlIndex'
@@ -61,7 +61,7 @@ export class ChromiumBookmarkApplicationImpl extends BrowserApplicationImpl<Chro
                     title,
                 ]),
                 exists: true,
-                command: new ElectronExecutor(url),
+                command: new UtoolsExecutor(url),
                 datetime: time,
             })
         })

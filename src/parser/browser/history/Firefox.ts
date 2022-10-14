@@ -4,12 +4,12 @@ import {i18n, sentenceKey} from '../../../i18n'
 import {
     ApplicationImpl,
     DatetimeProjectItemImpl,
-    ElectronExecutor,
     GROUP_BROWSER_HISTORY,
     NameGetter,
     Platform,
     PLATFORM_ALL,
     SettingProperties,
+    UtoolsExecutor,
 } from '../../../Types'
 import {configExtensionFilter, removeAllQueryFromUrl} from '../../../Utils'
 import {generateFullUrlIndex} from '../../../utils/index-generator/FullUrlIndex'
@@ -68,7 +68,7 @@ export class FirefoxHistoryApplicationImpl extends BrowserApplicationImpl<Firefo
                         title,
                     ]),
                     exists: true,
-                    command: new ElectronExecutor(url),
+                    command: new UtoolsExecutor(url),
                     datetime: i['timestamp'] ?? 0,
                 })
             })

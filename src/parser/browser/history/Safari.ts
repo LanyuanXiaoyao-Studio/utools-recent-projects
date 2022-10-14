@@ -5,10 +5,10 @@ import {
     ApplicationConfigState,
     ApplicationImpl,
     DatetimeProjectItemImpl,
-    ElectronExecutor,
     GROUP_BROWSER_HISTORY,
     PLATFORM_MACOS,
     SettingItem,
+    UtoolsExecutor,
 } from '../../../Types'
 import {removeAllQueryFromUrl, systemHome} from '../../../Utils'
 import {generateFullUrlIndex} from '../../../utils/index-generator/FullUrlIndex'
@@ -66,7 +66,7 @@ export class SafariHistoryApplicationImpl extends BrowserApplicationImpl<SafariH
                         title,
                     ]),
                     exists: true,
-                    command: new ElectronExecutor(url),
+                    command: new UtoolsExecutor(url),
                     datetime: i['timestamp'] ?? 0,
                 })
             })
