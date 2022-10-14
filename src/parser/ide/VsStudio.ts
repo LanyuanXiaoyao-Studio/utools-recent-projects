@@ -2,16 +2,17 @@ import {readFile} from 'fs/promises'
 import {isEmpty, isNil, unique} from 'licia'
 import {parse} from 'path'
 import {Context} from '../../Context'
+import {i18n, sentenceKey} from '../../i18n'
 import {
-    ApplicationCacheConfigImpl,
+    ApplicationCacheConfigAndExecutorImpl,
     ApplicationImpl,
     DatetimeProjectItemImpl,
-    ElectronExecutor,
     GROUP_IDE,
     PLATFORM_WINDOWS,
     SettingProperties,
+    ShellExecutor,
 } from '../../Types'
-import {configExtensionFilter, existsOrNot} from '../../Utils'
+import {configExtensionFilter, executorExtensionFilter, existsOrNot, systemUser} from '../../Utils'
 import {generateFilePathIndex} from '../../utils/index-generator/FilePathIndex'
 import {generatePinyinIndex} from '../../utils/index-generator/PinyinIndex'
 
@@ -19,7 +20,7 @@ const VS_STUDIO: string = 'vs-studio'
 
 export class VsStudioProjectItemImpl extends DatetimeProjectItemImpl {}
 
-export class VsStudioApplicationImpl extends ApplicationCacheConfigImpl<VsStudioProjectItemImpl> {
+export class VsStudioApplicationImpl extends ApplicationCacheConfigAndExecutorImpl<VsStudioProjectItemImpl> {
     constructor() {
         super(
             VS_STUDIO,
@@ -29,21 +30,31 @@ export class VsStudioApplicationImpl extends ApplicationCacheConfigImpl<VsStudio
             VS_STUDIO,
             PLATFORM_WINDOWS,
             GROUP_IDE,
-            `历史项目将使用默认关联的应用打开, 想要实现直接通过 Visual Studio 打开, 需要自行设置 sln 文件与 Visual Studio 默认关联
-本功能依据官网最新的 Visual Studio 2019 开发`,
+            () => `${i18n.t(sentenceKey.configFileAt)} ${this.defaultConfigPath()}, ${i18n.t(sentenceKey.executorFileAt)} ${this.defaultExecutorPath()}`,
             false,
             'ApplicationPrivateSettings.xml',
         )
     }
 
     override defaultConfigPath(): string {
-        return ''
+        return `C:\\Users\\${systemUser()}\\AppData\\Local\\Microsoft\\VisualStudio\\xxx\\ApplicationPrivateSettings.xml`
+    }
+
+    override defaultExecutorPath(): string {
+        return `C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\Common7\\IDE\\devenv.exe`
     }
 
     override configSettingItemProperties(): SettingProperties {
         return {
             ...super.configSettingItemProperties(),
             filters: configExtensionFilter('xml'),
+        }
+    }
+
+    override executorSettingItemProperties(): SettingProperties {
+        return {
+            ...super.executorSettingItemProperties(),
+            filters: executorExtensionFilter('exe'),
         }
     }
 
@@ -75,7 +86,7 @@ export class VsStudioApplicationImpl extends ApplicationCacheConfigImpl<VsStudio
                             parseObj.name,
                         ]),
                         exists: exists,
-                        command: new ElectronExecutor(path),
+                        command: new ShellExecutor(`${this.executor} '${path}'`),
                         datetime: parseInt(`${datetime}`),
                     })
                 })
