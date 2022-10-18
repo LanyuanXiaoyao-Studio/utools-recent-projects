@@ -36,6 +36,10 @@ jobs:
         id: project_version
         run: echo "::set-output name=project_version::$(node -p "require('./package.json').version")"
         shell: bash
+      - name: Detect git count
+        id: git_count
+        run: echo "::set-output name=git_count::$(git rev-list --all --count)"
+        shell: bash
       - name: Current project version
         run: echo ${{ steps.project_version.outputs.project_version}}
       - name: Create Release
@@ -44,6 +48,6 @@ jobs:
         with:
           artifacts: "*.upx"
           tag: ${{ steps.project_version.outputs.project_version}}
-          name: 书签与历史记录 ${{ steps.project_version.outputs.project_version}}
+          name: "书签与历史记录 ${{ steps.project_version.outputs.project_version}}(${{ steps.git_count.outputs.git_count }})"
           bodyFile: .github/workflows/release-note.md
           token: ${{ secrets.GH_TOKEN }}
