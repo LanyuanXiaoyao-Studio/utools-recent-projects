@@ -5,7 +5,7 @@ root_path=`pwd`
 echo $root_path
 
 bin_path="${root_path}/bin"
-plugin_path="${root_path}/dist/plugin.json"
+package_path="${root_path}/package.json"
 
 if [ -z $UTOOLS_KEY ]; then
   echo 'utools key not found'
@@ -14,8 +14,8 @@ fi
 
 node ${bin_path}/add-key.js $root_path $UTOOLS_KEY
 
-plugin_name=$(cat $plugin_path | jq -r .pluginName)
-plugin_version=$(cat $plugin_path | jq -r .version)
+plugin_name=$(cat $package_path | jq -r .name)
+plugin_version=$(cat $package_path | jq -r .version)
 
 git_count=$(git rev-list --all --count)
 
