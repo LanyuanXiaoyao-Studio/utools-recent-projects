@@ -45,7 +45,5 @@ jobs:
           artifacts: "*.upx"
           tag: ${{ steps.project_version.outputs.project_version}}
           name: 书签与历史记录 ${{ steps.project_version.outputs.project_version}}
-          draft: true
-          prerelease: false
           bodyFile: .github/workflows/release-note.md
           token: ${{ secrets.GH_TOKEN }}
