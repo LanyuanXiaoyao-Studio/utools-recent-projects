@@ -1,0 +1,38 @@
+name: uTools Recent Projects Plugin Release
+
+on:
+  pull_request:
+    branches:
+      - master
+
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+jobs:
+  release:
+    strategy:
+      matrix:
+        node-version: [ 14.x ]
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{matrix.node-version}}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{matrix.node-version}}
+      - name: Detect project version
+        id: project_version
+        run: echo "::set-output name=project_version::$(node -p "require('./package.json').version")"
+        shell: bash
+      - name: Current project version
+        run: echo ${{ steps.project_version.outputs.project_version}}
+      - name: Create Release
+        id: create_release
+        uses: ncipollo/release-action@v1
+        with:
+          tag: ${{ steps.project_version.outputs.project_version}}
+          name: 书签与历史记录 ${{ steps.project_version.outputs.project_version}}
+          draft: true
+          prerelease: false
+          bodyFile: .github/workflows/release-note.md
+          token: ${{ secrets.GITHUB_TOKEN }}
