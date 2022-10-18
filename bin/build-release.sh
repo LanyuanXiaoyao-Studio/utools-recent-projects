@@ -21,4 +21,4 @@ git_count=$(git rev-list --all --count)
 
 asar p dist $plugin_name
 gzip $plugin_name
-mv $plugin_name.gz $plugin_name-$plugin_version.$git_count.upx
+mv $plugin_name.gz $plugin_name-$plugin_version\($git_count\).upx
