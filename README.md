@@ -63,6 +63,10 @@
 
 [Gitee](https://gitee.com/LanyuanXiaoyao-Studio/utools-recent-projects)
 
+## 离线安装文件
+
+[Github Release](https://github.com/LanyuanXiaoyao-Studio/utools-recent-projects/releases)
+
 # 使用说明
 
 ## 软件设置
