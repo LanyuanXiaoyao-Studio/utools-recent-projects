@@ -6,6 +6,7 @@
   "scripts": {
     "build": "bash bin/build.sh",
     "build-win": "powershell.exe .\\bin\\build.ps1",
+    "build-release": "bash bin/build-release.sh",
     "test": "jest"
   },
   "devDependencies": {
