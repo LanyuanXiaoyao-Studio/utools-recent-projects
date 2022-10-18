@@ -1,34 +1,34 @@
 {
-  "pluginName"   : "书签和历史记录",
-  "author"       : "lanyuanxiaoyao",
-  "homepage"     : "http://lanyuanxiaoyao.com",
-  "description"  : "快速查找打开书签和历史记录，支持 vscode，sublime，jetbrains（Android Studio，GoLand，IDEA，PyCharm，Webstorm等系列），WPS，Office（Word，Excel，Powerpoint），LibreOffice，Xcode，Chrome，Firefox，Safari，Edge，Opera，Brave，Yandex等主流浏览器",
-  "version"      : "3.9.3",
-  "logo"         : "fox.png",
-  "preload"      : "preload.js",
+  "pluginName": "书签和历史记录",
+  "author": "lanyuanxiaoyao",
+  "homepage": "http://lanyuanxiaoyao.com",
+  "description": "快速查找打开书签和历史记录，支持 vscode，sublime，jetbrains（Android Studio，GoLand，IDEA，PyCharm，Webstorm等系列），WPS，Office（Word，Excel，Powerpoint），LibreOffice，Xcode，Chrome，Firefox，Safari，Edge，Opera，Brave，Yandex等主流浏览器",
+  "version": "3.9.3",
+  "logo": "fox.png",
+  "preload": "preload.js",
   "pluginSetting": {
     "single": true
   },
-  "features"     : [
+  "features": [
     {
-      "code"   : "setting",
+      "code": "setting",
       "explain": "「书签与历史记录」插件配置界面",
-      "icon"   : "fox.png",
-      "cmds"   : [
+      "icon": "fox.png",
+      "cmds": [
         "Setting",
         "设置"
       ]
     },
     {
-      "code"   : "jetbrains-project",
+      "code": "jetbrains-project",
       "explain": "快速打开我的 JetBrains 项目",
-      "icon"   : "icon/jetbrains.png",
-      "cmds"   : [
+      "icon": "icon/jetbrains.png",
+      "cmds": [
         "jb",
         "JetBrains Projects",
         "我的 JetBrains 项目",
         {
-          "type" : "window",
+          "type": "window",
           "label": "打开其他 JetBrains 项目",
           "match": {
             "app": [
@@ -65,15 +65,15 @@
       ]
     },
     {
-      "code"   : "vscode-project",
+      "code": "vscode-project",
       "explain": "快速打开我的 Visual Studio Code 项目",
-      "icon"   : "icon/ms-visual-studio-code.png",
-      "cmds"   : [
+      "icon": "icon/ms-visual-studio-code.png",
+      "cmds": [
         "vsc",
         "Visual Studio Code Projects",
         "我的 Visual Studio Code 项目",
         {
-          "type" : "window",
+          "type": "window",
           "label": "打开其他 Visual Studio Code 项目",
           "match": {
             "app": [
@@ -86,18 +86,18 @@
       ]
     },
     {
-      "code"    : "typora-project",
-      "explain" : "快速打开我的 Typora 项目",
-      "icon"    : "icon/typora.png",
+      "code": "typora-project",
+      "explain": "快速打开我的 Typora 项目",
+      "icon": "icon/typora.png",
       "platform": [
         "win32",
         "linux"
       ],
-      "cmds"    : [
+      "cmds": [
         "Typora Projects",
         "我的 Typora 项目",
         {
-          "type" : "window",
+          "type": "window",
           "label": "打开其他 Typora 项目",
           "match": {
             "app": [
@@ -109,14 +109,14 @@
       ]
     },
     {
-      "code"   : "obsidian-project",
+      "code": "obsidian-project",
       "explain": "快速打开我的 Obsidian 项目",
-      "icon"   : "icon/obsidian.png",
-      "cmds"   : [
+      "icon": "icon/obsidian.png",
+      "cmds": [
         "Obsidian Projects",
         "我的 Obsidian 项目",
         {
-          "type" : "window",
+          "type": "window",
           "label": "打开其他 Obsidian 项目",
           "match": {
             "app": [
@@ -128,15 +128,15 @@
       ]
     },
     {
-      "code"   : "sublime-project",
+      "code": "sublime-project",
       "explain": "快速打开我的 Sublime Text 项目",
-      "icon"   : "icon/sublime.png",
-      "cmds"   : [
+      "icon": "icon/sublime.png",
+      "cmds": [
         "sbt",
         "Sublime Text Projects",
         "我的 Sublime Text 项目",
         {
-          "type" : "window",
+          "type": "window",
           "label": "打开其他 Sublime Text 项目",
           "match": {
             "app": [
@@ -149,15 +149,15 @@
       ]
     },
     {
-      "code"   : "wps-project",
+      "code": "wps-project",
       "explain": "快速打开我的 WPS Office 项目",
-      "icon"   : "icon/wps-internation.png",
-      "cmds"   : [
+      "icon": "icon/wps-internation.png",
+      "cmds": [
         "wps",
         "WPS Office Projects",
         "我的 WPS Office 项目",
         {
-          "type" : "window",
+          "type": "window",
           "label": "打开其他 WPS Office 项目",
           "match": {
             "app": [
@@ -173,19 +173,19 @@
       ]
     },
     {
-      "code"    : "office-project",
-      "explain" : "快速打开我的 Office 项目",
-      "icon"    : "icon/office.png",
+      "code": "office-project",
+      "explain": "快速打开我的 Office 项目",
+      "icon": "icon/office.png",
       "platform": [
         "win32",
         "darwin"
       ],
-      "cmds"    : [
+      "cmds": [
         "office",
         "Office Projects",
         "我的 Office 项目",
         {
-          "type" : "window",
+          "type": "window",
           "label": "打开其他 Office 项目",
           "match": {
             "app": [
@@ -205,30 +205,30 @@
       ]
     },
     {
-      "code"    : "vs-studio-project",
-      "explain" : "快速打开我的 Visual Studio 项目",
-      "icon"    : "icon/ms-visual-studio.png",
+      "code": "vs-studio-project",
+      "explain": "快速打开我的 Visual Studio 项目",
+      "icon": "icon/ms-visual-studio.png",
       "platform": [
         "win32"
       ],
-      "cmds"    : [
+      "cmds": [
         "vs",
         "Visual Studio",
         "我的 Visual Studio 项目"
       ]
     },
     {
-      "code"    : "xcode-project",
-      "explain" : "快速打开我的 Xcode 项目",
-      "icon"    : "icon/xcode.png",
+      "code": "xcode-project",
+      "explain": "快速打开我的 Xcode 项目",
+      "icon": "icon/xcode.png",
       "platform": [
         "darwin"
       ],
-      "cmds"    : [
+      "cmds": [
         "Xcode",
         "我的 Xcode 项目",
         {
-          "type" : "window",
+          "type": "window",
           "label": "打开其他 Xcode 项目",
           "match": {
             "app": [
@@ -239,15 +239,15 @@
       ]
     },
     {
-      "code"   : "browser-history-project",
+      "code": "browser-history-project",
       "explain": "快速打开我的浏览器历史记录",
-      "icon"   : "icon/browser.png",
-      "cmds"   : [
+      "icon": "icon/browser.png",
+      "cmds": [
         "Browser History",
         "浏览器历史记录",
         "History",
         {
-          "type" : "window",
+          "type": "window",
           "label": "打开其他浏览器历史记录",
           "match": {
             "app": [
@@ -281,15 +281,15 @@
       ]
     },
     {
-      "code"   : "browser-bookmark-project",
+      "code": "browser-bookmark-project",
       "explain": "快速打开我的浏览器书签",
-      "icon"   : "icon/browser.png",
-      "cmds"   : [
+      "icon": "icon/browser.png",
+      "cmds": [
         "Browser Bookmark",
         "浏览器书签",
         "Bookmark",
         {
-          "type" : "window",
+          "type": "window",
           "label": "打开其他浏览器书签",
           "match": {
             "app": [
@@ -323,15 +323,15 @@
       ]
     },
     {
-      "code"   : "libre-project",
+      "code": "libre-project",
       "explain": "快速打开我的 LibreOffice 项目",
-      "icon"   : "icon/libreoffice.png",
-      "cmds"   : [
+      "icon": "icon/libreoffice.png",
+      "cmds": [
         "office",
         "LibreOffice Projects",
         "我的 LibreOffice 项目",
         {
-          "type" : "window",
+          "type": "window",
           "label": "打开其他 LibreOffice 项目",
           "match": {
             "app": [
@@ -343,14 +343,14 @@
       ]
     },
     {
-      "code"   : "geany-project",
+      "code": "geany-project",
       "explain": "快速打开我的 geany 项目",
-      "icon"   : "icon/geany.png",
-      "cmds"   : [
+      "icon": "icon/geany.png",
+      "cmds": [
         "Geany Projects",
         "我的 Geany 项目",
         {
-          "type" : "window",
+          "type": "window",
           "label": "打开其他 Geany 项目",
           "match": {
             "app": [
@@ -363,17 +363,17 @@
       ]
     },
     {
-      "code"    : "default-folder-x-project",
-      "explain" : "快速打开最近文件或文件夹",
-      "icon"    : "icon/default-folder-x.png",
+      "code": "default-folder-x-project",
+      "explain": "快速打开最近文件或文件夹",
+      "icon": "icon/default-folder-x.png",
       "platform": [
         "darwin"
       ],
-      "cmds"    : [
+      "cmds": [
         "Recent Files & Folders",
         "最近文件或文件夹",
         {
-          "type" : "window",
+          "type": "window",
           "label": "打开最近文件或文件夹",
           "match": {
             "app": [
@@ -382,24 +382,24 @@
           }
         },
         {
-          "type" : "over",
+          "type": "over",
           "label": "打开最近文件或文件夹"
         }
       ]
     },
     {
-      "code"    : "evernote-project",
-      "explain" : "快速打开我的印象笔记",
-      "icon"    : "icon/evernote.png",
+      "code": "evernote-project",
+      "explain": "快速打开我的印象笔记",
+      "icon": "icon/evernote.png",
       "platform": [
         "win32",
         "darwin"
       ],
-      "cmds"    : [
+      "cmds": [
         "Evernote Projects",
         "我的印象笔记",
         {
-          "type" : "window",
+          "type": "window",
           "label": "打开其他印象笔记",
           "match": {
             "app": [
@@ -410,13 +410,13 @@
       ]
     },
     {
-      "code"    : "shortcuts-project",
-      "explain" : "快速打开最近使用的 Shortcut (快捷指令)",
-      "icon"    : "icon/shortcuts.png",
+      "code": "shortcuts-project",
+      "explain": "快速打开最近使用的 Shortcut (快捷指令)",
+      "icon": "icon/shortcuts.png",
       "platform": [
         "darwin"
       ],
-      "cmds"    : [
+      "cmds": [
         "Shortcuts",
         "最近打开的 Shortcut (快捷指令)"
       ]

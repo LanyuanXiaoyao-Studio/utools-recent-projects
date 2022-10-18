@@ -26,18 +26,18 @@ mkdir $temp_path
 Set-Location $temp_path
 $packageJson=@"
 {
-  "name"           : "utools-recent-projects-dependencies",
-  "version"        : "1.0.0",
-  "license"        : "MIT",
-  "dependencies"   : {
-    "bplist-parser"    : "^0.3.2",
-    "licia"            : "^1.37.0",
-    "nano-jsx"         : "^0.0.32",
-    "nanobar"          : "^0.4.2",
-    "pinyin-pro"       : "^3.11.0",
-    "sql.js"           : "^1.7.0",
+  "name": "utools-recent-projects-dependencies",
+  "version": "1.0.0",
+  "license": "MIT",
+  "dependencies": {
+    "bplist-parser": "^0.3.2",
+    "licia": "^1.37.0",
+    "nano-jsx": "^0.0.32",
+    "nanobar": "^0.4.2",
+    "pinyin-pro": "^3.11.0",
+    "sql.js": "^1.7.0",
     "string-comparison": "^1.1.0",
-    "winreg"           : "^1.2.4"
+    "winreg": "^1.2.4"
   }
 }
 "@
