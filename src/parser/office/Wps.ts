@@ -22,6 +22,7 @@ import {generateFilePathIndex} from '../../utils/index-generator/FilePathIndex'
 import {generatePinyinIndex} from '../../utils/index-generator/PinyinIndex'
 
 const WPS_WIN_INTERNATION: string = 'wps-win-internation'
+const WPS_MAC: string = 'wps-mac'
 const WPS_MAC_INTERNATION: string = 'wps-mac-internation'
 const WPS_LINUX_INTERNATION: string = 'wps-linux-internation'
 
@@ -80,27 +81,27 @@ export class WpsWinInternationalApplicationImpl extends ApplicationImpl<WpsWinIn
     }
 }
 
-export class WpsMacInternationalProjectItemImpl extends DatetimeProjectItemImpl {}
+export class WpsMacProjectItemImpl extends DatetimeProjectItemImpl {}
 
-export class WpsMacInternationalApplicationImpl extends ApplicationConfigImpl<WpsMacInternationalProjectItemImpl> {
-    constructor() {
+export class WpsMacApplicationImpl extends ApplicationConfigImpl<WpsMacProjectItemImpl> {
+    constructor(id: string = WPS_MAC, name: string = 'WPS Office', configFileName: string = 'com.kingsoft.Office.plist') {
         super(
-            WPS_MAC_INTERNATION,
-            'WPS Office (International)',
+            WPS_MAC,
+            name,
             'https://www.wps.com/',
             'icon/wps-internation.png',
-            WPS_MAC_INTERNATION,
+            WPS_MAC,
             PLATFORM_MACOS,
             GROUP_OFFICE,
             () => `刚关闭的文档没有出现在历史记录里是因为配置文件还没有更新, 但 wps 更新配置文件的时机不明, 通常是等一会儿.
 配置文件通常放在 ${this.defaultConfigPath()}`,
             false,
-            'com.kingsoft.plist',
+            configFileName,
         )
     }
 
     override defaultConfigPath(): string {
-        return `/Users/${systemUser()}/Library/Containers/com.kingsoft.wpsoffice.mac.global/Data/Library/Preferences/com.kingsoft.plist`
+        return `/Users/${systemUser()}/Library/Containers/com.kingsoft.wpsoffice.mac/Data/Library/Preferences/com.kingsoft.Office.plist`
     }
 
     override configSettingItemProperties(): SettingProperties {
@@ -110,13 +111,13 @@ export class WpsMacInternationalApplicationImpl extends ApplicationConfigImpl<Wp
         }
     }
 
-    async generateProjectItems(context: Context): Promise<Array<WpsMacInternationalProjectItemImpl>> {
-        let items: Array<WpsMacInternationalProjectItemImpl> = []
+    async generateProjectItems(context: Context): Promise<Array<WpsMacProjectItemImpl>> {
+        let items: Array<WpsMacProjectItemImpl> = []
         let data = await plistParser.parseFile(this.config)
         if (!isNil(data) && !isEmpty(data)) {
             data = data[0]
             Object.keys(data)
-                .filter(key => key.indexOf('RecentFiles') > -1)
+                .filter(key => key.indexOf('RecentFiles.Sequence') > -1)
                 .sort((a, b) => data[b] - data[a])
                 .forEach(key => {
                     let splitKey = '.RecentFiles.Sequence.'
@@ -146,6 +147,16 @@ export class WpsMacInternationalApplicationImpl extends ApplicationConfigImpl<Wp
                 })
         }
         return items
+    }
+}
+
+export class WpsMacInternationalApplicationImpl extends WpsMacApplicationImpl {
+    constructor() {
+        super(WPS_MAC_INTERNATION, 'WPS Office (International)', 'com.kingsoft.plist')
+    }
+
+    override defaultConfigPath(): string {
+        return `/Users/${systemUser()}/Library/Containers/com.kingsoft.wpsoffice.mac.global/Data/Library/Preferences/com.kingsoft.plist`
     }
 }
 
@@ -223,6 +234,7 @@ export class WpsLinuxInternationalApplicationImpl extends ApplicationConfigAndEx
 }
 
 export const applications: Array<ApplicationImpl<DatetimeProjectItemImpl>> = [
+    new WpsMacApplicationImpl(),
     new WpsMacInternationalApplicationImpl(),
     new WpsLinuxInternationalApplicationImpl(),
     new WpsWinInternationalApplicationImpl(),
