@@ -1,3 +1,7 @@
+3.10.1
+1. 增加 wps for mac 适配
+2. 优化 wps for mac (International) 读取配置的逻辑
+
 3.9.3
 1. 修复 Visual Studio 适配打开中文项目失败的问题
 2. 使用新方式打开 Visual Studio 项目, 支持更多项目形式
