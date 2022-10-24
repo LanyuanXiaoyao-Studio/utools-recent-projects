@@ -1,7 +1,7 @@
 import {exec} from 'child_process'
 import {shell} from 'electron'
 import {existsSync} from 'fs'
-import {contain, isEmpty, isEqual, isNil, toStr} from 'licia'
+import {contain, isEmpty, isEqual, isNil} from 'licia'
 import {Context} from './Context'
 import {i18n, sentenceKey} from './i18n'
 import {getName, initLanguage, platformFromUtools} from './Utils'
@@ -584,18 +584,6 @@ export abstract class ApplicationImpl<P extends ProjectItemImpl> implements Appl
 
     protected existsPath(path: string): boolean {
         return existsSync(path)
-    }
-
-    protected info(message: any) {
-        utools.showNotification(`[Info] ${toStr(message)}`)
-    }
-
-    protected warn(message: any) {
-        utools.showNotification(`[Warn] ${toStr(message)}`)
-    }
-
-    protected error(message: any) {
-        utools.showNotification(`[Error] ${toStr(message)}`)
     }
 }
 
