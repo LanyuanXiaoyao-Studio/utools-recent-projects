@@ -585,6 +585,18 @@ export abstract class ApplicationImpl<P extends ProjectItemImpl> implements Appl
     protected existsPath(path: string): boolean {
         return existsSync(path)
     }
+
+    protected info(message: string) {
+        utools.showNotification(`[Info] ${message}`)
+    }
+
+    protected warn(message: string) {
+        utools.showNotification(`[Warn] ${message}`)
+    }
+
+    protected error(message: string) {
+        utools.showNotification(`[Error] ${message}`)
+    }
 }
 
 export interface ApplicationCache<P extends ProjectItemImpl> {
