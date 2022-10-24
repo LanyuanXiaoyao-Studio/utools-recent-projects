@@ -1,3 +1,6 @@
+3.10.2
+设置页面增加插件版本号显示
+
 3.10.1
 1. 增加 wps for mac 适配
 2. 优化 wps for mac (International) 读取配置的逻辑

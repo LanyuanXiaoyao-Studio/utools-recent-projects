@@ -106,4 +106,5 @@ export class ZhCn implements Sentence {
     readonly unlimited: string = '无限制'
     readonly decreasePerformance: string = '影响性能'
     readonly decreasePerformanceDesc: string = '该选项可能会影响插件性能，请谨慎设置'
+    readonly pluginVersion: string = '插件版本'
 }

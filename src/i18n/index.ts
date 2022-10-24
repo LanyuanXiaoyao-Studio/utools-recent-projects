@@ -109,6 +109,7 @@ export const sentenceKey = {
     unlimited: 'unlimited',
     decreasePerformance: 'decreasePerformance',
     decreasePerformanceDesc: 'decreasePerformanceDesc',
+    pluginVersion: 'pluginVersion',
 }
 
 export interface Sentence {
@@ -217,6 +218,7 @@ export interface Sentence {
     readonly unlimited: string
     readonly decreasePerformance: string
     readonly decreasePerformanceDesc: string
+    readonly pluginVersion: string
 }
 
 let languageData = new I18n('zh-CN', {

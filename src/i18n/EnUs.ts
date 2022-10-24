@@ -106,4 +106,5 @@ export class EnUs implements Sentence {
     readonly unlimited: string = 'Unlimited'
     readonly decreasePerformance: string = 'Decrease performance'
     readonly decreasePerformanceDesc: string = 'The Option may \ndecrease performance'
+    readonly pluginVersion: string = 'Plugin Version'
 }

@@ -3,6 +3,7 @@ import {Context} from '../../Context'
 import {i18n, sentenceKey} from '../../i18n'
 import {Platform} from '../../Types'
 import {systemUser} from '../../Utils'
+import {pluginVersion} from '../../utils/versions/PluginVersion'
 
 const platformName: (Platform) => string = platform => {
     if (platform == Platform.win32) {
@@ -25,6 +26,7 @@ export interface InformationCardState {
     avatar: string
     username: string
     version: string
+    pluginVersion: string
     systemUser: string
     nativeId: string
 }
@@ -37,6 +39,7 @@ export class InformationCard extends Component<InformationCardProps, Information
             avatar: utools.getUser()?.avatar ?? 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAABgCAMAAADVRocKAAAAQlBMVEUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACO4fbyAAAAFXRSTlMACOHTj+9DaxMoHXNWTbC8ncY7gTBQQCg8AAACc0lEQVRo3u2Z3XK0IAyGSyAIImjXzf3f6nf27bQbeUGcTjvjcxxD/gwQPm5ubpoJfnKrJRZhsqubfLhQucnOyhvWZXOJ+sfGckTJw8ZPJFVoMiPqEwmE0uklMkkTtJxSPxdppswnzGfpgHudME462boyET6lm8/QEX4rJ7DNiYh0oMH5aEz0zooKxUb7SVfvXyIPPYTU5EPQ7Zu+Sk26EQ15MKpx7L/LeVYzjWvJiYZXmqBoOKR/AfGBUVpAglXHrS6sJovriS44QC+8aJRqAxLkAHZBcqWCCCcOFwQdV1ISHCEcI0mdDkg87CnS58IkOubQItGZDuTpqgUIRPRciHDWNiDeYdKm+suigMpUhw34yTp+NJ0MzDnRKrDTVoALg18EUQDtukLA/uINp4bH9uAts8YEcty96eMsr/ICHlu8FcAKSqL74IXLiGQI3O9YLoXfFpCL+ekFrg/RzyfZyqVY8KMNs4JWMYwDzW6YCbTrYbyy4VTh1aXlOQdjwvxckltBWYeeDZC2Jb7Lx2UjXEQ4yzbFyoU3WZBjcGxhB6++T6cFKzcdvDiZk1MlVj/cKurREqwcHUGhrnPXcOlrI3jg47sbmf9YfAHZP7rZ8QXEUOUqiin4Fpj+i4R+/YHAJRC40OuAThZoBfReMjADDDXgEKW0DkOWc/p5RpJgheGv3ImfLenf4JFaaWt2pTJSA0NB67G8p8pQEI81C/gkbGCsCQezvIeK+p3xYBaPlo+2tejAaLl9OG73+KZ9t2A4Dtq7cm5ZHnE2Zo6PRTm1OPO7HiiGnliufyTKv/WZ67qHOnx00+HN/4XH0sPn3pubm1b+AbmqIcRUyWtIAAAAAElFTkSuQmCC',
             username: utools.getUser()?.nickname ?? 'Unknown User',
             version: utools.getAppVersion(),
+            pluginVersion: pluginVersion,
             systemUser: systemUser(),
             nativeId: utools.getNativeId(),
         }
@@ -75,6 +78,25 @@ export class InformationCard extends Component<InformationCardProps, Information
                                         type="text"
                                         id="utools-version"
                                         value={this.state.version}
+                                        readonly
+                                    />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-3 col-sm-12">
+                                    <label
+                                        class="form-label label-sm"
+                                        for="plugin-version"
+                                    >
+                                        {i18n.t(sentenceKey.pluginVersion)}
+                                    </label>
+                                </div>
+                                <div class="col-9 col-sm-12">
+                                    <input
+                                        class="form-input input-sm"
+                                        type="text"
+                                        id="plugin-version"
+                                        value={this.state.pluginVersion}
                                         readonly
                                     />
                                 </div>

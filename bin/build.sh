@@ -13,6 +13,9 @@ echo $root_path
 
 bin_path="${root_path}/bin"
 
+# 生成版本号
+node ${bin_path}/build-version.js $root_path
+
 # 生成 icon
 node ${bin_path}/build-icon.js $root_path
 
