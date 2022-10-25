@@ -49,6 +49,9 @@ yarn install --offline
 
 node ${bin_path}/build-clean.js $root_path
 
+#rm -rf "${temp_path}/node_modules/winreg/lib/registry.js"
+#cp "${root_path}/lib/winreg/lib/registry.js" "${temp_path}/node_modules/winreg/lib"
+
 cd $root_path
 cp -r "${temp_path}/node_modules" $dist/
 rm -rf $temp_path

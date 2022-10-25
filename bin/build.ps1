@@ -51,6 +51,9 @@ yarn install --offline
 
 node $bin_path\build-clean.js $root_path
 
+Remove-Item -Force "$temp_path\node_modules\winreg\lib\registry.js"
+Copy-Item "$root_path\lib\winreg\lib\registry.js" "$temp_path\node_modules\winreg\lib"
+
 Set-Location $root_path
 Copy-Item -Recurse "$temp_path\node_modules" $dist
 Remove-Item -Force -Recurse $temp_path
