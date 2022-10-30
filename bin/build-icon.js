@@ -18,7 +18,7 @@ let iconBase64s = iconPaths.map(p => {
     value: `data:image/png;base64,${buffer.toString('base64')}`,
   }
 })
-let iconTarget = path.join(root, 'public', 'icon')
+let iconTarget = path.join(root, 'dist', 'icon')
 if (!fs.existsSync(iconTarget)) {
   fs.mkdirSync(iconTarget, {recursive: true})
 }
