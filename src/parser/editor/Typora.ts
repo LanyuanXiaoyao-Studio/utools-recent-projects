@@ -12,6 +12,7 @@ import {
     SettingProperties,
 } from '../../Types'
 import {configExtensionFilter, existsOrNot, generateStringByOS, systemUser} from '../../Utils'
+import {generateFilePathIndex} from '../../utils/index-generator/FilePathIndex'
 import {generatePinyinIndex} from '../../utils/index-generator/PinyinIndex'
 
 const TYPORA: string = 'typora'
@@ -78,13 +79,16 @@ export class TyporaApplicationImpl extends ApplicationCacheConfigAndExecutorImpl
                         description: path,
                         icon: context.enableGetFileIcon ? utools.getFileIcon(path) : this.icon,
                     })
+                    let name = i?.['name'] ?? ''
                     items.push({
                         id: '',
-                        title: i?.['name'] ?? '',
+                        title: name,
                         description: description,
                         icon: icon,
                         searchKey: unique([
-                            ...generatePinyinIndex(context, path), path,
+                            ...generatePinyinIndex(context, name),
+                            ...generateFilePathIndex(context, path),
+                            name,
                         ]),
                         exists: exists,
                         command: new NohupShellExecutor(this.executor, path),
