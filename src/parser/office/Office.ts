@@ -15,7 +15,7 @@ import {
     PLATFORM_WINDOWS,
     ShellExecutor,
 } from '../../Types'
-import {existsOrNot, systemUser} from '../../Utils'
+import {existsOrNot, existsOrNotAsync, systemUser} from '../../Utils'
 import {generateFilePathIndex} from '../../utils/index-generator/FilePathIndex'
 import {generatePinyinIndex} from '../../utils/index-generator/PinyinIndex'
 
@@ -52,37 +52,36 @@ export class OfficeMacApplicationImpl extends ApplicationCacheConfigImpl<OfficeP
         let data = await plistParser.parseFile(this.config)
         if (!isNil(data) && !isEmpty(data)) {
             data = data[0]
-            Object.keys(data)
-                .forEach(key => {
-                    let date
-                    try {
-                        date = new Date(data[key]['kLastUsedDateKey']).getTime()
-                    } catch (error) {
-                        console.log(error)
-                        date = 0
-                    }
-                    key = decodeURI(key)
-                    let url = Url.parse(key)
-                    let parser = parse(url.pathname)
-                    let { exists, description, icon } = existsOrNot(url.pathname, {
-                        description: url.pathname,
-                        icon: context.enableGetFileIcon ? utools.getFileIcon(url.pathname) : this.icon,
-                    })
-                    items.push({
-                        id: '',
-                        title: parser.name,
-                        description: description,
-                        icon: icon,
-                        searchKey: unique([
-                            ...generatePinyinIndex(context, parser.name),
-                            ...generateFilePathIndex(context, url.pathname),
-                            parser.name,
-                        ]),
-                        exists: exists,
-                        command: new ShellExecutor(`open ${url}`),
-                        datetime: date,
-                    })
+            for (let key of Object.keys(data)) {
+                let date
+                try {
+                    date = new Date(data[key]['kLastUsedDateKey']).getTime()
+                } catch (error) {
+                    console.log(error)
+                    date = 0
+                }
+                key = decodeURI(key)
+                let url = Url.parse(key)
+                let parser = parse(url.pathname)
+                let { exists, description, icon } = await existsOrNotAsync(url.pathname, {
+                    description: url.pathname,
+                    icon: context.enableGetFileIcon ? utools.getFileIcon(url.pathname) : this.icon,
                 })
+                items.push({
+                    id: '',
+                    title: parser.name,
+                    description: description,
+                    icon: icon,
+                    searchKey: unique([
+                        ...generatePinyinIndex(context, parser.name),
+                        ...generateFilePathIndex(context, url.pathname),
+                        parser.name,
+                    ]),
+                    exists: exists,
+                    command: new ShellExecutor(`open ${url}`),
+                    datetime: date,
+                })
+            }
         }
         return items
     }

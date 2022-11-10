@@ -17,7 +17,7 @@ import {
     SettingProperties,
     ShellExecutor,
 } from '../../Types'
-import {configExtensionFilter, existsOrNot, listRegistry, systemUser} from '../../Utils'
+import {configExtensionFilter, existsOrNot, existsOrNotAsync, listRegistry, systemUser} from '../../Utils'
 import {generateFilePathIndex} from '../../utils/index-generator/FilePathIndex'
 import {generatePinyinIndex} from '../../utils/index-generator/PinyinIndex'
 
@@ -53,11 +53,11 @@ export class WpsWinInternationalApplicationImpl extends ApplicationImpl<WpsWinIn
             ...await listRegistry(WinReg.HKCU, '\\SOFTWARE\\kingsoft\\Office\\6.0\\ofd\\RecentFiles\\Sequence'),
         ]
         if (!isNil(results) && !isEmpty(results)) {
-            results.forEach(result => {
+            for (const result of results) {
                 let path = result.path
                 let datetime = result.datetime
                 let parser = parse(path)
-                let { exists, description, icon } = existsOrNot(path, {
+                let { exists, description, icon } = await existsOrNotAsync(path, {
                     description: path,
                     icon: context.enableGetFileIcon ? utools.getFileIcon(path) : this.icon,
                 })
@@ -75,7 +75,7 @@ export class WpsWinInternationalApplicationImpl extends ApplicationImpl<WpsWinIn
                     command: new ShellExecutor(`powershell.exe -command "Invoke-Item '${path}'"`),
                     datetime: datetime,
                 })
-            })
+            }
         }
         return items
     }

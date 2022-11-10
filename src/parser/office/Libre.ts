@@ -61,6 +61,7 @@ export class LibreOfficeApplicationImpl extends ApplicationCacheConfigAndExecuto
         }
     }
 
+    // TODO change to async
     async generateCacheProjectItems(context: Context): Promise<Array<LibreOfficeProjectItemImpl>> {
         let items: Array<LibreOfficeProjectItemImpl> = []
         let buffer = await readFile(this.config)

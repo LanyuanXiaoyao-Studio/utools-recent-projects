@@ -14,7 +14,7 @@ import {
     ShellExecutor,
     SwitchSettingItem,
 } from '../../Types'
-import {configExtensionFilter, existsOrNot, generateStringByOS, systemUser} from '../../Utils'
+import {configExtensionFilter, existsOrNotAsync, generateStringByOS, systemUser} from '../../Utils'
 import {generateFilePathIndex} from '../../utils/index-generator/FilePathIndex'
 import {generatePinyinIndex} from '../../utils/index-generator/PinyinIndex'
 
@@ -89,14 +89,14 @@ export class SublimeApplicationImpl extends ApplicationCacheConfigAndExecutorImp
                     workspaceSet.add(workspace)
                 }
             }
-            [
+            for (const path of [
                 ...folderSet,
                 ...fileSet,
                 ...workspaceSet,
-            ].forEach(path => {
+            ]) {
                 let parser = parse(path)
                 let readPath = this.parsePath(path)
-                let { exists, description, icon } = existsOrNot(readPath, {
+                let { exists, description, icon } = await existsOrNotAsync(readPath, {
                     description: readPath,
                     icon: context.enableGetFileIcon ? utools.getFileIcon(readPath) : this.icon,
                 })
@@ -114,7 +114,7 @@ export class SublimeApplicationImpl extends ApplicationCacheConfigAndExecutorImp
                     exists: exists,
                     command: new ShellExecutor(`"${this.executor}" ${args} "${this.parsePath(path)}"`),
                 })
-            })
+            }
         }
         return items
     }

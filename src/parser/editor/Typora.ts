@@ -1,4 +1,4 @@
-import {readFileSync} from 'fs'
+import {readFile} from 'fs/promises'
 import {isEmpty, strToBytes, unique} from 'licia'
 import {Context} from '../../Context'
 import {i18n, sentenceKey} from '../../i18n'
@@ -11,7 +11,7 @@ import {
     PLATFORM_NO_MACOS,
     SettingProperties,
 } from '../../Types'
-import {configExtensionFilter, existsOrNot, generateStringByOS, systemUser} from '../../Utils'
+import {configExtensionFilter, existsOrNotAsync, generateStringByOS, systemUser} from '../../Utils'
 import {generateFilePathIndex} from '../../utils/index-generator/FilePathIndex'
 import {generatePinyinIndex} from '../../utils/index-generator/PinyinIndex'
 
@@ -58,7 +58,7 @@ export class TyporaApplicationImpl extends ApplicationCacheConfigAndExecutorImpl
 
     async generateCacheProjectItems(context: Context): Promise<Array<TyporaProjectItemImpl>> {
         let items: Array<TyporaProjectItemImpl> = []
-        let data = readFileSync(this.config, { encoding: 'utf8' })
+        let data = await readFile(this.config, { encoding: 'utf8' })
         if (!isEmpty(data)) {
             data = Buffer.from(strToBytes(data, 'hex')).toString()
             if (!isEmpty(data)) {
@@ -72,10 +72,9 @@ export class TyporaApplicationImpl extends ApplicationCacheConfigAndExecutorImpl
                     }
                     return i
                 })
-                let array = [...recentFiles, ...recentFolders]
-                array.forEach(i => {
+                for (const i of [...recentFiles, ...recentFolders]) {
                     let path = i?.['path'] ?? ''
-                    let { exists, description, icon } = existsOrNot(path, {
+                    let { exists, description, icon } = await existsOrNotAsync(path, {
                         description: path,
                         icon: context.enableGetFileIcon ? utools.getFileIcon(path) : this.icon,
                     })
@@ -94,7 +93,7 @@ export class TyporaApplicationImpl extends ApplicationCacheConfigAndExecutorImpl
                         command: new NohupShellExecutor(this.executor, path),
                         datetime: i?.['date'] ?? 0,
                     })
-                })
+                }
             }
         }
         return items

@@ -1,5 +1,5 @@
 import {execSync} from 'child_process'
-import {statSync} from 'fs'
+import {stat} from 'fs/promises'
 import {isEmpty, isEqual, isNil, unique} from 'licia'
 import {parse} from 'path'
 import {Context} from '../../Context'
@@ -11,7 +11,7 @@ import {
     ProjectItemImpl,
     ShellExecutor,
 } from '../../Types'
-import {existsOrNot, systemUser} from '../../Utils'
+import {existsOrNotAsync, systemUser} from '../../Utils'
 import {signCalculate} from '../../utils/files/SignCalculate'
 import {generateFilePathIndex} from '../../utils/index-generator/FilePathIndex'
 import {generatePinyinIndex} from '../../utils/index-generator/PinyinIndex'
@@ -65,15 +65,15 @@ export class XcodeApplicationImpl extends ApplicationCacheImpl<XcodeProjectItemI
 
     async generateCacheProjectItems(context: Context): Promise<Array<XcodeProjectItemImpl>> {
         let items: Array<XcodeProjectItemImpl> = []
-        if (isNil(statSync(this.configPath))) {
+        if (isNil(await stat(this.configPath))) {
             throw new Error(`无法找到配置文件 ${this.configPath}`)
         }
         let result = execSync(generateScript(this.configPath), { encoding: 'utf-8', windowsHide: true })
         if (!isNil(result) && !isEmpty(result)) {
             let paths = result.split(',').map(p => p.trim())
-            paths.forEach(path => {
+            for (const path of paths) {
                 let parseObj = parse(path)
-                let { exists, description, icon } = existsOrNot(path, {
+                let { exists, description, icon } = await existsOrNotAsync(path, {
                     description: path,
                     icon: context.enableGetFileIcon ? utools.getFileIcon(path) : this.icon,
                 })
@@ -90,7 +90,7 @@ export class XcodeApplicationImpl extends ApplicationCacheImpl<XcodeProjectItemI
                     exists: exists,
                     command: new ShellExecutor(`open ${path}`),
                 })
-            })
+            }
         }
         return items
     }

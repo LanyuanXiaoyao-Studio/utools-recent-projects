@@ -12,7 +12,7 @@ import {
     SettingProperties,
     ShellExecutor,
 } from '../../Types'
-import {configExtensionFilter, executorExtensionFilter, existsOrNot, systemUser} from '../../Utils'
+import {configExtensionFilter, executorExtensionFilter, existsOrNotAsync, systemUser} from '../../Utils'
 import {generateFilePathIndex} from '../../utils/index-generator/FilePathIndex'
 import {generatePinyinIndex} from '../../utils/index-generator/PinyinIndex'
 
@@ -67,11 +67,11 @@ export class VsStudioApplicationImpl extends ApplicationCacheConfigAndExecutorIm
             let source = domParser.querySelector(`collection[name=CodeContainers\\.Offline] > value[name=value]`)?.textContent ?? ''
             let projects = JSON.parse(source)
             if (!isNil(projects) && !isEmpty(projects)) {
-                projects.forEach(p => {
-                    let path = p?.Value?.LocalProperties?.FullPath ?? ''
-                    let datetime = Date.parse(p?.Value?.LastAccessed ?? '')
+                for (const project of projects) {
+                    let path = project?.Value?.LocalProperties?.FullPath ?? ''
+                    let datetime = Date.parse(project?.Value?.LastAccessed ?? '')
                     let parseObj = parse(path)
-                    let { exists, description, icon } = existsOrNot(path, {
+                    let { exists, description, icon } = await existsOrNotAsync(path, {
                         description: path,
                         icon: context.enableGetFileIcon ? utools.getFileIcon(path) : this.icon,
                     })
@@ -89,7 +89,7 @@ export class VsStudioApplicationImpl extends ApplicationCacheConfigAndExecutorIm
                         command: new ShellExecutor(`"${this.executor}" "${path}"`),
                         datetime: parseInt(`${datetime}`),
                     })
-                })
+                }
             }
         }
         return items

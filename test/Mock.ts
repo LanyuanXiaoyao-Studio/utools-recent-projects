@@ -12,6 +12,7 @@ global.utools = {
     isLinux: () => false,
     isWindows: () => false,
     isMacOS: () => true,
+    isDev: () => true,
     getNativeId: () => nativeId,
     dbStorage: {
         getItem(key) {

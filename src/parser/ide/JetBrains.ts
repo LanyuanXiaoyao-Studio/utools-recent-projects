@@ -14,7 +14,7 @@ import {
     PLATFORM_ALL,
     SettingProperties,
 } from '../../Types'
-import {configExtensionFilter, existsOrNot} from '../../Utils'
+import {configExtensionFilter, existsOrNotAsync} from '../../Utils'
 import {generateFilePathIndex} from '../../utils/index-generator/FilePathIndex'
 import {generatePinyinIndex} from '../../utils/index-generator/PinyinIndex'
 
@@ -76,7 +76,7 @@ export class JetBrainsApplicationImpl extends ApplicationCacheConfigAndExecutorI
         let recentProjects = await parseRecentProjects(context, this.config)
         for (const recentProject of recentProjects) {
             let parseObj = parse(recentProject.path)
-            let { exists, description, icon } = existsOrNot(recentProject.path, {
+            let { exists, description, icon } = await existsOrNotAsync(recentProject.path, {
                 description: recentProject.path,
                 icon: this.icon,
             })

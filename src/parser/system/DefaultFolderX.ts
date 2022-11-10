@@ -43,6 +43,7 @@ export class DefaultFolderXApplicationImpl extends ApplicationCacheImpl<DefaultF
         )
     }
 
+    // TODO change to async
     async generateCacheProjectItems(context: Context): Promise<Array<DefaultFolderXProjectItemImpl>> {
         let items: Array<DefaultFolderXProjectItemImpl> = []
         let configPaths = [

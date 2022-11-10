@@ -25,7 +25,7 @@ const HOMEPAGE: string = 'https://code.visualstudio.com/'
 
 export class VscodeProjectItemImpl extends ProjectItemImpl {}
 
-const parseEntries: (entries: any, context: Context, openInNew: boolean, isWindows: boolean, icon: string, executor: string) => Array<VscodeProjectItemImpl> = (entries, context, openInNew, isWindows, defaultIcon, executor: string) => {
+const parseEntries: (entries: any, context: Context, openInNew: boolean, isWindows: boolean, icon: string, executor: string) => Promise<Array<VscodeProjectItemImpl>> = async (entries, context, openInNew, isWindows, defaultIcon, executor: string) => {
     let items: Array<VscodeProjectItemImpl> = []
     if (!isNil(entries)) {
         let args = openInNew ? '-n' : ''
@@ -137,7 +137,7 @@ export class VscodeApplicationImpl extends ApplicationCacheConfigAndExecutorImpl
             let content = buffer.toString()
             let storage = JSON.parse(content)
             let entries = storage?.openedPathsList?.entries
-            items.push(...parseEntries(entries, context, this.openInNew, this.isWindows, this.icon, this.executor))
+            items.push(...(await parseEntries(entries, context, this.openInNew, this.isWindows, this.icon, this.executor)))
         }
         return items
     }
@@ -212,7 +212,7 @@ export class Vscode1640ApplicationImpl extends ApplicationCacheConfigAndExecutor
             let row = results[0]
             let source = row['result'] as string
             if (!isEmpty(source)) {
-                return parseEntries(JSON.parse(source)['entries'], context, this.openInNew, this.isWindows, this.icon, this.executor)
+                return await parseEntries(JSON.parse(source)['entries'], context, this.openInNew, this.isWindows, this.icon, this.executor)
             }
         }
         return []

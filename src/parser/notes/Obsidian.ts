@@ -51,6 +51,7 @@ export class ObsidianApplicationImpl extends ApplicationConfigImpl<ObsidianProje
         }
     }
 
+    // TODO change to async
     async generateProjectItems(context: Context): Promise<Array<ObsidianProjectItemImpl>> {
         let items: Array<ObsidianProjectItemImpl> = []
         let data = readFileSync(this.config, { encoding: 'utf8' })
