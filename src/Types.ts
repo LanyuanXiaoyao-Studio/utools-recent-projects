@@ -323,17 +323,22 @@ export abstract class ProjectArgsImpl extends ArgsImpl<ProjectItemImpl> {
         this.updateApplications(nativeId)
         let platform = platformFromUtools()
         let context = Context.get()
-        for (let app of this.applications) {
-            let finish = app.isFinishConfig(context)
-            // 平台不适配的, 配置没有填完的, 都要被过滤掉
-            if (app.enabled && contain(app.platform, platform) && finish === ApplicationConfigState.done) {
-                (await app.generateProjectItems(context))
-                    .filter(p => context.enableFilterNonExistsFiles ? p.exists : true)
-                    .forEach(p => this.projectItemCache.push(p))
-            } else if (finish === ApplicationConfigState.error) {
-                utools.showNotification(`${getName(app.name)} ${i18n.t(sentenceKey.getProjectsError)}`)
-            }
-        }
+        await Promise.allSettled(
+            this.applications
+                .map(async app => {
+                    let finish = app.isFinishConfig(context)
+                    // 平台不适配的, 配置没有填完的, 都要被过滤掉
+                    if (app.enabled && contain(app.platform, platform) && finish === ApplicationConfigState.done) {
+                        return (await app.generateProjectItems(context))
+                            .filter(p => context.enableFilterNonExistsFiles ? p.exists : true)
+                            .forEach(p => this.projectItemCache.push(p))
+                    } else if (finish === ApplicationConfigState.error) {
+                        utools.showNotification(`${getName(app.name)} ${i18n.t(sentenceKey.getProjectsError)}`)
+                        return
+                    }
+                })
+                .filter(p => !isNil(p)),
+        )
         return this.projectItemCache.sort(this.compare)
     }
 
