@@ -6,6 +6,7 @@ import {Context} from './Context'
 import {i18n, sentenceKey} from './i18n'
 import {getName, initLanguage, platformFromUtools} from './Utils'
 import {signCalculate} from './utils/files/SignCalculate'
+import {errorNotify, infoNotify} from './utils/log/NotificationLog'
 
 /**
  * 命令执行器
@@ -45,7 +46,7 @@ export class ShellExecutor implements Executor {
 
     execute(context: Context): void {
         if (isEmpty(this.command)) {
-            utools.showNotification(i18n.t(sentenceKey.errorArgs))
+            errorNotify(context, i18n.t(sentenceKey.errorArgs))
             return
         }
         exec(this.command, { windowsHide: true }, error => {
@@ -58,7 +59,7 @@ export class ShellExecutor implements Executor {
                     utools.outPlugin()
                 }
             } else {
-                utools.showNotification(error?.message ?? i18n.t(sentenceKey.unknownError))
+                errorNotify(context, error?.message ?? i18n.t(sentenceKey.unknownError))
             }
         })
     }
@@ -96,7 +97,7 @@ export class ElectronExecutor implements Executor {
 
     execute(context: Context): void {
         if (isEmpty(this.command)) {
-            utools.showNotification(i18n.t(sentenceKey.errorArgs))
+            errorNotify(context, i18n.t(sentenceKey.errorArgs))
             return
         }
         shell.openExternal(this.command)
@@ -107,11 +108,7 @@ export class ElectronExecutor implements Executor {
                 }
             })
             .catch(error => {
-                let message = error?.message ?? i18n.t(sentenceKey.unknownError)
-                if (context.isDev) {
-                    console.log('error', message)
-                }
-                utools.showNotification(message)
+                errorNotify(context, error?.message ?? i18n.t(sentenceKey.unknownError))
             })
     }
 }
@@ -125,7 +122,7 @@ export class ElectronPathExecutor implements Executor {
 
     execute(context: Context): void {
         if (isEmpty(this.command)) {
-            utools.showNotification(i18n.t(sentenceKey.errorArgs))
+            errorNotify(context, i18n.t(sentenceKey.errorArgs))
             return
         }
         shell.openPath(this.command)
@@ -134,15 +131,11 @@ export class ElectronPathExecutor implements Executor {
                     utools.hideMainWindow()
                     utools.outPlugin()
                 } else {
-                    utools.showNotification(message)
+                    infoNotify(context, message)
                 }
             })
             .catch(error => {
-                let message = error?.message ?? i18n.t(sentenceKey.unknownError)
-                if (context.isDev) {
-                    console.log('error', message)
-                }
-                utools.showNotification(message)
+                errorNotify(context, error?.message ?? i18n.t(sentenceKey.unknownError))
             })
     }
 
@@ -157,7 +150,7 @@ export class UtoolsExecutor implements Executor {
 
     execute(context: Context): void {
         if (isEmpty(this.command)) {
-            utools.showNotification(i18n.t(sentenceKey.errorArgs))
+            errorNotify(context, i18n.t(sentenceKey.errorArgs))
             return
         }
         try {
@@ -167,11 +160,7 @@ export class UtoolsExecutor implements Executor {
                 utools.outPlugin()
             }
         } catch (error: any) {
-            let message = error?.message ?? i18n.t(sentenceKey.unknownError)
-            if (context.isDev) {
-                console.log('error', message)
-            }
-            utools.showNotification(message)
+            errorNotify(context, error?.message ?? i18n.t(sentenceKey.unknownError))
         }
     }
 }
@@ -333,7 +322,7 @@ export abstract class ProjectArgsImpl extends ArgsImpl<ProjectItemImpl> {
                             .filter(p => context.enableFilterNonExistsFiles ? p.exists : true)
                             .forEach(p => this.projectItemCache.push(p))
                     } else if (finish === ApplicationConfigState.error) {
-                        utools.showNotification(`${getName(app.name)} ${i18n.t(sentenceKey.getProjectsError)}`)
+                        errorNotify(context, `${getName(app.name)} ${i18n.t(sentenceKey.getProjectsError)}`)
                         return
                     }
                 })

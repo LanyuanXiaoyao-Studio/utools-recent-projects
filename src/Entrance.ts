@@ -4,6 +4,7 @@ import NanoBar from 'nanobar'
 import {Context} from './Context'
 import {i18n, sentenceKey} from './i18n'
 import {Action, Callback, DatetimeProjectItemImpl, NoExecutor, ProjectArgsImpl, ProjectItemImpl} from './Types'
+import {errorNotify} from './utils/log/NotificationLog'
 
 const emptyTips: () => ProjectItemImpl = () => {
     return {
@@ -60,8 +61,7 @@ export class AllProjectArgs extends ProjectArgsImpl {
                 S('.nanobar .bar').css('box-shadow', '0 0 10px #ff2929')
                 nanoBar.go(100)
 
-                console.log(error)
-                utools.showNotification(error.message)
+                errorNotify(this.context, error)
                 utools.copyText(error.message)
                 utools.showNotification(i18n.t(sentenceKey.errorInfoToClipboard))
             })
@@ -93,11 +93,11 @@ export class AllProjectArgs extends ProjectArgsImpl {
             return
         }
         if (!item.exists) {
-            utools.showNotification(i18n.t(sentenceKey.filePathNonExistsTips))
+            errorNotify(this.context, i18n.t(sentenceKey.filePathNonExistsTips))
             return
         }
         if (this.context?.enableOpenNotification ?? false) {
-            utools.showNotification(`${i18n.t(sentenceKey.fileOpening)}: ${item.title}`)
+            errorNotify(this.context, `${i18n.t(sentenceKey.fileOpening)}: ${item.title}`)
         }
         item.command.execute(isNil(this.context) ? Context.get() : this.context!)
     }
