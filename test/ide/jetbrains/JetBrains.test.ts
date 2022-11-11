@@ -2,7 +2,7 @@ import {Context} from '../../../src/Context'
 import {JetBrainsApplicationImpl} from '../../../src/parser/ide/JetBrains'
 
 test('jetBrainsProjectItems', async () => {
-    let app = new JetBrainsApplicationImpl('test', 'Test', '')
+    let app = new JetBrainsApplicationImpl('test', 'Test', '', '')
     app.config = `${__dirname}/recentProjects.xml`
 
     let items = await app.generateProjectItems(Context.get())
