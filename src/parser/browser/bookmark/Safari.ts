@@ -1,5 +1,4 @@
 import {parseFile} from 'bplist-parser'
-import {existsSync} from 'fs'
 import {isEmpty, isNil, unique} from 'licia'
 import {Context} from '../../../Context'
 import {i18n, sentenceKey} from '../../../i18n'
@@ -45,7 +44,7 @@ export class SafariBookmarkApplicationImpl extends BrowserApplicationImpl<Safari
     async generateCacheProjectItems(context: Context): Promise<Array<SafariBookmarkProjectItemImpl>> {
         let items: Array<SafariBookmarkProjectItemImpl> = []
         let configPath = this.defaultConfigPath()
-        if (!existsSync(configPath)) {
+        if (await this.nonExistsPath(configPath)) {
             return []
         }
         let result = await parseFile(configPath)
@@ -88,7 +87,7 @@ export class SafariBookmarkApplicationImpl extends BrowserApplicationImpl<Safari
         return []
     }
 
-    override isFinishConfig(context: Context): ApplicationConfigState {
+    override async isFinishConfig(context: Context): Promise<ApplicationConfigState> {
         if (this.disEnable())
             return ApplicationConfigState.empty
         return ApplicationConfigState.done

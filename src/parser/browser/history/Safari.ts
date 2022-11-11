@@ -1,4 +1,3 @@
-import {existsSync} from 'fs'
 import {isEmpty, unique} from 'licia'
 import {Context} from '../../../Context'
 import {
@@ -44,7 +43,7 @@ export class SafariHistoryApplicationImpl extends BrowserApplicationImpl<SafariH
     async generateCacheProjectItems(context: Context): Promise<Array<SafariHistoryProjectItemImpl>> {
         let items: Array<SafariHistoryProjectItemImpl> = []
         let configPath = `${utools.getPath('home')}/Library/Safari/History.db`
-        if (!existsSync(configPath)) {
+        if (await this.nonExistsPath(configPath)) {
             return []
         }
         // language=SQLite
@@ -78,7 +77,7 @@ export class SafariHistoryApplicationImpl extends BrowserApplicationImpl<SafariH
         return []
     }
 
-    override isFinishConfig(context: Context): ApplicationConfigState {
+    override async isFinishConfig(context: Context): Promise<ApplicationConfigState> {
         if (this.disEnable())
             return ApplicationConfigState.empty
         return ApplicationConfigState.done

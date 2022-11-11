@@ -1,5 +1,4 @@
 import plistParser from 'bplist-parser'
-import {execSync} from 'child_process'
 import {lstatSync, readdirSync} from 'fs'
 import {isEmpty, isNil, unique, Url} from 'licia'
 import {join, parse} from 'path'
@@ -18,6 +17,7 @@ import {
 import {existsOrNot, existsOrNotAsync, systemUser} from '../../Utils'
 import {generateFilePathIndex} from '../../utils/index-generator/FilePathIndex'
 import {generatePinyinIndex} from '../../utils/index-generator/PinyinIndex'
+import {execAsync} from '../../utils/promise/ExecPromise'
 
 const OFFICE_MAC: string = 'office-mac'
 const OFFICE_WIN: string = 'office-win'
@@ -121,10 +121,10 @@ export class OfficeWinApplicationImpl extends ApplicationImpl<OfficeProjectItemI
             .sort((p1, p2) => p2.datetime - p1.datetime)
             .map(p => this.generateCommand(p.path))
             .join('')
-        let result = execSync(`powershell.exe -command "chcp 65001;${command}"`, {
+        let result = await execAsync(`powershell.exe -command "chcp 65001;${command}"`, {
             encoding: 'utf8',
             windowsHide: true,
-        }).trim()
+        })
         let paths = result.split(/\r?\n/).slice(1)
         paths.forEach(path => {
             let parser = parse(path)

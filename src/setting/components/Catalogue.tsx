@@ -1,5 +1,5 @@
 import {isNil} from 'licia'
-import Nano, {Component, Fragment} from 'nano-jsx'
+import Nano, {Component, Fragment, Suspense} from 'nano-jsx'
 import {Context} from '../../Context'
 import {i18n, sentenceKey} from '../../i18n'
 import {iconMap} from '../../Icon'
@@ -11,6 +11,28 @@ export interface BadgeInfo {
     readonly show: boolean
     readonly class: string
     readonly text: string
+}
+
+export interface CatalogueListProps {}
+
+export class CatalogueList extends Component<CatalogueListProps> {
+    override render() {
+        return (<Fragment>
+            <li
+                class={'nav-item ' + (this.props['badge'] as BadgeInfo).class}
+                data-badge={(this.props['badge'] as BadgeInfo).text}
+            >
+                <a href={'#' + this.props['application'].id}>
+                    <img
+                        class={`catalogue-app-icon ${this.props['round'] ? 'round-round' : ''}`}
+                        src={iconMap[this.props['application'].icon] ?? ''}
+                        alt={getName(this.props['application'].name)}
+                    />
+                    <span class="catalogue-app-name">{getName(this.props['application'].name)}</span>
+                </a>
+            </li>
+        </Fragment>)
+    }
 }
 
 export interface CatalogueProps {
@@ -57,8 +79,8 @@ export class Catalogue extends Component<CatalogueProps, CatalogueState> {
         utools.shellOpenExternal('https://github.com/LanyuanXiaoyao-Studio/utools-recent-projects')
     }
 
-    private static badge(context: Context, application: Application<ProjectItemImpl>): BadgeInfo {
-        switch (application.isFinishConfig(context)) {
+    private static async badge(context: Context, application: Application<ProjectItemImpl>): Promise<BadgeInfo> {
+        switch (await application.isFinishConfig(context)) {
             case ApplicationConfigState.empty:
                 return { show: false, class: '', text: '' }
             case ApplicationConfigState.undone:
@@ -162,19 +184,14 @@ export class Catalogue extends Component<CatalogueProps, CatalogueState> {
                                         //     }
                                         // })
                                         .map(app => (
-                                            <li
-                                                class={'nav-item ' + Catalogue.badge(this.localContext, app).class}
-                                                data-badge={Catalogue.badge(this.localContext, app).text}
+                                            <Suspense
+                                                badge={async () => (await Catalogue.badge(this.localContext, app))}
+                                                application={async () => app}
+                                                round={async () => this.localContext.enableRoundRound}
+                                                fallback={<div>Loading...</div>}
                                             >
-                                                <a href={'#' + app.id}>
-                                                    <img
-                                                        class={`catalogue-app-icon ${this.localContext.enableRoundRound ? 'round-round' : ''}`}
-                                                        src={iconMap[app.icon] ?? ''}
-                                                        alt={getName(app.name)}
-                                                    />
-                                                    <span class="catalogue-app-name">{getName(app.name)}</span>
-                                                </a>
-                                            </li>
+                                                <CatalogueList/>
+                                            </Suspense>
                                         ))}
                                 </ul>
                             </li>

@@ -1,4 +1,3 @@
-import {execSync} from 'child_process'
 import {stat} from 'fs/promises'
 import {isEmpty, isEqual, isNil, unique} from 'licia'
 import {parse} from 'path'
@@ -12,9 +11,10 @@ import {
     ShellExecutor,
 } from '../../Types'
 import {existsOrNotAsync, systemUser} from '../../Utils'
-import {signCalculate} from '../../utils/files/SignCalculate'
+import {signCalculateAsync} from '../../utils/files/SignCalculate'
 import {generateFilePathIndex} from '../../utils/index-generator/FilePathIndex'
 import {generatePinyinIndex} from '../../utils/index-generator/PinyinIndex'
+import {execAsync} from '../../utils/promise/ExecPromise'
 
 const XCODE: string = 'xcode'
 
@@ -68,7 +68,7 @@ export class XcodeApplicationImpl extends ApplicationCacheImpl<XcodeProjectItemI
         if (isNil(await stat(this.configPath))) {
             throw new Error(`无法找到配置文件 ${this.configPath}`)
         }
-        let result = execSync(generateScript(this.configPath), { encoding: 'utf-8', windowsHide: true })
+        let result = await execAsync(generateScript(this.configPath), { encoding: 'utf-8', windowsHide: true })
         if (!isNil(result) && !isEmpty(result)) {
             let paths = result.split(',').map(p => p.trim())
             for (const path of paths) {
@@ -95,9 +95,9 @@ export class XcodeApplicationImpl extends ApplicationCacheImpl<XcodeProjectItemI
         return items
     }
 
-    isNew(): boolean {
+    async isNew(): Promise<boolean> {
         let last = this.sign
-        this.sign = signCalculate(this.configPath)
+        this.sign = await signCalculateAsync(this.configPath)
         return isEmpty(last) ? true : !isEqual(this.sign, last)
     }
 }

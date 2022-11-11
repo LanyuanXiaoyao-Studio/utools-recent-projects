@@ -1,12 +1,12 @@
 import {exec} from 'child_process'
 import {shell} from 'electron'
-import {existsSync} from 'fs'
 import {contain, isEmpty, isEqual, isNil} from 'licia'
 import {Context} from './Context'
 import {i18n, sentenceKey} from './i18n'
 import {getName, initLanguage, platformFromUtools} from './Utils'
-import {signCalculate} from './utils/files/SignCalculate'
+import {signCalculateAsync} from './utils/files/SignCalculate'
 import {errorNotify, infoNotify} from './utils/log/NotificationLog'
+import {existsToRead, nonExistsToRead} from './utils/promise/FsPromise'
 
 /**
  * 命令执行器
@@ -315,7 +315,7 @@ export abstract class ProjectArgsImpl extends ArgsImpl<ProjectItemImpl> {
         await Promise.allSettled(
             this.applications
                 .map(async app => {
-                    let finish = app.isFinishConfig(context)
+                    let finish = await app.isFinishConfig(context)
                     // 平台不适配的, 配置没有填完的, 都要被过滤掉
                     if (app.enabled && contain(app.platform, platform) && finish === ApplicationConfigState.done) {
                         return (await app.generateProjectItems(context))
@@ -513,7 +513,7 @@ export interface Application<P extends ProjectItemImpl> {
     update: (nativeId: string) => void
     generateSettingItems: (context: Context, nativeId: string) => Array<SettingItem>
     generateProjectItems: (context: Context) => Promise<Array<P>>
-    isFinishConfig: (context: Context) => ApplicationConfigState
+    isFinishConfig: (context: Context) => Promise<ApplicationConfigState>
 }
 
 /**
@@ -566,25 +566,25 @@ export abstract class ApplicationImpl<P extends ProjectItemImpl> implements Appl
 
     abstract generateProjectItems(context: Context): Promise<Array<P>>
 
-    isFinishConfig(context: Context): ApplicationConfigState {
+    async isFinishConfig(context: Context): Promise<ApplicationConfigState> {
         if (this.disEnable())
             return ApplicationConfigState.empty
         return ApplicationConfigState.done
     }
 
-    protected nonExistsPath(path: string): boolean {
-        return !this.existsPath(path)
+    protected async nonExistsPath(path: string): Promise<boolean> {
+        return await nonExistsToRead(path)
     }
 
-    protected existsPath(path: string): boolean {
-        return existsSync(path)
+    protected async existsPath(path: string): Promise<boolean> {
+        return await existsToRead(path)
     }
 }
 
 export interface ApplicationCache<P extends ProjectItemImpl> {
     cache: Array<P>
 
-    isNew(): boolean
+    isNew(): Promise<boolean>
 
     generateCacheProjectItems(context: Context): Promise<Array<P>>
 }
@@ -594,10 +594,10 @@ export abstract class ApplicationCacheImpl<P extends ProjectItemImpl> extends Ap
 
     abstract generateCacheProjectItems(context: Context): Promise<Array<P>>
 
-    abstract isNew(): boolean
+    abstract isNew(): Promise<boolean>
 
     override async generateProjectItems(context: Context): Promise<Array<P>> {
-        if (this.isNew()) {
+        if (await this.isNew()) {
             this.cache = await this.generateCacheProjectItems(context)
         }
         return this.cache
@@ -643,12 +643,12 @@ export abstract class ApplicationConfigImpl<P extends ProjectItemImpl> extends A
         ]
     }
 
-    override isFinishConfig(context: Context): ApplicationConfigState {
+    override async isFinishConfig(context: Context): Promise<ApplicationConfigState> {
         if (this.disEnable())
             return ApplicationConfigState.empty
         if (isEmpty(this.config)) {
             return ApplicationConfigState.undone
-        } else if (this.nonExistsPath(this.config)) {
+        } else if (await this.nonExistsPath(this.config)) {
             return ApplicationConfigState.error
         } else {
             return ApplicationConfigState.done
@@ -664,14 +664,14 @@ export abstract class ApplicationCacheConfigImpl<P extends ProjectItemImpl> exte
 
     abstract generateCacheProjectItems(context: Context): Promise<Array<P>>
 
-    isNew(): boolean {
+    async isNew(): Promise<boolean> {
         let last = this.sign
-        this.sign = signCalculate(this.config)
+        this.sign = await signCalculateAsync(this.config)
         return isEmpty(last) ? true : !isEqual(this.sign, last)
     }
 
     override async generateProjectItems(context: Context): Promise<Array<P>> {
-        if (this.isNew()) {
+        if (await this.isNew()) {
             this.cache = await this.generateCacheProjectItems(context)
         }
         return this.cache
@@ -711,12 +711,12 @@ export abstract class ApplicationConfigAndExecutorImpl<P extends ProjectItemImpl
         ]
     }
 
-    override isFinishConfig(context: Context): ApplicationConfigState {
+    override async isFinishConfig(context: Context): Promise<ApplicationConfigState> {
         if (this.disEnable())
             return ApplicationConfigState.empty
         if (isEmpty(this.config) || isEmpty(this.executor)) {
             return ApplicationConfigState.undone
-        } else if (this.nonExistsPath(this.config) || this.nonExistsPath(this.executor)) {
+        } else if ((await this.nonExistsPath(this.config)) || (await this.nonExistsPath(this.executor))) {
             return ApplicationConfigState.error
         } else {
             return ApplicationConfigState.done
@@ -732,14 +732,14 @@ export abstract class ApplicationCacheConfigAndExecutorImpl<P extends ProjectIte
 
     abstract generateCacheProjectItems(context: Context): Promise<Array<P>>
 
-    isNew(): boolean {
+    async isNew(): Promise<boolean> {
         let last = this.sign
-        this.sign = signCalculate(this.config)
+        this.sign = await signCalculateAsync(this.config)
         return isEmpty(last) ? true : !isEqual(this.sign, last)
     }
 
     override async generateProjectItems(context: Context): Promise<Array<P>> {
-        if (this.isNew()) {
+        if (await this.isNew()) {
             this.cache = await this.generateCacheProjectItems(context)
         }
         return this.cache

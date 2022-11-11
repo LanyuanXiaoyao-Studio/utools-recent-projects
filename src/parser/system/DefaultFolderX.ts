@@ -1,5 +1,5 @@
 import {readFile} from 'fs/promises'
-import {every, has, isEmpty, isEqual, isNil, some, Url} from 'licia'
+import {has, isEmpty, isEqual, isNil, Url} from 'licia'
 import {Context} from '../../Context'
 import {i18n, sentenceKey} from '../../i18n'
 import {
@@ -15,9 +15,10 @@ import {
     ShellExecutor,
 } from '../../Types'
 import {existsOrNot, extensionFilter, systemUser} from '../../Utils'
-import {signCalculate} from '../../utils/files/SignCalculate'
+import {signCalculateAsync} from '../../utils/files/SignCalculate'
 import {generateFilePathIndex} from '../../utils/index-generator/FilePathIndex'
 import {generatePinyinIndex} from '../../utils/index-generator/PinyinIndex'
+import {everyAsync, someAsync} from '../../utils/promise/LiciaPromise'
 
 const DEFAULT_FOLDER_X: string = 'default-folder-x'
 
@@ -144,7 +145,7 @@ export class DefaultFolderXApplicationImpl extends ApplicationCacheImpl<DefaultF
         ]
     }
 
-    override isFinishConfig(context: Context): ApplicationConfigState {
+    override async isFinishConfig(context: Context): Promise<ApplicationConfigState> {
         if (this.disEnable())
             return ApplicationConfigState.empty
         let list = [
@@ -153,21 +154,21 @@ export class DefaultFolderXApplicationImpl extends ApplicationCacheImpl<DefaultF
             this.recentFoldersConfigPath,
         ]
         // 如果全部配置项为空
-        if (every(list, path => isEmpty(path))) return ApplicationConfigState.undone
+        if (await everyAsync(list, async path => isEmpty(path))) return ApplicationConfigState.undone
         //  如果有一个配置项不为空且路径不存在
-        else if (some(list, path => !isEmpty(path) && this.nonExistsPath(path))) return ApplicationConfigState.error
+        else if (await someAsync(list, async path => !isEmpty(path) && (await this.nonExistsPath(path)))) return ApplicationConfigState.error
         else return ApplicationConfigState.done
     }
 
-    isNew(): boolean {
-        let list = [
+    async isNew(): Promise<boolean> {
+        let list = (await Promise.all<string | undefined>([
             this.recentFilesConfigPath,
             this.recentFinderFoldersConfigPath,
             this.recentFoldersConfigPath,
-        ].filter(p => !isEmpty(p) && this.existsPath(p))
-        return some(list, p => {
+        ].map(async p => (!isEmpty(p) && (await this.existsPath(p))) ? p : undefined))).filter(p => !isNil(p)) as Array<string>
+        return await someAsync(list, async p => {
             let last = this.signs[p] ?? ''
-            this.signs[p] = signCalculate(p)
+            this.signs[p] = await signCalculateAsync(p)
             return isEmpty(last) ? true : !isEqual(this.signs[p], last)
         })
     }

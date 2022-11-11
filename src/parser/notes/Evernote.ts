@@ -172,7 +172,7 @@ export class EvernoteWinApplicationImpl extends ApplicationCacheConfigImpl<Evern
         this.user = utools.dbStorage.getItem(this.userId(nativeId)) ?? ''
     }
 
-    override isFinishConfig(context: Context): ApplicationConfigState {
+    override async isFinishConfig(context: Context): Promise<ApplicationConfigState> {
         if (this.disEnable())
             return ApplicationConfigState.empty
         if (isEmpty(this.user) && isEmpty(this.config)) {
