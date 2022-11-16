@@ -66,12 +66,12 @@ export class ShellExecutor implements Executor {
 }
 
 export class NohupShellExecutor extends ShellExecutor {
-    constructor(executor: string, path: string, args?: string) {
+    constructor(executor: string, path?: string, args?: string) {
         let platform: Platform = platformFromUtools()
         switch (platform) {
             case Platform.darwin:
             case Platform.linux:
-                super(`nohup "${executor}" "${path}" ${args ?? ''} > /dev/null 2>&1 &`)
+                super(`nohup "${executor}" ${isNil(path) ? '' : `"${path}"`} ${args ?? ''} > /dev/null 2>&1 &`)
                 break
             case Platform.win32:
                 super(`powershell.exe -command "Start-Process -FilePath '${executor}' -ArgumentList '"""${path}"""'"`)
