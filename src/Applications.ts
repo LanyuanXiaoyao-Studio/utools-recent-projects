@@ -33,7 +33,7 @@ export class ProjectFeature implements Feature<ProjectArgsImpl> {
 
 export const argsMapping: { [keys: string]: ProjectFeature } = {
     'jetbrains-project': new ProjectFeature(new AllProjectSortByTimeArgs(jetBrainsApplications)),
-    'vscode-project': new ProjectFeature(new AllProjectArgs(vscodeApplications)),
+    'vscode-project': new ProjectFeature(new AllProjectSortByTimeArgs(vscodeApplications)),
     'typora-project': new ProjectFeature(new AllProjectSortByTimeArgs(typoraApplications)),
     'sublime-project': new ProjectFeature(new AllProjectArgs(sublimeApplications)),
     'wps-project': new ProjectFeature(new AllProjectArgs(wpsApplications)),

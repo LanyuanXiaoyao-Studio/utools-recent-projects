@@ -107,4 +107,6 @@ export class EnUs implements Sentence {
     readonly decreasePerformance: string = 'Decrease performance'
     readonly decreasePerformanceDesc: string = 'The Option may \ndecrease performance'
     readonly pluginVersion: string = 'Plugin Version'
+    readonly sortByAccessTime: string = 'Sort by access time'
+    readonly sortByAccessTimeDesc: string = 'Because the projects is not sorted by VSCode in it\'s database, this option would help you to sort the projects by access time that is form system. But the time sometimes is not work very well that you need to think about it.'
 }

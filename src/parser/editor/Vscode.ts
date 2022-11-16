@@ -1,4 +1,4 @@
-import {readFile} from 'fs/promises'
+import {readFile, stat} from 'fs/promises'
 import {isEmpty, isNil, startWith, unique, Url} from 'licia'
 import {parse} from 'path'
 import {Context} from '../../Context'
@@ -6,9 +6,9 @@ import {i18n, sentenceKey} from '../../i18n'
 import {
     ApplicationCacheConfigAndExecutorImpl,
     ApplicationImpl,
+    DatetimeProjectItemImpl,
     GROUP_EDITOR,
     PLATFORM_ALL,
-    ProjectItemImpl,
     SettingItem,
     SettingProperties,
     ShellExecutor,
@@ -23,9 +23,9 @@ const VSCODE: string = 'vscode'
 const VSCODE_1640: string = 'vscode-1640'
 const HOMEPAGE: string = 'https://code.visualstudio.com/'
 
-export class VscodeProjectItemImpl extends ProjectItemImpl {}
+export class VscodeProjectItemImpl extends DatetimeProjectItemImpl {}
 
-const parseEntries: (entries: any, context: Context, openInNew: boolean, isWindows: boolean, icon: string, executor: string) => Promise<Array<VscodeProjectItemImpl>> = async (entries, context, openInNew, isWindows, defaultIcon, executor: string) => {
+const parseEntries: (entries: any, context: Context, openInNew: boolean, isWindows: boolean, icon: string, executor: string, sortByAccessTime: boolean | undefined) => Promise<Array<VscodeProjectItemImpl>> = async (entries, context, openInNew, isWindows, defaultIcon, executor, sortByAccessTime) => {
     let items: Array<VscodeProjectItemImpl> = []
     if (!isNil(entries)) {
         let args = openInNew ? '-n' : ''
@@ -70,6 +70,15 @@ const parseEntries: (entries: any, context: Context, openInNew: boolean, isWindo
                 commandText = `"${executor}" --folder-uri "${uriParsed}"`
             }
 
+            let accessTime = 0
+            if (sortByAccessTime && exists) {
+                try {
+                    accessTime = (await stat(path)).atimeMs
+                } catch (error) {
+                    console.error('Get accessTime failure', path, error)
+                }
+            }
+
             items.push({
                 id: '',
                 title: parser.name,
@@ -82,6 +91,7 @@ const parseEntries: (entries: any, context: Context, openInNew: boolean, isWindo
                 ]),
                 exists: exists,
                 command: new ShellExecutor(commandText),
+                datetime: accessTime,
             })
         }
     }
@@ -89,7 +99,7 @@ const parseEntries: (entries: any, context: Context, openInNew: boolean, isWindo
 }
 
 export class VscodeApplicationImpl extends ApplicationCacheConfigAndExecutorImpl<VscodeProjectItemImpl> {
-    openInNew: boolean = false
+    private openInNew: boolean = false
     private isWindows: boolean = utools.isWindows()
 
     constructor() {
@@ -137,7 +147,7 @@ export class VscodeApplicationImpl extends ApplicationCacheConfigAndExecutorImpl
             let content = buffer.toString()
             let storage = JSON.parse(content)
             let entries = storage?.openedPathsList?.entries
-            items.push(...(await parseEntries(entries, context, this.openInNew, this.isWindows, this.icon, this.executor)))
+            items.push(...(await parseEntries(entries, context, this.openInNew, this.isWindows, this.icon, this.executor, undefined)))
         }
         return items
     }
@@ -164,7 +174,8 @@ export class VscodeApplicationImpl extends ApplicationCacheConfigAndExecutorImpl
 }
 
 export class Vscode1640ApplicationImpl extends ApplicationCacheConfigAndExecutorImpl<VscodeProjectItemImpl> {
-    openInNew: boolean = false
+    private openInNew: boolean = false
+    private sortByAccessTime: boolean = false
     private isWindows: boolean = utools.isWindows()
 
     constructor() {
@@ -212,7 +223,7 @@ export class Vscode1640ApplicationImpl extends ApplicationCacheConfigAndExecutor
             let row = results[0]
             let source = row['result'] as string
             if (!isEmpty(source)) {
-                return await parseEntries(JSON.parse(source)['entries'], context, this.openInNew, this.isWindows, this.icon, this.executor)
+                return await parseEntries(JSON.parse(source)['entries'], context, this.openInNew, this.isWindows, this.icon, this.executor, this.sortByAccessTime)
             }
         }
         return []
@@ -222,9 +233,14 @@ export class Vscode1640ApplicationImpl extends ApplicationCacheConfigAndExecutor
         return `${nativeId}/${this.id}-open-in-new`
     }
 
+    private sortByAccessTimeId(nativeId: string) {
+        return `${nativeId}/${this.id}-sort-by-access-time`
+    }
+
     override update(nativeId: string) {
         super.update(nativeId)
         this.openInNew = utools.dbStorage.getItem(this.openInNewId(nativeId)) ?? false
+        this.sortByAccessTime = utools.dbStorage.getItem(this.sortByAccessTimeId(nativeId)) ?? false
     }
 
     override generateSettingItems(context: Context, nativeId: string): Array<SettingItem> {
@@ -234,6 +250,12 @@ export class Vscode1640ApplicationImpl extends ApplicationCacheConfigAndExecutor
             i18n.t(sentenceKey.openInNew),
             this.openInNew,
             i18n.t(sentenceKey.openInNewDesc),
+        ))
+        superSettings.splice(1, 0, new SwitchSettingItem(
+            this.sortByAccessTimeId(nativeId),
+            i18n.t(sentenceKey.sortByAccessTime),
+            this.sortByAccessTime,
+            i18n.t(sentenceKey.sortByAccessTimeDesc),
         ))
         return superSettings
     }

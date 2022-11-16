@@ -110,6 +110,8 @@ export const sentenceKey = {
     decreasePerformance: 'decreasePerformance',
     decreasePerformanceDesc: 'decreasePerformanceDesc',
     pluginVersion: 'pluginVersion',
+    sortByAccessTime: 'sortByAccessTime',
+    sortByAccessTimeDesc: 'sortByAccessTimeDesc',
 }
 
 export interface Sentence {
@@ -219,6 +221,8 @@ export interface Sentence {
     readonly decreasePerformance: string
     readonly decreasePerformanceDesc: string
     readonly pluginVersion: string
+    readonly sortByAccessTime: string
+    readonly sortByAccessTimeDesc: string
 }
 
 let languageData = new I18n('zh-CN', {
