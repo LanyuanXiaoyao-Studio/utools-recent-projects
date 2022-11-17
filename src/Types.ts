@@ -587,6 +587,8 @@ export interface ApplicationCache<P extends ProjectItemImpl> {
     isNew(): Promise<boolean>
 
     generateCacheProjectItems(context: Context): Promise<Array<P>>
+
+    clearCache(): Promise<void>
 }
 
 export abstract class ApplicationCacheImpl<P extends ProjectItemImpl> extends ApplicationImpl<P> implements ApplicationCache<P> {
@@ -601,6 +603,10 @@ export abstract class ApplicationCacheImpl<P extends ProjectItemImpl> extends Ap
             this.cache = await this.generateCacheProjectItems(context)
         }
         return this.cache
+    }
+
+    async clearCache(): Promise<void> {
+        this.cache = []
     }
 }
 
@@ -676,6 +682,10 @@ export abstract class ApplicationCacheConfigImpl<P extends ProjectItemImpl> exte
         }
         return this.cache
     }
+
+    async clearCache(): Promise<void> {
+        this.cache = []
+    }
 }
 
 export abstract class ApplicationConfigAndExecutorImpl<P extends ProjectItemImpl> extends ApplicationConfigImpl<P> {
@@ -743,5 +753,9 @@ export abstract class ApplicationCacheConfigAndExecutorImpl<P extends ProjectIte
             this.cache = await this.generateCacheProjectItems(context)
         }
         return this.cache
+    }
+
+    async clearCache(): Promise<void> {
+        this.cache = []
     }
 }
