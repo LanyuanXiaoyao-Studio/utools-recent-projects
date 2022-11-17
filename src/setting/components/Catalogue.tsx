@@ -13,9 +13,12 @@ export interface BadgeInfo {
     readonly text: string
 }
 
-export interface CatalogueListProps {}
+export interface CatalogueListProps {
+    application: Application<ProjectItemImpl>
+    round: boolean
+}
 
-export class CatalogueList extends Component<CatalogueListProps> {
+export class CatalogueList extends Component {
     override render() {
         return (<Fragment>
             <li
@@ -29,6 +32,23 @@ export class CatalogueList extends Component<CatalogueListProps> {
                         alt={getName(this.props['application'].name)}
                     />
                     <span class="catalogue-app-name">{getName(this.props['application'].name)}</span>
+                </a>
+            </li>
+        </Fragment>)
+    }
+}
+
+export class CatalogueFallbackList extends Component<CatalogueListProps> {
+    override render() {
+        return (<Fragment>
+            <li class="nav-item">
+                <a href={'#' + this.props.application.id}>
+                    <img
+                        class={`catalogue-app-icon ${this.props.round ? 'round-round' : ''}`}
+                        src={iconMap[this.props.application.icon] ?? ''}
+                        alt={getName(this.props.application.name)}
+                    />
+                    <span class="catalogue-app-name">{getName(this.props.application.name)}</span>
                 </a>
             </li>
         </Fragment>)
@@ -188,7 +208,10 @@ export class Catalogue extends Component<CatalogueProps, CatalogueState> {
                                                 badge={async () => (await Catalogue.badge(this.localContext, app))}
                                                 application={async () => app}
                                                 round={async () => this.localContext.enableRoundRound}
-                                                fallback={<div>Loading...</div>}
+                                                fallback={<CatalogueFallbackList
+                                                    application={app}
+                                                    round={this.localContext.enableRoundRound}
+                                                />}
                                             >
                                                 <CatalogueList/>
                                             </Suspense>
