@@ -611,8 +611,8 @@ export abstract class ApplicationCacheImpl<P extends ProjectItemImpl> extends Ap
 }
 
 export abstract class ApplicationConfigImpl<P extends ProjectItemImpl> extends ApplicationImpl<P> {
-    readonly configFilename: string
-    config: string = ''
+    protected readonly configFilename: string
+    protected config: string = ''
 
     constructor(id: string, name: string | NameGetter, homepage: string = '', icon: string, type: string, platform: Array<Platform>, group: string = 'default', description: string | DescriptionGetter = '', beta: boolean = false, configFilename: string) {
         super(id, name, homepage, icon, type, platform, group, description, beta)
@@ -666,7 +666,7 @@ export abstract class ApplicationConfigImpl<P extends ProjectItemImpl> extends A
 
 export abstract class ApplicationCacheConfigImpl<P extends ProjectItemImpl> extends ApplicationConfigImpl<P> implements ApplicationCache<P> {
     cache: Array<P> = []
-    sign: string = ''
+    private sign: string = ''
 
     abstract generateCacheProjectItems(context: Context): Promise<Array<P>>
 
@@ -689,7 +689,7 @@ export abstract class ApplicationCacheConfigImpl<P extends ProjectItemImpl> exte
 }
 
 export abstract class ApplicationConfigAndExecutorImpl<P extends ProjectItemImpl> extends ApplicationConfigImpl<P> {
-    executor: string = ''
+    protected executor: string = ''
 
     override update(nativeId: string) {
         super.update(nativeId)
@@ -738,7 +738,7 @@ export abstract class ApplicationConfigAndExecutorImpl<P extends ProjectItemImpl
 
 export abstract class ApplicationCacheConfigAndExecutorImpl<P extends ProjectItemImpl> extends ApplicationConfigAndExecutorImpl<P> implements ApplicationCache<P> {
     cache: Array<P> = []
-    sign: string = ''
+    private sign: string = ''
 
     abstract generateCacheProjectItems(context: Context): Promise<Array<P>>
 
