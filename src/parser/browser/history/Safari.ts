@@ -53,6 +53,7 @@ export class SafariHistoryApplicationImpl extends BrowserApplicationImpl<SafariH
             array.forEach(i => {
                 let title: string = i['title'] ?? ''
                 let url: string = i['url'] ?? ''
+                let time: number = (i['timestamp'] ?? 0) * 1000
                 items.push({
                     id: '',
                     title: title,
@@ -66,7 +67,7 @@ export class SafariHistoryApplicationImpl extends BrowserApplicationImpl<SafariH
                     ]),
                     exists: true,
                     command: new UtoolsExecutor(url),
-                    datetime: i['timestamp'] ?? 0,
+                    datetime: time,
                 })
             })
         }

@@ -53,6 +53,7 @@ export class FirefoxHistoryApplicationImpl extends BrowserApplicationImpl<Firefo
                 let title: string = i['title'] ?? ''
                 let url: string = i['url'] ?? ''
                 let description: string = i['description'] ?? url
+                let time: number = (i['timestamp'] ?? 0) * 1000
                 if (isEmpty(description)) {
                     description = url
                 }
@@ -69,7 +70,7 @@ export class FirefoxHistoryApplicationImpl extends BrowserApplicationImpl<Firefo
                     ]),
                     exists: true,
                     command: new UtoolsExecutor(url),
-                    datetime: i['timestamp'] ?? 0,
+                    datetime: time,
                 })
             })
         }
