@@ -70,7 +70,7 @@ const keys = Object.keys(argsMapping),
         'android-studio-project',
     ]
 for (let i = 0; i < length; i++) {
-    if (contain(keys[i], skipKeys)) {
+    if (contain(skipKeys, keys[i])) {
         continue
     }
     applications.push(...(argsMapping[keys[i]].args.getApplications()))
