@@ -1,3 +1,4 @@
+import {contain} from 'licia'
 import {AllProjectArgs, AllProjectSortByTimeArgs, AllProjectSortByTitleArgs} from './Entrance'
 import {applications as ChromiumBookmarkApplications} from './parser/browser/bookmark/Chromium'
 import {applications as FirefoxBookmarkApplications} from './parser/browser/bookmark/Firefox'
@@ -9,7 +10,10 @@ import {applications as geanyApplications} from './parser/editor/Geany'
 import {applications as sublimeApplications} from './parser/editor/Sublime'
 import {applications as typoraApplications} from './parser/editor/Typora'
 import {applications as vscodeApplications} from './parser/editor/Vscode'
-import {applications as jetBrainsApplications} from './parser/ide/JetBrains'
+import {
+    androidApplications as androidStudioApplications,
+    applications as jetBrainsApplications,
+} from './parser/ide/JetBrains'
 import {applications as vsStudioApplications} from './parser/ide/VsStudio'
 import {applications as xcodeApplications} from './parser/ide/Xcode'
 import {applications as evernoteApplication} from './parser/notes/Evernote'
@@ -33,6 +37,7 @@ export class ProjectFeature implements Feature<ProjectArgsImpl> {
 
 export const argsMapping: { [keys: string]: ProjectFeature } = {
     'jetbrains-project': new ProjectFeature(new AllProjectSortByTimeArgs(jetBrainsApplications)),
+    'android-studio-project': new ProjectFeature(new AllProjectSortByTimeArgs(androidStudioApplications)),
     'vscode-project': new ProjectFeature(new AllProjectSortByTimeArgs(vscodeApplications)),
     'typora-project': new ProjectFeature(new AllProjectSortByTimeArgs(typoraApplications)),
     'sublime-project': new ProjectFeature(new AllProjectArgs(sublimeApplications)),
@@ -59,7 +64,14 @@ export const argsMapping: { [keys: string]: ProjectFeature } = {
 }
 
 export const applications: Array<ApplicationImpl<ProjectItemImpl>> = []
-let keys = Object.keys(argsMapping), length = keys.length
+const keys = Object.keys(argsMapping),
+    length = keys.length,
+    skipKeys = [
+        'android-studio-project',
+    ]
 for (let i = 0; i < length; i++) {
+    if (contain(keys[i], skipKeys)) {
+        continue
+    }
     applications.push(...(argsMapping[keys[i]].args.getApplications()))
 }

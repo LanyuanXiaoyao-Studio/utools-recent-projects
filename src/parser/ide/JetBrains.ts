@@ -99,8 +99,12 @@ export class JetBrainsApplicationImpl extends ApplicationCacheConfigAndExecutorI
     }
 }
 
-export const applications: Array<ApplicationImpl<JetBrainsProjectItemImpl>> = [
+export const androidApplications: Array<ApplicationImpl<JetBrainsProjectItemImpl>> = [
     new JetBrainsApplicationImpl('android', 'Android Studio', 'https://developer.android.com/studio', 'icon/jetbrains-android.png'),
+]
+
+export const applications: Array<ApplicationImpl<JetBrainsProjectItemImpl>> = [
+    ...androidApplications,
     new JetBrainsApplicationImpl('appcode', 'AppCode', 'https://www.jetbrains.com/objc/', 'icon/jetbrains-appcode.png', [Platform.darwin]),
     new JetBrainsApplicationImpl('clion', 'CLion', 'https://www.jetbrains.com/clion/', 'icon/jetbrains-clion.png'),
     new JetBrainsApplicationImpl('datagrip', 'DataGrip', 'https://www.jetbrains.com/datagrip/', 'icon/jetbrains-datagrip.png'),

@@ -65,6 +65,26 @@
       ]
     },
     {
+      "code": "android-studio-project",
+      "explain": "快速打开我的 Android Studio 项目",
+      "icon": "icon/jetbrains-android.png",
+      "cmds": [
+        "Android Studio",
+        "我的 Android Studio 项目",
+        {
+          "type": "window",
+          "label": "打开其他 Android Studio 项目",
+          "match": {
+            "app": [
+              "Android Studio.app",
+              "studio.exe",
+              "studio64.exe"
+            ]
+          }
+        }
+      ]
+    },
+    {
       "code": "vscode-project",
       "explain": "快速打开我的 Visual Studio Code 项目",
       "icon": "icon/ms-visual-studio-code.png",
