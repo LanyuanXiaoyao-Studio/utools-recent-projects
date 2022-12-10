@@ -35,7 +35,7 @@ export const toastSuccess: (text: string) => void = text => {
 export const toastWarning: (text: string) => void = text => {
     Toastify({
         text: text,
-        duration: -1,
+        duration: 1500,
         close: true,
         style: {
             ...style,
