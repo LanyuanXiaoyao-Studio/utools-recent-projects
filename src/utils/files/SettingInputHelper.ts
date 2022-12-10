@@ -3,6 +3,7 @@ import {isEmpty, isNil} from 'licia'
 import {Component} from 'nano-jsx'
 import {Context} from '../../Context'
 import {i18n, sentenceKey} from '../../i18n'
+import {toastError, toastWarning} from '../notify/NotifyUtils'
 
 const pathExistsCache: { [key: string]: boolean } = {}
 
@@ -22,13 +23,13 @@ export const existsCacheSync: (path: string) => boolean = path => {
 export const inputPath: (component: Component, event: any, id: string, native: boolean) => void = (component, event, id, native) => {
     let inputValue = event.target?.value
     if (isNil(inputValue)) {
-        alert(i18n.t(sentenceKey.unknownInputError))
+        toastError(i18n.t(sentenceKey.unknownInputError))
     } else if (isEmpty(inputValue)) {
         return
     } else {
         let path = inputValue
         if (!fs.existsSync(path)) {
-            alert(i18n.t(sentenceKey.nonExistsFileOrDeleted))
+            toastError(i18n.t(sentenceKey.nonExistsFileOrDeleted))
             event.target.value = ''
             return
         }
@@ -51,12 +52,12 @@ export const selectFile: (component: Component, event: any, id: string, name: st
         ],
     })
     if (isNil(result) || isEmpty(result)) {
-        alert(i18n.t(sentenceKey.nonExistsPathOrCancel))
+        toastWarning(i18n.t(sentenceKey.nonExistsPathOrCancel))
     } else {
         let path = result![0]
         if (!isEmpty(path)) {
             if (!fs.existsSync(path)) {
-                alert(i18n.t(sentenceKey.nonExistsFileOrDeleted))
+                toastError(i18n.t(sentenceKey.nonExistsFileOrDeleted))
                 event.target.value = ''
                 return
             }

@@ -10,7 +10,7 @@ import {ApplicationSettingCard} from './components/application-settings/Applicat
 import {Catalogue} from './components/Catalogue'
 import {InformationCard} from './components/InformationCard'
 import {SettingCard} from './components/SettingCard'
-import {CustomCss, SpectreCss, SpectreIconCss} from './css'
+import {CustomCss, SpectreCss, SpectreIconCss, ToastifyCss} from './css'
 
 interface RootProps {
     context: Context
@@ -45,6 +45,7 @@ class Root extends Component<RootProps, RootState> {
                     {/*引入样式文件*/}
                     <style class="custom">{SpectreCss}</style>
                     <style class="custom">{SpectreIconCss}</style>
+                    <style class="custom">{ToastifyCss}</style>
                     <style class="custom">{CustomCss}</style>
                     {/*保留 uTools 模板插件原本的 js 文件*/}
                     <script src="index.js"/>

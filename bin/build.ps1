@@ -40,6 +40,7 @@ $packageJson=@"
     "pinyin-pro": "^3.11.0",
     "sql.js": "^1.8.0",
     "string-comparison": "^1.1.0",
+    "toastify-js": "^1.12.0",
     "winreg": "^1.2.4"
   }
 }

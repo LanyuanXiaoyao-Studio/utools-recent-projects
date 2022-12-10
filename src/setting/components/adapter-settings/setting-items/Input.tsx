@@ -6,6 +6,7 @@ import {InputSettingItem, SettingProperties} from '../../../../Types'
 import {getDescription} from '../../../../Utils'
 import {existsCacheSync} from '../../../../utils/files/SettingInputHelper'
 import {AdapterSettingItem, AdapterSettingItemProps, AdapterSettingItemState} from '../AdapterSettingItem'
+import {toastError, toastWarning} from '../../../../utils/notify/NotifyUtils'
 
 export interface InputProps extends AdapterSettingItemProps {
     item: InputSettingItem
@@ -35,12 +36,12 @@ export class Input extends AdapterSettingItem<InputProps, AdapterSettingItemStat
             filters: mergeFilters,
         })
         if (isNil(result) || isEmpty(result)) {
-            alert(i18n.t(sentenceKey.nonExistsPathOrCancel))
+            toastWarning(i18n.t(sentenceKey.nonExistsPathOrCancel))
         } else {
             let path = result![0]
             if (!isEmpty(path)) {
                 if (!fs.existsSync(path)) {
-                    alert(i18n.t(sentenceKey.nonExistsFileOrDeleted))
+                    toastError(i18n.t(sentenceKey.nonExistsFileOrDeleted))
                     event.target.value = ''
                     return
                 }
@@ -53,13 +54,13 @@ export class Input extends AdapterSettingItem<InputProps, AdapterSettingItemStat
     input(event, id: string) {
         let inputValue = event.target?.value
         if (isNil(inputValue)) {
-            alert(i18n.t(sentenceKey.unknownInputError))
+            toastWarning(i18n.t(sentenceKey.unknownInputError))
         } else if (isEmpty(inputValue)) {
             return
         } else {
             let path = inputValue
             if (!fs.existsSync(path)) {
-                alert(i18n.t(sentenceKey.nonExistsFileOrDeleted))
+                toastError(i18n.t(sentenceKey.nonExistsFileOrDeleted))
                 event.target.value = ''
                 return
             }

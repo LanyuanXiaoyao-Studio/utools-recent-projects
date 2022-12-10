@@ -12,7 +12,7 @@ const nodeModulesPath = path.join(root, 'temp', 'node_modules').replace(/\\/g, '
 let paths = fg.sync([
   `${nodeModulesPath}/**/*.(md|ts|json|map|svg)`,
   `${nodeModulesPath}/**/(LICENSE|LICENCE|AUTHORS)`,
-  `${nodeModulesPath}/**/.(editorconfig|eslint|npmrc|npmignore|travis|devcontainer|nojekyll)*`,
+  `${nodeModulesPath}/**/.(editorconfig|eslint|npmrc|npmignore|travis|devcontainer|nojekyll|gitattributes|prettierrc)*`,
   `${nodeModulesPath}/big-integer/BigInteger.min.js`,
   `${nodeModulesPath}/nano-jsx/(esm|bundles|readme)`,
   `${nodeModulesPath}/nanobar/(brand|demos)`,
@@ -23,6 +23,9 @@ let paths = fg.sync([
   `${nodeModulesPath}/sql.js/dist/*.zip`,
   `${nodeModulesPath}/sql.js/dist/(worker|sql-asm)*`,
   `${nodeModulesPath}/sql.js/dist/*debug*`,
+  `${nodeModulesPath}/toastify-js/example`,
+  `${nodeModulesPath}/toastify-js/src/toastify-es.js`,
+  `${nodeModulesPath}/toastify-js/index.html`,
   `${nodeModulesPath}/winreg/test`,
   `!${nodeModulesPath}/**/package.json`,
 ], {unique: true, dot: true, onlyFiles: false})

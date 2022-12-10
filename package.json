@@ -1,6 +1,6 @@
 {
   "name": "utools-bookmark-and-history",
-  "version": "3.11.0",
+  "version": "3.11.3",
   "author": "lanyuanxiaoyao",
   "license": "MIT",
   "scripts": {
@@ -14,6 +14,7 @@
     "@types/mousetrap": "^1.6.10",
     "@types/node": "^18.11.9",
     "@types/sql.js": "^1.4.4",
+    "@types/toastify-js": "^1.11.1",
     "@types/winreg": "^1.2.31",
     "electron": "^21.2.3",
     "fast-glob": "^3.2.12",
@@ -32,6 +33,7 @@
     "pinyin-pro": "^3.11.0",
     "sql.js": "^1.8.0",
     "string-comparison": "^1.1.0",
+    "toastify-js": "^1.12.0",
     "winreg": "^1.2.4"
   }
 }

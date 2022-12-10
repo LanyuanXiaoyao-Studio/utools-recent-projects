@@ -4,6 +4,7 @@ import {i18n, sentenceKey} from '../../../../i18n'
 import {PlainSettingItem} from '../../../../Types'
 import {getDescription} from '../../../../Utils'
 import {AdapterSettingItem, AdapterSettingItemProps, AdapterSettingItemState} from '../AdapterSettingItem'
+import {toastError} from '../../../../utils/notify/NotifyUtils'
 
 export interface PlainProps extends AdapterSettingItemProps {
     item: PlainSettingItem
@@ -48,7 +49,7 @@ export class Plain extends AdapterSettingItem<PlainProps, AdapterSettingItemStat
     private plain(event, id: string) {
         let inputValue = event.target?.value
         if (isNil(inputValue)) {
-            alert(i18n.t(sentenceKey.unknownInputError))
+            toastError(i18n.t(sentenceKey.unknownInputError))
         } else {
             utools.dbStorage.setItem(id, inputValue)
             this.props.update()
