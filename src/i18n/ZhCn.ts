@@ -109,4 +109,12 @@ export class ZhCn implements Sentence {
     readonly pluginVersion: string = '插件版本'
     readonly sortByAccessTime: string = '按最后访问时间排序项目'
     readonly sortByAccessTimeDesc: string = '由于 VSCode 配置文件项不存在项目访问时间，并且不按最后访问顺序排序，可以使用系统的最后访问时间替代，但与实际情况存在有一定的偏差，请酌情使用'
+    readonly recordPreviewTest: string = '测试'
+    readonly recordPreviewTitle: string = '记录预览'
+    readonly recordPreviewEmpty: string = '暂无记录'
+    readonly recordPreviewClose: string = '关闭'
+    readonly recordPreviewFailure: string = '获取记录失败'
+    readonly recordPreviewExists: string = '存在'
+    readonly recordPreviewMissing: string = '不存在'
+    readonly recordPreviewCommand: string = '打开命令'
 }

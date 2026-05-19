@@ -136,6 +136,13 @@ html
                 color #e85600
                 font-size 0.7rem
 
+              .record-preview-action
+                margin-top .6rem
+                text-align right
+
+                .btn
+                  min-width 3rem
+
           .gap
             height 8px
 
@@ -208,6 +215,107 @@ html
             .chip-wrapper + .chip-wrapper
               margin-left 5px
 
+          .record-preview-modal
+            max-width 760px
+
+            .record-preview-count
+              background #eef0f3
+              border-radius 5rem
+              color #66758c
+              display inline-block
+              font-size .6rem
+              line-height .9rem
+              margin-left .4rem
+              min-width .9rem
+              padding 0 .3rem
+              text-align center
+              vertical-align middle
+
+            .record-preview-loading
+              height 5rem
+
+            .record-preview-error
+              background #fff4f0
+              border 1px solid #e85600
+              border-radius 5px
+              color #c44900
+              font-size .65rem
+              margin 0
+              max-height 48vh
+              overflow auto
+              padding .5rem
+              white-space pre-wrap
+              word-break break-word
+
+            .record-preview-empty
+              padding 1.6rem .8rem
+
+            .record-preview-list
+              max-height 50vh
+              overflow auto
+
+            .record-preview-item
+              border 1px solid #dadee4
+              border-radius 5px
+              padding .45rem .55rem
+
+              & + .record-preview-item
+                margin-top .4rem
+
+            .record-preview-item-header
+              align-items center
+              display flex
+              gap .35rem
+
+            .record-preview-index
+              color #66758c
+              flex 0 0 auto
+              font-size .65rem
+              min-width 1.1rem
+
+            .record-preview-title
+              flex 1 1 auto
+              font-size .75rem
+              font-weight 500
+              min-width 0
+              overflow hidden
+              text-overflow ellipsis
+              white-space nowrap
+
+            .record-preview-status
+              border-radius 5rem
+              color white
+              flex 0 0 auto
+              font-size .55rem
+              line-height .85rem
+              padding 0 .35rem
+
+              &.exists
+                background #32b643
+
+              &.missing
+                background #e85600
+
+            .record-preview-description
+              color gray
+              font-size .65rem
+              margin-top .15rem
+              word-break break-word
+
+            .record-preview-command
+              color #66758c
+              font-size .6rem
+              margin-top .25rem
+
+              span
+                display block
+                margin-bottom .1rem
+
+              code
+                display block
+                white-space pre-wrap
+                word-break break-all
+
 $dark-background-color = #2f3031
 $dark-text-color = #dedede
 
@@ -273,3 +381,21 @@ $dark-text-color = #dedede
 
     .modal-container
       background $dark-background-color
+
+    .record-preview-modal
+      .record-preview-count
+        background #3c3c3c
+        color #b4b4b4
+
+      .record-preview-error
+        background #3b261c
+        border-color #7d2f00
+        color #ffb38a
+
+      .record-preview-item
+        border-color #424242
+
+      .record-preview-description,
+      .record-preview-command,
+      .record-preview-index
+        color #b4b4b4

@@ -112,6 +112,14 @@ export const sentenceKey = {
     pluginVersion: 'pluginVersion',
     sortByAccessTime: 'sortByAccessTime',
     sortByAccessTimeDesc: 'sortByAccessTimeDesc',
+    recordPreviewTest: 'recordPreviewTest',
+    recordPreviewTitle: 'recordPreviewTitle',
+    recordPreviewEmpty: 'recordPreviewEmpty',
+    recordPreviewClose: 'recordPreviewClose',
+    recordPreviewFailure: 'recordPreviewFailure',
+    recordPreviewExists: 'recordPreviewExists',
+    recordPreviewMissing: 'recordPreviewMissing',
+    recordPreviewCommand: 'recordPreviewCommand',
 }
 
 export interface Sentence {
@@ -223,6 +231,14 @@ export interface Sentence {
     readonly pluginVersion: string
     readonly sortByAccessTime: string
     readonly sortByAccessTimeDesc: string
+    readonly recordPreviewTest: string
+    readonly recordPreviewTitle: string
+    readonly recordPreviewEmpty: string
+    readonly recordPreviewClose: string
+    readonly recordPreviewFailure: string
+    readonly recordPreviewExists: string
+    readonly recordPreviewMissing: string
+    readonly recordPreviewCommand: string
 }
 
 let languageData = new I18n('zh-CN', {

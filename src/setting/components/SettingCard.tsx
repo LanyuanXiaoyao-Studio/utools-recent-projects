@@ -27,6 +27,10 @@ export interface SettingCardState {}
 
 export class SettingCard extends Component<SettingCardProps, SettingCardState> {
     store = settingStore.use()
+    private previewDialog: boolean = false
+    private previewLoading: boolean = false
+    private previewItems: Array<ProjectItemImpl> = []
+    private previewError: string = ''
 
     constructor(props: SettingCardProps) {
         super(props)
@@ -44,6 +48,109 @@ export class SettingCard extends Component<SettingCardProps, SettingCardState> {
         this.updateApplication()
         this.update()
         this.store.setState({ catalogueUpdate: !this.store.state.catalogueUpdate })
+    }
+
+    /**
+     * 测试当前应用配置能否正常解析记录。
+     * 用在设置页测试按钮, 只读取并预览记录, 不执行记录里的打开命令。
+     */
+    async previewApplicationRecords() {
+        this.updateApplication()
+        this.previewDialog = true
+        this.previewLoading = true
+        this.previewItems = []
+        this.previewError = ''
+        this.update()
+
+        try {
+            this.previewItems = await this.props.application.generateProjectItems(this.props.context)
+        } catch (error: any) {
+            let appName = getName(this.props.application.name)
+            console.error('[Record Preview]', appName, error)
+            this.previewError = error?.stack || error?.message || String(error)
+        } finally {
+            this.previewLoading = false
+            this.update()
+        }
+    }
+
+    /**
+     * 渲染测试记录预览弹窗。
+     * 仅由当前卡片的测试按钮触发, 用于查看解析结果或错误日志。
+     */
+    renderPreviewDialog() {
+        let appName = getName(this.props.application.name)
+        return (
+            <div class={'modal ' + (this.previewDialog ? 'active' : '')}>
+                <div
+                    class="modal-overlay"
+                    onclick={() => {
+                        this.previewDialog = false
+                        this.update()
+                    }}
+                />
+                <div class="modal-container record-preview-modal">
+                    <div class="modal-header">
+                        <button
+                            class="btn btn-clear float-right"
+                            onclick={() => {
+                                this.previewDialog = false
+                                this.update()
+                            }}
+                        />
+                        <div class="modal-title h5">
+                            {appName} {i18n.t(sentenceKey.recordPreviewTitle)}
+                            {!this.previewLoading && isEmpty(this.previewError)
+                                ? <span class="record-preview-count">{this.previewItems.length}</span>
+                                : <Fragment/>}
+                        </div>
+                    </div>
+                    <div class="modal-body">
+                        {this.previewLoading
+                            ? <div class="record-preview-loading loading loading-lg"/>
+                            : !isEmpty(this.previewError)
+                                ? <pre class="record-preview-error">{`${i18n.t(sentenceKey.recordPreviewFailure)}\n${this.previewError}`}</pre>
+                                : isEmpty(this.previewItems)
+                                    ? <div class="empty record-preview-empty">
+                                        <div class="empty-title h6">{i18n.t(sentenceKey.recordPreviewEmpty)}</div>
+                                    </div>
+                                    : <div class="record-preview-list">
+                                        {this.previewItems.map((item, index) => (
+                                            <div class="record-preview-item">
+                                                <div class="record-preview-item-header">
+                                                    <span class="record-preview-index">{index + 1}</span>
+                                                    <span class="record-preview-title">{item.title}</span>
+                                                    <span class={`record-preview-status ${item.exists ? 'exists' : 'missing'}`}>
+                                                        {item.exists
+                                                            ? i18n.t(sentenceKey.recordPreviewExists)
+                                                            : i18n.t(sentenceKey.recordPreviewMissing)}
+                                                    </span>
+                                                </div>
+                                                <div class="record-preview-description">{item.description}</div>
+                                                {isNil(item.command) || isEmpty(item.command.command)
+                                                    ? <Fragment/>
+                                                    : <div class="record-preview-command">
+                                                        <span>{i18n.t(sentenceKey.recordPreviewCommand)}</span>
+                                                        <code>{item.command.command}</code>
+                                                    </div>}
+                                            </div>
+                                        ))}
+                                    </div>}
+                    </div>
+                    <div class="modal-footer">
+                        <button
+                            class="btn btn-primary"
+                            onclick={() => {
+                                this.previewDialog = false
+                                this.update()
+                            }}
+                        >
+                            {i18n.t(sentenceKey.recordPreviewClose)}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        )
     }
 
     override render() {
@@ -125,8 +232,21 @@ export class SettingCard extends Component<SettingCardProps, SettingCardState> {
                                     }
                                 })
                             : <Fragment/>}
+
+                        {this.props.application.enabled
+                            ? <div class="form-group record-preview-action">
+                                <button
+                                    class={`btn btn-sm btn-primary ${this.previewLoading ? 'loading' : ''}`}
+                                    {...(this.previewLoading ? { disabled: true } : {})}
+                                    onclick={() => this.previewApplicationRecords()}
+                                >
+                                    {i18n.t(sentenceKey.recordPreviewTest)}
+                                </button>
+                            </div>
+                            : <Fragment/>}
                     </div>
                 </div>
+                {this.renderPreviewDialog()}
             </Fragment>
         )
     }

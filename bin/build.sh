@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 
 dist='dist'
 
@@ -25,6 +26,7 @@ cp -r public/* $dist
 node ${bin_path}/build-css.js $root_path
 
 temp_path="${root_path}/temp"
+rm -rf $temp_path
 mkdir $temp_path
 cd $temp_path
 packageJson='{
@@ -45,8 +47,9 @@ packageJson='{
                 }
               }'
 echo $packageJson > package.json
+cp "${root_path}/yarn.lock" "${temp_path}/yarn.lock"
 # 优先使用离线安装, 加快调试速度
-yarn install --offline
+yarn install --offline --frozen-lockfile
 # yarn install
 
 node ${bin_path}/build-clean.js $root_path

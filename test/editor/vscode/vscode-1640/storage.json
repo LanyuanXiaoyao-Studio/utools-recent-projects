@@ -1,0 +1,59 @@
+{
+  "lastKnownMenubarData": {
+    "menus": {
+      "File": {
+        "items": [
+          {
+            "id": "workbench.action.files.newUntitledFile",
+            "label": "New Text File"
+          },
+          {
+            "id": "submenuitem.MenubarRecentMenu",
+            "label": "Open Recent",
+            "submenu": {
+              "items": [
+                {
+                  "id": "workbench.action.reopenClosedEditor",
+                  "label": "Reopen Closed Editor"
+                },
+                {
+                  "id": "vscode.menubar.separator"
+                },
+                {
+                  "id": "openRecentFolder",
+                  "uri": {
+                    "$mid": 1,
+                    "path": "/Users/lanyuanxiaoyao/current-project",
+                    "scheme": "file"
+                  },
+                  "enabled": true,
+                  "label": "~/current-project"
+                },
+                {
+                  "id": "openRecentWorkspace",
+                  "uri": {
+                    "$mid": 1,
+                    "path": "/Users/lanyuanxiaoyao/sample.code-workspace",
+                    "scheme": "file"
+                  },
+                  "enabled": true,
+                  "label": "~/sample.code-workspace"
+                },
+                {
+                  "id": "openRecentFile",
+                  "uri": {
+                    "$mid": 1,
+                    "path": "/Users/lanyuanxiaoyao/current-project/README.md",
+                    "scheme": "file"
+                  },
+                  "enabled": true,
+                  "label": "~/current-project/README.md"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  }
+}

@@ -6,7 +6,11 @@ let SQL
 
 export const queryFromSqlite: (databaseFilePath: string, sql: string) => Promise<Array<any>> = async (databaseFilePath, sql) => {
     if (isEmpty(databaseFilePath)) return []
-    if (isNil(SQL)) SQL = await sqlInit()
+    if (isNil(SQL)) {
+        let wasmBuffer = readFileSync(require.resolve('sql.js/dist/sql-wasm.wasm'))
+        let wasmBinary = wasmBuffer.buffer.slice(wasmBuffer.byteOffset, wasmBuffer.byteOffset + wasmBuffer.byteLength)
+        SQL = await sqlInit({wasmBinary})
+    }
     let database: Database | undefined, statement: Statement | undefined
     try {
         database = new SQL.Database(readFileSync(databaseFilePath))

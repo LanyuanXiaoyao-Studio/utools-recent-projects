@@ -109,4 +109,12 @@ export class EnUs implements Sentence {
     readonly pluginVersion: string = 'Plugin Version'
     readonly sortByAccessTime: string = 'Sort by access time'
     readonly sortByAccessTimeDesc: string = 'Because the projects is not sorted by VSCode in it\'s database, this option would help you to sort the projects by access time that is form system. But the time sometimes is not work very well that you need to think about it.'
+    readonly recordPreviewTest: string = 'Test'
+    readonly recordPreviewTitle: string = 'Record Preview'
+    readonly recordPreviewEmpty: string = 'No records'
+    readonly recordPreviewClose: string = 'Close'
+    readonly recordPreviewFailure: string = 'Failed to get records'
+    readonly recordPreviewExists: string = 'Exists'
+    readonly recordPreviewMissing: string = 'Missing'
+    readonly recordPreviewCommand: string = 'Open command'
 }

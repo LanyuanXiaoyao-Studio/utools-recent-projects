@@ -1,6 +1,6 @@
 import {readFile, stat} from 'fs/promises'
 import {isEmpty, isNil, startWith, unique, Url} from 'licia'
-import {parse} from 'path'
+import {dirname, join, parse} from 'path'
 import {Context} from '../../Context'
 import {i18n, sentenceKey} from '../../i18n'
 import {
@@ -17,6 +17,7 @@ import {
 import {configExtensionFilter, existsOrNot, generateStringByOS, systemUser} from '../../Utils'
 import {generateFilePathIndex} from '../../utils/index-generator/FilePathIndex'
 import {generatePinyinIndex} from '../../utils/index-generator/PinyinIndex'
+import {signCalculateAsync} from '../../utils/files/SignCalculate'
 import {queryFromSqlite} from '../../utils/sqlite/SqliteExecutor'
 
 const VSCODE: string = 'vscode'
@@ -24,6 +25,48 @@ const VSCODE_1640: string = 'vscode-1640'
 const HOMEPAGE: string = 'https://code.visualstudio.com/'
 
 export class VscodeProjectItemImpl extends DatetimeProjectItemImpl {}
+
+/**
+ * 从 VS Code 新版 globalStorage/storage.json 的菜单缓存中提取最近打开项。
+ * 用于 state.vscdb 不再保存 history.recentlyOpenedPathsList 的版本, 输出结构保持和旧 entries 一致。
+ */
+const parseRecentEntriesFromStorageJson: (storage: any) => Array<any> = storage => {
+    let fileMenuItems = storage?.lastKnownMenubarData?.menus?.File?.items ?? []
+    let recentMenuItems = fileMenuItems
+        .find(item => !isNil(item?.submenu?.items) && item.submenu.items.some(recent => [
+            'openRecentFolder',
+            'openRecentFile',
+            'openRecentWorkspace',
+        ].includes(recent?.id)))
+        ?.submenu?.items ?? []
+
+    let entries: Array<any> = []
+    for (let item of recentMenuItems) {
+        let uri = item?.uri
+        let uriParsed = ''
+        if (typeof uri === 'string') {
+            uriParsed = uri
+        } else if (!isNil(uri)) {
+            if (!isEmpty(uri.external)) {
+                uriParsed = uri.external
+            } else if (!isEmpty(uri.scheme) && !isEmpty(uri.path)) {
+                let authority = isEmpty(uri.authority) ? '' : uri.authority
+                uriParsed = `${uri.scheme}://${authority}${uri.path}`
+            }
+        }
+        if (isEmpty(uriParsed)) {
+            continue
+        }
+        if (item?.id === 'openRecentFolder') {
+            entries.push({folderUri: uriParsed, label: item?.label})
+        } else if (item?.id === 'openRecentFile') {
+            entries.push({fileUri: uriParsed, label: item?.label})
+        } else if (item?.id === 'openRecentWorkspace') {
+            entries.push({workspace: {configPath: uriParsed}, label: item?.label})
+        }
+    }
+    return entries
+}
 
 const parseEntries: (entries: any, context: Context, openInNew: boolean, isWindows: boolean, icon: string, executor: string, sortByAccessTime: boolean | undefined) => Promise<Array<VscodeProjectItemImpl>> = async (entries, context, openInNew, isWindows, defaultIcon, executor, sortByAccessTime) => {
     let items: Array<VscodeProjectItemImpl> = []
@@ -177,6 +220,7 @@ export class Vscode1640ApplicationImpl extends ApplicationCacheConfigAndExecutor
     private openInNew: boolean = false
     private sortByAccessTime: boolean = false
     private isWindows: boolean = utools.isWindows()
+    private recentStorageSign: string = ''
 
     constructor() {
         super(
@@ -223,10 +267,29 @@ export class Vscode1640ApplicationImpl extends ApplicationCacheConfigAndExecutor
             let row = results[0]
             let source = row['result'] as string
             if (!isEmpty(source)) {
-                return await parseEntries(JSON.parse(source)['entries'], context, this.openInNew, this.isWindows, this.icon, this.executor, this.sortByAccessTime)
+                let items = await parseEntries(JSON.parse(source)['entries'], context, this.openInNew, this.isWindows, this.icon, this.executor, this.sortByAccessTime)
+                if (!isEmpty(items)) {
+                    return items
+                }
             }
         }
-        return []
+
+        try {
+            let buffer = await readFile(join(dirname(this.config), 'storage.json'))
+            let entries = parseRecentEntriesFromStorageJson(JSON.parse(buffer.toString()))
+            return await parseEntries(entries, context, this.openInNew, this.isWindows, this.icon, this.executor, this.sortByAccessTime)
+        } catch (error: any) {
+            if (error?.code === 'ENOENT') {
+                return []
+            }
+            throw error
+        }
+    }
+
+    override async isNew(): Promise<boolean> {
+        let last = this.recentStorageSign
+        this.recentStorageSign = `${await signCalculateAsync(this.config)}-${await signCalculateAsync(join(dirname(this.config), 'storage.json'))}`
+        return isEmpty(last) ? true : this.recentStorageSign !== last
     }
 
     openInNewId(nativeId: string) {
